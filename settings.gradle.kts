@@ -1,18 +1,17 @@
 rootProject.name = "tripmate-android"
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
+
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
+        google()
         mavenCentral()
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -20,7 +19,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
 
 include(
     ":app",
@@ -39,13 +37,4 @@ include(
     ":feature:menu",
 
 )
-include(":core:data")
-include(":core:database")
-include(":core:datastore")
-include(":core:model")
-include(":core:network")
-include(":core:ui")
-include(":home")
-include(":feature:main")
-include(":feature:menu")
-include(":build-logic")
+include(":core:designsystem")

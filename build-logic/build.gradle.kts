@@ -1,43 +1,58 @@
+@file:Suppress("DSL_SCOPE_VIOLATION", "INLINE_FROM_HIGHER_PLATFORM")
+
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    `kotlin-dsl`
+    kotlin("jvm") version libs.versions.kotlin.core.get()
+    alias(libs.plugins.gradle.dependency.handler.extensions)
 }
 
-android {
-    namespace = "com.tripmate.build_logic"
-    compileSdk = 34
+gradlePlugin {
+    val conventionPluginClasses = listOf(
+        "android.application" to "AndroidApplicationConventionPlugin",
+        "android.application.compose" to "AndroidApplicationComposeConventionPlugin",
+        "android.firebase" to "AndroidFirebaseConventionPlugin",
+        "android.library" to "AndroidLibraryConventionPlugin",
+        "android.library.compose" to "AndroidLibraryComposeConventionPlugin",
+        "android.feature" to "AndroidFeatureConventionPlugin",
+        "android.hilt" to "AndroidHiltConventionPlugin",
+        "android.retrofit" to "AndroidRetrofitConventionPlugin",
+        "jvm.kotlin" to "JvmKotlinConventionPlugin",
+    )
 
-    defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    plugins {
+        conventionPluginClasses.forEach { pluginClass ->
+            pluginRegister(pluginClass)
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+kotlin {
+    jvmToolchain(17)
 }
 
 dependencies {
+    compileOnly(libs.gradle.android)
+    compileOnly(libs.gradle.kotlin)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    compileOnly(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+}
+
+// Pair<PluginName, ClassName>
+fun NamedDomainObjectContainer<PluginDeclaration>.pluginRegister(data: Pair<String, String>) {
+    val (pluginName, className) = data
+    register(pluginName) {
+        id = "tripmate.$pluginName"
+        implementationClass = className
+    }
 }

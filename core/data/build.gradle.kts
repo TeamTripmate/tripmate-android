@@ -1,43 +1,33 @@
+@file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
+
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.tripmate.android.library)
+    alias(libs.plugins.tripmate.android.hilt)
+    alias(libs.plugins.tripmate.android.firebase)
+    id("kotlinx-serialization")
 }
 
 android {
-    namespace = "com.tripmate.core.data"
-    compileSdk = 34
+    namespace = "com.tripmate.android.core.data"
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+        buildConfigField("String", "APP_VERSION", "\"${libs.versions.versionName.get()}\"")
+        buildConfigField("String", "PACKAGE_NAME", "\"${libs.versions.packageName.get()}\"")
     }
 }
 
 dependencies {
+    implementations(
+        projects.core.common,
+        projects.core.database,
+        projects.core.datastore,
+        projects.core.model,
+        projects.core.network,
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+        libs.timber,
+    )
 }
