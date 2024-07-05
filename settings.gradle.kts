@@ -28,7 +28,7 @@ include(
     ":core:database",
     ":core:datastore",
     ":core:designsystem",
-    ":core:model",
+    ":core:domain",
     ":core:network",
     ":core:ui",
 
@@ -38,3 +38,4 @@ include(
 
 )
 include(":core:designsystem")
+include(":core:domain")

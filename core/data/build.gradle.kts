@@ -25,7 +25,7 @@ dependencies {
         projects.core.common,
         projects.core.database,
         projects.core.datastore,
-        projects.core.model,
+        projects.core.domain,
         projects.core.network,
 
         libs.timber,
