@@ -55,7 +55,7 @@ compose-stable-marker = "1.0.4"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-appcompat = "1.6.1"
+appcompat = "1.7.0"
 material = "1.12.0"
 
 [libraries]
