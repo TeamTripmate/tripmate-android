@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.tripmate.android.core.database"
+    namespace = "com.tripmate.android.core.domain"
 }
 
 dependencies {
     implementations(
-        libs.timber,
+        libs.kotlinx.serialization.json,
     )
 }

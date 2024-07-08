@@ -28,13 +28,11 @@ include(
     ":core:database",
     ":core:datastore",
     ":core:designsystem",
-    ":core:model",
+    ":core:domain",
     ":core:network",
     ":core:ui",
 
     ":feature:home",
     ":feature:main",
     ":feature:menu",
-
 )
-include(":core:designsystem")

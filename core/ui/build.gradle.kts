@@ -13,7 +13,7 @@ dependencies {
     implementations(
         projects.core.common,
         projects.core.designsystem,
-        projects.core.model,
+        projects.core.domain,
 
         libs.kotlinx.collections.immutable,
         libs.coil.compose,
