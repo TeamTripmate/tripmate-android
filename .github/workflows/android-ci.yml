@@ -41,6 +41,10 @@ jobs:
             -   name: Generate secrets.properties
                 run: |
                     echo '${{ secrets.SECRETS_PROPERTIES }}' >> ./secrets.properties
+            
+            -   name: Generate local.properties
+                run: |
+                    echo '${{ secrets.LOCAL_PROPERTIES }}' >> ./local.properties
 
             -   name: Code style checks
                 run: ./gradlew ktlintCheck detekt
