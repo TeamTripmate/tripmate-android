@@ -20,6 +20,9 @@ jobs:
         steps:
             -   name: Checkout
                 uses: actions/checkout@v4
+            
+            -   name: Make gradlew executable
+                run: chmod +x ./gradlew
 
             -   name: Setup JDK 17
                 uses: actions/setup-java@v3
