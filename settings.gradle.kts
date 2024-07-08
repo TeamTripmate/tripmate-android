@@ -35,7 +35,4 @@ include(
     ":feature:home",
     ":feature:main",
     ":feature:menu",
-
 )
-include(":core:designsystem")
-include(":core:domain")
