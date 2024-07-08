@@ -72,5 +72,4 @@ internal object NetworkModule {
             .addConverterFactory(jsonConverterFactory)
             .build()
     }
-
 }

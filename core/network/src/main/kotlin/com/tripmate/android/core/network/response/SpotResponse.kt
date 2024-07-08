@@ -13,7 +13,6 @@ data class SpotDetailResponse(
     val data: SpotDetail,
 )
 
-
 @Serializable
 data class SpotDetail(
     @SerialName("id")

@@ -17,5 +17,4 @@ interface TripmateService {
     suspend fun likeSpot(
         @Body likeSpotRequest: LikeSpotRequest,
     ): LikeSpotRequest
-
 }
