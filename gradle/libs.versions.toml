@@ -19,7 +19,7 @@ kotlin-ktlint-gradle = "11.6.1"
 kotlin-ktlint-source = "0.50.0"
 
 kotlinx-coroutines = "1.8.0"
-kotlinx-serialization = "1.6.3"
+kotlinx-serialization = "1.7.1"
 kotlinx-serialization-converter = "1.0.0"
 kotlinx-collections-immutable = "0.3.7"
 
