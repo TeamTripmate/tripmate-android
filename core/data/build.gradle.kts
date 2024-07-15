@@ -3,7 +3,6 @@
 plugins {
     alias(libs.plugins.tripmate.android.library)
     alias(libs.plugins.tripmate.android.hilt)
-    alias(libs.plugins.tripmate.android.firebase)
     id("kotlinx-serialization")
 }
 

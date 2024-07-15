@@ -12,7 +12,7 @@ kotlin-core = "1.9.23"
 gradle-dependency-handler-extensions = "1.1.0"
 
 google-secrets = "2.0.1"
-google-service = "4.4.1"
+google-service = "4.4.2"
 
 kotlin-detekt = "1.23.6"
 kotlin-ktlint-gradle = "11.6.1"
@@ -23,17 +23,17 @@ kotlinx-serialization = "1.6.3"
 kotlinx-serialization-converter = "1.0.0"
 kotlinx-collections-immutable = "0.3.7"
 
-android-play-services-location = "21.0.1"
+android-play-services-location = "21.3.0"
 
 androidx-core = "1.13.1"
-androidx-lifecycle = "2.8.0-alpha02"
+androidx-lifecycle = "2.8.3"
 androidx-splash = "1.0.1"
 androidx-startup = "1.1.1"
 androidx-navigation = "2.7.7"
 androidx-datastore = "1.1.1"
 androidx-activity-compose = "1.9.0"
 androidx-compose-compiler = "1.5.11"
-androidx-compose-bom = "2024.05.00"
+androidx-compose-bom = "2024.06.00"
 androidx-compose-material3 = "1.2.1"
 androidx-compose-animation = "1.7.0-alpha08"
 androidx-hilt-navigation-compose = "1.2.0"
@@ -45,18 +45,12 @@ retrofit = "2.11.0"
 okhttp = "5.0.0-alpha.14"
 coil-compose = "2.6.0"
 timber = "5.0.1"
-firebase-bom = "32.8.1"
-firebase-crashlytics = "2.9.9"
+firebase-bom = "33.1.2"
+firebase-crashlytics = "3.0.2"
 firebase-config = "21.6.3"
 ksp = "1.9.23-1.0.20"
 compose-extensions = "1.6.5"
 compose-stable-marker = "1.0.4"
-
-junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-appcompat = "1.6.1"
-material = "1.12.0"
 
 [libraries]
 
@@ -110,12 +104,6 @@ firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashly
 firebase-config = { group = "com.google.firebase", name = "firebase-config-ktx" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-compose" }
 compose-stable-marker = { group = "com.github.skydoves", name = "compose-stable-marker", version.ref = "compose-stable-marker" }
-
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 
