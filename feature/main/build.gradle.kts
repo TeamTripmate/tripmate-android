@@ -14,6 +14,7 @@ dependencies {
         projects.feature.menu,
         projects.feature.navigator,
 
+        projects.feature.map,
         libs.androidx.activity.compose,
         libs.kotlinx.collections.immutable,
         libs.coil.compose,
