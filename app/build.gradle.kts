@@ -57,10 +57,12 @@ dependencies {
         projects.feature.home,
         projects.feature.main,
         projects.feature.menu,
+        projects.feature.map,
 
         libs.androidx.activity.compose,
         libs.androidx.startup,
         libs.timber,
+        libs.kakao.maps,
     )
 }
 

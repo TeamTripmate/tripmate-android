@@ -13,7 +13,7 @@ dependencies {
     implementations(
         projects.feature.home,
         projects.feature.menu,
-
+        projects.feature.map,
         libs.androidx.activity.compose,
         libs.kotlinx.collections.immutable,
         libs.coil.compose,

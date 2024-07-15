@@ -26,11 +26,14 @@ android {
     buildTypes {
         getByName("debug") {
             buildConfigField("String", "SERVER_BASE_URL", getServerBaseUrl("DEBUG_SERVER_BASE_URL"))
+            buildConfigField("String", "KAKAO_NATIVE_APP_KEY", getMapKey("KAKAO_NATIVE_APP_KEY"))
         }
 
         getByName("release") {
             buildConfigField("String", "SERVER_BASE_URL", getServerBaseUrl("RELEASE_SERVER_BASE_URL"))
+            buildConfigField("String", "KAKAO_NATIVE_APP_KEY", getMapKey("KAKAO_NATIVE_APP_KEY"))
         }
+
     }
 }
 
@@ -47,5 +50,10 @@ secrets {
 }
 
 fun getServerBaseUrl(propertyKey: String): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
+}
+
+
+fun getMapKey(propertyKey: String): String {
     return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
