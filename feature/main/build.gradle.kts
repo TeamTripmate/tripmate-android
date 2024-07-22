@@ -2,7 +2,6 @@
 
 plugins {
     alias(libs.plugins.tripmate.android.feature)
-    alias(libs.plugins.tripmate.android.retrofit)
 }
 
 android {
