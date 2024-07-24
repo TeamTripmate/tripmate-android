@@ -15,5 +15,4 @@ class PersonalizationViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(PersonalizationUiState())
     val uiState: StateFlow<PersonalizationUiState> = _uiState.asStateFlow()
-
 }
