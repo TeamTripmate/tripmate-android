@@ -15,6 +15,4 @@ internal abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindOnboardingRepository(onboardingRepositoryImpl: OnboardingRepositoryImpl): OnboardingRepository
-
-
 }

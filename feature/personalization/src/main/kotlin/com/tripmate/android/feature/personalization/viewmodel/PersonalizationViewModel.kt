@@ -8,13 +8,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
-
 @HiltViewModel
 class PersonalizationViewModel @Inject constructor(
+    @Suppress("UnusedPrivateProperty")
     private val onboardingRepository: OnboardingRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(PersonalizationUiState())
     val uiState: StateFlow<PersonalizationUiState> = _uiState.asStateFlow()
 
-    //Todo: 온보딩을 체크해 유저가 온보딩을 완료했는지 확인하는 로직 작성
+    // Todo: 온보딩을 체크해 유저가 온보딩을 완료했는지 확인하는 로직 작성
 }

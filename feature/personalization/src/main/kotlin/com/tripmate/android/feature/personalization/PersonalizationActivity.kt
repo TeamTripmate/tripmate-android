@@ -12,7 +12,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class PersonalizationActivity : ComponentActivity() {
     @Inject

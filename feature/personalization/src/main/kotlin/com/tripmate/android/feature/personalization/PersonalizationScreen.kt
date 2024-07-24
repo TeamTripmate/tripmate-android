@@ -23,10 +23,11 @@ internal fun PersonalizationRoute(
 
     PersonalizationScreen(
         uiState = uiState,
-        navigateToMain = navigateToMain
+        navigateToMain = navigateToMain,
     )
 }
 
+@Suppress("UnusedParameter")
 @Composable
 internal fun PersonalizationScreen(
     uiState: PersonalizationUiState,
