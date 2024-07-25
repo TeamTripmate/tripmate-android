@@ -13,6 +13,7 @@ dependencies {
     implementations(
         projects.feature.home,
         projects.feature.menu,
+        projects.feature.navigator,
 
         libs.androidx.activity.compose,
         libs.kotlinx.collections.immutable,

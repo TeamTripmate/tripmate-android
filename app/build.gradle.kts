@@ -57,6 +57,9 @@ dependencies {
         projects.feature.home,
         projects.feature.main,
         projects.feature.menu,
+        projects.feature.navigator,
+        projects.feature.splash,
+        projects.feature.personalization,
 
         libs.androidx.activity.compose,
         libs.androidx.startup,
