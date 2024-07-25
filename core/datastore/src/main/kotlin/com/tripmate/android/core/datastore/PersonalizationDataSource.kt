@@ -1,6 +1,6 @@
 package com.tripmate.android.core.datastore
 
-interface OnboardingDataSource {
+interface PersonalizationDataSource {
     suspend fun checkPersonalizationCompletion(): Boolean
     suspend fun completePersonalization(flag: Boolean)
 }

@@ -1,7 +1,7 @@
 package com.tripmate.android.core.data.di
 
-import com.tripmate.android.core.data.repository.OnboardingRepository
-import com.tripmate.android.core.data.repository.OnboardingRepositoryImpl
+import com.tripmate.android.core.data.repository.PersonalizationRepository
+import com.tripmate.android.core.data.repository.PersonalizationRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,5 +14,5 @@ internal abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindOnboardingRepository(onboardingRepositoryImpl: OnboardingRepositoryImpl): OnboardingRepository
+    abstract fun bindPersonalizationRepository(personalizationRepositoryImpl: PersonalizationRepositoryImpl): PersonalizationRepository
 }

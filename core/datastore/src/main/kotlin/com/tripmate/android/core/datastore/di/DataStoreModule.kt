@@ -11,15 +11,15 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-private const val ONBOARDING_DATASTORE = "onboarding_datastore"
-private val Context.onboardingDataStore: DataStore<Preferences> by preferencesDataStore(name = ONBOARDING_DATASTORE)
+private const val PERSONALIZATION_DATASTORE = "personalization_datastore"
+private val Context.personalizationDataStore: DataStore<Preferences> by preferencesDataStore(name = PERSONALIZATION_DATASTORE)
 
 @Module
 @InstallIn(SingletonComponent::class)
 internal object DataStoreModule {
 
-    @OnboardingDataStore
+    @PersonalizationDataStore
     @Singleton
     @Provides
-    internal fun provideOnboardingDataStore(@ApplicationContext context: Context) = context.onboardingDataStore
+    internal fun providePersonalizationDataStore(@ApplicationContext context: Context) = context.personalizationDataStore
 }

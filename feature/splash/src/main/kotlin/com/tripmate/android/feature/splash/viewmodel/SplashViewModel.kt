@@ -2,7 +2,7 @@ package com.tripmate.android.feature.splash.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tripmate.android.core.data.repository.OnboardingRepository
+import com.tripmate.android.core.data.repository.PersonalizationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,14 +13,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val onboardingRepository: OnboardingRepository,
+    private val personalizationRepository: PersonalizationRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(SplashUiState())
     val uiState: StateFlow<SplashUiState> = _uiState.asStateFlow()
 
     fun checkPersonalizationCompletion() {
         viewModelScope.launch {
-            val destination = if (onboardingRepository.checkPersonalizationCompletion()) {
+            val destination = if (personalizationRepository.checkPersonalizationCompletion()) {
                 "main"
             } else {
                 "personalization"
