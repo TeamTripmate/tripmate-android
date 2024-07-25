@@ -11,6 +11,7 @@ import com.tripmate.android.core.designsystem.R
 val pretendardFamily = FontFamily(
     Font(R.font.pretendard_bold, FontWeight.Bold, FontStyle.Normal),
     Font(R.font.pretendard_regular, FontWeight.Normal, FontStyle.Normal),
+    Font(R.font.pretendard_light, FontWeight.Light, FontStyle.Normal),
 )
 
 val Title0 = TextStyle(
