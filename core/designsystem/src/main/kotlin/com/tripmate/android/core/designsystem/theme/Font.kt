@@ -39,6 +39,12 @@ val Large20_Bold = TextStyle(
     fontSize = 20.sp,
 )
 
+val Large20_SemiBold = TextStyle(
+    fontFamily = pretendardFamily,
+    fontWeight = FontWeight.SemiBold,
+    fontSize = 20.sp,
+)
+
 val Large20_Reg = TextStyle(
     fontFamily = pretendardFamily,
     fontWeight = FontWeight.Normal,
