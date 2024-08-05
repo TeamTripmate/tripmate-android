@@ -35,5 +35,7 @@ include(
     ":feature:home",
     ":feature:main",
     ":feature:menu",
+    ":feature:navigator",
+    ":feature:splash",
     ":feature:personalization",
 )

@@ -5,10 +5,14 @@ plugins {
 }
 
 android {
-    namespace = "com.tripmate.android.feature.personalization"
+    namespace = "com.tripmate.android.feature.splash"
 
     buildFeatures {
         buildConfig = true
+    }
+
+    defaultConfig {
+        buildConfigField("String", "PACKAGE_NAME", "\"${libs.versions.packageName.get()}\"")
     }
 }
 

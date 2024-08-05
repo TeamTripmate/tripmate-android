@@ -2,6 +2,7 @@ package com.tripmate.android.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
+// Light mode colors
 val Primary01 = Color(0xFF0B57D0)
 val Primary02 = Color(0xFF1742A6)
 val Primary03 = Color(0xFF1A73E8)
@@ -10,20 +11,33 @@ val Background01 = Color(0xFFF3F6FC)
 val Background02 = Color(0xFFFFFFFF)
 val Background03 = Color(0xFFD3E3FD)
 
-val Grey001 = Color(0xFF1F1F1F)
-val Grey002 = Color(0xFF3C4043)
-val Grey003 = Color(0xFF5F6368)
-val Grey004 = Color(0xFF6F7277)
-val Grey005 = Color(0xFF83878B)
-val Grey006 = Color(0xFF989BA0)
-val Grey007 = Color(0xFFA9AD81)
-val Grey008 = Color(0xFFC4C7CA)
-val Grey009 = Color(0xFFF5F5F5)
+// Dark mode colors
+val Primary01Dark = Color(0xFFA8C7FA)
+val Primary02Dark = Color(0xFFD2E3FC)
+val Primary03Dark = Color(0xFF8AB4F8)
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val Background01Dark = Color(0xFF222327)
+val Background02Dark = Color(0xFF18191B)
+val Background03Dark = Color(0xFF2A2A2A)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Light mode gray scale
+val Gray001 = Color(0xFF1F1F1F)
+val Gray002 = Color(0xFF3C4043)
+val Gray003 = Color(0xFF5F6368)
+val Gray004 = Color(0xFF6F7277)
+val Gray005 = Color(0xFF83878B)
+val Gray006 = Color(0xFF989BA0)
+val Gray007 = Color(0xFFA9ADB1)
+val Gray008 = Color(0xFFC4C7CA)
+val Gray009 = Color(0xFFF5F5F5)
+
+// Dark mode gray scale
+val Gray001Dark = Color(0xFFE2E2E2)
+val Gray002Dark = Color(0xFFCDCDCD)
+val Gray003Dark = Color(0xFFBFBFBF)
+val Gray004Dark = Color(0xFFA0A0A0)
+val Gray005Dark = Color(0xFF8C8C8C)
+val Gray006Dark = Color(0xFF77797C)
+val Gray007Dark = Color(0xFF5E5F63)
+val Gray008Dark = Color(0xFF3A3B3F)
+val Gray009Dark = Color(0xFF2A2A2A)
