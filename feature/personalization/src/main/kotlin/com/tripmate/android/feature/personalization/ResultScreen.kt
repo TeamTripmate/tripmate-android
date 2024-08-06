@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
 
 @Composable
-fun ResultRoute(
+internal fun ResultRoute(
     viewModel: PersonalizationViewModel,
 ) {
     ResultScreen()

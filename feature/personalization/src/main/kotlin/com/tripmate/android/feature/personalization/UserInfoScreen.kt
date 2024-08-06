@@ -5,6 +5,7 @@ import com.tripmate.android.feature.personalization.viewmodel.PersonalizationVie
 
 @Composable
 fun UserInfoRoute(
+    navigateToResult: () -> Unit,
     viewModel: PersonalizationViewModel,
 ) {
     UserInfoScreen()

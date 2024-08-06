@@ -6,7 +6,8 @@ import com.tripmate.android.core.ui.component.Question
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
 
 @Composable
-fun Q1Route(
+internal fun Q1Route(
+    navigateToQ2: () -> Unit,
     viewModel: PersonalizationViewModel,
 ) {
     Q1Screen()

@@ -11,6 +11,8 @@ import com.tripmate.android.feature.personalization.Q1Route
 import com.tripmate.android.feature.personalization.Q2Route
 import com.tripmate.android.feature.personalization.Q3Route
 import com.tripmate.android.feature.personalization.Q4Route
+import com.tripmate.android.feature.personalization.TripStyleRoute
+import com.tripmate.android.feature.personalization.UserInfoRoute
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
 
 const val PERSONALIZATION_ROUTE = "personalization_route"
@@ -43,12 +45,14 @@ fun NavGraphBuilder.personalizationNavGraph(
         composable(route = Q1_ROUTE) { entry ->
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
             Q1Route(
+                navigateToQ2 = navigateToQ2,
                 viewModel = viewModel,
             )
         }
         composable(route = Q2_ROUTE) { entry ->
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
             Q2Route(
+                navigateToQ3 = navigateToQ3,
                 viewModel = viewModel,
             )
         }
@@ -56,6 +60,7 @@ fun NavGraphBuilder.personalizationNavGraph(
         composable(route = Q3_ROUTE) { entry ->
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
             Q3Route(
+                navigateToQ4 = navigateToQ4,
                 viewModel = viewModel,
             )
         }
@@ -63,6 +68,23 @@ fun NavGraphBuilder.personalizationNavGraph(
         composable(route = Q4_ROUTE) { entry ->
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
             Q4Route(
+                navigateToTripStyle = navigateToTripStyle,
+                viewModel = viewModel,
+            )
+        }
+
+        composable(route = TRIP_STYLE_ROUTE) { entry ->
+            val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
+            TripStyleRoute(
+                navigateToUserInfo = navigateToUserInfo,
+                viewModel = viewModel,
+            )
+        }
+
+        composable(route = USER_INFO_ROUTE) { entry ->
+            val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
+            UserInfoRoute(
+                navigateToResult = navigateToResult,
                 viewModel = viewModel,
             )
         }
