@@ -4,6 +4,7 @@ import android.app.DownloadManager.Query
 import android.view.RoundedCorner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,12 +19,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
@@ -41,44 +47,70 @@ fun Question(
     questionText: String,
     answerText1: String,
     answerText2: String,
+    modifier: Modifier = Modifier,
     answerText3: String = "",
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Background01),
-        horizontalAlignment = Alignment.CenterHorizontally,
+    var checkedAnswer by remember { mutableStateOf(0) }
+
+    Box(
+        modifier = modifier
+            .background(color = Background01)
+            .padding(horizontal = 31.dp),
+        contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = "Q$number",
-            style = XLarge26_Bold,
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = questionText,
-            style = Large20_SemiBold,
-        )
-        AnswerBox(
-            answerText = answerText1,
-            isChecked = false,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 31.dp, vertical = 5.dp),
-        )
-        AnswerBox(
-            answerText = answerText2,
-            isChecked = false,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 31.dp, vertical = 5.dp),
-        )
-        if (answerText3.isNotEmpty()) {
-            Box {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f, fill = false),
+                verticalArrangement = Arrangement.Top
+            ) {
+                Text(
+                    text = "Q$number",
+                    style = XLarge26_Bold,
+                )
+                Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = questionText,
-                    style = Medium16_SemiBold,
+                    style = Large20_SemiBold,
+                    textAlign = TextAlign.Center
                 )
+                Spacer(modifier = Modifier.height(32.dp))
             }
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                AnswerBox(
+                    answerText = answerText1,
+                    isChecked = checkedAnswer == 1,
+                    onCheckedChange = { checkedAnswer = if (checkedAnswer == 1) 0 else 1 },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 5.dp),
+                )
+                AnswerBox(
+                    answerText = answerText2,
+                    isChecked = checkedAnswer == 2,
+                    onCheckedChange = { checkedAnswer = if (checkedAnswer == 2) 0 else 2 },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 5.dp),
+                )
+                if (answerText3.isNotEmpty()) {
+                    AnswerBox(
+                        answerText = answerText3,
+                        isChecked = checkedAnswer == 3,
+                        onCheckedChange = { checkedAnswer = if (checkedAnswer == 3) 0 else 3 },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 5.dp),
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.weight(1f, fill = false))
         }
     }
 }
@@ -87,6 +119,7 @@ fun Question(
 fun AnswerBox(
     answerText: String,
     isChecked: Boolean,
+    onCheckedChange: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -98,7 +131,8 @@ fun AnswerBox(
                 width = 2.dp,
                 color = if (isChecked) Primary03 else Background02,
                 shape = RoundedCornerShape(8.dp),
-            ),
+            )
+            .clickable (onClick = onCheckedChange),
     ) {
         Row(
             modifier = Modifier
@@ -137,6 +171,7 @@ fun AnswerBoxUncheckedPreview() {
     AnswerBox(
         answerText = "Red",
         isChecked = false,
+        onCheckedChange = {},
         modifier = Modifier.fillMaxWidth(),
     )
 }
@@ -147,6 +182,7 @@ fun AnswerBoxCheckedPreview() {
     AnswerBox(
         answerText = "Blue",
         isChecked = true,
+        onCheckedChange = {},
         modifier = Modifier.fillMaxWidth(),
     )
 }

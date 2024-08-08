@@ -100,6 +100,7 @@ fun TripStyleContent(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(bottom = 60.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = "당신의 여행 스타일을 알려주세요.",

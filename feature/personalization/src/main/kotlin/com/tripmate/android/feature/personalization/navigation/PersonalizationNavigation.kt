@@ -11,6 +11,7 @@ import com.tripmate.android.feature.personalization.Q1Route
 import com.tripmate.android.feature.personalization.Q2Route
 import com.tripmate.android.feature.personalization.Q3Route
 import com.tripmate.android.feature.personalization.Q4Route
+import com.tripmate.android.feature.personalization.ResultRoute
 import com.tripmate.android.feature.personalization.TripStyleRoute
 import com.tripmate.android.feature.personalization.UserInfoRoute
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
@@ -25,7 +26,7 @@ const val USER_INFO_ROUTE = "user_info_route"
 const val RESULT_ROUTE = "result_route"
 
 fun NavController.navigateToPersonalization() {
-    navigate("booth_route")
+    navigate(PERSONALIZATION_ROUTE)
 }
 
 fun NavGraphBuilder.personalizationNavGraph(
@@ -37,6 +38,7 @@ fun NavGraphBuilder.personalizationNavGraph(
     navigateToTripStyle: () -> Unit,
     navigateToUserInfo: () -> Unit,
     navigateToResult: () -> Unit,
+    navigateToMain: () -> Unit,
 ) {
     navigation(
         startDestination = Q1_ROUTE,
@@ -85,6 +87,14 @@ fun NavGraphBuilder.personalizationNavGraph(
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
             UserInfoRoute(
                 navigateToResult = navigateToResult,
+                viewModel = viewModel,
+            )
+        }
+
+        composable(route = RESULT_ROUTE) { entry ->
+            val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
+            ResultRoute(
+                navigateToMain = navigateToMain,
                 viewModel = viewModel,
             )
         }

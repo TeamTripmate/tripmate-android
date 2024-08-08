@@ -7,4 +7,5 @@ sealed interface PersonalizationUiEvent {
     data object NavigateToTripStyle : PersonalizationUiEvent
     data object NavigateToUserInfo: PersonalizationUiEvent
     data object NavigateToResult : PersonalizationUiEvent
+    data object NavigateToMain : PersonalizationUiEvent
 }
