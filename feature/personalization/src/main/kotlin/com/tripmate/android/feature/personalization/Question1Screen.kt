@@ -2,6 +2,7 @@ package com.tripmate.android.feature.personalization
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,7 +20,9 @@ import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Background01
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
-import com.tripmate.android.core.ui.component.Question
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.core.ui.DevicePreview
+import com.tripmate.android.feature.personalization.component.Question
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiAction
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiEvent
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiState
@@ -29,6 +32,7 @@ import com.tripmate.android.feature.personalization.viewmodel.ScreenType
 @Composable
 internal fun Question1Route(
     navigateToQuestion2: () -> Unit,
+    innerPadding: PaddingValues,
     viewModel: PersonalizationViewModel,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -45,20 +49,22 @@ internal fun Question1Route(
 
     Question1Screen(
         uiState = uiState,
+        innerPadding = innerPadding,
         onAction = viewModel::onAction,
     )
 }
 
-
 @Composable
 fun Question1Screen(
     uiState: PersonalizationUiState,
+    innerPadding: PaddingValues,
     onAction: (PersonalizationUiAction) -> Unit,
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Background01),
+            .background(color = Background01)
+            .padding(innerPadding),
     ) {
         Question(
             number = 1,
@@ -67,9 +73,11 @@ fun Question1Screen(
             answerText1 = stringResource(R.string.question1_answer_1),
             answerText2 = stringResource(R.string.question1_answer_2),
             onAnswerSelected = { answer ->
-                onAction(PersonalizationUiAction.OnQuestionAnswerSelected(
-                    questionNumber = 1,
-                    answer = answer)
+                onAction(
+                    PersonalizationUiAction.OnQuestionAnswerSelected(
+                        questionNumber = 1,
+                        answer = answer,
+                    ),
                 )
             },
             modifier = Modifier.align(Alignment.Center),
@@ -93,3 +101,14 @@ fun Question1Screen(
     }
 }
 
+@DevicePreview
+@Composable
+fun Question1ScreenPreview() {
+    TripmateTheme {
+        Question1Screen(
+            uiState = PersonalizationUiState(),
+            innerPadding = PaddingValues(),
+            onAction = {},
+        )
+    }
+}

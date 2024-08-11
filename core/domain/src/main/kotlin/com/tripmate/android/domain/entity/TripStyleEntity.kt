@@ -4,8 +4,8 @@ import androidx.compose.runtime.Stable
 
 @Stable
 data class TripStyleEntity(
-    val id: Int,
-    val text: String,
-    val imageResId: Int,
-    val isSelected: Boolean
+    val id: Int = 0,
+    val textResId: Int = 0,
+    val imageResId: Int = 0,
+    val isSelected: Boolean = false,
 )

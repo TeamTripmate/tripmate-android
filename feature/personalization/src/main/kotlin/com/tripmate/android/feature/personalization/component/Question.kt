@@ -1,4 +1,4 @@
-package com.tripmate.android.core.ui.component
+package com.tripmate.android.feature.personalization.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,6 +32,7 @@ import com.tripmate.android.core.designsystem.theme.Background03
 import com.tripmate.android.core.designsystem.theme.Large20_SemiBold
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary03
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XLarge26_Bold
 
 @Composable
@@ -49,7 +50,7 @@ fun Question(
         modifier = modifier
             .background(color = Background01)
             .padding(horizontal = 31.dp),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -57,7 +58,7 @@ fun Question(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.weight(1f, fill = false),
-                verticalArrangement = Arrangement.Top
+                verticalArrangement = Arrangement.Top,
             ) {
                 Text(
                     text = "Q$number",
@@ -67,27 +68,27 @@ fun Question(
                 Text(
                     text = questionText,
                     style = Large20_SemiBold,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
                 Spacer(modifier = Modifier.height(32.dp))
             }
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
             ) {
                 AnswerBox(
                     answerText = answerText1,
-                    isChecked = selectedAnswer == 1,
-                    onCheckedChange = { onAnswerSelected(if (selectedAnswer == 1) 0 else 1) },
+                    isSelected = selectedAnswer == 1,
+                    onSelectedChange = { onAnswerSelected(if (selectedAnswer == 1) 0 else 1) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 5.dp),
                 )
                 AnswerBox(
                     answerText = answerText2,
-                    isChecked = selectedAnswer == 2,
-                    onCheckedChange = { onAnswerSelected(if (selectedAnswer == 2) 0 else 2) },
+                    isSelected = selectedAnswer == 2,
+                    onSelectedChange = { onAnswerSelected(if (selectedAnswer == 2) 0 else 2) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 5.dp),
@@ -95,8 +96,8 @@ fun Question(
                 if (answerText3.isNotEmpty()) {
                     AnswerBox(
                         answerText = answerText3,
-                        isChecked = selectedAnswer == 3,
-                        onCheckedChange = { onAnswerSelected(if (selectedAnswer == 3) 0 else 3) },
+                        isSelected = selectedAnswer == 3,
+                        onSelectedChange = { onAnswerSelected(if (selectedAnswer == 3) 0 else 3) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 5.dp),
@@ -111,21 +112,21 @@ fun Question(
 @Composable
 fun AnswerBox(
     answerText: String,
-    isChecked: Boolean,
-    onCheckedChange: () -> Unit,
+    isSelected: Boolean,
+    onSelectedChange: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            .background(if (isChecked) Background03 else Background02)
+            .background(if (isSelected) Background03 else Background02)
             .border(
                 width = 2.dp,
-                color = if (isChecked) Primary03 else Background02,
+                color = if (isSelected) Primary03 else Background02,
                 shape = RoundedCornerShape(8.dp),
             )
-            .clickable(onClick = onCheckedChange),
+            .clickable(onClick = onSelectedChange),
     ) {
         Row(
             modifier = Modifier
@@ -138,9 +139,13 @@ fun AnswerBox(
                 style = Medium16_SemiBold,
                 modifier = Modifier.weight(1f),
             )
-            Spacer(modifier = Modifier.width(16.dp))  // Icon과 Text 사이의 간격
+            Spacer(modifier = Modifier.width(16.dp))
             Icon(
-                imageVector = if (isChecked) ImageVector.vectorResource(R.drawable.ic_checked) else ImageVector.vectorResource(R.drawable.ic_unchecked),
+                imageVector = if (isSelected) {
+                    ImageVector.vectorResource(R.drawable.ic_checked)
+                } else {
+                    ImageVector.vectorResource(R.drawable.ic_unchecked)
+                },
                 contentDescription = "Check Icon",
                 tint = Color.Unspecified,
             )
@@ -151,34 +156,40 @@ fun AnswerBox(
 @ComponentPreview
 @Composable
 fun QuestionPreview() {
-    Question(
-        number = 1,
-        questionText = "What is your favorite color?",
-        answerText1 = "Red",
-        answerText2 = "Blue",
-        onAnswerSelected = {},
-        selectedAnswer = 0,
-    )
+    TripmateTheme {
+        Question(
+            number = 1,
+            questionText = "What is your favorite color?",
+            answerText1 = "Red",
+            answerText2 = "Blue",
+            onAnswerSelected = {},
+            selectedAnswer = 0,
+        )
+    }
 }
 
 @ComponentPreview
 @Composable
 fun AnswerBoxUncheckedPreview() {
-    AnswerBox(
-        answerText = "Red",
-        isChecked = false,
-        onCheckedChange = {},
-        modifier = Modifier.fillMaxWidth(),
-    )
+    TripmateTheme {
+        AnswerBox(
+            answerText = "Red",
+            isSelected = false,
+            onSelectedChange = {},
+            modifier = Modifier.fillMaxWidth(),
+        )
+    }
 }
 
 @ComponentPreview
 @Composable
 fun AnswerBoxCheckedPreview() {
-    AnswerBox(
-        answerText = "Blue",
-        isChecked = true,
-        onCheckedChange = {},
-        modifier = Modifier.fillMaxWidth(),
-    )
+    TripmateTheme {
+        AnswerBox(
+            answerText = "Blue",
+            isSelected = true,
+            onSelectedChange = {},
+            modifier = Modifier.fillMaxWidth(),
+        )
+    }
 }

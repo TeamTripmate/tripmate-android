@@ -6,6 +6,8 @@ sealed interface PersonalizationUiAction {
     data class OnQuestionAnswerSelected(val questionNumber: Int, val answer: Int) : PersonalizationUiAction
     data class OnTripStyleSelected(val tripStyle: TripStyleEntity) : PersonalizationUiAction
     data class OnTripStyleDeselected(val tripStyle: TripStyleEntity) : PersonalizationUiAction
+    data class OnGenderSelected(val gender: Gender) : PersonalizationUiAction
+    data class OnBirthDateUpdated(val birthDate: String) : PersonalizationUiAction
     data class OnSelectClick(val screenType: ScreenType) : PersonalizationUiAction
 }
 

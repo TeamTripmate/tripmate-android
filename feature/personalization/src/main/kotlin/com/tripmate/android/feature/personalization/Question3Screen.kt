@@ -1,7 +1,7 @@
 package com.tripmate.android.feature.personalization
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,13 +13,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.tripmate.android.core.designsystem.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
+import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.component.TripmateButton
-import com.tripmate.android.core.designsystem.theme.Background01
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
-import com.tripmate.android.core.ui.component.Question
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.core.ui.DevicePreview
+import com.tripmate.android.feature.personalization.component.Question
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiAction
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiEvent
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiState
@@ -29,6 +30,7 @@ import com.tripmate.android.feature.personalization.viewmodel.ScreenType
 @Composable
 internal fun Question3Route(
     navigateToQuestion4: () -> Unit,
+    innerPadding: PaddingValues,
     viewModel: PersonalizationViewModel,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -45,20 +47,21 @@ internal fun Question3Route(
 
     Question3Screen(
         uiState = uiState,
+        innerPadding = innerPadding,
         onAction = viewModel::onAction,
     )
 }
 
-
 @Composable
 fun Question3Screen(
     uiState: PersonalizationUiState,
+    innerPadding: PaddingValues,
     onAction: (PersonalizationUiAction) -> Unit,
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Background01),
+            .padding(innerPadding),
     ) {
         Question(
             number = 3,
@@ -67,9 +70,11 @@ fun Question3Screen(
             answerText1 = stringResource(R.string.question3_answer_1),
             answerText2 = stringResource(R.string.question3_answer_2),
             onAnswerSelected = { answer ->
-                onAction(PersonalizationUiAction.OnQuestionAnswerSelected(
-                    questionNumber = 3,
-                    answer = answer)
+                onAction(
+                    PersonalizationUiAction.OnQuestionAnswerSelected(
+                        questionNumber = 3,
+                        answer = answer,
+                    ),
                 )
             },
             modifier = Modifier.align(Alignment.Center),
@@ -87,8 +92,20 @@ fun Question3Screen(
         ) {
             Text(
                 text = stringResource(R.string.select),
-                style = Medium16_SemiBold
+                style = Medium16_SemiBold,
             )
         }
+    }
+}
+
+@DevicePreview
+@Composable
+fun Question3ScreenPreview() {
+    TripmateTheme {
+        Question3Screen(
+            uiState = PersonalizationUiState(),
+            innerPadding = PaddingValues(),
+            onAction = {},
+        )
     }
 }

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,14 +17,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.tripmate.android.core.designsystem.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
+import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiAction
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiEvent
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiState
@@ -35,6 +36,7 @@ import com.tripmate.android.feature.personalization.viewmodel.ScreenType
 @Composable
 internal fun ResultRoute(
     navigateToMain: () -> Unit,
+    innerPadding: PaddingValues,
     viewModel: PersonalizationViewModel,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -51,17 +53,22 @@ internal fun ResultRoute(
 
     ResultScreen(
         uiState = uiState,
+        innerPadding = innerPadding,
         onAction = viewModel::onAction,
     )
 }
 
+@Suppress("UnusedParameter")
 @Composable
 fun ResultScreen(
     uiState: PersonalizationUiState,
+    innerPadding: PaddingValues,
     onAction: (PersonalizationUiAction) -> Unit,
 ) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding),
     ) {
         Column(
             modifier = Modifier
@@ -70,39 +77,44 @@ fun ResultScreen(
                 .padding(bottom = 60.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            Spacer(modifier = Modifier.height(70.dp))
             Text(
-                text = "당신의 여행 스타일을 알려주세요.",
-                style = Large20_Bold,
-                color = Gray001,
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 24.dp),
-            )
-            Text(
-                text = "최대 6개",
+                text = "나의 여행스타일은",
                 style = Small14_Reg,
                 color = Gray001,
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
             )
-            Spacer(modifier = Modifier.height(18.dp))
-            AllTripStyles(
-                tripStyles = uiState.allTripStyles,
-                onAction = onAction,
-                selectedTripStyles = uiState.selectedTripStyles,
-                modifier = Modifier.weight(1f),
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "춤추는 아기판다",
+                style = Large20_Bold,
+                color = Gray001,
             )
+            Spacer(modifier = Modifier.height(52.dp))
         }
         TripmateButton(
-            onClick = { onAction(PersonalizationUiAction.OnSelectClick(ScreenType.TRIP_STYLE)) },
+            onClick = { onAction(PersonalizationUiAction.OnSelectClick(ScreenType.RESULT)) },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp, vertical = 20.dp),
             contentPadding = PaddingValues(vertical = 17.dp),
-            enabled = uiState.selectedTripStyles.isNotEmpty(),
         ) {
             Text(
-                stringResource(R.string.select),
+                stringResource(R.string.start_tripmate),
                 style = Medium16_SemiBold,
             )
         }
+    }
+}
+
+@DevicePreview
+@Composable
+fun ResultScreenPreview() {
+    TripmateTheme {
+        ResultScreen(
+            uiState = PersonalizationUiState(),
+            innerPadding = PaddingValues(),
+            onAction = {},
+        )
     }
 }

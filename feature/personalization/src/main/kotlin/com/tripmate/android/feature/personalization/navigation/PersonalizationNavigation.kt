@@ -30,7 +30,7 @@ fun NavController.navigateToPersonalization() {
 }
 
 fun NavGraphBuilder.personalizationNavGraph(
-    padding: PaddingValues,
+    innerPadding: PaddingValues,
     navController: NavHostController,
     navigateToQuestion2: () -> Unit,
     navigateToQuestion3: () -> Unit,
@@ -48,6 +48,7 @@ fun NavGraphBuilder.personalizationNavGraph(
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
             Question1Route(
                 navigateToQuestion2 = navigateToQuestion2,
+                innerPadding = innerPadding,
                 viewModel = viewModel,
             )
         }
@@ -55,6 +56,7 @@ fun NavGraphBuilder.personalizationNavGraph(
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
             Question2Route(
                 navigateToQuestion3 = navigateToQuestion3,
+                innerPadding = innerPadding,
                 viewModel = viewModel,
             )
         }
@@ -63,6 +65,7 @@ fun NavGraphBuilder.personalizationNavGraph(
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
             Question3Route(
                 navigateToQuestion4 = navigateToQuestion4,
+                innerPadding = innerPadding,
                 viewModel = viewModel,
             )
         }
@@ -71,6 +74,7 @@ fun NavGraphBuilder.personalizationNavGraph(
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
             Question4Route(
                 navigateToTripStyle = navigateToTripStyle,
+                innerPadding = innerPadding,
                 viewModel = viewModel,
             )
         }
@@ -79,6 +83,7 @@ fun NavGraphBuilder.personalizationNavGraph(
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
             TripStyleRoute(
                 navigateToUserInfo = navigateToUserInfo,
+                innerPadding = innerPadding,
                 viewModel = viewModel,
             )
         }
@@ -87,6 +92,7 @@ fun NavGraphBuilder.personalizationNavGraph(
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
             UserInfoRoute(
                 navigateToResult = navigateToResult,
+                innerPadding = innerPadding,
                 viewModel = viewModel,
             )
         }
@@ -95,6 +101,7 @@ fun NavGraphBuilder.personalizationNavGraph(
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
             ResultRoute(
                 navigateToMain = navigateToMain,
+                innerPadding = innerPadding,
                 viewModel = viewModel,
             )
         }
