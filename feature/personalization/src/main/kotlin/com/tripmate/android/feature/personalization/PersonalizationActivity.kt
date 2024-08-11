@@ -12,9 +12,9 @@ import androidx.navigation.compose.rememberNavController
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.feature.navigator.MainNavigator
 import com.tripmate.android.feature.personalization.navigation.PERSONALIZATION_ROUTE
-import com.tripmate.android.feature.personalization.navigation.Q2_ROUTE
-import com.tripmate.android.feature.personalization.navigation.Q3_ROUTE
-import com.tripmate.android.feature.personalization.navigation.Q4_ROUTE
+import com.tripmate.android.feature.personalization.navigation.Question2_ROUTE
+import com.tripmate.android.feature.personalization.navigation.Question3_ROUTE
+import com.tripmate.android.feature.personalization.navigation.Question4_ROUTE
 import com.tripmate.android.feature.personalization.navigation.RESULT_ROUTE
 import com.tripmate.android.feature.personalization.navigation.TRIP_STYLE_ROUTE
 import com.tripmate.android.feature.personalization.navigation.USER_INFO_ROUTE
@@ -45,14 +45,6 @@ class PersonalizationActivity : ComponentActivity() {
             }
 
             TripmateTheme {
-//                PersonalizationRoute(
-//                    navigateToMain = {
-//                        mainNavigator.navigateFrom(
-//                            activity = this,
-//                            withFinish = true,
-//                        )
-//                    },
-//                )
                 val navController = rememberNavController()
 
                 NavHost(
@@ -62,9 +54,9 @@ class PersonalizationActivity : ComponentActivity() {
                     personalizationNavGraph(
                         padding = PaddingValues(),
                         navController = navController,
-                        navigateToQ2 = { navController.navigate(Q2_ROUTE) },
-                        navigateToQ3 = { navController.navigate(Q3_ROUTE) },
-                        navigateToQ4 = { navController.navigate(Q4_ROUTE) },
+                        navigateToQuestion2 = { navController.navigate(Question2_ROUTE) },
+                        navigateToQuestion3 = { navController.navigate(Question3_ROUTE) },
+                        navigateToQuestion4 = { navController.navigate(Question4_ROUTE) },
                         navigateToTripStyle = { navController.navigate(TRIP_STYLE_ROUTE) },
                         navigateToUserInfo = { navController.navigate(USER_INFO_ROUTE) },
                         navigateToResult = { navController.navigate(RESULT_ROUTE) },

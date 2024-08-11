@@ -1,7 +1,5 @@
 package com.tripmate.android.core.ui.component
 
-import android.app.DownloadManager.Query
-import android.view.RoundedCorner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -10,19 +8,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,11 +40,11 @@ fun Question(
     questionText: String,
     answerText1: String,
     answerText2: String,
+    selectedAnswer: Int,
+    onAnswerSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
     answerText3: String = "",
 ) {
-    var checkedAnswer by remember { mutableStateOf(0) }
-
     Box(
         modifier = modifier
             .background(color = Background01)
@@ -85,16 +78,16 @@ fun Question(
             ) {
                 AnswerBox(
                     answerText = answerText1,
-                    isChecked = checkedAnswer == 1,
-                    onCheckedChange = { checkedAnswer = if (checkedAnswer == 1) 0 else 1 },
+                    isChecked = selectedAnswer == 1,
+                    onCheckedChange = { onAnswerSelected(if (selectedAnswer == 1) 0 else 1) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 5.dp),
                 )
                 AnswerBox(
                     answerText = answerText2,
-                    isChecked = checkedAnswer == 2,
-                    onCheckedChange = { checkedAnswer = if (checkedAnswer == 2) 0 else 2 },
+                    isChecked = selectedAnswer == 2,
+                    onCheckedChange = { onAnswerSelected(if (selectedAnswer == 2) 0 else 2) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 5.dp),
@@ -102,8 +95,8 @@ fun Question(
                 if (answerText3.isNotEmpty()) {
                     AnswerBox(
                         answerText = answerText3,
-                        isChecked = checkedAnswer == 3,
-                        onCheckedChange = { checkedAnswer = if (checkedAnswer == 3) 0 else 3 },
+                        isChecked = selectedAnswer == 3,
+                        onCheckedChange = { onAnswerSelected(if (selectedAnswer == 3) 0 else 3) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 5.dp),
@@ -132,19 +125,20 @@ fun AnswerBox(
                 color = if (isChecked) Primary03 else Background02,
                 shape = RoundedCornerShape(8.dp),
             )
-            .clickable (onClick = onCheckedChange),
+            .clickable(onClick = onCheckedChange),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 31.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
                 text = answerText,
                 style = Medium16_SemiBold,
+                modifier = Modifier.weight(1f),
             )
+            Spacer(modifier = Modifier.width(16.dp))  // Icon과 Text 사이의 간격
             Icon(
                 imageVector = if (isChecked) ImageVector.vectorResource(R.drawable.ic_checked) else ImageVector.vectorResource(R.drawable.ic_unchecked),
                 contentDescription = "Check Icon",
@@ -162,6 +156,8 @@ fun QuestionPreview() {
         questionText = "What is your favorite color?",
         answerText1 = "Red",
         answerText2 = "Blue",
+        onAnswerSelected = {},
+        selectedAnswer = 0,
     )
 }
 

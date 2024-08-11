@@ -7,20 +7,20 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.tripmate.android.core.common.extension.sharedViewModel
-import com.tripmate.android.feature.personalization.Q1Route
-import com.tripmate.android.feature.personalization.Q2Route
-import com.tripmate.android.feature.personalization.Q3Route
-import com.tripmate.android.feature.personalization.Q4Route
+import com.tripmate.android.feature.personalization.Question1Route
+import com.tripmate.android.feature.personalization.Question2Route
+import com.tripmate.android.feature.personalization.Question3Route
+import com.tripmate.android.feature.personalization.Question4Route
 import com.tripmate.android.feature.personalization.ResultRoute
 import com.tripmate.android.feature.personalization.TripStyleRoute
 import com.tripmate.android.feature.personalization.UserInfoRoute
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
 
 const val PERSONALIZATION_ROUTE = "personalization_route"
-const val Q1_ROUTE = "q1_route"
-const val Q2_ROUTE = "q2_route"
-const val Q3_ROUTE = "q3_route"
-const val Q4_ROUTE = "q3_route"
+const val Question1_ROUTE = "question1_route"
+const val Question2_ROUTE = "question2_route"
+const val Question3_ROUTE = "question3_route"
+const val Question4_ROUTE = "question4_route"
 const val TRIP_STYLE_ROUTE = "trip_style_route"
 const val USER_INFO_ROUTE = "user_info_route"
 const val RESULT_ROUTE = "result_route"
@@ -32,44 +32,44 @@ fun NavController.navigateToPersonalization() {
 fun NavGraphBuilder.personalizationNavGraph(
     padding: PaddingValues,
     navController: NavHostController,
-    navigateToQ2: () -> Unit,
-    navigateToQ3: () -> Unit,
-    navigateToQ4: () -> Unit,
+    navigateToQuestion2: () -> Unit,
+    navigateToQuestion3: () -> Unit,
+    navigateToQuestion4: () -> Unit,
     navigateToTripStyle: () -> Unit,
     navigateToUserInfo: () -> Unit,
     navigateToResult: () -> Unit,
     navigateToMain: () -> Unit,
 ) {
     navigation(
-        startDestination = Q1_ROUTE,
+        startDestination = Question1_ROUTE,
         route = PERSONALIZATION_ROUTE,
     ) {
-        composable(route = Q1_ROUTE) { entry ->
+        composable(route = Question1_ROUTE) { entry ->
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
-            Q1Route(
-                navigateToQ2 = navigateToQ2,
+            Question1Route(
+                navigateToQuestion2 = navigateToQuestion2,
                 viewModel = viewModel,
             )
         }
-        composable(route = Q2_ROUTE) { entry ->
+        composable(route = Question2_ROUTE) { entry ->
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
-            Q2Route(
-                navigateToQ3 = navigateToQ3,
-                viewModel = viewModel,
-            )
-        }
-
-        composable(route = Q3_ROUTE) { entry ->
-            val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
-            Q3Route(
-                navigateToQ4 = navigateToQ4,
+            Question2Route(
+                navigateToQuestion3 = navigateToQuestion3,
                 viewModel = viewModel,
             )
         }
 
-        composable(route = Q4_ROUTE) { entry ->
+        composable(route = Question3_ROUTE) { entry ->
             val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
-            Q4Route(
+            Question3Route(
+                navigateToQuestion4 = navigateToQuestion4,
+                viewModel = viewModel,
+            )
+        }
+
+        composable(route = Question4_ROUTE) { entry ->
+            val viewModel = entry.sharedViewModel<PersonalizationViewModel>(navController)
+            Question4Route(
                 navigateToTripStyle = navigateToTripStyle,
                 viewModel = viewModel,
             )

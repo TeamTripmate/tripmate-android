@@ -28,9 +28,28 @@ class PersonalizationViewModel @Inject constructor(
 
     fun onAction(action: PersonalizationUiAction) {
         when (action) {
+            is PersonalizationUiAction.OnQuestionAnswerSelected -> {
+                when (action.questionNumber) {
+                    1 -> _uiState.update { it.copy(question1Answer = action.answer) }
+                    2 -> _uiState.update { it.copy(question2Answer = action.answer) }
+                    3 -> _uiState.update { it.copy(question3Answer = action.answer) }
+                    4 -> _uiState.update { it.copy(question4Answer = action.answer) }
+                }
+            }
+
             is PersonalizationUiAction.OnTripStyleSelected -> addSelectedTripStyle(action.tripStyle)
             is PersonalizationUiAction.OnTripStyleDeselected -> removeSelectedTripStyle(action.tripStyle)
-            is PersonalizationUiAction.OnSelectClick -> navigateToUserInfo()
+            is PersonalizationUiAction.OnSelectClick -> {
+                when (action.screenType) {
+                    ScreenType.QUESTION_1 -> navigateToQuestion2()
+                    ScreenType.QUESTION_2 -> navigateToQuestion3()
+                    ScreenType.QUESTION_3 -> navigateToQuestion4()
+                    ScreenType.QUESTION_4 -> navigateToTripStyle()
+                    ScreenType.TRIP_STYLE -> navigateToUserInfo()
+                    ScreenType.USER_INFO -> navigateToResult()
+                    ScreenType.RESULT -> navigateToMain()
+                }
+            }
         }
     }
 
@@ -43,6 +62,42 @@ class PersonalizationViewModel @Inject constructor(
     private fun removeSelectedTripStyle(tripStyle: TripStyleEntity) {
         _uiState.update {
             it.copy(selectedTripStyles = it.selectedTripStyles.remove(tripStyle))
+        }
+    }
+
+    private fun navigateToTripStyle() {
+        viewModelScope.launch {
+            _uiEvent.send(PersonalizationUiEvent.NavigateToTripStyle)
+        }
+    }
+
+    private fun navigateToQuestion2() {
+        viewModelScope.launch {
+            _uiEvent.send(PersonalizationUiEvent.NavigateToQuestion2)
+        }
+    }
+
+    private fun navigateToQuestion3() {
+        viewModelScope.launch {
+            _uiEvent.send(PersonalizationUiEvent.NavigateToQuestion3)
+        }
+    }
+
+    private fun navigateToQuestion4() {
+        viewModelScope.launch {
+            _uiEvent.send(PersonalizationUiEvent.NavigateToQuestion4)
+        }
+    }
+
+    private fun navigateToMain() {
+        viewModelScope.launch {
+            _uiEvent.send(PersonalizationUiEvent.NavigateToMain)
+        }
+    }
+
+    private fun navigateToResult() {
+        viewModelScope.launch {
+            _uiEvent.send(PersonalizationUiEvent.NavigateToResult)
         }
     }
 

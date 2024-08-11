@@ -1,6 +1,9 @@
 package com.tripmate.android.feature.personalization
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,22 +22,26 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
-import com.tripmate.android.core.designsystem.component.NetworkImage
+import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.component.TripmateButton
+import com.tripmate.android.core.designsystem.theme.Background01
+import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
+import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
+import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.TripStyleEntity
@@ -42,6 +49,7 @@ import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiA
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiEvent
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiState
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
+import com.tripmate.android.feature.personalization.viewmodel.ScreenType
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -73,27 +81,10 @@ fun TripStyleScreen(
     uiState: PersonalizationUiState,
     onAction: (PersonalizationUiAction) -> Unit,
 ) {
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
-    ) { innerPadding ->
-        TripStyleContent(
-            uiState = uiState,
-            onAction = onAction,
-            innerPadding = innerPadding,
-        )
-    }
-}
-
-@Composable
-fun TripStyleContent(
-    uiState: PersonalizationUiState,
-    onAction: (PersonalizationUiAction) -> Unit,
-    innerPadding: PaddingValues,
-) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding),
+            .background(color = Background01),
     ) {
         Column(
             modifier = Modifier
@@ -103,27 +94,27 @@ fun TripStyleContent(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "당신의 여행 스타일을 알려주세요.",
-                style = Medium16_SemiBold,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 24.dp),
+                text = "당신의 여행 스타일을\n알려주세요.",
+                style = Large20_Bold,
+                color = Gray001,
+                modifier = Modifier.padding(top = 70.dp),
             )
             Text(
-                text = "최대 6개",
-                style = Medium16_SemiBold,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
+                text = "최대 3개",
+                style = Small14_Reg,
+                color = Gray001,
+                modifier = Modifier.padding(top = 18.dp),
             )
-            Spacer(modifier = Modifier.height(18.dp))
+            Spacer(modifier = Modifier.height(48.dp))
             AllTripStyles(
                 tripStyles = uiState.allTripStyles,
-                onAction = onAction,
                 selectedTripStyles = uiState.selectedTripStyles,
+                onAction = onAction,
                 modifier = Modifier.weight(1f),
             )
         }
         TripmateButton(
-            onClick = { onAction(PersonalizationUiAction.OnSelectClick) },
+            onClick = { onAction(PersonalizationUiAction.OnSelectClick(ScreenType.TRIP_STYLE)) },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
@@ -132,7 +123,7 @@ fun TripStyleContent(
             enabled = uiState.selectedTripStyles.isNotEmpty(),
         ) {
             Text(
-                text = "선택하기",
+                stringResource(R.string.select),
                 style = Medium16_SemiBold,
             )
         }
@@ -142,8 +133,8 @@ fun TripStyleContent(
 @Composable
 fun AllTripStyles(
     tripStyles: ImmutableList<TripStyleEntity>,
-    onAction: (PersonalizationUiAction) -> Unit,
     selectedTripStyles: ImmutableList<TripStyleEntity>,
+    onAction: (PersonalizationUiAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
@@ -174,11 +165,14 @@ fun TripStyleItem(
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+        colors = CardDefaults.cardColors(containerColor = Background02),
+        border = BorderStroke(1.dp, Background02),
         modifier = Modifier
             .height(130.dp)
-            .width(120.dp),
+            .width(100.dp)
+            .clickable {
+                onAction(PersonalizationUiAction.OnTripStyleSelected(tripStyle))
+            },
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -187,11 +181,10 @@ fun TripStyleItem(
                 .fillMaxSize()
                 .padding(16.dp),
         ) {
-            NetworkImage(
-                imgUrl = tripStyle.image,
-                contentDescription = "TripStyle Image",
-                modifier = Modifier
-                    .size(40.dp)
+            Image(
+                painter = painterResource(id = tripStyle.imageResId),
+                contentDescription = null,
+                modifier = Modifier.size(48.dp),
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
@@ -206,7 +199,7 @@ fun TripStyleItem(
 
 @DevicePreview
 @Composable
-fun IntroScreenPreview() {
+fun TripStyleScreenPreview() {
     TripmateTheme {
         TripStyleScreen(
             uiState = PersonalizationUiState(
