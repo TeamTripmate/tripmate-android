@@ -51,6 +51,7 @@ firebase-config = "21.6.3"
 ksp = "1.9.23-1.0.20"
 compose-extensions = "1.6.5"
 compose-stable-marker = "1.0.4"
+kakao-core = "2.20.1"
 
 [libraries]
 
@@ -104,6 +105,7 @@ firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashly
 firebase-config = { group = "com.google.firebase", name = "firebase-config-ktx" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-compose" }
 compose-stable-marker = { group = "com.github.skydoves", name = "compose-stable-marker", version.ref = "compose-stable-marker" }
+kakao-auth = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao-core" }
 
 [plugins]
 
