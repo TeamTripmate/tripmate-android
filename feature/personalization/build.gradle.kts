@@ -16,6 +16,7 @@ dependencies {
     implementations(
         projects.feature.navigator,
 
+        libs.kotlinx.datetime,
         libs.kotlinx.collections.immutable,
         libs.androidx.activity.compose,
         libs.androidx.splash,
