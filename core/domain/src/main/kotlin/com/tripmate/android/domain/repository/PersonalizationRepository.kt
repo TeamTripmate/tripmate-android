@@ -1,4 +1,4 @@
-package com.tripmate.android.core.data.repository
+package com.tripmate.android.domain.repository
 
 interface PersonalizationRepository {
     suspend fun checkPersonalizationCompletion(): Boolean
