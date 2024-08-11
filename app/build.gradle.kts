@@ -64,6 +64,7 @@ dependencies {
         libs.androidx.activity.compose,
         libs.androidx.startup,
         libs.timber,
+        libs.kakao.auth,
     )
 }
 

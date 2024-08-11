@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".TripmateApplication"
         android:allowBackup="true"
@@ -21,14 +23,37 @@
             tools:node="merge">
 
             <meta-data
-                android:name="com.tripmate.android.initializer.TimberInitializer"
-                android:value="androidx.startup" />
-
-            <meta-data
                 android:name="com.tripmate.android.initializer.FirebaseCrashlyticsInitializer"
                 android:value="androidx.startup" />
 
+            <meta-data
+                android:name="com.tripmate.android.initializer.KakaoSDKInitializer"
+                android:value="androidx.startup" />
+
+            <meta-data
+                android:name="com.tripmate.android.initializer.TimberInitializer"
+                android:value="androidx.startup" />
+
         </provider>
+
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" />
+
+            </intent-filter>
+
+        </activity>
+
     </application>
 
 </manifest>
