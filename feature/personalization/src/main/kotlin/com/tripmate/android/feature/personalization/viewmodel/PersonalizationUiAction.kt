@@ -8,6 +8,8 @@ sealed interface PersonalizationUiAction {
     data class OnTripStyleDeselected(val tripStyle: TripStyleEntity) : PersonalizationUiAction
     data class OnGenderSelected(val gender: Gender) : PersonalizationUiAction
     data class OnBirthDateUpdated(val birthDate: String) : PersonalizationUiAction
+    data object OnClearIconClicked : PersonalizationUiAction
+    data object OnUnderAgeDialogConfirmClick : PersonalizationUiAction
     data class OnSelectClick(val screenType: ScreenType) : PersonalizationUiAction
 }
 

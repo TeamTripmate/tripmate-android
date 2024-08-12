@@ -45,12 +45,10 @@ class PersonalizationViewModel @Inject constructor(
             is PersonalizationUiAction.OnTripStyleDeselected -> removeSelectedTripStyle(action.tripStyle)
             is PersonalizationUiAction.OnGenderSelected -> setGender(action.gender)
             is PersonalizationUiAction.OnBirthDateUpdated -> setBirthDate(action.birthDate)
+            is PersonalizationUiAction.OnClearIconClicked -> clearText()
+            is PersonalizationUiAction.OnUnderAgeDialogConfirmClick -> finish()
             is PersonalizationUiAction.OnSelectClick -> navigateToNextScreen(action.screenType)
         }
-    }
-
-    private fun setBirthDate(birthDate: String) {
-        _uiState.update { it.copy(birthDate = birthDate) }
     }
 
     private fun setQuestionAnswer(questionNumber: Int, answer: Int) {
@@ -74,14 +72,49 @@ class PersonalizationViewModel @Inject constructor(
         }
     }
 
-    private fun setGender(gender: Gender) {
-        _uiState.update { it.copy(selectedGender = gender) }
-    }
-
     private fun removeSelectedTripStyle(tripStyle: TripStyleEntity) {
         _uiState.update {
             it.copy(selectedTripStyles = it.selectedTripStyles.remove(tripStyle))
         }
+    }
+
+    private fun setGender(gender: Gender) {
+        _uiState.update { it.copy(selectedGender = gender) }
+    }
+
+    private fun setBirthDate(birthDate: String) {
+        if (birthDate.length <= 6) {
+            _uiState.update { it.copy(birthDate = birthDate) }
+            if (birthDate.length == 6) {
+                if (validateBirthDate(birthDate) == BirthDateValidationResult.INVALID_DATE) {
+                    _uiState.update { it.copy(birthDateErrorText = UiText.StringResource(R.string.invalid_birth_date_error_message)) }
+                } else {
+                    _uiState.update { it.copy(birthDateErrorText = null) }
+                }
+            }
+        }
+    }
+
+    private fun clearText() {
+        _uiState.update {
+            it.copy(
+                birthDate = "",
+                birthDateErrorText = null,
+            )
+        }
+    }
+
+    private fun finish() {
+        _uiState.update {
+            it.copy(isUnderAgeDialogVisible = false)
+        }
+        viewModelScope.launch {
+            _uiEvent.send(PersonalizationUiEvent.Finish)
+        }
+    }
+
+    private fun setUnderAgeDialogVisibility(flag: Boolean) {
+        _uiState.update { it.copy(isUnderAgeDialogVisible = flag) }
     }
 
     private fun navigateToNextScreen(screenType: ScreenType) {
@@ -95,20 +128,8 @@ class PersonalizationViewModel @Inject constructor(
                 if (validateBirthDate(_uiState.value.birthDate) == BirthDateValidationResult.VALID) {
                     navigateToResult()
                 } else {
-                    when (validateBirthDate(_uiState.value.birthDate)) {
-                        BirthDateValidationResult.INVALID_DATE -> {
-                            viewModelScope.launch {
-                                _uiEvent.send(PersonalizationUiEvent.ShowToast(UiText.StringResource(R.string.invalid_birth_date_error_message)))
-                            }
-                        }
-
-                        BirthDateValidationResult.UNDERAGE -> {
-                            viewModelScope.launch {
-                                _uiEvent.send(PersonalizationUiEvent.ShowToast(UiText.StringResource(R.string.underage_error_message)))
-                            }
-                        }
-
-                        else -> {}
+                    if (validateBirthDate(_uiState.value.birthDate) == BirthDateValidationResult.UNDERAGE) {
+                        setUnderAgeDialogVisibility(true)
                     }
                 }
             }
@@ -161,6 +182,9 @@ class PersonalizationViewModel @Inject constructor(
 
     @Suppress("SwallowedException")
     private fun validateBirthDate(birthDate: String): BirthDateValidationResult {
+        // 숫자로 만 이루어져 있는지 체크
+        if (!birthDate.matches(Regex("[0-9]+"))) return BirthDateValidationResult.INVALID_DATE
+
         // 유효한 날짜인지 체크
         val year = birthDate.substring(0, 2).toInt()
         val month = birthDate.substring(2, 4).toInt()

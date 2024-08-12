@@ -89,7 +89,7 @@ fun TripMateDialog(
                     onClick = onConfirmClick,
                     modifier = Modifier
                         .weight(1f)
-                        .height(45.dp)
+                        .height(48.dp)
                         .then(
                             if (cancelTextResId != null) {
                                 Modifier.padding(end = 4.dp)
@@ -111,7 +111,7 @@ fun TripMateDialog(
                         onClick = onCancelClick,
                         modifier = Modifier
                             .weight(1f)
-                            .height(45.dp)
+                            .height(48.dp)
                             .padding(start = 4.dp),
                         containerColor = Primary01,
                     ) {
@@ -123,7 +123,7 @@ fun TripMateDialog(
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }

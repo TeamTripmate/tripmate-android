@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -23,13 +24,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Background03
 import com.tripmate.android.core.designsystem.theme.Gray001
-import com.tripmate.android.core.designsystem.theme.Large20_SemiBold
+import com.tripmate.android.core.designsystem.theme.Medium16_Mid
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary03
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
@@ -44,18 +44,17 @@ fun GenderSelectionBox(
     Box(modifier = modifier) {
         Column {
             Text(
-                text = stringResource(id = R.string.gender),
-                style = Large20_SemiBold,
+                text = stringResource(id = R.string.input_gender),
+                style = Medium16_SemiBold,
                 color = Gray001,
                 textAlign = TextAlign.Start,
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Box(
                     modifier = Modifier
-                        .height(138.dp)
                         .weight(1f)
                         .clip(RoundedCornerShape(8.dp))
                         .background(if (selectedGender == Gender.FEMALE) Background03 else Background02)
@@ -71,28 +70,26 @@ fun GenderSelectionBox(
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Spacer(modifier.height(14.dp))
+                        Spacer(modifier.height(16.dp))
                         Image(
                             painter = painterResource(id = R.drawable.img_female),
                             contentDescription = "female image",
                             modifier = Modifier.size(48.dp),
                         )
-                        Spacer(modifier = Modifier.height(10.dp))
+                        Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "여자",
+                            text = stringResource(id = R.string.female),
                             color = Gray001,
-                            style = Medium16_SemiBold,
-                            fontSize = 15.sp,
+                            style = Medium16_Mid,
                         )
-                        Spacer(modifier.height(14.dp))
+                        Spacer(modifier.height(16.dp))
                     }
                 }
-                Spacer(modifier = Modifier.width(24.dp))
+                Spacer(modifier = Modifier.width(8.dp))
                 Box(
                     modifier = Modifier
-                        .height(138.dp)
                         .weight(1f)
                         .clip(RoundedCornerShape(8.dp))
                         .background(if (selectedGender == Gender.MALE) Background03 else Background02)
@@ -108,22 +105,21 @@ fun GenderSelectionBox(
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Spacer(modifier = Modifier.height(14.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
                         Image(
                             painter = painterResource(id = R.drawable.img_male),
                             contentDescription = "male image",
                             modifier = Modifier.size(48.dp),
                         )
-                        Spacer(modifier = Modifier.height(10.dp))
+                        Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "남자",
+                            text = stringResource(id = R.string.male),
                             color = Gray001,
-                            style = Medium16_SemiBold,
-                            fontSize = 15.sp,
+                            style = Medium16_Mid,
                         )
-                        Spacer(modifier = Modifier.height(14.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
                     }
                 }
             }

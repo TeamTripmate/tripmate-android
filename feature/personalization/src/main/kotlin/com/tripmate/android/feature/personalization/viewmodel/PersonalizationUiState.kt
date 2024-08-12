@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.personalization.viewmodel
 
+import com.tripmate.android.core.common.UiText
 import com.tripmate.android.domain.entity.TripStyleEntity
 import com.tripmate.android.core.designsystem.R
 import kotlinx.collections.immutable.ImmutableList
@@ -28,6 +29,8 @@ data class PersonalizationUiState(
     val selectedTripStyles: PersistentList<TripStyleEntity> = persistentListOf(),
     val selectedGender: Gender = Gender.NOT_SPECIFIED,
     val birthDate: String = "",
+    val birthDateErrorText: UiText? = null,
+    val isUnderAgeDialogVisible : Boolean = false,
 )
 
 enum class Gender {

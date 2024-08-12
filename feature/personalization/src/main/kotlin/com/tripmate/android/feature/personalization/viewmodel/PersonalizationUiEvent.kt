@@ -11,4 +11,5 @@ sealed interface PersonalizationUiEvent {
     data object NavigateToResult : PersonalizationUiEvent
     data object NavigateToMain : PersonalizationUiEvent
     data class ShowToast(val message: UiText) : PersonalizationUiEvent
+    data object Finish: PersonalizationUiEvent
 }
