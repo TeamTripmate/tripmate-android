@@ -30,7 +30,7 @@ data class PersonalizationUiState(
     val selectedGender: Gender = Gender.NOT_SPECIFIED,
     val birthDate: String = "",
     val birthDateErrorText: UiText? = null,
-    val isUnderAgeDialogVisible : Boolean = false,
+    val isUnderAgeDialogVisible: Boolean = false,
 )
 
 enum class Gender {

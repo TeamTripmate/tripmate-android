@@ -31,7 +31,6 @@ import com.tripmate.android.core.designsystem.theme.Error
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Gray008
-import com.tripmate.android.core.designsystem.theme.Large20_Reg
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 
