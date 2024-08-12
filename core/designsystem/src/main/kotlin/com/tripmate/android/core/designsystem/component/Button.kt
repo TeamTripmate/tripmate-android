@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Gray004
+import com.tripmate.android.core.designsystem.theme.Gray009
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 
@@ -22,8 +23,8 @@ fun TripmateButton(
     enabled: Boolean = true,
     containerColor: Color = Primary01,
     contentColor: Color = Color.White,
-    disabledContainerColor: Color = Gray004,
-    disabledContentColor: Color = Color.White,
+    disabledContainerColor: Color = Gray009,
+    disabledContentColor: Color = Gray004,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     content: @Composable RowScope.() -> Unit,
 ) {
