@@ -55,7 +55,6 @@ fun TripmateButton(
     }
 }
 
-
 @Composable
 fun TripmateButton(
     onClick: () -> Unit,
@@ -106,7 +105,6 @@ private fun TrimpateButtonContent(
         text()
     }
 }
-
 
 @ComponentPreview
 @Composable
