@@ -1,10 +1,16 @@
 package com.tripmate.android.core.designsystem.component
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +21,40 @@ import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Gray009
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
+
+@Composable
+fun TripmateButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    containerColor: Color = Primary01,
+    contentColor: Color = Color.White,
+    disabledContainerColor: Color = Gray009,
+    disabledContentColor: Color = Gray004,
+    text: @Composable () -> Unit,
+    leadingIcon: @Composable (() -> Unit)? = null,
+) {
+    TripmateButton(
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor,
+        contentPadding = if (leadingIcon != null) {
+            ButtonDefaults.ButtonWithIconContentPadding
+        } else {
+            ButtonDefaults.ContentPadding
+        },
+    ) {
+        TrimpateButtonContent(
+            text = text,
+            leadingIcon = leadingIcon,
+        )
+    }
+}
+
 
 @Composable
 fun TripmateButton(
@@ -44,6 +84,30 @@ fun TripmateButton(
     )
 }
 
+@Composable
+private fun TrimpateButtonContent(
+    text: @Composable () -> Unit,
+    leadingIcon: @Composable (() -> Unit)? = null,
+) {
+    if (leadingIcon != null) {
+        Box(Modifier.sizeIn(maxHeight = ButtonDefaults.IconSize)) {
+            leadingIcon()
+        }
+    }
+    Box(
+        Modifier.padding(
+            start = if (leadingIcon != null) {
+                ButtonDefaults.IconSpacing
+            } else {
+                0.dp
+            },
+        ),
+    ) {
+        text()
+    }
+}
+
+
 @ComponentPreview
 @Composable
 fun TripmateButtonPreview() {
@@ -53,5 +117,25 @@ fun TripmateButtonPreview() {
         ) {
             Text("Button")
         }
+    }
+}
+
+@ComponentPreview
+@Composable
+fun TripmateButtonWithLeadingIconPreview() {
+    TripmateTheme {
+        TripmateButton(
+            onClick = {},
+            text = {
+                Text("Button")
+            },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Check,
+                    contentDescription = "Check icon",
+                    tint = Color.White,
+                )
+            },
+        )
     }
 }
