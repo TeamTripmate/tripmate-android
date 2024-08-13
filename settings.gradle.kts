@@ -34,6 +34,7 @@ include(
     ":core:ui",
 
     ":feature:home",
+    ":feature:login",
     ":feature:main",
     ":feature:menu",
     ":feature:navigator",
