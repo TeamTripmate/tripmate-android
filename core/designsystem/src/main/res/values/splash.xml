@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.Tripmate.Splash" parent="Theme.SplashScreen">
-        <item name="postSplashScreenTheme">@style/Theme.Tripmateandroid</item>
+        <item name="postSplashScreenTheme">@style/Theme.Tripmate</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
