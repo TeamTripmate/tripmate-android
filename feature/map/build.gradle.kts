@@ -1,8 +1,12 @@
 @file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
 
+import com.tripmate.android.implementation
+
+
 plugins {
     alias(libs.plugins.tripmate.android.feature)
     alias(libs.plugins.tripmate.android.retrofit)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -17,4 +21,5 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.compose.system.ui.controller)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.compose.material3)
 }

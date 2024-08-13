@@ -1,59 +1,44 @@
 package com.tripmate.android.feature.map
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
-import com.kakao.vectormap.KakaoMap
-import com.kakao.vectormap.KakaoMapReadyCallback
-import com.kakao.vectormap.MapLifeCycleCallback
-import com.kakao.vectormap.MapView
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun MapScreen() {
-    KakaoMapView()
+fun MapScreen(
+    modifier: Modifier = Modifier,
+    viewModel: MapViewModel = hiltViewModel(),
+) {
+    val state by viewModel.collectAsState()
+
+    MapScreen(
+        state = state,
+        modifier = modifier,
+        toggleBars = viewModel::toggleBarShowingState,
+    )
 }
 
-
 @Composable
-fun KakaoMapView() {
-    val context = LocalContext.current
-    val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
-    val mapView = remember { MapView(context) }
+private fun MapScreen(
+    state: MapState,
+    modifier: Modifier = Modifier,
+    toggleBars: () -> Unit = {},
+) {
 
-    DisposableEffect(Unit) {
-        mapView.start(object : MapLifeCycleCallback() {
-            override fun onMapDestroy() { }
-            override fun onMapError(error: Exception) { }
-        }, object : KakaoMapReadyCallback() {
-            override fun onMapReady(kakaoMap: KakaoMap) { }
-        })
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+    ) { contentPadding ->
 
-        val observer = LifecycleEventObserver { _, event ->
-            when (event) {
-                Lifecycle.Event.ON_RESUME -> {
-                    mapView.resume()
-                }
-                Lifecycle.Event.ON_PAUSE -> {
-                    mapView.pause()
-                }
-                else -> {}
-            }
-        }
-
-        lifecycleOwner.lifecycle.addObserver(observer)
-
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
+        Box(modifier = Modifier.padding(contentPadding)) {
+            MapSection(
+                modifier = Modifier.fillMaxSize(),
+                toggleBars = toggleBars,
+            )
         }
     }
-
-    AndroidView(factory = { mapView }) { mapView -> }
 }
-
-
