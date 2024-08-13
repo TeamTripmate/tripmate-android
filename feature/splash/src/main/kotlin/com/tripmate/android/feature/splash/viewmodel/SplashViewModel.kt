@@ -2,7 +2,7 @@ package com.tripmate.android.feature.splash.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tripmate.android.core.data.repository.PersonalizationRepository
+import com.tripmate.android.domain.repository.PersonalizationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
