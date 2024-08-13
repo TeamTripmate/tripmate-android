@@ -41,3 +41,6 @@ val Gray006Dark = Color(0xFF77797C)
 val Gray007Dark = Color(0xFF5E5F63)
 val Gray008Dark = Color(0xFF3A3B3F)
 val Gray009Dark = Color(0xFF2A2A2A)
+
+val Positive = Color(0xFF00CF5F)
+val Error = Color(0xFFF23444)

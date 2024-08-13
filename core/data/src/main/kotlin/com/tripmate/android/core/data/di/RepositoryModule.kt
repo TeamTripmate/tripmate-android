@@ -1,6 +1,6 @@
 package com.tripmate.android.core.data.di
 
-import com.tripmate.android.core.data.repository.PersonalizationRepository
+import com.tripmate.android.domain.repository.PersonalizationRepository
 import com.tripmate.android.core.data.repository.PersonalizationRepositoryImpl
 import dagger.Binds
 import dagger.Module

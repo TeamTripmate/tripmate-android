@@ -10,17 +10,13 @@ android {
     buildFeatures {
         buildConfig = true
     }
-
-    defaultConfig {
-        buildConfigField("String", "PACKAGE_NAME", "\"${libs.versions.packageName.get()}\"")
-    }
 }
 
 dependencies {
     implementations(
-        projects.core.data,
         projects.feature.navigator,
 
+        libs.kotlinx.datetime,
         libs.kotlinx.collections.immutable,
         libs.androidx.activity.compose,
         libs.androidx.splash,

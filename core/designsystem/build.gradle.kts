@@ -17,5 +17,7 @@ dependencies {
         libs.coil.compose,
         libs.timber,
         libs.compose.keyboard.state,
+
+        libs.bundles.landscapist,
     )
 }
