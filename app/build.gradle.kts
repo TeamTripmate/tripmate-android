@@ -56,6 +56,7 @@ dependencies {
 
         projects.feature.home,
         projects.feature.main,
+        projects.feature.login,
         projects.feature.menu,
         projects.feature.navigator,
         projects.feature.splash,

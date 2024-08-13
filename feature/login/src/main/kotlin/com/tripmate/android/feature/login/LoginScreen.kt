@@ -1,4 +1,4 @@
-package com.tripmate.android.feature
+package com.tripmate.android.feature.login
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -69,7 +69,7 @@ internal fun LoginRoute(
 
             token != null -> UserApiClient.instance.me { user, _ ->
                 user?.let {
-                    Timber.d("로그인 성공: ${token.accessToken},  ${it.kakaoAccount?.profile?.nickname}")
+                    Timber.d("로그인 성공: ${token.accessToken}, ${token.refreshToken}, ${it.kakaoAccount?.profile?.nickname}")
                     viewModel.saveAuthToken(token.accessToken, token.refreshToken)
                 } ?: viewModel.setErrorMessage(UiText.StringResource(R.string.unknown_error_message))
             }

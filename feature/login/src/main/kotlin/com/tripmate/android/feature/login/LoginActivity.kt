@@ -1,4 +1,4 @@
-package com.tripmate.android.feature
+package com.tripmate.android.feature.login
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

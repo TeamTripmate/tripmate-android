@@ -10,8 +10,6 @@ android {
 
 dependencies {
     implementations(
-        projects.core.common,
-        projects.core.domain,
         projects.feature.navigator,
 
         libs.androidx.activity.compose,

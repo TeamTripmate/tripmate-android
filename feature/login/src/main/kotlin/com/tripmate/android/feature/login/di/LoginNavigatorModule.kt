@@ -3,7 +3,7 @@ package com.tripmate.android.feature.login.di
 import android.app.Activity
 import android.content.Intent
 import com.tripmate.android.core.common.extension.startActivityWithAnimation
-import com.tripmate.android.feature.LoginActivity
+import com.tripmate.android.feature.login.LoginActivity
 import com.tripmate.android.feature.navigator.LoginNavigator
 import dagger.Binds
 import dagger.Module
