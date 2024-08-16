@@ -12,21 +12,21 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 internal fun HomeRoute(
-    padding: PaddingValues,
+    innerPadding: PaddingValues,
 ) {
     HomeScreen(
-        padding = padding,
+        innerPadding = innerPadding,
     )
 }
 
 @Composable
 internal fun HomeScreen(
-    padding: PaddingValues,
+    innerPadding: PaddingValues,
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(padding),
+            .padding(innerPadding),
     ) {
         Text(
             text = "홈화면",

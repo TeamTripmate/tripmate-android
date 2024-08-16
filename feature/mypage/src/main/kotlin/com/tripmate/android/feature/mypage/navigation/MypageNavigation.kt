@@ -5,21 +5,21 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.tripmate.android.feature.mypage.MypageRoute
+import com.tripmate.android.feature.mypage.MyPageRoute
 
 const val MYPAGE_ROUTE = "mypage_route"
 
-fun NavController.navigateToMypage(navOptions: NavOptions) {
+fun NavController.navigateToMyPage(navOptions: NavOptions) {
     navigate(MYPAGE_ROUTE, navOptions)
 }
 
-fun NavGraphBuilder.mypageNavGraph(
+fun NavGraphBuilder.myPageNavGraph(
     padding: PaddingValues,
 //    popBackStack: () -> Unit
 ) {
     composable(route = MYPAGE_ROUTE) {
-        MypageRoute(
-            padding = padding,
+        MyPageRoute(
+            innerPadding = padding,
         )
     }
 }

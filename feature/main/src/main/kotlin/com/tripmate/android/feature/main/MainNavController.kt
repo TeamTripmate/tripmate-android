@@ -10,7 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.tripmate.android.feature.home.navigation.HOME_ROUTE
 import com.tripmate.android.feature.home.navigation.navigateToHome
-import com.tripmate.android.feature.mypage.navigation.navigateToMypage
+import com.tripmate.android.feature.mypage.navigation.navigateToMyPage
 import com.tripmate.android.mate.navigation.navigateToMate
 import com.tripmate.android.notification.navigation.navigateToNotification
 import com.tripmate.android.writing.navigation.navigateToWriting
@@ -43,7 +43,7 @@ internal class MainNavController(
             MainTab.MATE -> navController.navigateToMate(navOptions)
             MainTab.WRITING -> navController.navigateToWriting(navOptions)
             MainTab.NOTIFICATION -> navController.navigateToNotification(navOptions)
-            MainTab.MYPAGE -> navController.navigateToMypage(navOptions)
+            MainTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }
     }
 

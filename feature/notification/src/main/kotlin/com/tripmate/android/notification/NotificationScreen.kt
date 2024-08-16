@@ -12,21 +12,21 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 internal fun NotificationRoute(
-    padding: PaddingValues,
+    innerPadding: PaddingValues,
 ) {
     NotificationScreen(
-        padding = padding,
+        innerPadding = innerPadding,
     )
 }
 
 @Composable
 internal fun NotificationScreen(
-    padding: PaddingValues,
+    innerPadding: PaddingValues,
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(padding),
+            .padding(innerPadding),
     ) {
         Text(
             text = "알림 화면",

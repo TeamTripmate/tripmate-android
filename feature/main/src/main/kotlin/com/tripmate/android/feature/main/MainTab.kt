@@ -43,7 +43,7 @@ internal enum class MainTab(
     MYPAGE(
         iconResId = R.drawable.ic_mypage,
         selectedIconResId = R.drawable.ic_selected_mypage,
-        contentDescription = "Mypage Icon",
+        contentDescription = "My page Icon",
         label = "마이",
         route = "mypage_route",
     ),

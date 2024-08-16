@@ -19,7 +19,7 @@ fun NavGraphBuilder.writingNavGraph(
 ) {
     composable(route = WRITING_ROUTE) {
         WritingRoute(
-            padding = padding,
+            innerPadding = padding,
         )
     }
 }

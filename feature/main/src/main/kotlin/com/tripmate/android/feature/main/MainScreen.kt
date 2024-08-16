@@ -37,10 +37,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.component.TripmateScaffold
+import com.tripmate.android.core.designsystem.theme.Gray005
+import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Mid
 import com.tripmate.android.feature.home.navigation.homeNavGraph
-import com.tripmate.android.feature.mypage.navigation.mypageNavGraph
+import com.tripmate.android.feature.mypage.navigation.myPageNavGraph
 import com.tripmate.android.mate.navigation.mateNavGraph
 import com.tripmate.android.notification.navigation.notificationNavGraph
 import com.tripmate.android.writing.navigation.writingNavGraph
@@ -86,7 +88,7 @@ internal fun MainScreen(
                 padding = innerPadding,
 //                popBackStack = navigator::popBackStackIfNotHome,
             )
-            mypageNavGraph(
+            myPageNavGraph(
                 padding = innerPadding,
 //                popBackStack = navigator::popBackStackIfNotHome,
             )
@@ -164,7 +166,7 @@ private fun RowScope.MainBottomBarItem(
             Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = tab.label,
-                color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                color = if (selected) Primary01 else Gray005,
                 style = XSmall12_Mid,
             )
         }

@@ -19,7 +19,7 @@ fun NavGraphBuilder.notificationNavGraph(
 ) {
     composable(route = NOTIFICATION_ROUTE) {
         NotificationRoute(
-            padding = padding,
+            innerPadding = padding,
         )
     }
 }

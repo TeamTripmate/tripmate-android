@@ -12,21 +12,21 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 internal fun MateRoute(
-    padding: PaddingValues,
+    innerPadding: PaddingValues,
 ) {
     MateScreen(
-        padding = padding,
+        innerPadding = innerPadding,
     )
 }
 
 @Composable
 internal fun MateScreen(
-    padding: PaddingValues,
+    innerPadding: PaddingValues,
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(padding),
+            .padding(innerPadding),
     ) {
         Text(
             text = "동행 모집 화면",

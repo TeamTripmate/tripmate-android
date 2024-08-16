@@ -12,21 +12,21 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 internal fun WritingRoute(
-    padding: PaddingValues,
+    innerPadding: PaddingValues,
 ) {
     WritingScreen(
-        padding = padding,
+        innerPadding = innerPadding,
     )
 }
 
 @Composable
 internal fun WritingScreen(
-    padding: PaddingValues,
+    innerPadding: PaddingValues,
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(padding),
+            .padding(innerPadding),
     ) {
         Text(
             text = "글쓰기 화면",

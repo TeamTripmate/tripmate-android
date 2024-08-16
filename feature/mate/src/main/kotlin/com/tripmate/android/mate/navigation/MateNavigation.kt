@@ -19,7 +19,7 @@ fun NavGraphBuilder.mateNavGraph(
 ) {
     composable(route = MATE_ROUTE) {
         MateRoute(
-            padding = padding,
+            innerPadding = padding,
         )
     }
 }

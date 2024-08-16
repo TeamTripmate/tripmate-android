@@ -11,22 +11,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 
 @Composable
-internal fun MypageRoute(
-    padding: PaddingValues,
+internal fun MyPageRoute(
+    innerPadding: PaddingValues,
 ) {
-    MypageScreen(
-        padding = padding,
+    MyPageScreen(
+        innerPadding = innerPadding,
     )
 }
 
 @Composable
-internal fun MypageScreen(
-    padding: PaddingValues,
+internal fun MyPageScreen(
+    innerPadding: PaddingValues,
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(padding),
+            .padding(innerPadding),
     ) {
         Text(
             text = "마이페이지 화면",
