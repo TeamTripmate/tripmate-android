@@ -20,7 +20,7 @@ internal enum class MainTab(
         iconResId = R.drawable.ic_mate,
         selectedIconResId = R.drawable.ic_selected_mate,
         contentDescription = "Mate Icon",
-        label = "동행",
+        label = "동행찾기",
         route = "mate_route",
     ),
 
@@ -44,7 +44,7 @@ internal enum class MainTab(
         iconResId = R.drawable.ic_mypage,
         selectedIconResId = R.drawable.ic_selected_mypage,
         contentDescription = "Mypage Icon",
-        label = "마이페이지",
+        label = "마이",
         route = "mypage_route",
     ),
     ;
