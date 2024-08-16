@@ -117,3 +117,9 @@ val XSmall12_Light = TextStyle(
     fontWeight = FontWeight.Light,
     fontSize = 12.sp,
 )
+
+val XSmall12_Mid = TextStyle(
+    fontFamily = pretendardFamily,
+    fontWeight = FontWeight.Medium,
+    fontSize = 12.sp,
+)
