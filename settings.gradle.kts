@@ -36,8 +36,11 @@ include(
     ":feature:home",
     ":feature:login",
     ":feature:main",
-    ":feature:menu",
+    ":feature:mypage",
     ":feature:navigator",
     ":feature:splash",
     ":feature:personalization",
+    ":feature:notification",
+    ":feature:mate",
+    ":feature:writing",
 )
