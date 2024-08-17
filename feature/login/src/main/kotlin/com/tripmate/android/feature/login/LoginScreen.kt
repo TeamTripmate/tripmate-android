@@ -71,6 +71,7 @@ internal fun LoginRoute(
                 user?.let {
                     Timber.d("로그인 성공: ${token.accessToken}, ${token.refreshToken}, ${it.kakaoAccount?.profile?.nickname}")
                     viewModel.saveAuthToken(token.accessToken, token.refreshToken)
+                    navigateToMain()
                 } ?: viewModel.setErrorMessage(UiText.StringResource(R.string.unknown_error_message))
             }
 

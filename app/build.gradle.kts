@@ -57,7 +57,7 @@ dependencies {
         projects.feature.home,
         projects.feature.main,
         projects.feature.login,
-        projects.feature.menu,
+        projects.feature.mypage,
         projects.feature.navigator,
         projects.feature.splash,
         projects.feature.personalization,

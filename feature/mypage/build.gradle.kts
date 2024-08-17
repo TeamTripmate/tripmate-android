@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.tripmate.android.feature.menu"
+    namespace = "com.tripmate.android.feature.mypage"
 }
 
 dependencies {

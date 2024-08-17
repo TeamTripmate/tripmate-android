@@ -11,8 +11,11 @@ android {
 dependencies {
     implementations(
         projects.feature.home,
-        projects.feature.menu,
+        projects.feature.mypage,
         projects.feature.navigator,
+        projects.feature.mate,
+        projects.feature.writing,
+        projects.feature.notification,
 
         libs.androidx.activity.compose,
         libs.kotlinx.collections.immutable,
