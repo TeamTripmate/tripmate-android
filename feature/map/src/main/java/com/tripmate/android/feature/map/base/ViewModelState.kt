@@ -1,3 +1,3 @@
-package io.hlab.sample.app.presentation.base
+package com.tripmate.android.feature.map.base
 
 interface ViewModelState

@@ -1,4 +1,4 @@
-package io.hlab.sample.app.presentation.base
+package com.tripmate.android.feature.map.base
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State

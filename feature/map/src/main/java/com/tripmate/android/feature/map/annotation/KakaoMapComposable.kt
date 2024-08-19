@@ -1,4 +1,4 @@
-package io.hlab.vectormap.compose.annotation
+package com.tripmate.android.feature.map.annotation
 
 import androidx.compose.runtime.ComposableTargetMarker
 

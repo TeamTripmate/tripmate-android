@@ -26,7 +26,7 @@ import com.tripmate.android.feature.map.internal.node.LabelNode
 import com.tripmate.android.feature.map.internal.renderComposeViewOnce
 import com.tripmate.android.feature.map.internal.toNativeBitmap
 import com.tripmate.android.feature.map.state.LocalCameraPositionState
-import io.hlab.vectormap.compose.annotation.KakaoMapComposable
+import com.tripmate.android.feature.map.annotation.KakaoMapComposable
 import java.util.UUID
 
 /**
@@ -69,7 +69,7 @@ public object LabelDefaults {
  * @param isApplyDpScale 아이콘 이밎와 텍스트의 크기에 영향을 줍니다. 이 옵션이 true 라면 지도 객체 내부에서 DP 를 적용해 컨트롤 하게끔 하여
  * 해상도가 달라져도 아이콘 이미지와 텍스트 크기에 영향을 주지 않게 됩니다. 기본값은 true 입니다.
  * @param isTracking 라벨이 이동할 때, 지도 중심이 라벨에 맞춰지게 할 지를 지정합니다. 기본값은 false 입니다.
- * 해당 값이 변경되어 트래킹이 시작/종료되는 시점에, [io.hlab.vectormap.compose.state.CameraPositionState] 을 갱신합니다.
+ * 해당 값이 변경되어 트래킹이 시작/종료되는 시점에, [CameraPositionState] 을 갱신합니다.
  * @param minZoom 오버레이가 보여질 최소 줌 레벨을 지정하빈다. 기본값은 [LabelDefaults.MinZoom] 입니다.
  * @param children 이 라벨의 변형 ( move / rotate / etc. ) 을 따라 행동할 오버레이 컴포저블을 추가합니다.
  * 현재 vecotrmap API 에서 shareTransform 옵션을 < 대상자 : 라벨 / 요청자 : 라벨 / 폴리곤 > 에 대해서만 제공하므로
@@ -149,7 +149,7 @@ public fun Label(
  * @param isApplyDpScale 아이콘 이밎와 텍스트의 크기에 영향을 줍니다. 이 옵션이 true 라면 지도 객체 내부에서 DP 를 적용해 컨트롤 하게끔 하여
  * 해상도가 달라져도 아이콘 이미지와 텍스트 크기에 영향을 주지 않게 됩니다. 기본값은 true 입니다.
  * @param isTracking 라벨이 이동할 때, 지도 중심이 라벨에 맞춰지게 할 지를 지정합니다. 기본값은 false 입니다.
- * 해당 값이 변경되어 트래킹이 시작/종료되는 시점에, [io.hlab.vectormap.compose.state.CameraPositionState] 을 갱신합니다.
+ * 해당 값이 변경되어 트래킹이 시작/종료되는 시점에, [CameraPositionState] 을 갱신합니다.
  * @param minZoom 오버레이가 보여질 최소 줌 레벨을 지정하빈다. 기본값은 [LabelDefaults.MinZoom] 입니다.
  * @param children 이 라벨의 변형 ( move / rotate / etc. ) 을 따라 행동할 오버레이 컴포저블을 추가합니다.
  * 현재 vecotrmap API 에서 shareTransform 옵션을 < 대상자 : 라벨 / 요청자 : 라벨 / 폴리곤 > 에 대해서만 제공하므로
@@ -231,7 +231,7 @@ public fun Label(
  * @param isApplyDpScale 아이콘 이밎와 텍스트의 크기에 영향을 줍니다. 이 옵션이 true 라면 지도 객체 내부에서 DP 를 적용해 컨트롤 하게끔 하여
  * 해상도가 달라져도 아이콘 이미지와 텍스트 크기에 영향을 주지 않게 됩니다. 기본값은 true 입니다.
  * @param isTracking 라벨이 이동할 때, 지도 중심이 라벨에 맞춰지게 할 지를 지정합니다. 기본값은 false 입니다.
- * 해당 값이 변경되어 트래킹이 시작/종료되는 시점에, [io.hlab.vectormap.compose.state.CameraPositionState] 을 갱신합니다.
+ * 해당 값이 변경되어 트래킹이 시작/종료되는 시점에, [CameraPositionState] 을 갱신합니다.
  * @param minZoom 오버레이가 보여질 최소 줌 레벨을 지정하빈다. 기본값은 [LabelDefaults.MinZoom] 입니다.
  * @param children 이 라벨의 변형 ( move / rotate / etc. ) 을 따라 행동할 오버레이 컴포저블을 추가합니다.
  * 현재 vecotrmap API 에서 shareTransform 옵션을 < 대상자 : 라벨 / 요청자 : 라벨 / 폴리곤 > 에 대해서만 제공하므로

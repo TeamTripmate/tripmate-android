@@ -36,9 +36,9 @@ import com.tripmate.android.feature.map.settings.MapViewSettings
 import com.tripmate.android.feature.map.state.CameraPositionState
 import com.tripmate.android.feature.map.state.LocalCameraPositionState
 import com.tripmate.android.feature.map.state.rememberCameraPositionState
-import io.hlab.vectormap.compose.annotation.KakaoMapComposable
-import io.hlab.vectormap.compose.settings.DefaultMapInitialOptions
-import io.hlab.vectormap.compose.settings.MapInitialOptions
+import com.tripmate.android.feature.map.annotation.KakaoMapComposable
+import com.tripmate.android.feature.map.settings.DefaultMapInitialOptions
+import com.tripmate.android.feature.map.settings.MapInitialOptions
 
 /**
  * [com.kakao.vectormap.KakaoMap] 을 제공하는 컴포저블

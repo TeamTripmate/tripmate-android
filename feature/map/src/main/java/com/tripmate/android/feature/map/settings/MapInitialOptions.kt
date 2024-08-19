@@ -1,4 +1,4 @@
-package io.hlab.vectormap.compose.settings
+package com.tripmate.android.feature.map.settings
 
 import com.kakao.vectormap.MapType
 

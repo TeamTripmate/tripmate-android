@@ -1,4 +1,4 @@
-package io.hlab.sample.app.presentation.base
+package com.tripmate.android.feature.map.base
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.asCoroutineDispatcher

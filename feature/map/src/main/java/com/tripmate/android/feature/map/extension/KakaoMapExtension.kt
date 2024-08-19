@@ -11,7 +11,7 @@ import com.kakao.vectormap.MapViewInfo
 import com.tripmate.android.feature.map.internal.LifecycleAwareKakaoMapReadyCallback
 import com.tripmate.android.feature.map.internal.MapApplier
 import com.tripmate.android.feature.map.internal.MapLifecycleCallbacks
-import io.hlab.vectormap.compose.settings.MapInitialOptions
+import com.tripmate.android.feature.map.settings.MapInitialOptions
 import java.lang.Exception
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
