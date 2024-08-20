@@ -34,10 +34,14 @@ include(
     ":core:ui",
 
     ":feature:home",
+    ":feature:login",
     ":feature:main",
-    ":feature:menu",
+    ":feature:mypage",
     ":feature:navigator",
     ":feature:splash",
     ":feature:personalization",
     ":feature:map",
+    ":feature:notification",
+    ":feature:mate",
+    ":feature:writing",
 )

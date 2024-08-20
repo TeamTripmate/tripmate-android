@@ -56,7 +56,8 @@ dependencies {
 
         projects.feature.home,
         projects.feature.main,
-        projects.feature.menu,
+        projects.feature.login,
+        projects.feature.mypage,
         projects.feature.navigator,
         projects.feature.splash,
         projects.feature.personalization,
@@ -66,6 +67,7 @@ dependencies {
         libs.androidx.startup,
         libs.timber,
         libs.kakao.maps,
+        libs.kakao.auth,
     )
 }
 

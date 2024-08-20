@@ -54,6 +54,7 @@ compose-extensions = "1.6.5"
 compose-stable-marker = "1.0.4"
 landscapist = "2.3.3"
 kakao-maps = "2.9.5"
+kakao-core = "2.20.4"
 
 [libraries]
 
@@ -112,6 +113,7 @@ landscapist-bom = { group = "com.github.skydoves", name = "landscapist-bom", ver
 landscapist-coil = { group = "com.github.skydoves", name = "landscapist-coil" }
 landscapist-placeholder = { group = "com.github.skydoves", name = "landscapist-placeholder" }
 kakao-maps = { group = "com.kakao.maps.open", name = "android", version.ref = "kakao-maps" }
+kakao-auth = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao-core" }
 
 [plugins]
 
