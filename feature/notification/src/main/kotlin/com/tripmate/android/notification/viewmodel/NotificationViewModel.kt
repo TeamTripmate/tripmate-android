@@ -2,9 +2,12 @@ package com.tripmate.android.notification.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tripmate.android.core.common.ErrorHandlerActions
 import com.tripmate.android.core.common.handleException
+import com.tripmate.android.domain.entity.NotificationEntity
 import com.tripmate.android.domain.repository.NotificationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -15,10 +18,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.tripmate.android.core.common.ErrorHandlerActions
-import com.tripmate.android.domain.entity.NotificationEntity
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableMap
 
 @HiltViewModel
 class NotificationViewModel @Inject constructor(

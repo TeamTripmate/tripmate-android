@@ -134,7 +134,6 @@ val XSmall12_SemiBold = TextStyle(
     lineHeight = 18.sp,
 ).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
 
-
 val XSmall12_Reg = TextStyle(
     fontFamily = pretendardFamily,
     fontWeight = FontWeight.Normal,
@@ -142,7 +141,6 @@ val XSmall12_Reg = TextStyle(
     letterSpacing = 0.sp,
     lineHeight = 18.sp,
 ).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
-
 
 val XSmall12_Light = TextStyle(
     fontFamily = pretendardFamily,
@@ -152,7 +150,6 @@ val XSmall12_Light = TextStyle(
     lineHeight = 18.sp,
 ).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
 
-
 val XSmall12_Mid = TextStyle(
     fontFamily = pretendardFamily,
     fontWeight = FontWeight.Medium,
@@ -160,4 +157,3 @@ val XSmall12_Mid = TextStyle(
     letterSpacing = 0.sp,
     lineHeight = 18.sp,
 ).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
-
