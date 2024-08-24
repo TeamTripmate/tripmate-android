@@ -29,7 +29,8 @@ val Gray005 = Color(0xFF83878B)
 val Gray006 = Color(0xFF989BA0)
 val Gray007 = Color(0xFFA9ADB1)
 val Gray008 = Color(0xFFC4C7CA)
-val Gray009 = Color(0xFFF5F5F5)
+val Gray009 = Color(0xFFE1E3E5)
+val Gray010 = Color(0xFFF5F5F5)
 
 // Dark mode gray scale
 val Gray001Dark = Color(0xFFE2E2E2)
