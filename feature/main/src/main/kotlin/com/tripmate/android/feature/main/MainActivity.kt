@@ -4,8 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.graphics.Color
+import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import dagger.hilt.android.AndroidEntryPoint
+import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -14,6 +19,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navigator: MainNavController = rememberMainNavController()
+            val systemUiController = rememberExSystemUiController()
+            val isDarkTheme = isSystemInDarkTheme()
+
+            DisposableEffect(systemUiController) {
+                systemUiController.setSystemBarsColor(
+                    color = if (isDarkTheme) Gray001 else Color.White,
+                    darkIcons = !isDarkTheme,
+                    isNavigationBarContrastEnforced = false,
+                )
+
+                onDispose {}
+            }
 
             TripmateTheme {
                 MainScreen(
