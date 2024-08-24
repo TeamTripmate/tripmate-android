@@ -17,6 +17,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.tripmate.android.core.common.ErrorHandlerActions
 import com.tripmate.android.domain.entity.NotificationEntity
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableMap
 
 @HiltViewModel
 class NotificationViewModel @Inject constructor(
@@ -43,8 +45,9 @@ class NotificationViewModel @Inject constructor(
         viewModelScope.launch {
             notificationRepository.getAllNotificationList()
                 .onSuccess { notifications ->
+                    val groupedNotifications = groupNotificationsByDate(notifications)
                     _uiState.update {
-                        it.copy(notificationList = notifications.toImmutableList())
+                        it.copy(notificationList = groupedNotifications)
                     }
                 }
                 .onFailure { exception ->
@@ -53,17 +56,25 @@ class NotificationViewModel @Inject constructor(
         }
     }
 
+    private fun groupNotificationsByDate(notifications: List<NotificationEntity>): ImmutableList<Pair<String, List<NotificationEntity>>> {
+        return notifications
+            .groupBy { it.receivedDate }
+            .toList()
+            .toImmutableList()
+    }
+
     private fun updateNotification(selectedNotification: NotificationEntity) {
         _uiState.update {
             it.copy(
-                notificationList = it.notificationList
-                    .map { notification ->
+                notificationList = it.notificationList.map { (date, notifications) ->
+                    date to notifications.map { notification ->
                         if (notification.id == selectedNotification.id) {
-                            selectedNotification.copy(isRead = true)
+                            notification.copy(isRead = true)
                         } else {
                             notification
                         }
-                    }.toImmutableList(),
+                    }
+                }.toImmutableList(),
             )
         }
     }

@@ -5,7 +5,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 data class NotificationUiState(
-    val notificationList: ImmutableList<NotificationEntity> = persistentListOf(),
+    val notificationList: ImmutableList<Pair<String, List<NotificationEntity>>> = persistentListOf(),
     val isNetworkErrorDialogVisible: Boolean = false,
     val isServerErrorDialogVisible: Boolean = false,
 )
