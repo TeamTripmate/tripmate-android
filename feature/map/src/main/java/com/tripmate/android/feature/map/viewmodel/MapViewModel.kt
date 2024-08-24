@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.map.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import com.tripmate.android.domain.repository.MapRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +27,11 @@ class MapViewModel @Inject constructor(
     val uiEvent: Flow<MapUiEvent> = _uiEvent.receiveAsFlow()
 
 
+//    private val fusedLocationClient: FusedLocationProviderClient =
+//
+//    private val _currentLocation = MutableStateFlow<Location?>(null)
+//    val currentLocation = _currentLocation.asStateFlow()
+
 
     fun onAction(action: MapUiAction) {
         when (action) {
@@ -35,7 +41,10 @@ class MapViewModel @Inject constructor(
     }
 
     private fun setMapCategoryType(categoryType: CategoryType) {
-        _uiState.update { it.copy(categoryType = categoryType) }
+        _uiState.update {
+            it.copy(categoryType = categoryType)
+            it.copy(simpleList = it.getTestList())
+        }
     }
 
     private fun setShowListClicked(isShowing: Boolean) {

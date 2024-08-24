@@ -26,6 +26,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -39,13 +40,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -55,47 +57,46 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.kakao.vectormap.LatLng
-import com.kakao.vectormap.label.LabelOptions
+import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray005
 import com.tripmate.android.core.designsystem.theme.Medium16_Light
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.POISimpleListEntity
 import com.tripmate.android.feature.map.viewmodel.CategoryType
 import com.tripmate.android.feature.map.viewmodel.MapUiAction
+import com.tripmate.android.feature.map.viewmodel.MapUiState
 import com.tripmate.android.feature.map.viewmodel.MapViewModel
 import kotlinx.coroutines.launch
+
+
+@Composable
+fun MapRoute(
+    viewModel: MapViewModel = hiltViewModel(),
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    val context = LocalContext.current
+
+//    InitPermission(context = context, viewModel = viewModel)
+
+    MapScreen(
+        uiState = uiState,
+        onAction = viewModel::onAction,
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MapScreen(
-    modifier: Modifier = Modifier,
-    viewModel: MapViewModel = hiltViewModel(),
+    uiState: MapUiState,
+    onAction: (MapUiAction) -> Unit,
 ) {
 
     val scope = rememberCoroutineScope()
-
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    val listItem = when (uiState.categoryType) {
-        CategoryType.Searaching -> {
-            listOf(
-                POISimpleListEntity("Searching Title 1", "강원도 춘천시", "This is the description for item 1", R.drawable.img_camera_with_flash, lat = 37.517235, lon = 127.047325),
-                POISimpleListEntity("Searching Title 2", "강원도 춘천시", "This is the description for item 2", R.drawable.img_camera_with_flash, lat = 37.5, lon = 127.2),
-                POISimpleListEntity("Searching Title 3", "강원도 춘천시", "This is the description for item 3", R.drawable.img_camera_with_flash, lat = 37.5, lon = 127.3),
-            )
-        }
-
-        else -> {
-            listOf(
-                POISimpleListEntity("Title 1", "강원도 춘천시", "This is the description for item 1", R.drawable.img_camera_with_flash, lat = 37.5, lon = 127.0),
-                POISimpleListEntity("Title 2", "강원도 춘천시", "This is the description for item 2", R.drawable.img_camera_with_flash, lat = 37.6, lon = 127.0),
-                POISimpleListEntity("Title 3", "강원도 춘천시", "This is the description for item 3", R.drawable.img_camera_with_flash, lat = 37.7, lon = 127.0),
-            )
-        }
-    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -119,15 +120,14 @@ fun MapScreen(
                     ),
                 )
             },
-
-            ) { paddingValues ->
+        ) { paddingValues ->
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
             ) {
                 if (uiState.isShowingList) {
-                    ShowPoiListView(listItem, viewModel)
+                    ShowPoiListView(uiState.simpleList, onAction)
                 } else {
                     Column(
                         modifier = Modifier
@@ -146,15 +146,16 @@ fun MapScreen(
                         val categoryList = CategoryType.values()
                         items(categoryList) { item ->
                             CategoryItemView(item) {
-                                viewModel.onAction(MapUiAction.OnMapCategorySelected(item))
+                                onAction(MapUiAction.OnMapCategorySelected(item))
                             }
+
                         }
                     }
                 }
             }
         }
 
-        if (uiState.isShowingList.not()) {
+        if (!uiState.isShowingList) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -166,13 +167,15 @@ fun MapScreen(
                         .padding(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    CurrentButton()
+                    CurrentButton() {
+
+                    }
 
                     MenuButton {
-                        viewModel.onAction(MapUiAction.OnShowListClicked(true))
+                        onAction(MapUiAction.OnShowListClicked(true))
                     }
                 }
-                ViewPagerScreen(modifier, listItem = listItem)
+                ViewPagerScreen(listItem = uiState.simpleList)
             }
         }
     }
@@ -180,16 +183,14 @@ fun MapScreen(
 
 
 @Composable
-fun CurrentButton() {
-    Box(modifier = Modifier.size(44.dp)) {
-        Image(
-            painter = painterResource(id = R.drawable.img_current_location_background),
-            contentDescription = "current button background",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(RoundedCornerShape(8.dp)),
-        )
+fun CurrentButton(onAction: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .size(44.dp)
+            .background(color = Color.White, shape = CircleShape)
+            .clickable {
+                onAction()
+            }) {
 
         Image(
             painter = painterResource(id = R.drawable.img_current_location),
@@ -249,7 +250,7 @@ fun MenuButton(onAction: () -> Unit) {
 @Composable
 fun ShowPoiListView(
     listItem: List<POISimpleListEntity>,
-    viewModel: MapViewModel,
+    onAction: (MapUiAction) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -268,7 +269,7 @@ fun ShowPoiListView(
             val categoryList = CategoryType.values()
             items(categoryList) { item ->
                 CategoryItemView(item) {
-                    viewModel.onAction(MapUiAction.OnMapCategorySelected(item))
+                    onAction(MapUiAction.OnMapCategorySelected(item))
                 }
             }
         }
@@ -403,7 +404,6 @@ fun CategoryItemView(categoryType: CategoryType, onItemClick: (CategoryType) -> 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ViewPagerScreen(
-    modifier: Modifier,
     listItem: List<POISimpleListEntity>,
 ) {
 
@@ -412,7 +412,7 @@ fun ViewPagerScreen(
     }
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth(),
     ) {
         CustomViewPager(pagerState = pagerState, listItem) {
@@ -499,5 +499,31 @@ fun GetPoiCardView(item: POISimpleListEntity) {
                 overflow = TextOverflow.Ellipsis,
             )
         }
+    }
+}
+
+
+
+
+@DevicePreview
+@Composable
+fun MapScreenPreview() {
+    TripmateTheme {
+        MapScreen(
+            uiState = MapUiState(),
+            onAction = { }
+        )
+    }
+}
+
+@ComponentPreview
+@Composable
+fun GetPoiCardViewPreview() {
+    TripmateTheme {
+        GetPoiCardView(
+            item = POISimpleListEntity(
+                "Title 1", "강원도 춘천시", "This is the description for item 1", R.drawable.img_camera_with_flash, lat = 37.5, lon = 127.0,
+            )
+        )
     }
 }
