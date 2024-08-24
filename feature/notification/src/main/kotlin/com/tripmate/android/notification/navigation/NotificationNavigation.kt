@@ -15,11 +15,12 @@ fun NavController.navigateToNotification(navOptions: NavOptions) {
 
 fun NavGraphBuilder.notificationNavGraph(
     padding: PaddingValues,
-//    popBackStack: () -> Unit
+    popBackStack: () -> Unit
 ) {
     composable(route = NOTIFICATION_ROUTE) {
         NotificationRoute(
             innerPadding = padding,
+            popBackStack = popBackStack,
         )
     }
 }

@@ -86,7 +86,7 @@ internal fun MainScreen(
             )
             notificationNavGraph(
                 padding = innerPadding,
-//                popBackStack = navigator::popBackStackIfNotHome,
+                popBackStack = navigator::popBackStackIfNotHome,
             )
             myPageNavGraph(
                 padding = innerPadding,
