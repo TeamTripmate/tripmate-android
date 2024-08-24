@@ -25,6 +25,7 @@ import com.tripmate.android.core.designsystem.component.NetworkErrorDialog
 import com.tripmate.android.core.designsystem.component.ServerErrorDialog
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
+import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.NotificationEntity
@@ -60,7 +61,7 @@ fun NotificationScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(Background02)
             .padding(innerPadding),
     ) {
         Column {
