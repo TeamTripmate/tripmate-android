@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.map.viewmodel
 
+import android.location.Location
 import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.domain.entity.POISimpleListEntity
 
@@ -7,7 +8,7 @@ import com.tripmate.android.domain.entity.POISimpleListEntity
 data class MapUiState(
     val categoryType: CategoryType = CategoryType.Searaching,
     val isShowingList: Boolean = false,
-    val simpleList: List<POISimpleListEntity> = emptyList()
+    val simpleList: List<POISimpleListEntity> = emptyList(),
 ) {
     fun getTestList (): List<POISimpleListEntity> {
         // Todo 서버 작업 완료 후 제거

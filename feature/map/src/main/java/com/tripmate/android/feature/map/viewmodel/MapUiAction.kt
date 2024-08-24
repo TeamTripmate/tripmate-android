@@ -5,6 +5,7 @@ import com.tripmate.android.core.designsystem.R
 sealed interface MapUiAction {
     data class OnMapCategorySelected(val categoryType: CategoryType) : MapUiAction
     data class OnShowListClicked(val isShowing: Boolean) : MapUiAction
+    data object OnCurrentLocationClicked : MapUiAction
 }
 
 enum class CategoryType(val title: Int, val iconResource: Int?) {

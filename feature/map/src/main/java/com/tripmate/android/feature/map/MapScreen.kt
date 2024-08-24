@@ -1,5 +1,7 @@
 package com.tripmate.android.feature.map
 
+import android.Manifest
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -40,6 +42,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -57,6 +60,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.kakao.vectormap.LatLng
+import com.tripmate.android.core.common.ObserveAsEvents
+import com.tripmate.android.core.common.extension.hasLocationPermission
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.theme.Background02
@@ -66,8 +74,13 @@ import com.tripmate.android.core.designsystem.theme.Medium16_Light
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.POISimpleListEntity
+import com.tripmate.android.feature.map.extension.cameraPosition
+import com.tripmate.android.feature.map.state.CameraPositionDefaults
+import com.tripmate.android.feature.map.state.CameraPositionState
+import com.tripmate.android.feature.map.state.rememberCameraPositionState
 import com.tripmate.android.feature.map.viewmodel.CategoryType
 import com.tripmate.android.feature.map.viewmodel.MapUiAction
+import com.tripmate.android.feature.map.viewmodel.MapUiEvent
 import com.tripmate.android.feature.map.viewmodel.MapUiState
 import com.tripmate.android.feature.map.viewmodel.MapViewModel
 import kotlinx.coroutines.launch
@@ -81,11 +94,35 @@ fun MapRoute(
 
     val context = LocalContext.current
 
-//    InitPermission(context = context, viewModel = viewModel)
+    InitPermission(context = context, viewModel = viewModel)
+
+    val cameraPositionState = rememberCameraPositionState()
+
+    ObserveAsEvents(flow = viewModel.uiEvent) { event ->
+        when (event) {
+            is MapUiEvent.ClickCurrentLocation -> {
+                val cameraPosition = viewModel.currentLocation.value?.let {
+                    cameraPosition {
+                        setPosition(
+                            LatLng.from(
+                                it.latitude,
+                                it.longitude,
+                            ),
+                        )
+                        setZoomLevel(16)
+                    }
+                }?: run {
+                    CameraPositionDefaults.DefaultCameraPosition
+                }
+                cameraPositionState.position = cameraPosition
+            }
+        }
+    }
 
     MapScreen(
         uiState = uiState,
         onAction = viewModel::onAction,
+        cameraPositionState = cameraPositionState
     )
 }
 
@@ -94,6 +131,7 @@ fun MapRoute(
 fun MapScreen(
     uiState: MapUiState,
     onAction: (MapUiAction) -> Unit,
+    cameraPositionState: CameraPositionState,
 ) {
 
     val scope = rememberCoroutineScope()
@@ -135,6 +173,7 @@ fun MapScreen(
                     ) {
                         MapSection(
                             modifier = Modifier.fillMaxSize(),
+                            cameraPositionState = cameraPositionState
                         )
                     }
 
@@ -168,7 +207,7 @@ fun MapScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     CurrentButton() {
-
+                        onAction(MapUiAction.OnCurrentLocationClicked)
                     }
 
                     MenuButton {
@@ -503,6 +542,36 @@ fun GetPoiCardView(item: POISimpleListEntity) {
 }
 
 
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun InitPermission(
+    context: Context,
+    viewModel: MapViewModel
+) {
+    val permissionState = rememberMultiplePermissionsState(
+        permissions = listOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+    )
+
+    LaunchedEffect(!context.hasLocationPermission()) {
+        permissionState.launchMultiplePermissionRequest()
+    }
+
+    when {
+        permissionState.allPermissionsGranted -> {
+            viewModel.fetchCurrentLocation()
+        }
+
+        permissionState.shouldShowRationale -> {
+        }
+
+        !permissionState.allPermissionsGranted && !permissionState.shouldShowRationale -> {
+        }
+    }
+}
+
 
 
 @DevicePreview
@@ -511,7 +580,8 @@ fun MapScreenPreview() {
     TripmateTheme {
         MapScreen(
             uiState = MapUiState(),
-            onAction = { }
+            onAction = { },
+            cameraPositionState = CameraPositionState()
         )
     }
 }

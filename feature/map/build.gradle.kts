@@ -22,4 +22,6 @@ dependencies {
     implementation(libs.compose.system.ui.controller)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.android.play.services.location)
+    implementation(libs.accompanist.permissions)
 }

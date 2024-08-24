@@ -8,11 +8,13 @@ import androidx.compose.ui.unit.dp
 import com.tripmate.android.feature.map.settings.MapDirection
 import com.tripmate.android.feature.map.settings.MapViewSettings
 import com.tripmate.android.feature.map.settings.MapWidgetPosition
+import com.tripmate.android.feature.map.state.CameraPositionState
 
 @Composable
 fun MapSection(
     modifier: Modifier = Modifier,
     toggleBars: () -> Unit = {},
+    cameraPositionState: CameraPositionState,
 ) {
     val density = LocalDensity.current
 
@@ -31,5 +33,6 @@ fun MapSection(
         onMapClick = { _ ->
             toggleBars()
         },
+        cameraPositionState = cameraPositionState
     )
 }
