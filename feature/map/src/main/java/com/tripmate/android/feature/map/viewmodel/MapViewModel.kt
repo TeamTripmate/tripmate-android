@@ -7,7 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.kakao.vectormap.LatLng
 import com.tripmate.android.domain.repository.MapRepository
+import com.tripmate.android.feature.map.extension.cameraPosition
+import com.tripmate.android.feature.map.state.CameraPositionDefaults
+import com.tripmate.android.feature.map.state.CameraPositionState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -32,27 +36,25 @@ class MapViewModel @Inject constructor(
     private val _uiEvent = Channel<MapUiEvent>()
     val uiEvent: Flow<MapUiEvent> = _uiEvent.receiveAsFlow()
 
-
     private val fusedLocationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(application)
 
-
     private val _currentLocation = MutableStateFlow<Location?>(null)
-    val currentLocation = _currentLocation.asStateFlow()
-
+    private val currentLocation = _currentLocation.asStateFlow()
 
     fun onAction(action: MapUiAction) {
         when (action) {
             is MapUiAction.OnMapCategorySelected -> setMapCategoryType(action.categoryType)
             is MapUiAction.OnShowListClicked -> setShowListClicked(action.isShowing)
             is MapUiAction.OnCurrentLocationClicked -> setCurrentLocation()
+            is MapUiAction.OnSearchingListClicked -> setSearchingList(action.isShowing)
         }
     }
 
     private fun setMapCategoryType(categoryType: CategoryType) {
         _uiState.update {
             it.copy(categoryType = categoryType)
-            it.copy(simpleList = it.getTestList())
+            it.copy(simpleList = it.getTestList(categoryType))
         }
     }
 
@@ -63,6 +65,13 @@ class MapViewModel @Inject constructor(
     private fun setCurrentLocation() {
         viewModelScope.launch {
             _uiEvent.send(MapUiEvent.ClickCurrentLocation)
+        }
+    }
+
+    private fun setSearchingList(isShowing: Boolean) {
+        _uiState.update {
+            it.copy(
+                simpleList = if (isShowing) it.simpleList.filter { it.isSearching } else it.simpleList)
         }
     }
 
@@ -77,5 +86,22 @@ class MapViewModel @Inject constructor(
                 e.printStackTrace()
             }
         }
+    }
+
+    fun moveCurrentLocation(cameraPositionState: CameraPositionState) {
+        val cameraPosition = currentLocation.value?.let {
+            cameraPosition {
+                setPosition(
+                    LatLng.from(
+                        it.latitude,
+                        it.longitude,
+                    ),
+                )
+                setZoomLevel(16)
+            }
+        }?: run {
+            CameraPositionDefaults.DefaultCameraPosition
+        }
+        cameraPositionState.position = cameraPosition
     }
 }

@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -44,7 +45,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,7 +65,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.kakao.vectormap.LatLng
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.common.extension.hasLocationPermission
 import com.tripmate.android.core.designsystem.ComponentPreview
@@ -74,8 +76,6 @@ import com.tripmate.android.core.designsystem.theme.Medium16_Light
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.POISimpleListEntity
-import com.tripmate.android.feature.map.extension.cameraPosition
-import com.tripmate.android.feature.map.state.CameraPositionDefaults
 import com.tripmate.android.feature.map.state.CameraPositionState
 import com.tripmate.android.feature.map.state.rememberCameraPositionState
 import com.tripmate.android.feature.map.viewmodel.CategoryType
@@ -83,7 +83,6 @@ import com.tripmate.android.feature.map.viewmodel.MapUiAction
 import com.tripmate.android.feature.map.viewmodel.MapUiEvent
 import com.tripmate.android.feature.map.viewmodel.MapUiState
 import com.tripmate.android.feature.map.viewmodel.MapViewModel
-import kotlinx.coroutines.launch
 
 
 @Composable
@@ -94,27 +93,14 @@ fun MapRoute(
 
     val context = LocalContext.current
 
-    InitPermission(context = context, viewModel = viewModel)
-
     val cameraPositionState = rememberCameraPositionState()
+
+    InitPermission(context = context, viewModel = viewModel)
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is MapUiEvent.ClickCurrentLocation -> {
-                val cameraPosition = viewModel.currentLocation.value?.let {
-                    cameraPosition {
-                        setPosition(
-                            LatLng.from(
-                                it.latitude,
-                                it.longitude,
-                            ),
-                        )
-                        setZoomLevel(16)
-                    }
-                }?: run {
-                    CameraPositionDefaults.DefaultCameraPosition
-                }
-                cameraPositionState.position = cameraPosition
+                viewModel.moveCurrentLocation(cameraPositionState)
             }
         }
     }
@@ -122,7 +108,7 @@ fun MapRoute(
     MapScreen(
         uiState = uiState,
         onAction = viewModel::onAction,
-        cameraPositionState = cameraPositionState
+        cameraPositionState = cameraPositionState,
     )
 }
 
@@ -134,7 +120,6 @@ fun MapScreen(
     cameraPositionState: CameraPositionState,
 ) {
 
-    val scope = rememberCoroutineScope()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -143,9 +128,7 @@ fun MapScreen(
                     title = { Text("내 근처 여행") },
                     navigationIcon = {
                         IconButton(
-                            onClick = {
-                                scope.launch { }
-                            },
+                            onClick = { },
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Menu,
@@ -164,57 +147,76 @@ fun MapScreen(
                     .fillMaxSize()
                     .padding(paddingValues),
             ) {
-                if (uiState.isShowingList) {
-                    ShowPoiListView(uiState.simpleList, onAction)
-                } else {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                    ) {
-                        MapSection(
-                            modifier = Modifier.fillMaxSize(),
-                            cameraPositionState = cameraPositionState
-                        )
-                    }
+                MapSection(
+                    modifier = Modifier.fillMaxSize(),
+                    cameraPositionState = cameraPositionState,
+                )
 
-                    LazyRow(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentPadding = PaddingValues(12.dp),
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    ) {
-                        val categoryList = CategoryType.values()
-                        items(categoryList) { item ->
-                            CategoryItemView(item) {
-                                onAction(MapUiAction.OnMapCategorySelected(item))
-                            }
-
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentPadding = PaddingValues(12.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    val categoryList = CategoryType.values()
+                    items(categoryList) { item ->
+                        CategoryItemView(item) {
+                            onAction(MapUiAction.OnMapCategorySelected(item))
                         }
+
                     }
                 }
+
+            }
+
+            if (uiState.isShowingList) {
+                ShowPoiListView(
+                    uiState.simpleList,
+                    onAction,
+                    paddingValues,
+                )
             }
         }
 
         if (!uiState.isShowingList) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter),
-            ) {
-                Row(
+            if (uiState.simpleList.isNotEmpty()) {
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                        .align(Alignment.BottomCenter),
                 ) {
-                    CurrentButton() {
-                        onAction(MapUiAction.OnCurrentLocationClicked)
-                    }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                    ) {
+                        CurrentButton() {
+                            onAction(MapUiAction.OnCurrentLocationClicked)
+                        }
 
-                    MenuButton {
-                        onAction(MapUiAction.OnShowListClicked(true))
+                        ShowListButton {
+                            onAction(MapUiAction.OnShowListClicked(true))
+                        }
+                    }
+                    ViewPagerScreen(listItem = uiState.simpleList)
+                }
+            } else {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter),
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.Start,
+                    ) {
+                        CurrentButton() {
+                            onAction(MapUiAction.OnCurrentLocationClicked)
+                        }
                     }
                 }
-                ViewPagerScreen(listItem = uiState.simpleList)
             }
         }
     }
@@ -229,7 +231,8 @@ fun CurrentButton(onAction: () -> Unit) {
             .background(color = Color.White, shape = CircleShape)
             .clickable {
                 onAction()
-            }) {
+            },
+    ) {
 
         Image(
             painter = painterResource(id = R.drawable.img_current_location),
@@ -245,12 +248,12 @@ fun CurrentButton(onAction: () -> Unit) {
 
 
 @Composable
-fun MenuButton(onAction: () -> Unit) {
+fun ShowListButton(onAction: () -> Unit) {
     Card(
         shape = RoundedCornerShape(50.dp),
         modifier = Modifier
-            .height(44.dp)
-            .width(110.dp)
+            .wrapContentHeight()
+            .wrapContentWidth()
             .clickable {
                 onAction()
             },
@@ -259,7 +262,7 @@ fun MenuButton(onAction: () -> Unit) {
     ) {
         Row(
             modifier = Modifier
-                .fillMaxSize()
+                .wrapContentHeight()
                 .padding(10.dp),
         ) {
             Image(
@@ -290,39 +293,98 @@ fun MenuButton(onAction: () -> Unit) {
 fun ShowPoiListView(
     listItem: List<POISimpleListEntity>,
     onAction: (MapUiAction) -> Unit,
+    paddingValues: PaddingValues,
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Background02),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        LazyRow(
-            modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .padding(paddingValues)) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = Background02),
         ) {
-            val categoryList = CategoryType.values()
-            items(categoryList) { item ->
-                CategoryItemView(item) {
-                    onAction(MapUiAction.OnMapCategorySelected(item))
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                contentPadding = PaddingValues(horizontal = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                val categoryList = CategoryType.values()
+                items(categoryList) { item ->
+                    CategoryItemView(item) {
+                        onAction(MapUiAction.OnMapCategorySelected(item))
+                    }
+                }
+            }
+
+            MateSearchingCheckBox(){
+                onAction(MapUiAction.OnSearchingListClicked(it))
+            }
+
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                items(listItem) { item ->
+                    ListItemView(item) {
+                    }
                 }
             }
         }
 
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ShowMapButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp),
         ) {
-            items(listItem) { item ->
-                ListItemView(item) {
+            onAction(MapUiAction.OnShowListClicked(false))
+        }
+    }
 
-                }
-            }
+}
+
+@Composable
+fun ShowMapButton(
+    modifier: Modifier,
+    onAction: () -> Unit,
+) {
+    Card(
+        shape = RoundedCornerShape(50.dp),
+        modifier = modifier
+            .wrapContentHeight()
+            .wrapContentWidth()
+            .clickable {
+                onAction()
+            },
+        colors = CardDefaults.cardColors(containerColor = Background02),
+        elevation = CardDefaults.cardElevation(4.dp),
+    ) {
+        Row(
+            modifier = Modifier
+                .wrapContentWidth()
+                .align(Alignment.CenterHorizontally)
+                .padding(10.dp),
+        ) {
+            Image(
+                modifier = Modifier
+                    .wrapContentSize(),
+                painter = painterResource(id = R.drawable.img_show_map),
+                contentDescription = "show map button",
+                contentScale = ContentScale.Crop,
+            )
+
+            Spacer(modifier = Modifier.width(4.dp))
+
+            Text(
+                modifier = Modifier
+                    .wrapContentSize(),
+                text = stringResource(id = R.string.show_map),
+                style = Medium16_Light,
+                color = Gray001,
+                textAlign = TextAlign.Center,
+            )
         }
     }
 }
@@ -546,13 +608,13 @@ fun GetPoiCardView(item: POISimpleListEntity) {
 @Composable
 fun InitPermission(
     context: Context,
-    viewModel: MapViewModel
+    viewModel: MapViewModel,
 ) {
     val permissionState = rememberMultiplePermissionsState(
         permissions = listOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        )
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+        ),
     )
 
     LaunchedEffect(!context.hasLocationPermission()) {
@@ -573,6 +635,50 @@ fun InitPermission(
 }
 
 
+@Composable
+fun CustomCheckbox(
+    isChecked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    val imageRes = if (isChecked) {
+        R.drawable.img_radio_checked
+    } else {
+        R.drawable.img_radio_unchecked
+    }
+
+    Image(
+        painter = painterResource(id = imageRes),
+        contentDescription = null,
+        modifier = Modifier
+            .size(18.dp)
+            .clickable { onCheckedChange(!isChecked) }
+    )
+}
+
+@Composable
+fun MateSearchingCheckBox(onAction: (Boolean) -> Unit) {
+    var isChecked by remember { mutableStateOf(false) }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        CustomCheckbox(
+            isChecked = isChecked,
+            onCheckedChange = {
+                isChecked = it
+                onAction(it)
+            }
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Text(text = stringResource(id = R.string.see_mate_searching))
+    }
+}
+
 
 @DevicePreview
 @Composable
@@ -581,7 +687,7 @@ fun MapScreenPreview() {
         MapScreen(
             uiState = MapUiState(),
             onAction = { },
-            cameraPositionState = CameraPositionState()
+            cameraPositionState = CameraPositionState(),
         )
     }
 }
@@ -593,7 +699,7 @@ fun GetPoiCardViewPreview() {
         GetPoiCardView(
             item = POISimpleListEntity(
                 "Title 1", "강원도 춘천시", "This is the description for item 1", R.drawable.img_camera_with_flash, lat = 37.5, lon = 127.0,
-            )
+            ),
         )
     }
 }
