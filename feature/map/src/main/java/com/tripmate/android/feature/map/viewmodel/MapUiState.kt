@@ -1,6 +1,5 @@
 package com.tripmate.android.feature.map.viewmodel
 
-import android.location.Location
 import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.domain.entity.POISimpleListEntity
 

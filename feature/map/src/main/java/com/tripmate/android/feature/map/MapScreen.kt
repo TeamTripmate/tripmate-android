@@ -157,7 +157,7 @@ fun MapScreen(
                     contentPadding = PaddingValues(12.dp),
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
-                    val categoryList = CategoryType.values()
+                    val categoryList = CategoryType.entries.toTypedArray()
                     items(categoryList) { item ->
                         CategoryItemView(item) {
                             onAction(MapUiAction.OnMapCategorySelected(item))
@@ -310,7 +310,7 @@ fun ShowPoiListView(
                 contentPadding = PaddingValues(horizontal = 12.dp),
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
             ) {
-                val categoryList = CategoryType.values()
+                val categoryList = CategoryType.entries.toTypedArray()
                 items(categoryList) { item ->
                     CategoryItemView(item) {
                         onAction(MapUiAction.OnMapCategorySelected(item))
@@ -516,16 +516,14 @@ fun ViewPagerScreen(
         modifier = Modifier
             .fillMaxWidth(),
     ) {
-        CustomViewPager(pagerState = pagerState, listItem) {
-
-        }
+        CustomViewPager(pagerState = pagerState, listItem)
     }
 
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CustomViewPager(pagerState: PagerState, listItem: List<POISimpleListEntity>, onItemClick: (POISimpleListEntity) -> Unit) {
+fun CustomViewPager(pagerState: PagerState, listItem: List<POISimpleListEntity>) {
     HorizontalPager(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,

@@ -53,8 +53,10 @@ class MapViewModel @Inject constructor(
 
     private fun setMapCategoryType(categoryType: CategoryType) {
         _uiState.update {
-            it.copy(categoryType = categoryType)
-            it.copy(simpleList = it.getTestList(categoryType))
+            it.copy(
+                categoryType = categoryType,
+                simpleList = it.getTestList(categoryType),
+            )
         }
     }
 
