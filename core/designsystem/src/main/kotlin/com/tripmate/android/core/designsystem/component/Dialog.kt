@@ -35,7 +35,7 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TripMateDialog(
+fun TripmateDialog(
     onDismissRequest: () -> Unit,
     @StringRes titleResId: Int,
     iconResId: Int?,
@@ -128,11 +128,49 @@ fun TripMateDialog(
     }
 }
 
+@Composable
+fun ServerErrorDialog(
+    onRetryClick: () -> Unit,
+) {
+    TripmateTheme {
+        TripmateDialog(
+            onDismissRequest = {},
+            titleResId = R.string.server_error_title,
+            iconResId = R.drawable.ic_caution,
+            iconDescription = "Caution Icon",
+            descriptionResId = R.string.server_error_description,
+            confirmTextResId = R.string.retry,
+            cancelTextResId = null,
+            onCancelClick = {},
+            onConfirmClick = onRetryClick,
+        )
+    }
+}
+
+@Composable
+fun NetworkErrorDialog(
+    onRetryClick: () -> Unit,
+) {
+    TripmateTheme {
+        TripmateDialog(
+            onDismissRequest = {},
+            titleResId = R.string.network_error_title,
+            iconResId = R.drawable.ic_network,
+            iconDescription = "Network Error Icon",
+            descriptionResId = R.string.network_error_description,
+            confirmTextResId = R.string.retry,
+            cancelTextResId = null,
+            onCancelClick = {},
+            onConfirmClick = onRetryClick,
+        )
+    }
+}
+
 @ComponentPreview
 @Composable
 fun TripMateDialogPreview() {
     TripmateTheme {
-        TripMateDialog(
+        TripmateDialog(
             onDismissRequest = {},
             titleResId = R.string.under_age_title,
             iconResId = null,
