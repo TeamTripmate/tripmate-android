@@ -18,6 +18,7 @@ import com.kakao.vectormap.label.LabelStyle
 import com.kakao.vectormap.label.LabelTransition
 import com.kakao.vectormap.label.TransformMethod
 import com.kakao.vectormap.label.Transition
+import com.tripmate.android.feature.map.annotation.KakaoMapComposable
 import com.tripmate.android.feature.map.extension.getMap
 import com.tripmate.android.feature.map.extension.startTrackingCompat
 import com.tripmate.android.feature.map.extension.stopTrackingCompat
@@ -26,19 +27,16 @@ import com.tripmate.android.feature.map.internal.node.LabelNode
 import com.tripmate.android.feature.map.internal.renderComposeViewOnce
 import com.tripmate.android.feature.map.internal.toNativeBitmap
 import com.tripmate.android.feature.map.state.LocalCameraPositionState
-import com.tripmate.android.feature.map.annotation.KakaoMapComposable
 import java.util.UUID
-
 /**
  * Label 의 설정 값에 대한 Default Value Provider
  */
-public object LabelDefaults {
-    public const val MinZoom: Int = 0
-    public const val MoveDuration: Int = 300
-
-    public val MapLabelTransition: LabelTransition = LabelTransition.from(Transition.Alpha, Transition.Alpha)
-    public val Transform: TransformMethod = TransformMethod.Default
-    public val Anchor: Offset = Offset(0.5f, 0.5f)
+object LabelDefaults {
+    const val MinZoom: Int = 0
+    const val MoveDuration: Int = 300
+    val MapLabelTransition: LabelTransition = LabelTransition.from(Transition.Alpha, Transition.Alpha)
+    val Transform: TransformMethod = TransformMethod.Default
+    val Anchor: Offset = Offset(0.5f, 0.5f)
 }
 
 /**
@@ -77,7 +75,7 @@ public object LabelDefaults {
  */
 @KakaoMapComposable
 @Composable
-public fun Label(
+fun Label(
     position: LatLng,
     @DrawableRes iconResId: Int? = null,
     anchor: Offset = LabelDefaults.Anchor,
@@ -95,9 +93,11 @@ public fun Label(
     isApplyDpScale: Boolean = true,
     isTracking: Boolean = false,
     minZoom: Int = LabelDefaults.MinZoom,
-    children:
-    @KakaoMapComposable @Composable
-    () -> Unit = {},
+    children: (
+    @Composable
+    @KakaoMapComposable
+    () -> Unit
+    ) = {},
 ) {
     LabelImpl(
         position = position,
@@ -157,7 +157,7 @@ public fun Label(
  */
 @KakaoMapComposable
 @Composable
-public fun Label(
+fun Label(
     position: LatLng,
     bitmap: Bitmap? = null,
     anchor: Offset = LabelDefaults.Anchor,
@@ -176,7 +176,8 @@ public fun Label(
     isTracking: Boolean = false,
     minZoom: Int = LabelDefaults.MinZoom,
     children:
-    @KakaoMapComposable @Composable
+    @KakaoMapComposable
+    @Composable
     () -> Unit = {},
 ) {
     LabelImpl(
@@ -239,7 +240,7 @@ public fun Label(
  */
 @KakaoMapComposable
 @Composable
-public fun Label(
+fun Label(
     position: LatLng,
     icon: @Composable () -> Unit,
     iconId: String = remember { UUID.randomUUID().toString() },
@@ -259,7 +260,8 @@ public fun Label(
     isTracking: Boolean = false,
     minZoom: Int = LabelDefaults.MinZoom,
     children:
-    @KakaoMapComposable @Composable
+    @KakaoMapComposable
+    @Composable
     () -> Unit = {},
 ) {
     LabelImpl(
@@ -315,7 +317,8 @@ private fun LabelImpl(
     isTracking: Boolean = false,
     minZoom: Int = LabelDefaults.MinZoom,
     children:
-    @KakaoMapComposable @Composable
+    @KakaoMapComposable
+    @Composable
     () -> Unit = {},
 ) {
     val applier = checkNotNull(currentComposer.applier as? MapApplier)
@@ -335,6 +338,7 @@ private fun LabelImpl(
                 mapView.renderComposeViewOnce(view, parentContext = compositionContext)
                 LabelStyle.from(view.toNativeBitmap())
             }
+
             else -> error("Error while adding Label!")
         }
         impl.apply {

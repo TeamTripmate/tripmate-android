@@ -23,6 +23,7 @@ import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapView
 import com.kakao.vectormap.MapViewInfo
 import com.kakao.vectormap.camera.CameraPosition
+import com.tripmate.android.feature.map.annotation.KakaoMapComposable
 import com.tripmate.android.feature.map.extension.NoPadding
 import com.tripmate.android.feature.map.extension.disposingComposition
 import com.tripmate.android.feature.map.extension.newComposition
@@ -30,15 +31,14 @@ import com.tripmate.android.feature.map.internal.MapEventListeners
 import com.tripmate.android.feature.map.internal.MapLifecycleCallbacks
 import com.tripmate.android.feature.map.internal.MapUpdater
 import com.tripmate.android.feature.map.settings.DefaultMapGestureSettings
+import com.tripmate.android.feature.map.settings.DefaultMapInitialOptions
 import com.tripmate.android.feature.map.settings.DefaultMapViewSettings
 import com.tripmate.android.feature.map.settings.MapGestureSettings
+import com.tripmate.android.feature.map.settings.MapInitialOptions
 import com.tripmate.android.feature.map.settings.MapViewSettings
 import com.tripmate.android.feature.map.state.CameraPositionState
 import com.tripmate.android.feature.map.state.LocalCameraPositionState
 import com.tripmate.android.feature.map.state.rememberCameraPositionState
-import com.tripmate.android.feature.map.annotation.KakaoMapComposable
-import com.tripmate.android.feature.map.settings.DefaultMapInitialOptions
-import com.tripmate.android.feature.map.settings.MapInitialOptions
 
 /**
  * [com.kakao.vectormap.KakaoMap] 을 제공하는 컴포저블
@@ -49,7 +49,7 @@ import com.tripmate.android.feature.map.settings.MapInitialOptions
  * @param content 다양한 컴포저블을 이용해 지도 뷰를 풍부하게 사용할 수 있음.
  */
 @Composable
-public fun KakaoMap(
+fun KakaoMap(
     modifier: Modifier = Modifier,
     mapInitialOptions: MapInitialOptions = DefaultMapInitialOptions,
     cameraPositionState: CameraPositionState = rememberCameraPositionState(),
@@ -71,7 +71,8 @@ public fun KakaoMap(
     onCameraMoveStart: (GestureType) -> Unit = {},
     onCameraMoveEnd: (CameraPosition, GestureType) -> Unit = { _, _ -> },
     content: (
-        @Composable @KakaoMapComposable
+        @Composable
+        @KakaoMapComposable
         () -> Unit
     )? = null,
 ) {

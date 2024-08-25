@@ -1,14 +1,11 @@
 package com.tripmate.android.feature.map.internal.node
 
 import com.kakao.vectormap.label.Label
-import com.tripmate.android.feature.map.internal.node.MapContainerNode
-import com.tripmate.android.feature.map.internal.node.MapNode
 
 internal open class LabelNode(
     val overlay: Label,
     var onLabelClick: (Label) -> Unit,
 ) : MapContainerNode() {
-
     private var parent: LabelNode? = null
 
     override fun insertAt(index: Int, instance: MapNode) {

@@ -84,15 +84,12 @@ import com.tripmate.android.feature.map.viewmodel.MapUiEvent
 import com.tripmate.android.feature.map.viewmodel.MapUiState
 import com.tripmate.android.feature.map.viewmodel.MapViewModel
 
-
 @Composable
 fun MapRoute(
     viewModel: MapViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
     val context = LocalContext.current
-
     val cameraPositionState = rememberCameraPositionState()
 
     InitPermission(context = context, viewModel = viewModel)
@@ -119,8 +116,6 @@ fun MapScreen(
     onAction: (MapUiAction) -> Unit,
     cameraPositionState: CameraPositionState,
 ) {
-
-
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
             topBar = {
@@ -151,7 +146,6 @@ fun MapScreen(
                     modifier = Modifier.fillMaxSize(),
                     cameraPositionState = cameraPositionState,
                 )
-
                 LazyRow(
                     modifier = Modifier.fillMaxWidth(),
                     contentPadding = PaddingValues(12.dp),
@@ -162,12 +156,9 @@ fun MapScreen(
                         CategoryItemView(item) {
                             onAction(MapUiAction.OnMapCategorySelected(item))
                         }
-
                     }
                 }
-
             }
-
             if (uiState.isShowingList) {
                 ShowPoiListView(
                     uiState.simpleList,
@@ -176,7 +167,6 @@ fun MapScreen(
                 )
             }
         }
-
         if (!uiState.isShowingList) {
             if (uiState.simpleList.isNotEmpty()) {
                 Column(
@@ -190,7 +180,7 @@ fun MapScreen(
                             .padding(horizontal = 16.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
-                        CurrentButton() {
+                        CurrentButton {
                             onAction(MapUiAction.OnCurrentLocationClicked)
                         }
 
@@ -212,7 +202,7 @@ fun MapScreen(
                             .padding(16.dp),
                         horizontalArrangement = Arrangement.Start,
                     ) {
-                        CurrentButton() {
+                        CurrentButton {
                             onAction(MapUiAction.OnCurrentLocationClicked)
                         }
                     }
@@ -221,7 +211,6 @@ fun MapScreen(
         }
     }
 }
-
 
 @Composable
 fun CurrentButton(onAction: () -> Unit) {
@@ -233,7 +222,6 @@ fun CurrentButton(onAction: () -> Unit) {
                 onAction()
             },
     ) {
-
         Image(
             painter = painterResource(id = R.drawable.img_current_location),
             contentDescription = "current button",
@@ -245,7 +233,6 @@ fun CurrentButton(onAction: () -> Unit) {
         )
     }
 }
-
 
 @Composable
 fun ShowListButton(onAction: () -> Unit) {
@@ -266,21 +253,19 @@ fun ShowListButton(onAction: () -> Unit) {
                 .padding(10.dp),
         ) {
             Image(
+                painter = painterResource(id = R.drawable.img_menu),
                 modifier = Modifier
                     .wrapContentSize()
                     .align(Alignment.CenterVertically),
-                painter = painterResource(id = R.drawable.img_menu),
                 contentDescription = "menu button",
                 contentScale = ContentScale.Crop,
             )
-
             Spacer(modifier = Modifier.width(4.dp))
-
             Text(
+                text = stringResource(id = R.string.see_more_list),
                 modifier = Modifier
                     .wrapContentSize()
                     .align(Alignment.CenterVertically),
-                text = stringResource(id = R.string.see_more_list),
                 style = Medium16_Light,
                 color = Gray001,
                 textAlign = TextAlign.Center,
@@ -295,9 +280,11 @@ fun ShowPoiListView(
     onAction: (MapUiAction) -> Unit,
     paddingValues: PaddingValues,
 ) {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .padding(paddingValues)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues),
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -310,30 +297,26 @@ fun ShowPoiListView(
                 contentPadding = PaddingValues(horizontal = 12.dp),
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
             ) {
-                val categoryList = CategoryType.values()
+                val categoryList = CategoryType.entries.toTypedArray()
                 items(categoryList) { item ->
                     CategoryItemView(item) {
                         onAction(MapUiAction.OnMapCategorySelected(item))
                     }
                 }
             }
-
-            MateSearchingCheckBox(){
+            MateSearchingCheckBox {
                 onAction(MapUiAction.OnSearchingListClicked(it))
             }
-
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 items(listItem) { item ->
-                    ListItemView(item) {
-                    }
+                    ListItemView(item) {}
                 }
             }
         }
-
         ShowMapButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
@@ -342,7 +325,6 @@ fun ShowPoiListView(
             onAction(MapUiAction.OnShowListClicked(false))
         }
     }
-
 }
 
 @Composable
@@ -374,12 +356,9 @@ fun ShowMapButton(
                 contentDescription = "show map button",
                 contentScale = ContentScale.Crop,
             )
-
             Spacer(modifier = Modifier.width(4.dp))
-
             Text(
-                modifier = Modifier
-                    .wrapContentSize(),
+                modifier = Modifier.wrapContentSize(),
                 text = stringResource(id = R.string.show_map),
                 style = Medium16_Light,
                 color = Gray001,
@@ -389,9 +368,11 @@ fun ShowMapButton(
     }
 }
 
-
 @Composable
-fun ListItemView(item: POISimpleListEntity, onItemClick: (POISimpleListEntity) -> Unit) {
+fun ListItemView(
+    item: POISimpleListEntity,
+    onItemClick: (POISimpleListEntity) -> Unit,
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -410,7 +391,6 @@ fun ListItemView(item: POISimpleListEntity, onItemClick: (POISimpleListEntity) -
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.Start,
         ) {
-
             Image(
                 painter = painterResource(id = item.imageRes),
                 contentDescription = null,
@@ -420,9 +400,7 @@ fun ListItemView(item: POISimpleListEntity, onItemClick: (POISimpleListEntity) -
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(8.dp)),
             )
-
             Spacer(modifier = Modifier.height(8.dp))
-
             Text(
                 text = item.title,
                 fontSize = 16.sp,
@@ -431,9 +409,7 @@ fun ListItemView(item: POISimpleListEntity, onItemClick: (POISimpleListEntity) -
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-
             Spacer(modifier = Modifier.height(4.dp))
-
             Text(
                 text = item.address,
                 fontSize = 12.sp,
@@ -441,9 +417,7 @@ fun ListItemView(item: POISimpleListEntity, onItemClick: (POISimpleListEntity) -
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
-
             Spacer(modifier = Modifier.height(4.dp))
-
             Text(
                 text = item.description,
                 fontSize = 12.sp,
@@ -451,11 +425,9 @@ fun ListItemView(item: POISimpleListEntity, onItemClick: (POISimpleListEntity) -
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
-
         }
     }
 }
-
 
 @Composable
 fun CategoryItemView(categoryType: CategoryType, onItemClick: (CategoryType) -> Unit) {
@@ -477,7 +449,6 @@ fun CategoryItemView(categoryType: CategoryType, onItemClick: (CategoryType) -> 
                 .align(Alignment.CenterHorizontally)
                 .padding(horizontal = 14.dp, vertical = 6.dp),
         ) {
-
             categoryType.iconResource?.let { iconRes ->
                 Image(
                     painter = painterResource(id = iconRes),
@@ -501,31 +472,29 @@ fun CategoryItemView(categoryType: CategoryType, onItemClick: (CategoryType) -> 
     }
 }
 
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ViewPagerScreen(
     listItem: List<POISimpleListEntity>,
 ) {
-
-    val pagerState = rememberPagerState {
-        listItem.size
-    }
+    val pagerState = rememberPagerState { listItem.size }
 
     Column(
         modifier = Modifier
             .fillMaxWidth(),
     ) {
-        CustomViewPager(pagerState = pagerState, listItem) {
-
-        }
+        CustomViewPager(pagerState = pagerState, listItem) {}
     }
-
 }
 
+@Suppress("UnusedParameter")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CustomViewPager(pagerState: PagerState, listItem: List<POISimpleListEntity>, onItemClick: (POISimpleListEntity) -> Unit) {
+fun CustomViewPager(
+    pagerState: PagerState,
+    listItem: List<POISimpleListEntity>,
+    onItemClick: (POISimpleListEntity) -> Unit,
+) {
     HorizontalPager(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -537,7 +506,6 @@ fun CustomViewPager(pagerState: PagerState, listItem: List<POISimpleListEntity>,
     }
 }
 
-
 @Composable
 fun GetPoiCardView(item: POISimpleListEntity) {
     Card(
@@ -547,9 +515,7 @@ fun GetPoiCardView(item: POISimpleListEntity) {
             .padding(top = 10.dp, bottom = 20.dp, start = 5.dp, end = 5.dp),
         shape = RoundedCornerShape(8.dp),
         border = BorderStroke(1.dp, Gray005),
-        colors = CardDefaults.cardColors(
-            containerColor = Background02,
-        ),
+        colors = CardDefaults.cardColors(containerColor = Background02),
         elevation = CardDefaults.cardElevation(10.dp),
     ) {
         Column(
@@ -558,7 +524,6 @@ fun GetPoiCardView(item: POISimpleListEntity) {
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.Start,
         ) {
-
             Image(
                 painter = painterResource(id = item.imageRes),
                 contentDescription = null,
@@ -568,9 +533,7 @@ fun GetPoiCardView(item: POISimpleListEntity) {
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(8.dp)),
             )
-
             Spacer(modifier = Modifier.height(8.dp))
-
             Text(
                 text = item.title,
                 fontSize = 16.sp,
@@ -579,9 +542,7 @@ fun GetPoiCardView(item: POISimpleListEntity) {
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-
             Spacer(modifier = Modifier.height(4.dp))
-
             Text(
                 text = item.address,
                 fontSize = 12.sp,
@@ -589,9 +550,7 @@ fun GetPoiCardView(item: POISimpleListEntity) {
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
-
             Spacer(modifier = Modifier.height(4.dp))
-
             Text(
                 text = item.description,
                 fontSize = 12.sp,
@@ -602,7 +561,6 @@ fun GetPoiCardView(item: POISimpleListEntity) {
         }
     }
 }
-
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -626,19 +584,16 @@ fun InitPermission(
             viewModel.fetchCurrentLocation()
         }
 
-        permissionState.shouldShowRationale -> {
-        }
+        permissionState.shouldShowRationale -> {}
 
-        !permissionState.allPermissionsGranted && !permissionState.shouldShowRationale -> {
-        }
+        !permissionState.allPermissionsGranted && !permissionState.shouldShowRationale -> {}
     }
 }
-
 
 @Composable
 fun CustomCheckbox(
     isChecked: Boolean,
-    onCheckedChange: (Boolean) -> Unit
+    onCheckedChange: (Boolean) -> Unit,
 ) {
     val imageRes = if (isChecked) {
         R.drawable.img_radio_checked
@@ -651,7 +606,7 @@ fun CustomCheckbox(
         contentDescription = null,
         modifier = Modifier
             .size(18.dp)
-            .clickable { onCheckedChange(!isChecked) }
+            .clickable { onCheckedChange(!isChecked) },
     )
 }
 
@@ -663,22 +618,19 @@ fun MateSearchingCheckBox(onAction: (Boolean) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         CustomCheckbox(
             isChecked = isChecked,
             onCheckedChange = {
                 isChecked = it
                 onAction(it)
-            }
+            },
         )
-
         Spacer(modifier = Modifier.width(8.dp))
-
         Text(text = stringResource(id = R.string.see_mate_searching))
     }
 }
-
 
 @DevicePreview
 @Composable
@@ -698,7 +650,12 @@ fun GetPoiCardViewPreview() {
     TripmateTheme {
         GetPoiCardView(
             item = POISimpleListEntity(
-                "Title 1", "강원도 춘천시", "This is the description for item 1", R.drawable.img_camera_with_flash, lat = 37.5, lon = 127.0,
+                title = "Title 1",
+                address = "강원도 춘천시",
+                description = "This is the description for item 1",
+                imageRes = R.drawable.img_camera_with_flash,
+                lat = 37.5,
+                lon = 127.0,
             ),
         )
     }

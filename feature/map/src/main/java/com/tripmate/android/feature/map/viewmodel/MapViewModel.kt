@@ -23,7 +23,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
 class MapViewModel @Inject constructor(
     application: Application,
@@ -71,11 +70,13 @@ class MapViewModel @Inject constructor(
     private fun setSearchingList(isShowing: Boolean) {
         _uiState.update {
             it.copy(
-                simpleList = if (isShowing) it.simpleList.filter { it.isSearching } else it.simpleList)
+                simpleList = if (isShowing) it.simpleList.filter { it.isSearching } else it.simpleList,
+            )
         }
     }
 
     @SuppressLint("MissingPermission")
+    @Suppress("TooGenericExceptionCaught")
     fun fetchCurrentLocation() {
         viewModelScope.launch {
             try {
@@ -99,7 +100,7 @@ class MapViewModel @Inject constructor(
                 )
                 setZoomLevel(16)
             }
-        }?: run {
+        } ?: run {
             CameraPositionDefaults.DefaultCameraPosition
         }
         cameraPositionState.position = cameraPosition

@@ -6,9 +6,8 @@ import com.kakao.vectormap.camera.CameraPosition
 import com.tripmate.android.feature.map.extension.cameraPosition
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
-public data class CameraPositionParcel(
+data class CameraPositionParcel(
     val position: LatLng,
     val zoomLevel: Int,
     val tiltAngle: Double,
@@ -16,7 +15,7 @@ public data class CameraPositionParcel(
     val height: Double,
 ) : Parcelable
 
-public fun CameraPosition.parcelize(): CameraPositionParcel =
+fun CameraPosition.parcelize(): CameraPositionParcel =
     CameraPositionParcel(
         position = position,
         zoomLevel = zoomLevel,
@@ -25,7 +24,7 @@ public fun CameraPosition.parcelize(): CameraPositionParcel =
         height = height,
     )
 
-public fun CameraPositionParcel.restore(): CameraPosition {
+fun CameraPositionParcel.restore(): CameraPosition {
     val parcel = this
     return cameraPosition {
         position = parcel.position

@@ -42,6 +42,7 @@ internal open class MapContainerNode : MapNode {
      */
     open fun move(from: Int, to: Int, count: Int) {
         if (from == to) return
+        @Suppress("ForEachOnRange")
         (0 until count).forEach { index ->
             val fromIndex = if (from > to) from + index else from
             val toIndex = if (from > to) to + index else to + count - 2

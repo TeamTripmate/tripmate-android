@@ -288,6 +288,7 @@ public class CameraPositionState(
         }
     }
 
+    @Suppress("SwallowedException", "TooGenericExceptionCaught")
     private fun performMoveCameraLocked(
         map: KakaoMap,
         update: CameraUpdate,

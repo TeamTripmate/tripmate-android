@@ -33,6 +33,6 @@ fun MapSection(
         onMapClick = { _ ->
             toggleBars()
         },
-        cameraPositionState = cameraPositionState
+        cameraPositionState = cameraPositionState,
     )
 }

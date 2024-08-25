@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
 
+@Suppress("UnusedPrivateProperty]")
 abstract class StateViewModel<S : ViewModelState>(
     initialState: S,
 ) : ViewModel() {
+    @Suppress("UnusedPrivateProperty")
     private val tag by lazy { javaClass.simpleName }
 
     private val stateStore = StateStore(initialState = initialState, scope = viewModelScope)
