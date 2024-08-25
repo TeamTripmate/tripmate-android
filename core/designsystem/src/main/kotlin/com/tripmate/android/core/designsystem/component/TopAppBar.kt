@@ -83,7 +83,7 @@ fun TripmateTopAppBar(
 
 @ComponentPreview
 @Composable
-fun UnifestTopAppBarPreview() {
+fun TripmateTopAppBarPreview() {
     TripmateTheme {
         TripmateTopAppBar(
             navigationType = TopAppBarNavigationType.None,
@@ -94,7 +94,7 @@ fun UnifestTopAppBarPreview() {
 
 @ComponentPreview
 @Composable
-fun UnifestTopAppBarWithBackButtonPreview() {
+fun TripmateTopAppBarWithBackButtonPreview() {
     TripmateTheme {
         TripmateTopAppBar(
             navigationType = TopAppBarNavigationType.Back,
