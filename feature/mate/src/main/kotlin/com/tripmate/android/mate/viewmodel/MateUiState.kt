@@ -1,10 +1,10 @@
-package com.tripmate.android.feature.map.viewmodel
+package com.tripmate.android.mate.viewmodel
 
 import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.domain.entity.POISimpleListEntity
 
 
-data class MapUiState(
+data class MateUiState(
     val categoryType: CategoryType = CategoryType.All,
     val isShowingList: Boolean = false,
     val simpleList: List<POISimpleListEntity> = emptyList(),

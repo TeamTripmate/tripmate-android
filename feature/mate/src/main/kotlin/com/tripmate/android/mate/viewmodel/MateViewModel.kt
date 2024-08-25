@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.map.viewmodel
+package com.tripmate.android.mate.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -25,16 +25,16 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class MapViewModel @Inject constructor(
+class MateViewModel @Inject constructor(
     application: Application,
     @Suppress("UnusedPrivateProperty")
     private val mapRepository: MapRepository,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(MapUiState())
-    val uiState: StateFlow<MapUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(MateUiState())
+    val uiState: StateFlow<MateUiState> = _uiState.asStateFlow()
 
-    private val _uiEvent = Channel<MapUiEvent>()
-    val uiEvent: Flow<MapUiEvent> = _uiEvent.receiveAsFlow()
+    private val _uiEvent = Channel<MateUiEvent>()
+    val uiEvent: Flow<MateUiEvent> = _uiEvent.receiveAsFlow()
 
     private val fusedLocationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(application)
@@ -42,12 +42,12 @@ class MapViewModel @Inject constructor(
     private val _currentLocation = MutableStateFlow<Location?>(null)
     private val currentLocation = _currentLocation.asStateFlow()
 
-    fun onAction(action: MapUiAction) {
+    fun onAction(action: MateUiAction) {
         when (action) {
-            is MapUiAction.OnMapCategorySelected -> setMapCategoryType(action.categoryType)
-            is MapUiAction.OnShowListClicked -> setShowListClicked(action.isShowing)
-            is MapUiAction.OnCurrentLocationClicked -> setCurrentLocation()
-            is MapUiAction.OnSearchingListClicked -> setSearchingList(action.isShowing)
+            is MateUiAction.OnMapCategorySelected -> setMapCategoryType(action.categoryType)
+            is MateUiAction.OnShowListClicked -> setShowListClicked(action.isShowing)
+            is MateUiAction.OnCurrentLocationClicked -> setCurrentLocation()
+            is MateUiAction.OnSearchingListClicked -> setSearchingList(action.isShowing)
         }
     }
 
@@ -66,14 +66,14 @@ class MapViewModel @Inject constructor(
 
     private fun setCurrentLocation() {
         viewModelScope.launch {
-            _uiEvent.send(MapUiEvent.ClickCurrentLocation)
+            _uiEvent.send(MateUiEvent.ClickCurrentLocation)
         }
     }
 
     private fun setSearchingList(isShowing: Boolean) {
-        _uiState.update {
-            it.copy(
-                simpleList = if (isShowing) it.simpleList.filter { it.isSearching } else it.simpleList)
+        _uiState.update { uiState ->
+            uiState.copy(
+                simpleList = if (isShowing) uiState.simpleList.filter { it.isSearching } else uiState.simpleList)
         }
     }
 

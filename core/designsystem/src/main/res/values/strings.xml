@@ -54,13 +54,14 @@
     <string name="start_tripmate">트립메이트 시작하기</string>
 
     <string name="category_type_all">전체</string>
-    <string name="category_type_searching">동행 모집 중</string>
+    <string name="category_type_searching_mate">동행 모집 중</string>
     <string name="category_type_food">음식</string>
     <string name="category_type_hiking">등산</string>
     <string name="category_type_healing">힐링</string>
     <string name="see_more_list">목록 보기</string>
     <string name="show_map">지도 보기</string>
-    <string name="see_mate_searching">동행 모집만 보기</string>
+    <string name="see_only_searching_mate">동행 모집만 보기</string>
+    <string name="searching_mate_title">동행 모집</string>
 
     <!--    login-->
     <string name="kakao_login">카카오 로그인</string>
