@@ -61,10 +61,12 @@ dependencies {
         projects.feature.navigator,
         projects.feature.splash,
         projects.feature.personalization,
+        projects.feature.map,
 
         libs.androidx.activity.compose,
         libs.androidx.startup,
         libs.timber,
+        libs.kakao.maps,
         libs.kakao.auth,
     )
 }

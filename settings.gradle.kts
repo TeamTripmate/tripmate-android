@@ -40,6 +40,7 @@ include(
     ":feature:navigator",
     ":feature:splash",
     ":feature:personalization",
+    ":feature:map",
     ":feature:notification",
     ":feature:mate",
     ":feature:writing",

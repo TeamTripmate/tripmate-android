@@ -17,6 +17,7 @@ dependencies {
         projects.feature.writing,
         projects.feature.notification,
 
+        projects.feature.map,
         libs.androidx.activity.compose,
         libs.kotlinx.collections.immutable,
         libs.coil.compose,
