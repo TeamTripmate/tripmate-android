@@ -8,7 +8,7 @@ versionName = "0.0.1"
 packageName = "com.tripmate.android"
 
 android-gradle-plugin = "8.2.2"
-kotlin-core = "1.9.23"
+kotlin-core = "1.9.25"
 gradle-dependency-handler-extensions = "1.1.0"
 
 google-secrets = "2.0.1"
