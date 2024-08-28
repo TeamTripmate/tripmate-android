@@ -143,6 +143,7 @@ fun ServerErrorDialog(
             cancelTextResId = null,
             onCancelClick = {},
             onConfirmClick = onRetryClick,
+            modifier = Modifier.padding(16.dp),
         )
     }
 }
@@ -162,24 +163,6 @@ fun NetworkErrorDialog(
             cancelTextResId = null,
             onCancelClick = {},
             onConfirmClick = onRetryClick,
-        )
-    }
-}
-
-@ComponentPreview
-@Composable
-fun TripMateDialogPreview() {
-    TripmateTheme {
-        TripmateDialog(
-            onDismissRequest = {},
-            titleResId = R.string.under_age_title,
-            iconResId = null,
-            iconDescription = "",
-            descriptionResId = R.string.under_age_description,
-            cancelTextResId = null,
-            confirmTextResId = R.string.under_age_confirm,
-            onCancelClick = {},
-            onConfirmClick = {},
             modifier = Modifier.padding(16.dp),
         )
     }

@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.tripmate.android.core.designsystem.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.component.TripmateButton

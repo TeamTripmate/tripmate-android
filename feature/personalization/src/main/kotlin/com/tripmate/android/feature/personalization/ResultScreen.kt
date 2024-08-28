@@ -19,7 +19,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
-import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Large20_Bold

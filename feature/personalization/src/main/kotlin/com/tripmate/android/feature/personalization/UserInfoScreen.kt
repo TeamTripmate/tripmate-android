@@ -19,8 +19,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
-import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.component.TripmateButton
+import com.tripmate.android.core.designsystem.component.TripmateTextField
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
@@ -28,7 +28,6 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.android.feature.personalization.component.BirthRateTextField
 import com.tripmate.android.feature.personalization.component.GenderSelectionBox
 import com.tripmate.android.feature.personalization.component.UnderAgeDialog
 import com.tripmate.android.feature.personalization.viewmodel.Gender
@@ -142,10 +141,14 @@ fun UserInfoContent(
                         color = Gray001,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    BirthRateTextField(
-                        birthDateText = uiState.birthDate,
-                        updateBirthDateText = { text -> onAction(PersonalizationUiAction.OnBirthDateUpdated(text)) },
+                    TripmateTextField(
+                        text = uiState.birthDate,
+                        onTextChange = { text -> onAction(PersonalizationUiAction.OnBirthDateUpdated(text)) },
+                        searchTextHintRes = R.string.birth_date_hint,
                         clearText = { onAction(PersonalizationUiAction.OnClearIconClicked) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
                         errorText = uiState.birthDateErrorText?.asString(context),
                     )
                 }

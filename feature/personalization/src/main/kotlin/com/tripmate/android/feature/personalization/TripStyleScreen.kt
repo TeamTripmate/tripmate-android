@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
-import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Background03
