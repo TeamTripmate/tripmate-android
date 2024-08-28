@@ -16,6 +16,7 @@ dependencies {
         projects.feature.mate,
         projects.feature.writing,
         projects.feature.notification,
+        projects.feature.mateRecruit,
 
         projects.feature.map,
         libs.androidx.activity.compose,
