@@ -1,6 +1,5 @@
 package com.tripmate.android.core.designsystem.theme
 
-import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily

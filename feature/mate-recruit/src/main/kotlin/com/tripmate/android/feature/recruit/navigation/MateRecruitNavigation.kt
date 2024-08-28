@@ -13,12 +13,12 @@ fun NavController.navigateToMateRecruit() {
 }
 
 fun NavGraphBuilder.mateRecruitNavGraph(
-    innerPadding: PaddingValues,
+    padding: PaddingValues,
     popBackStack: () -> Unit,
 ) {
     composable(route = MATE_RECRUIT_ROUTE) { entry ->
         MateRecruitRoute(
-            innerPadding = innerPadding,
+            innerPadding = padding,
             popBackStack = popBackStack,
         )
     }
