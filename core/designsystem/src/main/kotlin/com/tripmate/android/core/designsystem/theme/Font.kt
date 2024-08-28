@@ -23,7 +23,7 @@ val XLarge26_Bold = TextStyle(
     fontSize = 26.sp,
     letterSpacing = 0.sp,
     lineHeight = 33.8.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val XLarge26_Reg = TextStyle(
     fontFamily = pretendardFamily,
@@ -31,7 +31,7 @@ val XLarge26_Reg = TextStyle(
     fontSize = 26.sp,
     letterSpacing = 0.sp,
     lineHeight = 33.8.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val XLarge26_Light = TextStyle(
     fontFamily = pretendardFamily,
@@ -39,7 +39,7 @@ val XLarge26_Light = TextStyle(
     fontSize = 26.sp,
     letterSpacing = 0.sp,
     lineHeight = 33.8.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val Large20_Bold = TextStyle(
     fontFamily = pretendardFamily,
@@ -53,7 +53,7 @@ val Large20_SemiBold = TextStyle(
     fontSize = 20.sp,
     letterSpacing = 0.sp,
     lineHeight = 28.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val Large20_Reg = TextStyle(
     fontFamily = pretendardFamily,
@@ -61,14 +61,14 @@ val Large20_Reg = TextStyle(
     fontSize = 20.sp,
     letterSpacing = 0.sp,
     lineHeight = 28.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val Large20_Light = TextStyle(
     fontFamily = pretendardFamily,
     fontWeight = FontWeight.Light,
     letterSpacing = 0.sp,
     lineHeight = 28.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val Medium16_SemiBold = TextStyle(
     fontFamily = pretendardFamily,
@@ -76,7 +76,7 @@ val Medium16_SemiBold = TextStyle(
     fontSize = 16.sp,
     letterSpacing = 0.sp,
     lineHeight = 24.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val Medium16_Reg = TextStyle(
     fontFamily = pretendardFamily,
@@ -84,7 +84,7 @@ val Medium16_Reg = TextStyle(
     fontSize = 16.sp,
     letterSpacing = 0.sp,
     lineHeight = 24.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val Medium16_Mid = TextStyle(
     fontFamily = pretendardFamily,
@@ -92,7 +92,7 @@ val Medium16_Mid = TextStyle(
     fontSize = 16.sp,
     letterSpacing = 0.sp,
     lineHeight = 24.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val Medium16_Light = TextStyle(
     fontFamily = pretendardFamily,
@@ -100,7 +100,7 @@ val Medium16_Light = TextStyle(
     fontSize = 16.sp,
     letterSpacing = 0.sp,
     lineHeight = 24.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val Small14_SemiBold = TextStyle(
     fontFamily = pretendardFamily,
@@ -108,7 +108,7 @@ val Small14_SemiBold = TextStyle(
     fontSize = 14.sp,
     letterSpacing = 0.sp,
     lineHeight = 21.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val Small14_Reg = TextStyle(
     fontFamily = pretendardFamily,
@@ -116,7 +116,7 @@ val Small14_Reg = TextStyle(
     fontSize = 14.sp,
     letterSpacing = 0.sp,
     lineHeight = 21.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val Small14_Light = TextStyle(
     fontFamily = pretendardFamily,
@@ -124,7 +124,7 @@ val Small14_Light = TextStyle(
     fontSize = 14.sp,
     letterSpacing = 0.sp,
     lineHeight = 21.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val XSmall12_SemiBold = TextStyle(
     fontFamily = pretendardFamily,
@@ -132,7 +132,7 @@ val XSmall12_SemiBold = TextStyle(
     fontSize = 12.sp,
     letterSpacing = 0.sp,
     lineHeight = 18.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val XSmall12_Reg = TextStyle(
     fontFamily = pretendardFamily,
@@ -140,7 +140,7 @@ val XSmall12_Reg = TextStyle(
     fontSize = 12.sp,
     letterSpacing = 0.sp,
     lineHeight = 18.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val XSmall12_Light = TextStyle(
     fontFamily = pretendardFamily,
@@ -148,7 +148,7 @@ val XSmall12_Light = TextStyle(
     fontSize = 12.sp,
     letterSpacing = 0.sp,
     lineHeight = 18.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
 
 val XSmall12_Mid = TextStyle(
     fontFamily = pretendardFamily,
@@ -156,4 +156,4 @@ val XSmall12_Mid = TextStyle(
     fontSize = 12.sp,
     letterSpacing = 0.sp,
     lineHeight = 18.sp,
-).copy(platformStyle = PlatformTextStyle(includeFontPadding = false))
+)
