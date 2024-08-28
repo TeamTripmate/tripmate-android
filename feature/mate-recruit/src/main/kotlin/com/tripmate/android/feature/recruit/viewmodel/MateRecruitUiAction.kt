@@ -1,24 +1,20 @@
 package com.tripmate.android.feature.recruit.viewmodel
 
-import com.tripmate.android.domain.entity.TripStyleEntity
+import com.tripmate.android.domain.entity.GenderAgeGroupEntity
 
 sealed interface MateRecruitUiAction {
-    data class OnTripStyleSelected(val tripStyle: TripStyleEntity) : MateRecruitUiAction
-    data class OnTripStyleDeselected(val tripStyle: TripStyleEntity) : MateRecruitUiAction
-    data class OnGenderSelected(val gender: Gender) : MateRecruitUiAction
-    data class OnBirthDateUpdated(val birthDate: String) : MateRecruitUiAction
-    data object OnClearIconClicked : MateRecruitUiAction
-    data class OnSelectClick(val screenType: ScreenType) : MateRecruitUiAction
+    data class OnMateRecruitTitleUpdated(val title: String) : MateRecruitUiAction
+    data class OnMateRecruitContentUpdated(val content: String) : MateRecruitUiAction
+    data class OnGenderAgeGroupSelected(val group: GenderAgeGroupEntity) : MateRecruitUiAction
+    data class OnGenderAgeGroupDeselected(val group: GenderAgeGroupEntity) : MateRecruitUiAction
+    data class OnMateTypeSelected(val mateType: MateType) : MateRecruitUiAction
+    data class OnOpenKakaoLinkUpdated(val link: String) : MateRecruitUiAction
+    data object OnDoneClick : MateRecruitUiAction
 }
 
-enum class ScreenType {
-    QUESTION_1,
-    QUESTION_2,
-    QUESTION_3,
-    QUESTION_4,
-    TRIP_STYLE,
-    USER_INFO,
-    RESULT,
+enum class MateType {
+    SIMILAR,
+    ALL,
 }
 
 enum class ErrorType {
