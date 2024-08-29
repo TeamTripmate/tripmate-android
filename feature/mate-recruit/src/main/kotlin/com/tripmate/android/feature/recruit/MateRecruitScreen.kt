@@ -1,14 +1,19 @@
 package com.tripmate.android.feature.recruit
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -25,13 +30,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
-import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.component.TripmateTextField
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray004
+import com.tripmate.android.core.designsystem.theme.Gray007
+import com.tripmate.android.core.designsystem.theme.Gray008
 import com.tripmate.android.core.designsystem.theme.Gray010
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
@@ -39,9 +45,11 @@ import com.tripmate.android.core.designsystem.theme.Small14_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
+import com.tripmate.android.feature.recruit.component.MateRecruitCheckBox
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiAction
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiState
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitViewModel
+import com.tripmate.android.feature.mate_recruit.R
 
 @Composable
 fun MateRecruitRoute(
@@ -120,9 +128,9 @@ fun MateRecruitContent(
                     .fillMaxWidth()
                     .height(60.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(Gray010)
+                    .background(Gray010),
 
-            ) {
+                ) {
                 Column(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
@@ -133,7 +141,7 @@ fun MateRecruitContent(
                         style = Small14_SemiBold,
                         color = Gray001,
                     )
-                    Spacer(modifier = Modifier.height(2.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = uiState.tripLocationAddress,
                         style = XSmall12_Reg,
@@ -164,6 +172,37 @@ fun MateRecruitContent(
                 color = Gray001,
             )
             Spacer(modifier = Modifier.height(8.dp))
+            Row {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .border(1.dp, Gray008, RoundedCornerShape(8.dp))
+                        .clip(RoundedCornerShape(8.dp))
+                        .padding(vertical = 16.dp, horizontal = 12.dp)
+                        .clickable {},
+                ) {
+                    Text(
+                        text = "2024년 08월 03일",
+                        style = Small14_SemiBold,
+                        color = Gray007,
+                    )
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .border(1.dp, Gray008, RoundedCornerShape(8.dp))
+                        .clip(RoundedCornerShape(8.dp))
+                        .padding(vertical = 16.dp, horizontal = 12.dp)
+                        .clickable {},
+                ) {
+                    Text(
+                        text = "오전 12시 00분",
+                        style = Small14_SemiBold,
+                        color = Gray007,
+                    )
+                }
+            }
             Spacer(modifier = Modifier.height(28.dp))
             Text(
                 text = stringResource(id = R.string.mate_recruit_content),
@@ -186,12 +225,62 @@ fun MateRecruitContent(
                 style = Medium16_SemiBold,
                 color = Gray001,
             )
+            Spacer(modifier = Modifier.height(12.dp))
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ) {
+                MateRecruitCheckBox(
+                    text = stringResource(R.string.similar_mate_type),
+                    isSelected = true,
+                    onSelectedChange = {},
+                    iconRes = R.drawable.ic_mate_type,
+                    checkedIconRes = R.drawable.ic_mate_type_checked,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                MateRecruitCheckBox(
+                    text = stringResource(R.string.all_mate_type),
+                    isSelected = true,
+                    onSelectedChange = {},
+                    iconRes = R.drawable.ic_mate_type,
+                    checkedIconRes = R.drawable.ic_mate_type_checked,
+                )
+            }
             Spacer(modifier = Modifier.height(40.dp))
             Text(
                 text = stringResource(id = R.string.setting_gender_age),
                 style = Medium16_SemiBold,
                 color = Gray001,
             )
+            Spacer(modifier = Modifier.height(12.dp))
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ) {
+                MateRecruitCheckBox(
+                    text = stringResource(R.string.same_gender),
+                    isSelected = true,
+                    onSelectedChange = {},
+                    iconRes = R.drawable.ic_mate_setting,
+                    checkedIconRes = R.drawable.ic_mate_setting_checked,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                MateRecruitCheckBox(
+                    text = stringResource(R.string.same_age),
+                    isSelected = true,
+                    onSelectedChange = {},
+                    iconRes = R.drawable.ic_mate_setting,
+                    checkedIconRes = R.drawable.ic_mate_setting_checked,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                MateRecruitCheckBox(
+                    text = stringResource(R.string.no_matter),
+                    isSelected = true,
+                    onSelectedChange = {},
+                    iconRes = R.drawable.ic_mate_setting,
+                    checkedIconRes = R.drawable.ic_mate_setting_checked,
+                )
+            }
             Spacer(modifier = Modifier.height(8.dp))
             Spacer(modifier = Modifier.height(40.dp))
             Text(

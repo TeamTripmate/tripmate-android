@@ -16,16 +16,6 @@
     <!--    notification-->
     <string name="notification_title">알림</string>
     <string name="notification_empty">아직 알림이 없습니다.</string>
-    <string name="mate_recruit_title">동행 모집 제목</string>
-    <string name="mate_recruit_title_hint">ex)서퍼비치에서 점심 같이드실분</string>
-    <string name="trip_location">여행 장소</string>
-    <string name="trip_location_hint">ex)양양 서퍼비치</string>
-    <string name="schedule">일정</string>
-    <string name="mate_type">동행 유형</string>
-    <string name="done">작성 완료</string>
-    <string name="mate_recruit_description">모든 항목을 필수로 입력해주세요😉</string>
-    <string name="setting_gender_age">성별, 연령대 설정</string>
-    <string name="open_kakao_link">오픈 카톡방 링크</string>
 
     <!--    mate-->
     <string name="category_type_all">전체</string>
@@ -37,10 +27,5 @@
     <string name="show_map">지도 보기</string>
     <string name="see_only_searching_mate">동행 모집만 보기</string>
     <string name="searching_mate_title">동행 모집</string>
-    <string name="mate_writing">동행 글쓰기</string>
-    <string name="mate_recruit_content">동행 모집 내용</string>
-    <string name="mate_recruit_content_hint">동행 모집 내용을 작성해주세요.</string>
-    <string name="open_kakao_link_hint">오픈 채팅방 개설 후 링크를 입력해주세요</string>
-    <string name="open_kakao_link_description">오픈 카톡방을 만든 후 작성해주세요</string>
 
 </resources>
