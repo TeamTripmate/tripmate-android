@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -50,6 +51,7 @@ import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiAction
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiState
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitViewModel
 import com.tripmate.android.feature.mate_recruit.R
+import com.tripmate.android.feature.recruit.viewmodel.MateType
 
 @Composable
 fun MateRecruitRoute(
@@ -232,16 +234,16 @@ fun MateRecruitContent(
             ) {
                 MateRecruitCheckBox(
                     text = stringResource(R.string.similar_mate_type),
-                    isSelected = true,
-                    onSelectedChange = {},
+                    isSelected = uiState.selectedMateType == MateType.SIMILAR,
+                    onSelectedChange = { onAction(MateRecruitUiAction.OnMateTypeSelected(MateType.SIMILAR)) },
                     iconRes = R.drawable.ic_mate_type,
                     checkedIconRes = R.drawable.ic_mate_type_checked,
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 MateRecruitCheckBox(
                     text = stringResource(R.string.all_mate_type),
-                    isSelected = true,
-                    onSelectedChange = {},
+                    isSelected = uiState.selectedMateType == MateType.ALL,
+                    onSelectedChange = { onAction(MateRecruitUiAction.OnMateTypeSelected(MateType.ALL)) },
                     iconRes = R.drawable.ic_mate_type,
                     checkedIconRes = R.drawable.ic_mate_type_checked,
                 )
@@ -253,35 +255,29 @@ fun MateRecruitContent(
                 color = Gray001,
             )
             Spacer(modifier = Modifier.height(12.dp))
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
+            LazyColumn(
+                modifier = modifier.height((uiState.allGenderAgeGroups.size * 32).dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
-                MateRecruitCheckBox(
-                    text = stringResource(R.string.same_gender),
-                    isSelected = true,
-                    onSelectedChange = {},
-                    iconRes = R.drawable.ic_mate_setting,
-                    checkedIconRes = R.drawable.ic_mate_setting_checked,
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                MateRecruitCheckBox(
-                    text = stringResource(R.string.same_age),
-                    isSelected = true,
-                    onSelectedChange = {},
-                    iconRes = R.drawable.ic_mate_setting,
-                    checkedIconRes = R.drawable.ic_mate_setting_checked,
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                MateRecruitCheckBox(
-                    text = stringResource(R.string.no_matter),
-                    isSelected = true,
-                    onSelectedChange = {},
-                    iconRes = R.drawable.ic_mate_setting,
-                    checkedIconRes = R.drawable.ic_mate_setting_checked,
-                )
+                items(
+                    count = uiState.allGenderAgeGroups.size,
+                    key = { index -> uiState.allGenderAgeGroups[index].id },
+                ) { index ->
+                    MateRecruitCheckBox(
+                        text = stringResource(id = uiState.allGenderAgeGroups[index].textResId),
+                        isSelected = uiState.selectedGenderAgeGroups.contains(uiState.allGenderAgeGroups[index]),
+                        onSelectedChange = {
+                            if (uiState.selectedGenderAgeGroups.contains(uiState.allGenderAgeGroups[index])) {
+                                onAction(MateRecruitUiAction.OnGenderAgeGroupDeselected(uiState.allGenderAgeGroups[index]))
+                            } else {
+                                onAction(MateRecruitUiAction.OnGenderAgeGroupSelected(uiState.allGenderAgeGroups[index]))
+                            }
+                        },
+                        iconRes = R.drawable.ic_mate_setting,
+                        checkedIconRes = R.drawable.ic_mate_setting_checked,
+                    )
+                }
             }
-            Spacer(modifier = Modifier.height(8.dp))
             Spacer(modifier = Modifier.height(40.dp))
             Text(
                 text = stringResource(id = R.string.open_kakao_link),

@@ -27,9 +27,9 @@ class MateRecruitViewModel @Inject constructor(
     fun onAction(action: MateRecruitUiAction) {
         when (action) {
             is MateRecruitUiAction.OnMateRecruitTitleUpdated -> setMateRecruitTitle(action.title)
+            is MateRecruitUiAction.OnMateTypeSelected -> setMateType(action.mateType)
             is MateRecruitUiAction.OnGenderAgeGroupSelected -> addGenderAgeGroup(action.group)
             is MateRecruitUiAction.OnGenderAgeGroupDeselected -> removeSelectedTripStyle(action.group)
-            is MateRecruitUiAction.OnMateTypeSelected -> setMateType(action.mateType)
             is MateRecruitUiAction.OnMateRecruitContentUpdated -> setMateRecruitContent(action.content)
             is MateRecruitUiAction.OnOpenKakaoLinkUpdated -> setOpenKakaoLink(action.link)
             is MateRecruitUiAction.OnDoneClick -> {}
@@ -45,7 +45,7 @@ class MateRecruitViewModel @Inject constructor(
     }
 
     private fun setMateType(mateType: MateType) {
-        _uiState.update { it.copy(mateType = mateType) }
+        _uiState.update { it.copy(selectedMateType = mateType) }
     }
 
     private fun addGenderAgeGroup(genderAgeGroup: GenderAgeGroupEntity) {
