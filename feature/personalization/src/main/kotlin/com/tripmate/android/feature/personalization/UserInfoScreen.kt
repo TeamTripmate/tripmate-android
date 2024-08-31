@@ -38,7 +38,6 @@ import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiE
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiState
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
 import com.tripmate.android.feature.personalization.viewmodel.ScreenType
-import timber.log.Timber
 import kotlin.system.exitProcess
 
 @Composable

@@ -6,9 +6,6 @@ import com.tripmate.android.domain.entity.GenderAgeGroupEntity
 import com.tripmate.android.feature.mate_recruit.R
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId

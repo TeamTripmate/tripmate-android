@@ -50,6 +50,7 @@ import com.tripmate.android.feature.mate_recruit.R
 import com.tripmate.android.feature.recruit.component.MateRecruitCheckBox
 import com.tripmate.android.feature.recruit.component.ScheduleBottomSheet
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiAction
+import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiEvent
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiState
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitViewModel
 import com.tripmate.android.feature.recruit.viewmodel.MateType
@@ -66,7 +67,8 @@ fun MateRecruitRoute(
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
-            else -> popBackStack()
+            is MateRecruitUiEvent.Finish -> popBackStack()
+            is MateRecruitUiEvent.ShowToast -> {}
         }
     }
 
@@ -149,8 +151,7 @@ fun MateRecruitContent(
                     .height(60.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .background(Gray010),
-
-                ) {
+            ) {
                 Column(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)

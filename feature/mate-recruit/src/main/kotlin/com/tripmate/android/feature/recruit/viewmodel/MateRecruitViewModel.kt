@@ -1,8 +1,7 @@
 package com.tripmate.android.feature.recruit.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.tripmate.android.core.common.extension.formatToDate
-import com.tripmate.android.core.common.extension.formatToTime
+import androidx.lifecycle.viewModelScope
 import com.tripmate.android.domain.entity.GenderAgeGroupEntity
 import com.tripmate.android.domain.repository.MateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,8 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
-import java.time.LocalDate
-import java.time.LocalTime
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -47,7 +45,7 @@ class MateRecruitViewModel @Inject constructor(
             is MateRecruitUiAction.OnGenderAgeGroupDeselected -> removeSelectedTripStyle(action.group)
             is MateRecruitUiAction.OnMateRecruitContentUpdated -> setMateRecruitContent(action.content)
             is MateRecruitUiAction.OnOpenKakaoLinkUpdated -> setOpenKakaoLink(action.link)
-            is MateRecruitUiAction.OnDoneClick -> {}
+            is MateRecruitUiAction.OnDoneClick -> finish()
         }
     }
 
@@ -103,5 +101,11 @@ class MateRecruitViewModel @Inject constructor(
 
     private fun setDatePickerVisible(flag: Boolean) {
         _uiState.update { it.copy(isDatePickerVisible = flag) }
+    }
+
+    private fun finish() {
+        viewModelScope.launch {
+            _uiEvent.send(MateRecruitUiEvent.Finish)
+        }
     }
 }
