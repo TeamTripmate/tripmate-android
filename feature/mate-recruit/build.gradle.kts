@@ -22,5 +22,6 @@ dependencies {
         libs.androidx.splash,
         libs.compose.system.ui.controller,
         libs.timber,
+        libs.wheel.picker.compose,
     )
 }
