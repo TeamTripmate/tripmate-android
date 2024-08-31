@@ -142,6 +142,7 @@ fun UserInfoContent(
                         color = Gray001,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
+                    // TODO 텍스트 필드가 동작하지 않는 문제 해결
                     TripmateTextField(
                         text = uiState.birthDate,
                         onTextChange = { text ->
