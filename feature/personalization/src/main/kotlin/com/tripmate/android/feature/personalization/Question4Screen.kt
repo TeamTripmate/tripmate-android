@@ -85,8 +85,8 @@ fun Question4Screen(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 32.dp, end = 32.dp, bottom = 62.dp)
-                .height(50.dp)
+                .padding(start = 16.dp, end = 16.dp, bottom = 62.dp)
+                .height(56.dp)
                 .align(Alignment.BottomCenter),
             enabled = if (uiState.question4Answer == 0) false else true,
         ) {

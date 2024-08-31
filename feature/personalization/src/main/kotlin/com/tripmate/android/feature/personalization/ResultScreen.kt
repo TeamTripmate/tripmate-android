@@ -95,6 +95,7 @@ fun ResultScreen(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
+                .height(56.dp)
                 .padding(horizontal = 32.dp, vertical = 20.dp),
             contentPadding = PaddingValues(vertical = 17.dp),
         ) {
