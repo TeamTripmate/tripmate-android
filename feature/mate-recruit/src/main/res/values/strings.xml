@@ -6,6 +6,7 @@
     <string name="trip_location_hint">ex)양양 서퍼비치</string>
     <string name="mate_writing">동행 글쓰기</string>
     <string name="schedule">일정</string>
+    <string name="confirm">확인</string>
     <string name="mate_recruit_content">동행 모집 내용</string>
     <string name="mate_recruit_content_hint">동행 모집 내용을 작성해주세요.</string>
     <string name="mate_type">동행 유형</string>

@@ -1,6 +1,8 @@
 package com.tripmate.android.feature.recruit.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.tripmate.android.core.common.extension.formatToDate
+import com.tripmate.android.core.common.extension.formatToTime
 import com.tripmate.android.domain.entity.GenderAgeGroupEntity
 import com.tripmate.android.domain.repository.MateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +13,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import java.time.LocalDate
+import java.time.LocalTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,6 +31,17 @@ class MateRecruitViewModel @Inject constructor(
     fun onAction(action: MateRecruitUiAction) {
         when (action) {
             is MateRecruitUiAction.OnMateRecruitTitleUpdated -> setMateRecruitTitle(action.title)
+            is MateRecruitUiAction.OnScheduleDateClicked -> setDatePickerVisible(true)
+            is MateRecruitUiAction.OnScheduleTimeClicked -> setTimePickerVisible(true)
+            is MateRecruitUiAction.OnScheduleDateUpdated -> setMateRecruitDate(action.date)
+            is MateRecruitUiAction.OnScheduleTimeUpdated -> setMateRecruitTime(action.time)
+            is MateRecruitUiAction.OnDismiss -> {
+                when (action.pickerType) {
+                    PickerType.DATE -> setDatePickerVisible(false)
+                    PickerType.TIME -> setTimePickerVisible(false)
+                }
+            }
+
             is MateRecruitUiAction.OnMateTypeSelected -> setMateType(action.mateType)
             is MateRecruitUiAction.OnGenderAgeGroupSelected -> addGenderAgeGroup(action.group)
             is MateRecruitUiAction.OnGenderAgeGroupDeselected -> removeSelectedTripStyle(action.group)
@@ -40,8 +55,34 @@ class MateRecruitViewModel @Inject constructor(
         _uiState.update { it.copy(mateRecruitTitle = title) }
     }
 
+    private fun setTimePickerVisible(flag: Boolean) {
+        _uiState.update { it.copy(isTimePickerVisible = flag) }
+    }
+
+    private fun setOpenKakaoLink(link: String) {
+        _uiState.update { it.copy(openKakaoLink = link) }
+    }
+
     private fun setMateRecruitContent(content: String) {
         _uiState.update { it.copy(mateRecruitContent = content) }
+    }
+
+    private fun setMateRecruitDate(date: String) {
+        _uiState.update {
+            it.copy(
+                mateRecruitDate = date,
+                isMateRecruitDateUpdated = true,
+            )
+        }
+    }
+
+    private fun setMateRecruitTime(time: String) {
+        _uiState.update {
+            it.copy(
+                mateRecruitTime = time,
+                isMateRecruitTimeUpdated = true,
+            )
+        }
     }
 
     private fun setMateType(mateType: MateType) {
@@ -60,7 +101,7 @@ class MateRecruitViewModel @Inject constructor(
         }
     }
 
-    private fun setOpenKakaoLink(link: String) {
-        _uiState.update { it.copy(openKakaoLink = link) }
+    private fun setDatePickerVisible(flag: Boolean) {
+        _uiState.update { it.copy(isDatePickerVisible = flag) }
     }
 }

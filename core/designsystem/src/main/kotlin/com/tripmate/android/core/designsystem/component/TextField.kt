@@ -12,11 +12,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,27 +43,31 @@ fun TripmateTextField(
     onTextChange: (String) -> Unit,
     @StringRes searchTextHintRes: Int,
     modifier: Modifier = Modifier,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
     clearText: () -> Unit = {},
     errorText: String? = null,
     backgroundColor: Color = Color.White,
     textColor: Color = Gray001,
     cornerShape: RoundedCornerShape = RoundedCornerShape(6.dp),
     borderStroke: BorderStroke = BorderStroke(width = 1.dp, color = if (errorText != null) Error else Gray008),
+    multiline: Boolean = false,
     maxLength: Int? = null,
+    isClearIconVisible: Boolean = false,
 ) {
-    Column(modifier = modifier) {
+    Column {
         BasicTextField(
             value = text,
-            onValueChange = onTextChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(52.dp),
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+            onValueChange = { text ->
+                if (maxLength != null && text.length <= maxLength) {
+                    onTextChange(text)
+                }
+            },
+            keyboardOptions = keyboardOptions,
             textStyle = Small14_Reg.copy(color = textColor),
-            singleLine = true,
+            singleLine = !multiline,
             decorationBox = { innerTextField ->
                 Row(
-                    modifier = Modifier
+                    modifier = modifier
                         .background(
                             color = backgroundColor,
                             shape = cornerShape,
@@ -72,11 +75,11 @@ fun TripmateTextField(
                         .border(
                             border = borderStroke,
                             shape = cornerShape,
-                        ),
-                    verticalAlignment = Alignment.CenterVertically,
+                        )
+                        .padding(vertical = if (multiline) 12.dp else 0.dp, horizontal = 12.dp),
+                    verticalAlignment = if (multiline) Alignment.Top else Alignment.CenterVertically,
                 ) {
-                    Spacer(modifier = Modifier.width(20.dp))
-                    Box(modifier = Modifier.weight(1f, fill = false)) {
+                    Box {
                         if (text.isEmpty()) {
                             Text(
                                 text = stringResource(id = searchTextHintRes),
@@ -87,7 +90,8 @@ fun TripmateTextField(
                         }
                         innerTextField()
                     }
-                    if (text.isNotEmpty()) {
+                    Spacer(modifier = Modifier.weight(1f))
+                    if (text.isNotEmpty() && isClearIconVisible) {
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_clear_text),
                             contentDescription = "clear icon",
@@ -98,7 +102,6 @@ fun TripmateTextField(
                                 },
                         )
                     }
-                    Spacer(modifier = Modifier.width(20.dp))
                 }
             },
         )
@@ -106,7 +109,7 @@ fun TripmateTextField(
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             if (errorText != null) {
                 Spacer(modifier = Modifier.height(4.dp))

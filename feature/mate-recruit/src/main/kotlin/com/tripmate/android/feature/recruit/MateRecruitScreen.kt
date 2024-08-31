@@ -46,12 +46,14 @@ import com.tripmate.android.core.designsystem.theme.Small14_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
+import com.tripmate.android.feature.mate_recruit.R
 import com.tripmate.android.feature.recruit.component.MateRecruitCheckBox
+import com.tripmate.android.feature.recruit.component.ScheduleBottomSheet
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiAction
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiState
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitViewModel
-import com.tripmate.android.feature.mate_recruit.R
 import com.tripmate.android.feature.recruit.viewmodel.MateType
+import com.tripmate.android.feature.recruit.viewmodel.PickerType
 
 @Composable
 fun MateRecruitRoute(
@@ -92,6 +94,22 @@ fun MateRecruitScreen(
                 title = stringResource(id = R.string.mate_writing),
             )
             MateRecruitContent(
+                uiState = uiState,
+                onAction = onAction,
+            )
+        }
+
+        if (uiState.isDatePickerVisible) {
+            ScheduleBottomSheet(
+                pickerType = PickerType.DATE,
+                uiState = uiState,
+                onAction = onAction,
+            )
+        }
+
+        if (uiState.isTimePickerVisible) {
+            ScheduleBottomSheet(
+                pickerType = PickerType.TIME,
                 uiState = uiState,
                 onAction = onAction,
             )
@@ -181,12 +199,12 @@ fun MateRecruitContent(
                         .border(1.dp, Gray008, RoundedCornerShape(8.dp))
                         .clip(RoundedCornerShape(8.dp))
                         .padding(vertical = 16.dp, horizontal = 12.dp)
-                        .clickable {},
+                        .clickable { onAction(MateRecruitUiAction.OnScheduleDateClicked) },
                 ) {
                     Text(
-                        text = "2024년 08월 03일",
+                        text = uiState.mateRecruitDate,
                         style = Small14_SemiBold,
-                        color = Gray007,
+                        color = if (uiState.isMateRecruitDateUpdated) Gray001 else Gray007,
                     )
                 }
                 Spacer(modifier = Modifier.width(8.dp))
@@ -196,12 +214,12 @@ fun MateRecruitContent(
                         .border(1.dp, Gray008, RoundedCornerShape(8.dp))
                         .clip(RoundedCornerShape(8.dp))
                         .padding(vertical = 16.dp, horizontal = 12.dp)
-                        .clickable {},
+                        .clickable { onAction(MateRecruitUiAction.OnScheduleTimeClicked) },
                 ) {
                     Text(
-                        text = "오전 12시 00분",
+                        text = uiState.mateRecruitTime,
                         style = Small14_SemiBold,
-                        color = Gray007,
+                        color = if (uiState.isMateRecruitTimeUpdated) Gray001 else Gray007,
                     )
                 }
             }
@@ -218,7 +236,8 @@ fun MateRecruitContent(
                 searchTextHintRes = R.string.mate_recruit_content_hint,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(52.dp),
+                    .height(200.dp),
+                multiline = true,
                 maxLength = 200,
             )
             Spacer(modifier = Modifier.height(28.dp))
