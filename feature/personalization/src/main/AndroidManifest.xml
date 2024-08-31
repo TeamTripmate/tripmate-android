@@ -4,7 +4,7 @@
 
         <activity
             android:name=".PersonalizationActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
 
