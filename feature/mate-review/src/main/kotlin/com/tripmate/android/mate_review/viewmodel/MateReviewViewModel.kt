@@ -38,6 +38,10 @@ class MateReviewViewModel @Inject constructor(
     }
 
     private fun addGoodReview(goodReview: GoodReviewEntity) {
+        if (_uiState.value.selectedGoodReviews.size >= 3) {
+            return
+        }
+
         _uiState.update {
             it.copy(selectedGoodReviews = it.selectedGoodReviews.add(goodReview))
         }
@@ -50,6 +54,10 @@ class MateReviewViewModel @Inject constructor(
     }
 
     private fun addBadReview(badReview: BadReviewEntity) {
+        if (_uiState.value.selectedBadReviews.size >= 3) {
+            return
+        }
+
         _uiState.update {
             it.copy(selectedBadReviews = it.selectedBadReviews.add(badReview))
         }
