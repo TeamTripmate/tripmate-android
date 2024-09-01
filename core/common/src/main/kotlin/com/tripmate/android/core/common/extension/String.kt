@@ -1,17 +1,37 @@
 package com.tripmate.android.core.common.extension
 
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
-import java.util.Locale
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 fun String.parseToLocalDate(): LocalDate {
-    val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일", Locale.KOREAN)
-    return LocalDate.parse(this, formatter)
+    if (this.isBlank()) {
+        // 빈 문자열인 경우 현재 날짜 반환
+        return Clock.System.now().toLocalDateTime(TimeZone.of("Asia/Seoul")).date
+    }
+
+    val (year, month, day) = this.split("년 ", "월 ", "일")
+        .map { it.trim().toInt() }
+    return LocalDate(year, month, day)
 }
 
 fun String.parseToLocalTime(): LocalTime {
-    val formattedString = this.replace("오전", "AM").replace("오후", "PM")
-    val formatter = DateTimeFormatter.ofPattern("a h시 mm분", Locale.ENGLISH)
-    return LocalTime.parse(formattedString, formatter)
+    if (this.isBlank()) {
+        // 빈 문자열인 경우 현재 시간 반환
+        return Clock.System.now().toLocalDateTime(TimeZone.of("Asia/Seoul")).time
+    }
+
+    val (period, time) = this.split(" ", limit = 2)
+    val (hour, minute) = time.split("시 ", "분")
+        .map { it.trim().toInt() }
+
+    val adjustedHour = when {
+        period == "오후" && hour != 12 -> hour + 12
+        period == "오전" && hour == 12 -> 0
+        else -> hour
+    }
+
+    return LocalTime(adjustedHour, minute)
 }

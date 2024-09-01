@@ -14,14 +14,10 @@ android {
 
 dependencies {
     implementations(
-        projects.feature.navigator,
-
         libs.kotlinx.datetime,
         libs.kotlinx.collections.immutable,
-        libs.androidx.activity.compose,
-        libs.androidx.splash,
-        libs.compose.system.ui.controller,
+
         libs.timber,
-        libs.wheel.picker.compose,
+        libs.datetime.wheel.picker,
     )
 }
