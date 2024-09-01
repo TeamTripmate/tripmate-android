@@ -58,7 +58,7 @@ fun TripmateTextField(
         BasicTextField(
             value = text,
             onValueChange = { text ->
-                if (maxLength != null && text.length <= maxLength) {
+                if (maxLength == null || text.length <= maxLength) {
                     onTextChange(text)
                 }
             },

@@ -326,7 +326,6 @@ fun MateRecruitContent(
                 contentPadding = PaddingValues(vertical = 18.dp),
                 enabled = uiState.mateRecruitTitle.isNotEmpty() &&
                     uiState.mateRecruitContent.isNotEmpty() &&
-                    uiState.selectedMateType != null &&
                     uiState.selectedGenderAgeGroups.isNotEmpty() &&
                     uiState.openKakaoLink.isNotEmpty(),
             ) {
