@@ -11,8 +11,9 @@ import androidx.navigation.navOptions
 import com.tripmate.android.feature.home.navigation.HOME_ROUTE
 import com.tripmate.android.feature.home.navigation.navigateToHome
 import com.tripmate.android.feature.mypage.navigation.navigateToMyPage
-import com.tripmate.android.feature.recruit.navigation.navigateToMateRecruit
+import com.tripmate.android.feature.mate_recruit.navigation.navigateToMateRecruit
 import com.tripmate.android.mate.navigation.navigateToMate
+import com.tripmate.android.mate_review.navigation.navigateToMateReview
 import com.tripmate.android.notification.navigation.navigateToNotification
 import com.tripmate.android.writing.navigation.navigateToWriting
 
@@ -50,6 +51,10 @@ internal class MainNavController(
 
     fun navigateToMateRecruit() {
         navController.navigateToMateRecruit()
+    }
+
+    fun navigateToMateReview() {
+        navController.navigateToMateReview()
     }
 
     private fun popBackStack() {
