@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.recruit.component
+package com.tripmate.android.feature.mate_recruit.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -16,6 +16,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Medium16_Reg
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.feature.mate_recruit.R
 
 @Composable
@@ -58,11 +59,13 @@ fun MateRecruitCheckBox(
 @ComponentPreview
 @Composable
 fun MateRecruitCheckBoxPreview() {
-    MateRecruitCheckBox(
-        text = "니와 비슷한 유형의 동행 찾기",
-        isSelected = false,
-        onSelectedChange = {},
-        iconRes = R.drawable.ic_mate_type_checked,
-        checkedIconRes = R.drawable.ic_mate_type,
-    )
+    TripmateTheme {
+        MateRecruitCheckBox(
+            text = "니와 비슷한 유형의 동행 찾기",
+            isSelected = false,
+            onSelectedChange = {},
+            iconRes = R.drawable.ic_mate_type_checked,
+            checkedIconRes = R.drawable.ic_mate_type,
+        )
+    }
 }
