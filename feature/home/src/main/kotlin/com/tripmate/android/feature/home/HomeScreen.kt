@@ -19,10 +19,12 @@ import com.tripmate.android.core.designsystem.component.TripmateButton
 internal fun HomeRoute(
     innerPadding: PaddingValues,
     navigateToMateRecruit: () -> Unit,
+    navigateToMateReview: () -> Unit,
 ) {
     HomeScreen(
         innerPadding = innerPadding,
         navigateToMateRecruit = navigateToMateRecruit,
+        navigateToMateReview = navigateToMateReview,
     )
 }
 
@@ -30,6 +32,7 @@ internal fun HomeRoute(
 internal fun HomeScreen(
     innerPadding: PaddingValues,
     navigateToMateRecruit: () -> Unit,
+    navigateToMateReview: () -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -49,6 +52,12 @@ internal fun HomeScreen(
                 onClick = navigateToMateRecruit,
             ) {
                 Text(text = "동행 모집")
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            TripmateButton(
+                onClick = navigateToMateReview,
+            ) {
+                Text(text = "동행 후기 작성")
             }
         }
     }
