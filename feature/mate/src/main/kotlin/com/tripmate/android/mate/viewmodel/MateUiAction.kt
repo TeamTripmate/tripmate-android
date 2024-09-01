@@ -7,6 +7,7 @@ sealed interface MateUiAction {
     data class OnShowListClicked(val isShowing: Boolean) : MateUiAction
     data object OnCurrentLocationClicked : MateUiAction
     data class OnSearchingListClicked(val isShowing: Boolean) : MateUiAction
+    data class OnMarkerClicked(val poiId: Int) : MateUiAction
 }
 
 enum class CategoryType(val title: Int, val iconResource: Int?) {

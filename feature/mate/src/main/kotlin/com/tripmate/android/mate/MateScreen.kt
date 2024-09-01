@@ -37,7 +37,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,7 +64,10 @@ import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray005
+import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Gray009
+import com.tripmate.android.core.designsystem.theme.MateTitle
+import com.tripmate.android.core.designsystem.theme.MateTitleBackGround
 import com.tripmate.android.core.designsystem.theme.Medium16_Light
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
@@ -75,6 +80,7 @@ import com.tripmate.android.mate.viewmodel.MateUiAction
 import com.tripmate.android.mate.viewmodel.MateUiEvent
 import com.tripmate.android.mate.viewmodel.MateUiState
 import com.tripmate.android.mate.viewmodel.MateViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun MateRoute(
@@ -99,6 +105,7 @@ fun MateRoute(
         innerPadding = innerPadding,
         uiState = uiState,
         onAction = viewModel::onAction,
+        selectPoiAction = viewModel::movePoiLocation,
         cameraPositionState = cameraPositionState,
     )
 }
@@ -108,6 +115,7 @@ fun MateScreen(
     innerPadding: PaddingValues,
     uiState: MateUiState,
     onAction: (MateUiAction) -> Unit,
+    selectPoiAction: (CameraPositionState, POISimpleListEntity) -> Unit,
     cameraPositionState: CameraPositionState,
 ) {
     Column(
@@ -128,10 +136,19 @@ fun MateScreen(
             modifier = Modifier
                 .fillMaxSize(),
         ) {
+            LaunchedEffect(uiState.selectPoiItem) {
+                uiState.selectPoiItem?.let {
+                    selectPoiAction(cameraPositionState, it)
+                }
+            }
+
             MapSection(
                 modifier = Modifier.fillMaxSize(),
                 cameraPositionState = cameraPositionState,
-            )
+                simpleList = uiState.getMarkerInfoList(),
+            ) {
+                onAction(MateUiAction.OnMarkerClicked(it.labelId.toInt()))
+            }
 
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
@@ -174,7 +191,12 @@ fun MateScreen(
                                 onAction(MateUiAction.OnShowListClicked(true))
                             }
                         }
-                        ViewPagerScreen(listItem = uiState.simpleList)
+                        ViewPagerScreen(
+                            uiState = uiState,
+                            listItem = uiState.simpleList,
+                        ) {
+                            onAction(MateUiAction.OnMarkerClicked(it))
+                        }
                     }
                 } else {
                     Column(
@@ -299,13 +321,12 @@ fun ShowPoiListView(
             }
 
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 10.dp),
             ) {
                 items(listItem) { item ->
-                    ListItemView(item) {
-                    }
+                    GetPoiCardView(item, true) { }
                 }
             }
         }
@@ -369,73 +390,6 @@ fun ShowMapButton(
 }
 
 @Composable
-fun ListItemView(item: POISimpleListEntity, onItemClick: (POISimpleListEntity) -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(255.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .border(
-                width = 1.dp,
-                color = Gray009,
-                shape = RoundedCornerShape(12.dp),
-            )
-            .clickable {
-                onItemClick(item)
-            },
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(8.dp)
-                .background(Background02)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.Start,
-        ) {
-            Image(
-                painter = painterResource(id = item.imageRes),
-                contentDescription = null,
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier
-                    .height(110.dp)
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(8.dp)),
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = item.title,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = Gray001,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            Text(
-                text = item.address,
-                fontSize = 12.sp,
-                color = Gray005,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            Text(
-                text = item.description,
-                fontSize = 12.sp,
-                color = Gray005,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-            )
-        }
-    }
-}
-
-@Composable
 fun CategoryItemView(categoryType: CategoryType, onItemClick: (CategoryType) -> Unit) {
     Box(
         modifier = Modifier
@@ -485,11 +439,28 @@ fun CategoryItemView(categoryType: CategoryType, onItemClick: (CategoryType) -> 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ViewPagerScreen(
+    uiState: MateUiState,
     listItem: List<POISimpleListEntity>,
+    viewPagerScrollAction: (Int) -> Unit = {},
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     val pagerState = rememberPagerState {
         listItem.size
     }
+
+    val selectPosition = listItem.indexOfFirst { it.poiId == uiState.selectPoiItem?.poiId }
+
+    LaunchedEffect(uiState) {
+        coroutineScope.launch {
+            pagerState.animateScrollToPage(selectPosition)
+        }
+
+        snapshotFlow { pagerState.currentPage }.collect { page ->
+            viewPagerScrollAction(listItem[page].poiId)
+        }
+    }
+
     Column(modifier = Modifier.fillMaxWidth()) {
         CustomViewPager(pagerState = pagerState, listItem)
     }
@@ -501,21 +472,20 @@ fun CustomViewPager(pagerState: PagerState, listItem: List<POISimpleListEntity>)
     HorizontalPager(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        contentPadding = PaddingValues(horizontal = 16.dp),
         state = pagerState,
     ) {
         val item = listItem[pagerState.currentPage]
-        GetPoiCardView(item)
+        GetPoiCardView(item, false)
     }
 }
 
 @Composable
-fun GetPoiCardView(item: POISimpleListEntity) {
+fun GetPoiCardView(item: POISimpleListEntity, isListView: Boolean) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(255.dp)
-            .padding(top = 10.dp, bottom = 20.dp, start = 5.dp, end = 5.dp)
+            .wrapContentHeight()
+            .padding(top = 10.dp, bottom = if (isListView) 10.dp else 20.dp, start = 16.dp, end = 16.dp)
             .clip(RoundedCornerShape(12.dp))
             .border(
                 width = 1.dp,
@@ -526,7 +496,7 @@ fun GetPoiCardView(item: POISimpleListEntity) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight()
+                .wrapContentHeight()
                 .background(Background02)
                 .padding(8.dp),
         ) {
@@ -542,24 +512,72 @@ fun GetPoiCardView(item: POISimpleListEntity) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = item.title,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = Gray001,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
+            if (item.isSearching) {
+                Text(
+                    modifier = Modifier
+                        .wrapContentWidth()
+                        .background(MateTitleBackGround)
+                        .padding(horizontal = 8.dp),
+                    text = stringResource(id = R.string.category_type_searching_mate),
+                    fontSize = 10.sp,
+                    color = MateTitle,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
 
-            Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(8.dp))
+            }
 
-            Text(
-                text = item.address,
-                fontSize = 12.sp,
-                color = Gray005,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                verticalAlignment = Alignment.Bottom,
+            ) {
+                Text(
+                    text = item.title,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Gray001,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+
+                Spacer(modifier = Modifier.width(4.dp))
+
+                Text(
+                    text = item.subCategory,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Gray006,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.img_address_location),
+                    contentDescription = null,
+                    contentScale = ContentScale.FillWidth,
+                    modifier = Modifier
+                        .wrapContentSize(),
+                )
+
+                Text(
+                    modifier = Modifier.padding(horizontal = 4.dp),
+                    text = item.address,
+                    fontSize = 12.sp,
+                    color = Gray005,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
 
             Spacer(modifier = Modifier.height(4.dp))
 
@@ -656,6 +674,7 @@ fun MateScreenPreview() {
             innerPadding = PaddingValues(),
             uiState = MateUiState(),
             onAction = { },
+            selectPoiAction = { _, _ -> },
             cameraPositionState = CameraPositionState(),
         )
     }
@@ -667,13 +686,16 @@ fun GetPoiCardViewPreview() {
     TripmateTheme {
         GetPoiCardView(
             item = POISimpleListEntity(
+                poiId = 1,
                 title = "Title 1",
+                subCategory = "체험",
                 address = "강원도 춘천시",
                 description = "This is the description for item 1",
                 imageRes = R.drawable.img_camera_with_flash,
                 lat = 37.5,
                 lon = 127.0,
             ),
+            false,
         )
     }
 }

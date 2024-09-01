@@ -23,6 +23,7 @@ import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapView
 import com.kakao.vectormap.MapViewInfo
 import com.kakao.vectormap.camera.CameraPosition
+import com.kakao.vectormap.label.Label
 import com.tripmate.android.feature.map.annotation.KakaoMapComposable
 import com.tripmate.android.feature.map.extension.NoPadding
 import com.tripmate.android.feature.map.extension.disposingComposition
@@ -30,6 +31,8 @@ import com.tripmate.android.feature.map.extension.newComposition
 import com.tripmate.android.feature.map.internal.MapEventListeners
 import com.tripmate.android.feature.map.internal.MapLifecycleCallbacks
 import com.tripmate.android.feature.map.internal.MapUpdater
+import com.tripmate.android.feature.map.model.MarkerInfo
+import com.tripmate.android.feature.map.overlay.Label
 import com.tripmate.android.feature.map.settings.DefaultMapGestureSettings
 import com.tripmate.android.feature.map.settings.DefaultMapInitialOptions
 import com.tripmate.android.feature.map.settings.DefaultMapViewSettings
@@ -148,5 +151,20 @@ fun KakaoMap(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun MapControlObject(
+    markerInfoList: List<MarkerInfo> = emptyList(),
+    markerClickAction: (Label) -> Unit = {},
+) {
+    markerInfoList.forEach {
+        Label(
+            labelId = it.poiId.toString(),
+            position = it.getLatLng(),
+            iconResId = it.resourceId,
+            onClick = markerClickAction,
+        )
     }
 }

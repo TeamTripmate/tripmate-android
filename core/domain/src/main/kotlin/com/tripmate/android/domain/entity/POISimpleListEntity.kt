@@ -4,7 +4,9 @@ import androidx.compose.runtime.Stable
 
 @Stable
 data class POISimpleListEntity(
+    val poiId: Int,
     val title: String,
+    val subCategory: String,
     val address: String,
     val description: String,
     val imageRes: Int,
