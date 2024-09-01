@@ -321,10 +321,14 @@ fun MateRecruitContent(
             )
             Spacer(modifier = Modifier.height(40.dp))
             TripmateButton(
-                onClick = {},
+                onClick = { onAction(MateRecruitUiAction.OnDoneClicked) },
                 modifier = Modifier.fillMaxWidth(),
                 contentPadding = PaddingValues(vertical = 18.dp),
-                enabled = true,
+                enabled = uiState.mateRecruitTitle.isNotEmpty() &&
+                    uiState.mateRecruitContent.isNotEmpty() &&
+                    uiState.selectedMateType != null &&
+                    uiState.selectedGenderAgeGroups.isNotEmpty() &&
+                    uiState.openKakaoLink.isNotEmpty(),
             ) {
                 Text(
                     text = stringResource(R.string.done),

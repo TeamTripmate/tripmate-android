@@ -45,7 +45,7 @@ class MateRecruitViewModel @Inject constructor(
             is MateRecruitUiAction.OnGenderAgeGroupDeselected -> removeSelectedTripStyle(action.group)
             is MateRecruitUiAction.OnMateRecruitContentUpdated -> setMateRecruitContent(action.content)
             is MateRecruitUiAction.OnOpenKakaoLinkUpdated -> setOpenKakaoLink(action.link)
-            is MateRecruitUiAction.OnDoneClick -> finish()
+            is MateRecruitUiAction.OnDoneClicked -> finish()
         }
     }
 

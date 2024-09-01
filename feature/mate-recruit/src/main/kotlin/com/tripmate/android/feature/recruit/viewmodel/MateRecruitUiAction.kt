@@ -14,7 +14,7 @@ sealed interface MateRecruitUiAction {
     data class OnGenderAgeGroupSelected(val group: GenderAgeGroupEntity) : MateRecruitUiAction
     data class OnGenderAgeGroupDeselected(val group: GenderAgeGroupEntity) : MateRecruitUiAction
     data class OnOpenKakaoLinkUpdated(val link: String) : MateRecruitUiAction
-    data object OnDoneClick : MateRecruitUiAction
+    data object OnDoneClicked : MateRecruitUiAction
 }
 
 enum class MateType {
