@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -27,7 +26,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -45,14 +43,13 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.designsystem.theme.XSmall12_SemiBold
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.android.mate_review.viewmodel.MateReviewUiAction
-import com.tripmate.android.mate_review.viewmodel.MateReviewViewModel
 import com.tripmate.android.feature.mate_review.R
 import com.tripmate.android.mate_review.component.BadReviewCheckBox
 import com.tripmate.android.mate_review.component.GoodReviewCheckBox
+import com.tripmate.android.mate_review.viewmodel.MateReviewUiAction
 import com.tripmate.android.mate_review.viewmodel.MateReviewUiEvent
 import com.tripmate.android.mate_review.viewmodel.MateReviewUiState
-import org.w3c.dom.Text
+import com.tripmate.android.mate_review.viewmodel.MateReviewViewModel
 
 @Composable
 fun MateReviewRoute(
