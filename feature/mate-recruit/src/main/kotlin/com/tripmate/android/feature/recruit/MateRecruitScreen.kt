@@ -48,7 +48,7 @@ import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.mate_recruit.R
 import com.tripmate.android.feature.recruit.component.MateRecruitCheckBox
-import com.tripmate.android.feature.recruit.component.ScheduleBottomSheet
+import com.tripmate.android.feature.recruit.component.ScheduleDialog
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiAction
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiEvent
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiState
@@ -102,18 +102,20 @@ fun MateRecruitScreen(
         }
 
         if (uiState.isDatePickerVisible) {
-            ScheduleBottomSheet(
+            ScheduleDialog(
                 pickerType = PickerType.DATE,
                 uiState = uiState,
                 onAction = onAction,
+                onDismissRequest = {},
             )
         }
 
         if (uiState.isTimePickerVisible) {
-            ScheduleBottomSheet(
+            ScheduleDialog(
                 pickerType = PickerType.TIME,
                 uiState = uiState,
                 onAction = onAction,
+                onDismissRequest = {},
             )
         }
     }
