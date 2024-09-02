@@ -326,7 +326,7 @@ fun ShowPoiListView(
                     .padding(top = 10.dp),
             ) {
                 items(listItem) { item ->
-                    GetPoiCardView(item, true) { }
+                    GetPoiCardView(item, true)
                 }
             }
         }
@@ -574,7 +574,15 @@ fun GetPoiCardView(item: POISimpleListEntity, isListView: Boolean) {
                     text = item.address,
                     fontSize = 12.sp,
                     color = Gray005,
-                    maxLines = 2,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+
+                Text(
+                    text = item.distance.toString() + " km",
+                    fontSize = 12.sp,
+                    color = Gray005,
+                    maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
             }
@@ -689,6 +697,7 @@ fun GetPoiCardViewPreview() {
                 poiId = 1,
                 title = "Title 1",
                 subCategory = "체험",
+                distance = 12.34,
                 address = "강원도 춘천시",
                 description = "This is the description for item 1",
                 imageRes = R.drawable.img_camera_with_flash,
