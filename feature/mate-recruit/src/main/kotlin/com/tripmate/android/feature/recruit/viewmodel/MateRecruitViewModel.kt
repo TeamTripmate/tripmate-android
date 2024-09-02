@@ -28,6 +28,7 @@ class MateRecruitViewModel @Inject constructor(
 
     fun onAction(action: MateRecruitUiAction) {
         when (action) {
+            is MateRecruitUiAction.OnBackClicked -> navigateBack()
             is MateRecruitUiAction.OnMateRecruitTitleUpdated -> setMateRecruitTitle(action.title)
             is MateRecruitUiAction.OnScheduleDateClicked -> setDatePickerVisible(true)
             is MateRecruitUiAction.OnScheduleTimeClicked -> setTimePickerVisible(true)
@@ -46,6 +47,12 @@ class MateRecruitViewModel @Inject constructor(
             is MateRecruitUiAction.OnMateRecruitContentUpdated -> setMateRecruitContent(action.content)
             is MateRecruitUiAction.OnOpenKakaoLinkUpdated -> setOpenKakaoLink(action.link)
             is MateRecruitUiAction.OnDoneClicked -> finish()
+        }
+    }
+
+    private fun navigateBack() {
+        viewModelScope.launch {
+            _uiEvent.send(MateRecruitUiEvent.NavigateBack)
         }
     }
 

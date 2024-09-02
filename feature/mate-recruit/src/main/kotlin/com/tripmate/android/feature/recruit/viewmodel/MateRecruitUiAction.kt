@@ -3,6 +3,7 @@ package com.tripmate.android.feature.recruit.viewmodel
 import com.tripmate.android.domain.entity.GenderAgeGroupEntity
 
 sealed interface MateRecruitUiAction {
+    data object OnBackClicked : MateRecruitUiAction
     data class OnMateRecruitTitleUpdated(val title: String) : MateRecruitUiAction
     data object OnScheduleDateClicked : MateRecruitUiAction
     data object OnScheduleTimeClicked : MateRecruitUiAction

@@ -67,6 +67,7 @@ fun MateRecruitRoute(
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
+            is MateRecruitUiEvent.NavigateBack -> popBackStack()
             is MateRecruitUiEvent.Finish -> popBackStack()
             is MateRecruitUiEvent.ShowToast -> {}
         }
@@ -94,6 +95,7 @@ fun MateRecruitScreen(
             TripmateTopAppBar(
                 navigationType = TopAppBarNavigationType.Back,
                 title = stringResource(id = R.string.mate_writing),
+                onNavigationClick = { onAction(MateRecruitUiAction.OnBackClicked) },
             )
             MateRecruitContent(
                 uiState = uiState,
