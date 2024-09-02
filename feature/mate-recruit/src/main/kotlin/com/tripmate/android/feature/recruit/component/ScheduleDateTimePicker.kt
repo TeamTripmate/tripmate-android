@@ -30,6 +30,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import com.commandiron.wheel_picker_compose.WheelDatePicker
+import com.commandiron.wheel_picker_compose.WheelTimePicker
+import com.commandiron.wheel_picker_compose.core.TimeFormat
+import com.commandiron.wheel_picker_compose.core.WheelPickerDefaults
 import com.tripmate.android.core.common.extension.formatToDate
 import com.tripmate.android.core.common.extension.formatToTime
 import com.tripmate.android.core.common.extension.parseToLocalDate
@@ -47,14 +51,8 @@ import com.tripmate.android.feature.mate_recruit.R
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiAction
 import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiState
 import com.tripmate.android.feature.recruit.viewmodel.PickerType
-import dev.darkokoa.datetimewheelpicker.WheelDatePicker
-import dev.darkokoa.datetimewheelpicker.WheelTimePicker
-import dev.darkokoa.datetimewheelpicker.core.TimeFormat
-import dev.darkokoa.datetimewheelpicker.core.WheelPickerDefaults
-import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import java.time.LocalDate
+import java.time.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -106,8 +104,8 @@ fun ScheduleBottomSheet(
                         .fillMaxWidth()
                         .padding(horizontal = 15.dp),
                     startDate = uiState.mateRecruitDate.parseToLocalDate(),
-                    minDate = Clock.System.now().toLocalDateTime(TimeZone.of("Asia/Seoul")).date,
-                    maxDate = LocalDate(2030, 12, 31),
+                    minDate = LocalDate.now(),
+                    maxDate = LocalDate.of(2030, 12, 31),
                     yearsRange = IntRange(2024, 2030),
                     rowCount = 5,
                     textStyle = Large20_Mid,
@@ -125,8 +123,8 @@ fun ScheduleBottomSheet(
                         .fillMaxWidth()
                         .padding(horizontal = 15.dp),
                     startTime = uiState.mateRecruitTime.parseToLocalTime(),
-                    minTime = Clock.System.now().toLocalDateTime(TimeZone.of("Asia/Seoul")).time,
-                    maxTime = kotlinx.datetime.LocalTime(23, 59),
+                    minTime = LocalTime.now(),
+                    maxTime = LocalTime.of(23, 59),
                     timeFormat = TimeFormat.AM_PM,
                     rowCount = 5,
                     textStyle = Large20_Mid,
@@ -197,9 +195,8 @@ fun ScheduleDialog(
                         .fillMaxWidth()
                         .padding(horizontal = 15.dp),
                     startDate = uiState.mateRecruitDate.parseToLocalDate(),
-                    minDate = Clock.System.now().toLocalDateTime(TimeZone.of("Asia/Seoul")).date,
-                    maxDate = LocalDate(2030, 12, 31),
-                    yearsRange = IntRange(2024, 2030),
+                    minDate = LocalDate.now(),
+                    maxDate = LocalDate.of(2030, 12, 31),
                     rowCount = 5,
                     textStyle = Large20_Mid,
                     textColor = Gray001,
@@ -216,8 +213,8 @@ fun ScheduleDialog(
                         .fillMaxWidth()
                         .padding(horizontal = 15.dp),
                     startTime = uiState.mateRecruitTime.parseToLocalTime(),
-                    minTime = Clock.System.now().toLocalDateTime(TimeZone.of("Asia/Seoul")).time,
-                    maxTime = kotlinx.datetime.LocalTime(23, 59),
+                    minTime = LocalTime.now(),
+                    maxTime = LocalTime.of(23, 59),
                     timeFormat = TimeFormat.AM_PM,
                     rowCount = 5,
                     textStyle = Large20_Mid,

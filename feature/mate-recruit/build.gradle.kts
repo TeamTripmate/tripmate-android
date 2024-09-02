@@ -18,6 +18,6 @@ dependencies {
         libs.kotlinx.collections.immutable,
 
         libs.timber,
-        libs.datetime.wheel.picker,
+        libs.wheel.picker.compose,
     )
 }
