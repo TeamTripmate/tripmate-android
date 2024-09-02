@@ -1,0 +1,63 @@
+package com.tripmate.android.feature.home.component
+
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import com.tripmate.android.core.designsystem.ComponentPreview
+import com.tripmate.android.core.designsystem.theme.Background02
+import com.tripmate.android.core.designsystem.theme.Gray009
+import com.tripmate.android.core.designsystem.theme.Primary01
+import com.tripmate.android.core.designsystem.theme.Primary03
+import com.tripmate.android.core.designsystem.theme.Small14_Med
+
+@Composable
+fun FilterChip(
+    filterName: String,
+    onChipClick: (String) -> Unit,
+    isSelected: Boolean,
+) {
+    Box(
+        modifier = Modifier
+            .border(
+                BorderStroke(1.dp, if(isSelected) Primary01 else Gray009),
+                shape = RoundedCornerShape(50.dp),
+            )
+            .clickable(onClick = { onChipClick(filterName) }),
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .background(if (isSelected) Primary03.copy(alpha = 0.1f) else Background02)
+                .padding(horizontal = 13.dp, vertical = 5.dp),
+        ) {
+            Text(
+                text = filterName,
+                style = Small14_Med,
+            )
+        }
+    }
+}
+
+@ComponentPreview
+@Composable
+fun BoothFilterChipPreview() {
+    FilterChip(
+        filterName = "Filter Chip",
+        onChipClick = {},
+        isSelected = true,
+    )
+}
