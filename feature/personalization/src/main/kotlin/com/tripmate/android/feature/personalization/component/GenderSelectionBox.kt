@@ -24,7 +24,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
-import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Background03
 import com.tripmate.android.core.designsystem.theme.Gray001
@@ -32,6 +31,7 @@ import com.tripmate.android.core.designsystem.theme.Medium16_Mid
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary03
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.feature.personalization.R
 import com.tripmate.android.feature.personalization.viewmodel.Gender
 
 @Composable

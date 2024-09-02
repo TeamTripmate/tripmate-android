@@ -10,49 +10,14 @@
     <string name="network_error_title">네트워크 문제</string>
     <string name="network_error_description">와이파이와 데이터 접속을 확인해주세요</string>
 
-    <!--    personalization-->
-    <string name="question1">숙소 주최 파티에서 장기자랑하면\n술값이 무료! 일 때 당신의 선택은?</string>
-    <string name="select">선택하기</string>
-    <string name="question1_answer_1">술값이 무료라고? 당연 참가!😄</string>
-    <string name="question1_answer_2">그냥 내 돈 내고 말지...</string>
-    <string name="question2">설레는 여향길, 기차를 타고 가는데\n나른함에 잠이 쏟아진다.\n이때 드는 생각은?</string>
-    <string name="question2_answer_1">잠든 사이에 내 짐 훔쳐가면 어떡해? 잡을 수 있을까?</string>
-    <string name="question2_answer_2">아무 걱정하지 않고 냅다 잠이 든다</string>
-    <string name="question3">\'나 우울해서 떡볶이 시켜먹었어\nㅜㅜ\'친구가 문자를 보냈을 때\n당신의 답장은?</string>
-    <string name="question3_answer_1">무슨 일 있었어? 나한테 고민 이야기 해봐 다 들어줄게!</string>
-    <string name="question3_answer_2">떡볶이를 먹었어? 너 다이어트 한다며. 떡볶이가 다이어트할 때 최악의 음식이래...</string>
-    <string name="question4">강원도 여행을 가기로 했다.\n여행이 일주일 남았다면?</string>
-    <string name="question4_answer1">여행 계획을 시간단위, 분 단위로 촘촘히 세운다</string>
-    <string name="question4_answer2">첫째날 갈 곳, 둘째날 갈 곳 등 장소정도 찾아본다</string>
-    <string name="question4_answer3">여행 전 날 어디 갈지 생각해보기로 한다</string>
-    <string name="trip_style_title">당신의 여행 스타일을\n알려주세요.</string>
-    <string name="trip_style_max_count">최대 3개</string>
-    <string name="trip_style_error_message">키워드는 최대 3개까지 선택가능합니다.</string>
-    <string name="trip_style_1">쇼핑매니아\n기념품은 필수</string>
-    <string name="trip_style_2">풍경보며\n걷는게 좋아</string>
-    <string name="trip_style_3">랜드마크는\n무조건</string>
-    <string name="trip_style_4">여행은\n액티비티</string>
-    <string name="trip_style_5">인스타에\n추억기록</string>
-    <string name="trip_style_6">여행은\n모험이지</string>
-    <string name="trip_style_7">자유로운\n배낭여행</string>
-    <string name="trip_style_8">인생샷 남기러\n여행가자!</string>
-    <string name="trip_style_9">문화체험은\n여행의 이유</string>
-    <string name="trip_style_10">맛집 방문은\n필수코스</string>
-    <string name="trip_style_11">편안한게 최고\n여행은 힐링</string>
-    <string name="trip_style_12">테마파크는\n필수</string>
-    <string name="user_info_title">당신에 대해 더 알려주세요.</string>
-    <string name="user_info_description">추천과 동행글에만 이용돼요.\n걱정하지 마세요🤗</string>
-    <string name="input_gender">성별을 골라주세요</string>
-    <string name="female">여자</string>
-    <string name="male">남자</string>
-    <string name="input_birth_date">생년월일을 입력해주세요</string>
-    <string name="birth_date_hint">YYMMDD</string>
-    <string name="invalid_birth_date_error_message">올바른 생년월일을 입력해주세요.</string>
-    <string name="under_age_title">만 19세 미만 미성년자는\n회원가입이 불가능해요.</string>
-    <string name="under_age_description">다음에 다시 만나요.🥲</string>
-    <string name="under_age_confirm">다음에 올게요</string>
-    <string name="start_tripmate">트립메이트 시작하기</string>
+    <!--    login-->
+    <string name="kakao_login">카카오 로그인</string>
 
+    <!--    notification-->
+    <string name="notification_title">알림</string>
+    <string name="notification_empty">아직 알림이 없습니다.</string>
+
+    <!--    mate-->
     <string name="category_type_all">전체</string>
     <string name="category_type_searching_mate">동행 모집 중</string>
     <string name="category_type_food">음식</string>
@@ -62,12 +27,5 @@
     <string name="show_map">지도 보기</string>
     <string name="see_only_searching_mate">동행 모집만 보기</string>
     <string name="searching_mate_title">동행 모집</string>
-
-    <!--    login-->
-    <string name="kakao_login">카카오 로그인</string>
-
-    <!--    notification-->
-    <string name="notification_title">알림</string>
-    <string name="notification_empty">아직 알림이 없습니다.</string>
 
 </resources>

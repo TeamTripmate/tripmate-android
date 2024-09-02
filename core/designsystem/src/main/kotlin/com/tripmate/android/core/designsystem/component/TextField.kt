@@ -5,12 +5,14 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -24,14 +26,15 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.theme.Error
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Gray008
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 
 @Composable
@@ -39,29 +42,32 @@ fun TripmateTextField(
     text: String,
     onTextChange: (String) -> Unit,
     @StringRes searchTextHintRes: Int,
-    clearText: () -> Unit,
     modifier: Modifier = Modifier,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+    clearText: () -> Unit = {},
     errorText: String? = null,
     backgroundColor: Color = Color.White,
     textColor: Color = Gray001,
     cornerShape: RoundedCornerShape = RoundedCornerShape(6.dp),
     borderStroke: BorderStroke = BorderStroke(width = 1.dp, color = if (errorText != null) Error else Gray008),
+    multiline: Boolean = false,
     maxLength: Int? = null,
+    isClearIconVisible: Boolean = false,
 ) {
-    Column(modifier = modifier) {
+    Column {
         BasicTextField(
             value = text,
-            onValueChange = onTextChange,
-            modifier = Modifier.height(52.dp),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Done,
-            ),
+            onValueChange = { text ->
+                if (maxLength == null || text.length <= maxLength) {
+                    onTextChange(text)
+                }
+            },
+            keyboardOptions = keyboardOptions,
             textStyle = Small14_Reg.copy(color = textColor),
-            singleLine = true,
+            singleLine = !multiline,
             decorationBox = { innerTextField ->
                 Row(
-                    modifier = Modifier
+                    modifier = modifier
                         .background(
                             color = backgroundColor,
                             shape = cornerShape,
@@ -69,22 +75,23 @@ fun TripmateTextField(
                         .border(
                             border = borderStroke,
                             shape = cornerShape,
-                        ),
-                    verticalAlignment = Alignment.CenterVertically,
+                        )
+                        .padding(vertical = if (multiline) 12.dp else 0.dp, horizontal = 12.dp),
+                    verticalAlignment = if (multiline) Alignment.Top else Alignment.CenterVertically,
                 ) {
-                    Spacer(modifier = Modifier.width(20.dp))
-                    Box(modifier = Modifier.weight(1f)) {
+                    Box {
                         if (text.isEmpty()) {
                             Text(
                                 text = stringResource(id = searchTextHintRes),
                                 color = Gray006,
+                                maxLines = 1,
                                 style = Small14_Reg,
                             )
                         }
                         innerTextField()
                     }
                     Spacer(modifier = Modifier.weight(1f))
-                    if (text.isNotEmpty()) {
+                    if (text.isNotEmpty() && isClearIconVisible) {
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_clear_text),
                             contentDescription = "clear icon",
@@ -95,12 +102,15 @@ fun TripmateTextField(
                                 },
                         )
                     }
-                    Spacer(modifier = Modifier.width(20.dp))
                 }
             },
         )
         Spacer(modifier = Modifier.height(4.dp))
-        Row {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             if (errorText != null) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
@@ -118,5 +128,17 @@ fun TripmateTextField(
                 )
             }
         }
+    }
+}
+
+@ComponentPreview
+@Composable
+fun TripmateTextFieldPreview() {
+    TripmateTheme {
+        TripmateTextField(
+            text = "트립메이트",
+            onTextChange = {},
+            searchTextHintRes = R.string.app_name,
+        )
     }
 }

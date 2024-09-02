@@ -16,6 +16,8 @@ dependencies {
     implementations(
         projects.core.domain,
 
+        libs.kotlinx.datetime,
+
         libs.androidx.hilt.navigation.compose,
 
         libs.timber,
