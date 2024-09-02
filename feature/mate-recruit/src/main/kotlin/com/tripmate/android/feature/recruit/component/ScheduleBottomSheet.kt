@@ -92,7 +92,9 @@ fun ScheduleBottomSheet(
         modifier = Modifier.wrapContentHeight(),
     ) {
         Column(
-            modifier = Modifier.navigationBarsPadding(),
+            modifier = Modifier
+                .background(Background02)
+                .navigationBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             if (pickerType == PickerType.DATE) {
