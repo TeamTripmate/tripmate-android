@@ -4,6 +4,7 @@ import com.tripmate.android.domain.entity.BadReviewEntity
 import com.tripmate.android.domain.entity.GoodReviewEntity
 
 sealed interface MateReviewUiAction {
+    data object OnBackClicked : MateReviewUiAction
     data class OnGoodReviewSelected(val review: GoodReviewEntity) : MateReviewUiAction
     data class OnGoodReviewDeselected(val review: GoodReviewEntity) : MateReviewUiAction
     data class OnBadReviewSelected(val review: BadReviewEntity) : MateReviewUiAction

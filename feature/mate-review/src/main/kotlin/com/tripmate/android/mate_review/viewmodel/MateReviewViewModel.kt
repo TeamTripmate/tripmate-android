@@ -29,11 +29,18 @@ class MateReviewViewModel @Inject constructor(
 
     fun onAction(action: MateReviewUiAction) {
         when (action) {
+            is MateReviewUiAction.OnBackClicked -> navigateBack()
             is MateReviewUiAction.OnGoodReviewSelected -> addGoodReview(action.review)
             is MateReviewUiAction.OnGoodReviewDeselected -> removeGoodReview(action.review)
             is MateReviewUiAction.OnBadReviewSelected -> addBadReview(action.review)
             is MateReviewUiAction.OnBadReviewDeselected -> removeBadReview(action.review)
             is MateReviewUiAction.OnDoneClicked -> finish()
+        }
+    }
+
+    private fun navigateBack() {
+        viewModelScope.launch {
+            _uiEvent.send(MateReviewUiEvent.NavigateBack)
         }
     }
 
