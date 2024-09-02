@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ModalBottomSheet
@@ -28,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import com.commandiron.wheel_picker_compose.WheelDatePicker
 import com.commandiron.wheel_picker_compose.WheelTimePicker
 import com.commandiron.wheel_picker_compose.core.TimeFormat
@@ -60,8 +62,8 @@ fun ScheduleBottomSheet(
     onAction: (MateRecruitUiAction) -> Unit,
 ) {
     val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    var selectedDate by remember { mutableStateOf("") }
-    var selectedTime by remember { mutableStateOf("") }
+    var selectedDate by remember { mutableStateOf(uiState.mateRecruitDate) }
+    var selectedTime by remember { mutableStateOf(uiState.mateRecruitTime) }
 
     ModalBottomSheet(
         onDismissRequest = {
@@ -91,7 +93,9 @@ fun ScheduleBottomSheet(
         modifier = Modifier.wrapContentHeight(),
     ) {
         Column(
-            modifier = Modifier.navigationBarsPadding(),
+            modifier = Modifier
+                .background(Background02)
+                .navigationBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             if (pickerType == PickerType.DATE) {
@@ -159,14 +163,117 @@ fun ScheduleBottomSheet(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ScheduleDialog(
+    pickerType: PickerType,
+    uiState: MateRecruitUiState,
+    onAction: (MateRecruitUiAction) -> Unit,
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+    properties: DialogProperties = DialogProperties(),
+) {
+    var selectedDate by remember { mutableStateOf(uiState.mateRecruitDate) }
+    var selectedTime by remember { mutableStateOf(uiState.mateRecruitTime) }
+
+    BasicAlertDialog(
+        onDismissRequest = onDismissRequest,
+        modifier = modifier,
+        properties = properties,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(color = Background02),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Spacer(modifier = Modifier.height(24.dp))
+            if (pickerType == PickerType.DATE) {
+                WheelDatePicker(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp),
+                    startDate = uiState.mateRecruitDate.parseToLocalDate(),
+                    minDate = LocalDate.now(),
+                    maxDate = LocalDate.of(2030, 12, 31),
+                    rowCount = 5,
+                    textStyle = Large20_Mid,
+                    textColor = Gray001,
+                    selectorProperties = WheelPickerDefaults.selectorProperties(
+                        enabled = true,
+                        shape = RoundedCornerShape(10.dp),
+                        color = Gray010,
+                        border = BorderStroke(2.dp, Gray010),
+                    ),
+                ) { snappedDate -> run { selectedDate = snappedDate.formatToDate() } }
+            } else {
+                WheelTimePicker(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp),
+                    startTime = uiState.mateRecruitTime.parseToLocalTime(),
+                    minTime = LocalTime.now(),
+                    maxTime = LocalTime.of(23, 59),
+                    timeFormat = TimeFormat.AM_PM,
+                    rowCount = 5,
+                    textStyle = Large20_Mid,
+                    textColor = Gray001,
+                    selectorProperties = WheelPickerDefaults.selectorProperties(
+                        enabled = true,
+                        shape = RoundedCornerShape(10.dp),
+                        color = Gray010,
+                        border = BorderStroke(2.dp, Gray010),
+                    ),
+                ) { snappedTime -> run { selectedTime = snappedTime.formatToTime() } }
+            }
+            Spacer(modifier = Modifier.height(24.dp))
+            TripmateButton(
+                onClick = {
+                    if (pickerType == PickerType.DATE) {
+                        onAction(MateRecruitUiAction.OnScheduleDateUpdated(selectedDate))
+                    } else {
+                        onAction(MateRecruitUiAction.OnScheduleTimeUpdated(selectedTime))
+                    }
+                    onAction(MateRecruitUiAction.OnDismiss(pickerType))
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .padding(horizontal = 15.dp),
+            ) {
+                Text(
+                    text = stringResource(id = R.string.confirm),
+                    style = Medium16_SemiBold,
+                    color = Color.White,
+                )
+            }
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+    }
+}
+
 @ComponentPreview
 @Composable
-fun SchoolSearchBottomSheetPreview() {
+fun ScheduleBottomSheetPreview() {
     TripmateTheme {
         ScheduleBottomSheet(
             pickerType = PickerType.DATE,
             uiState = MateRecruitUiState(),
             onAction = {},
+        )
+    }
+}
+
+@ComponentPreview
+@Composable
+fun ScheduleDialogPreview() {
+    TripmateTheme {
+        ScheduleDialog(
+            pickerType = PickerType.DATE,
+            uiState = MateRecruitUiState(),
+            onAction = {},
+            onDismissRequest = {},
         )
     }
 }

@@ -47,7 +47,7 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.mate_recruit.component.MateRecruitCheckBox
-import com.tripmate.android.feature.mate_recruit.component.ScheduleBottomSheet
+import com.tripmate.android.feature.mate_recruit.component.ScheduleDialog
 import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitUiAction
 import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitUiEvent
 import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitUiState
@@ -66,6 +66,7 @@ fun MateRecruitRoute(
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
+            is MateRecruitUiEvent.NavigateBack -> popBackStack()
             is MateRecruitUiEvent.Finish -> popBackStack()
             is MateRecruitUiEvent.ShowToast -> {}
         }
@@ -93,6 +94,7 @@ fun MateRecruitScreen(
             TripmateTopAppBar(
                 navigationType = TopAppBarNavigationType.Back,
                 title = stringResource(id = R.string.mate_writing),
+                onNavigationClick = { onAction(MateRecruitUiAction.OnBackClicked) },
             )
             MateRecruitContent(
                 uiState = uiState,
@@ -101,18 +103,20 @@ fun MateRecruitScreen(
         }
 
         if (uiState.isDatePickerVisible) {
-            ScheduleBottomSheet(
+            ScheduleDialog(
                 pickerType = PickerType.DATE,
                 uiState = uiState,
                 onAction = onAction,
+                onDismissRequest = {},
             )
         }
 
         if (uiState.isTimePickerVisible) {
-            ScheduleBottomSheet(
+            ScheduleDialog(
                 pickerType = PickerType.TIME,
                 uiState = uiState,
                 onAction = onAction,
+                onDismissRequest = {},
             )
         }
     }
