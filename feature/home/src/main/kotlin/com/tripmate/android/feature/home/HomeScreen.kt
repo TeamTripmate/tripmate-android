@@ -12,15 +12,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -37,8 +33,6 @@ import com.tripmate.android.feature.home.component.HomeItem
 import com.tripmate.android.feature.home.viewmodel.HomeUiAction
 import com.tripmate.android.feature.home.viewmodel.HomeUiState
 import com.tripmate.android.feature.home.viewmodel.HomeViewModel
-import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiAction
-import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 internal fun HomeRoute(
@@ -100,7 +94,7 @@ internal fun HomeScreen(
             }
             Spacer(modifier = Modifier.height(16.dp))
             HomeFilterChips(
-                onChipClick = { HomeUiAction.OnClickChip(it) },
+                onChipClick = { onAction(HomeUiAction.OnClickChip(it)) },
                 selectedChips = uiState.selectedChips,
             )
             Spacer(modifier = Modifier.height(16.dp))

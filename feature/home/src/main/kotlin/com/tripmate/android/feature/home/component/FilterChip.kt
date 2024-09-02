@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Background02
+import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Gray009
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Primary03
@@ -30,24 +31,28 @@ fun FilterChip(
     onChipClick: (String) -> Unit,
     isSelected: Boolean,
 ) {
-    Box(
-        modifier = Modifier
-            .border(
-                BorderStroke(1.dp, if(isSelected) Primary01 else Gray009),
-                shape = RoundedCornerShape(50.dp),
-            )
-            .clickable(onClick = { onChipClick(filterName) }),
+    Card(
+        shape = RoundedCornerShape(50.dp),
+        colors = CardColors(
+            containerColor = if (isSelected) Primary03.copy(alpha = 0.1f) else Background02,
+            contentColor = Gray002,
+            disabledContainerColor = MaterialTheme.colorScheme.background,
+            disabledContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+        ),
+        border = BorderStroke(1.dp, if (isSelected) Primary01 else Gray009),
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .background(if (isSelected) Primary03.copy(alpha = 0.1f) else Background02)
-                .padding(horizontal = 13.dp, vertical = 5.dp),
+        Box(
+            modifier = Modifier.clickable(onClick = { onChipClick(filterName) }),
         ) {
-            Text(
-                text = filterName,
-                style = Small14_Med,
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(horizontal = 13.dp, vertical = 5.dp),
+            ) {
+                Text(
+                    text = filterName,
+                    style = Small14_Med,
+                )
+            }
         }
     }
 }
