@@ -1,9 +1,10 @@
-package com.tripmate.android.feature.recruit.viewmodel
+package com.tripmate.android.feature.mate_recruit.viewmodel
 
 import com.tripmate.android.core.common.extension.formatToDate
 import com.tripmate.android.core.common.extension.formatToTime
 import com.tripmate.android.domain.entity.GenderAgeGroupEntity
 import com.tripmate.android.feature.mate_recruit.R
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import java.time.LocalDate
@@ -20,7 +21,7 @@ data class MateRecruitUiState(
     val mateRecruitTime: String = LocalTime.now(ZoneId.of("Asia/Seoul")).formatToTime(),
     val isMateRecruitTimeUpdated: Boolean = false,
     val selectedMateType: MateType = MateType.ALL,
-    val allGenderAgeGroups: PersistentList<GenderAgeGroupEntity> = persistentListOf(
+    val allGenderAgeGroups: ImmutableList<GenderAgeGroupEntity> = persistentListOf(
         GenderAgeGroupEntity(id = 1, textResId = R.string.same_gender, isSelected = false),
         GenderAgeGroupEntity(id = 2, textResId = R.string.same_age, isSelected = false),
         GenderAgeGroupEntity(id = 3, textResId = R.string.no_matter, isSelected = false),

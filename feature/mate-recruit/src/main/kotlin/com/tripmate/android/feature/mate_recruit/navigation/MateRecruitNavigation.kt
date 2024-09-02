@@ -1,10 +1,10 @@
-package com.tripmate.android.feature.recruit.navigation
+package com.tripmate.android.feature.mate_recruit.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.tripmate.android.feature.recruit.MateRecruitRoute
+import com.tripmate.android.feature.mate_recruit.MateRecruitRoute
 
 const val MATE_RECRUIT_ROUTE = "mate_recruit_route"
 
