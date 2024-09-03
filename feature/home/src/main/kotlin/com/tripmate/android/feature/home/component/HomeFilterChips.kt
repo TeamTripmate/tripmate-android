@@ -11,8 +11,8 @@ import com.tripmate.android.core.designsystem.ComponentPreview
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
-val homeFiltersActivity = persistentListOf("전체", "체험", "문화예술", "축제∙공연", "코스", "레포츠", "숙박", "쇼핑", "맛집∙카페")
-val homeFiltersHealing = persistentListOf("전체", "자연∙휴양", "문화예술", "역사", "숙박", "쇼핑", "맛집∙카페")
+val homeFiltersActivity = persistentListOf("전체", "체험", "문화∙예술", "축제∙공연", "코스", "레포츠", "숙박", "쇼핑", "맛집∙카페")
+val homeFiltersHealing = persistentListOf("전체", "자연∙휴양", "문화∙예술", "역사", "숙박", "쇼핑", "맛집∙카페")
 
 @Composable
 fun HomeFilterChips(
