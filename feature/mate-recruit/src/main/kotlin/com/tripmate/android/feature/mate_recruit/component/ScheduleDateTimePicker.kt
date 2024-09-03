@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.recruit.component
+package com.tripmate.android.feature.mate_recruit.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -48,9 +48,9 @@ import com.tripmate.android.core.designsystem.theme.Large20_Mid
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.feature.mate_recruit.R
-import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiAction
-import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiState
-import com.tripmate.android.feature.recruit.viewmodel.PickerType
+import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitUiAction
+import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitUiState
+import com.tripmate.android.feature.mate_recruit.viewmodel.PickerType
 import java.time.LocalDate
 import java.time.LocalTime
 

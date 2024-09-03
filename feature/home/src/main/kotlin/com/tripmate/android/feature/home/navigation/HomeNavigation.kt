@@ -16,11 +16,13 @@ fun NavController.navigateToHome(navOptions: NavOptions) {
 fun NavGraphBuilder.homeNavGraph(
     padding: PaddingValues,
     navigateToMateRecruit: () -> Unit,
+    navigateToMateReview: () -> Unit,
 ) {
     composable(route = HOME_ROUTE) {
         HomeRoute(
             innerPadding = padding,
             navigateToMateRecruit = navigateToMateRecruit,
+            navigateToMateReview = navigateToMateReview,
         )
     }
 }

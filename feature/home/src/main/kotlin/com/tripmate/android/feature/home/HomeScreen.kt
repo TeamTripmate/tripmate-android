@@ -44,6 +44,7 @@ internal fun HomeRoute(
     innerPadding: PaddingValues,
     navigateToMateRecruit: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
+    navigateToMateReview: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     HomeScreen(
@@ -51,6 +52,7 @@ internal fun HomeRoute(
         innerPadding = innerPadding,
         navigateToMateRecruit = navigateToMateRecruit,
         onAction = viewModel::onAction,
+        navigateToMateReview = navigateToMateReview,
     )
 }
 
@@ -61,6 +63,7 @@ internal fun HomeScreen(
     innerPadding: PaddingValues,
     navigateToMateRecruit: () -> Unit,
     onAction: (HomeUiAction) -> Unit,
+    navigateToMateReview: () -> Unit,
 ) {
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -105,6 +108,12 @@ internal fun HomeScreen(
                         )
                     },
                 )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            TripmateButton(
+                onClick = navigateToMateReview,
+            ) {
+                Text(text = "동행 후기 작성")
             }
         }
 
@@ -170,5 +179,6 @@ internal fun HomeScreenPreview() {
         navigateToMateRecruit = {},
         uiState = HomeUiState(),
         onAction = {},
+        navigateToMateReview = {},
     )
 }

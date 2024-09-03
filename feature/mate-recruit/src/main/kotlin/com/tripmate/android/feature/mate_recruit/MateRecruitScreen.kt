@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.recruit
+package com.tripmate.android.feature.mate_recruit
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -46,15 +46,14 @@ import com.tripmate.android.core.designsystem.theme.Small14_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.android.feature.mate_recruit.R
-import com.tripmate.android.feature.recruit.component.MateRecruitCheckBox
-import com.tripmate.android.feature.recruit.component.ScheduleDialog
-import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiAction
-import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiEvent
-import com.tripmate.android.feature.recruit.viewmodel.MateRecruitUiState
-import com.tripmate.android.feature.recruit.viewmodel.MateRecruitViewModel
-import com.tripmate.android.feature.recruit.viewmodel.MateType
-import com.tripmate.android.feature.recruit.viewmodel.PickerType
+import com.tripmate.android.feature.mate_recruit.component.MateRecruitCheckBox
+import com.tripmate.android.feature.mate_recruit.component.ScheduleDialog
+import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitUiAction
+import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitUiEvent
+import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitUiState
+import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitViewModel
+import com.tripmate.android.feature.mate_recruit.viewmodel.MateType
+import com.tripmate.android.feature.mate_recruit.viewmodel.PickerType
 
 @Composable
 fun MateRecruitRoute(

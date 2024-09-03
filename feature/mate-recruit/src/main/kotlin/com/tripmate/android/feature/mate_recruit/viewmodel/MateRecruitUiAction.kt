@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.recruit.viewmodel
+package com.tripmate.android.feature.mate_recruit.viewmodel
 
 import com.tripmate.android.domain.entity.GenderAgeGroupEntity
 
