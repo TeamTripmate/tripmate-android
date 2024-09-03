@@ -25,7 +25,7 @@ kotlinx-serialization-converter = "1.0.0"
 kotlinx-collections-immutable = "0.3.7"
 
 android-play-services-location = "21.3.0"
-accompanist-permissions = "0.35.0-alpha"
+accompanist-permissions = "0.34.0"
 
 androidx-core = "1.13.1"
 androidx-lifecycle = "2.8.3"
