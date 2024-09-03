@@ -191,9 +191,7 @@ fun ScheduleDialog(
             Spacer(modifier = Modifier.height(24.dp))
             if (pickerType == PickerType.DATE) {
                 WheelDatePicker(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 15.dp),
+                    modifier = Modifier.padding(horizontal = 15.dp),
                     startDate = uiState.mateRecruitDate.parseToLocalDate(),
                     minDate = LocalDate.now(),
                     maxDate = LocalDate.of(2030, 12, 31),
@@ -209,9 +207,7 @@ fun ScheduleDialog(
                 ) { snappedDate -> run { selectedDate = snappedDate.formatToDate() } }
             } else {
                 WheelTimePicker(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 15.dp),
+                    modifier = Modifier.padding(horizontal = 15.dp),
                     startTime = uiState.mateRecruitTime.parseToLocalTime(),
                     minTime = LocalTime.now(),
                     maxTime = LocalTime.of(23, 59),
