@@ -1,5 +1,12 @@
 package com.tripmate.android.feature.home
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
+import androidx.compose.animation.with
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +17,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
@@ -49,6 +58,7 @@ internal fun HomeRoute(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun HomeScreen(
     uiState: HomeUiState,
@@ -56,61 +66,85 @@ internal fun HomeScreen(
     navigateToMateRecruit: () -> Unit,
     onAction: (HomeUiAction) -> Unit,
 ) {
-    val tabs = listOf("액티비티", "힐링")
-    Box(
+    val pagerState = rememberPagerState(
+        pageCount = { uiState.tabs.size }
+    )
+
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding),
+            .padding(innerPadding)
+            .padding(horizontal = 16.dp),
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp),
+        TabRow(
+            selectedTabIndex = uiState.selectedTabIndex,
+            modifier = Modifier.fillMaxWidth(),
+            indicator = { tabPositions ->
+                SecondaryIndicator(
+                    Modifier.tabIndicatorOffset(tabPositions[uiState.selectedTabIndex]),
+                    height = 2.dp,
+                    color = Primary01
+                )
+            }
         ) {
-            TabRow(
-                selectedTabIndex = uiState.selectedTabIndex,
-                modifier = Modifier.fillMaxWidth(),
-                indicator = { tabPositions ->
-                    SecondaryIndicator(
-                        Modifier.tabIndicatorOffset(tabPositions[uiState.selectedTabIndex]),
-                        height = 2.dp,
-                        color = Primary01
-                    )
-                }
-            ) {
-                tabs.forEachIndexed { index, title ->
-                    Tab(
-                        selected = uiState.selectedTabIndex == index,
-                        onClick = { onAction(HomeUiAction.OnClickTab(index)) },
-                        text = {
-                            Text(
-                                text = title,
-                                style = if (uiState.selectedTabIndex == index) Medium16_SemiBold else Medium16_Mid,
-                                color = if (uiState.selectedTabIndex == index) Gray001 else Gray006
-                            )
-                        },
-                    )
-                }
+            uiState.tabs.forEachIndexed { index, title ->
+                Tab(
+                    selected = uiState.selectedTabIndex == index,
+                    onClick = { onAction(HomeUiAction.OnClickTab(index)) },
+                    text = {
+                        Text(
+                            text = title,
+                            style = if (uiState.selectedTabIndex == index) Medium16_SemiBold else Medium16_Mid,
+                            color = if (uiState.selectedTabIndex == index) Gray001 else Gray006
+                        )
+                    },
+                )
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            HomeFilterChips(
-                onChipClick = { onAction(HomeUiAction.OnClickChip(it)) },
-                selectedChips = uiState.selectedChips,
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier.fillMaxSize(),
+            key = { uiState.selectedTabIndex }
+        ) { page ->
+            ContentForTab(
+                tabIndex = page,
+                uiState = uiState,
+                onAction = onAction,
+                navigateToMateRecruit = navigateToMateRecruit
             )
-            Spacer(modifier = Modifier.height(16.dp))
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(40.dp),
-            ) {
-                items(5) {
-                    HomeItem()
-                }
+        }
+
+    }
+}
+
+
+@Composable
+private fun ContentForTab(
+    tabIndex: Int,
+    uiState: HomeUiState,
+    onAction: (HomeUiAction) -> Unit,
+    navigateToMateRecruit: () -> Unit,
+) {
+    Column {
+        HomeFilterChips(
+            onChipClick = { onAction(HomeUiAction.OnClickChip(it)) },
+            selectedChips = uiState.selectedChips,
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(40.dp),
+        ) {
+            items(5) {
+                HomeItem()
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            TripmateButton(
-                onClick = navigateToMateRecruit,
-            ) {
-                Text(text = "동행 모집")
-            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        TripmateButton(
+            onClick = navigateToMateRecruit,
+        ) {
+            Text(text = if (tabIndex == 0) "액티비티 모집" else "힐링 모집")
         }
     }
 }
