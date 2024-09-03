@@ -137,14 +137,22 @@ private fun ContentForTab(
         HomeFilterChips(
             onChipClick = { onAction(HomeUiAction.OnClickChip(it)) },
             selectedChips = if (tabIndex == 0) uiState.activitySelectedChips else uiState.healingSelectedChips,
-            tabIndex = tabIndex
+            tabIndex = tabIndex,
         )
         Spacer(modifier = Modifier.height(16.dp))
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(40.dp),
         ) {
             items(5) {
-                HomeItem()
+                HomeItem(
+                    locationTag = "양양",
+                    categoryTag = "서핑",
+                    mateTag = "액티비티 동행",
+                    imgUrl = "https://picsum.photos/36",
+                    title = "양양 서핑 체험",
+                    description = "양양 서핑 체험을 통해 새로운 경험을 즐겨보세요!",
+                    location = "강원도 양양군",
+                )
             }
         }
         Spacer(modifier = Modifier.height(16.dp))

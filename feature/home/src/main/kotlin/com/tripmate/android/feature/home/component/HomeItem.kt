@@ -37,20 +37,25 @@ import com.tripmate.android.feature.home.R
 
 @Composable
 fun HomeItem(
-    tagText1: String = "양양",
-    tagText2: String = "서핑",
-    tagText3: String = "액티비티 동행",
+    locationTag: String,
+    categoryTag: String,
+    mateTag: String,
+    imgUrl : String,
+    title : String,
+    location : String,
+    description : String,
+    modifier: Modifier = Modifier,
 ) {
     Column {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .height(200.dp)
                 .clip(RoundedCornerShape(4.dp))
                 .background(Gray004),
         ) {
             NetworkImage(
-                imgUrl = "https://picsum.photos/36",
+                imgUrl = imgUrl,
                 modifier = Modifier.matchParentSize(),
                 contentDescription = "Example Image Icon",
             )
@@ -59,17 +64,17 @@ fun HomeItem(
                 .align(Alignment.TopStart)
                 .padding(start = 16.dp, top = 14.dp),){
                 Tag(
-                    tagText = tagText1,
+                    tagText = locationTag,
                     isLocationTag = true,
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Tag(
-                    tagText = tagText2,
+                    tagText = categoryTag,
                     isLocationTag = false,
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Tag(
-                    tagText = tagText3,
+                    tagText = mateTag,
                     isLocationTag = false,
                 )
             }
@@ -89,19 +94,19 @@ fun HomeItem(
         }
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "양양에서 서핑",
+            text = title,
             color = Gray001,
             style = Large20_Bold,
         )
         Spacer(modifier = Modifier.height(2.dp))
         Text(
-            text = "강원 양양군 현북면 하조대해안길 119",
+            text = location,
             color = Gray004,
             style = XSmall12_Reg,
         )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = "설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설설명설명설명설명명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명",
+            text = description,
             color = Gray001,
             style = Small14_Reg,
             maxLines = 3,
@@ -114,5 +119,13 @@ fun HomeItem(
 @ComponentPreview
 @Composable
 fun HomeItemPreview() {
-    HomeItem()
+    HomeItem(
+        locationTag = "양양",
+        categoryTag = "서핑",
+        mateTag = "액티비티 동행",
+        imgUrl = "https://picsum.photos/36",
+        title = "양양 서핑 체험",
+        description = "양양 서핑 체험을 통해 새로운 경험을 즐겨보세요!",
+        location = "강원도 양양군",
+    )
 }
