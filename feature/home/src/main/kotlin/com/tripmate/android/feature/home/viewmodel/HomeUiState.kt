@@ -12,7 +12,8 @@ import java.time.LocalTime
 import java.time.ZoneId
 
 data class HomeUiState(
-    val selectedTabIndex: Int = 0,
-    val selectedChips: ImmutableList<String> = persistentListOf("전체"),
     val tabs: ImmutableList<String> = persistentListOf("액티비티", "힐링"),
+    val selectedTabIndex: Int = 0,
+    val activitySelectedChips: ImmutableList<String> = persistentListOf("전체"),
+    val healingSelectedChips: ImmutableList<String> = persistentListOf("전체"),
 )

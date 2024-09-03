@@ -1,14 +1,8 @@
 package com.tripmate.android.feature.home
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.togetherWith
-import androidx.compose.animation.with
+
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -25,7 +19,9 @@ import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -42,6 +38,7 @@ import com.tripmate.android.feature.home.component.HomeItem
 import com.tripmate.android.feature.home.viewmodel.HomeUiAction
 import com.tripmate.android.feature.home.viewmodel.HomeUiState
 import com.tripmate.android.feature.home.viewmodel.HomeViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 internal fun HomeRoute(
@@ -67,8 +64,14 @@ internal fun HomeScreen(
     onAction: (HomeUiAction) -> Unit,
 ) {
     val pagerState = rememberPagerState(
+        initialPage = 0,
         pageCount = { uiState.tabs.size }
     )
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(pagerState.currentPage) {
+        onAction(HomeUiAction.OnTabChanged(pagerState.currentPage))
+    }
 
     Column(
         modifier = Modifier
@@ -77,11 +80,11 @@ internal fun HomeScreen(
             .padding(horizontal = 16.dp),
     ) {
         TabRow(
-            selectedTabIndex = uiState.selectedTabIndex,
+            selectedTabIndex = pagerState.currentPage,
             modifier = Modifier.fillMaxWidth(),
             indicator = { tabPositions ->
                 SecondaryIndicator(
-                    Modifier.tabIndicatorOffset(tabPositions[uiState.selectedTabIndex]),
+                    Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                     height = 2.dp,
                     color = Primary01
                 )
@@ -89,13 +92,17 @@ internal fun HomeScreen(
         ) {
             uiState.tabs.forEachIndexed { index, title ->
                 Tab(
-                    selected = uiState.selectedTabIndex == index,
-                    onClick = { onAction(HomeUiAction.OnClickTab(index)) },
+                    selected = pagerState.currentPage == index,
+                    onClick = {
+                        scope.launch {
+                            pagerState.animateScrollToPage(index)
+                        }
+                    },
                     text = {
                         Text(
                             text = title,
-                            style = if (uiState.selectedTabIndex == index) Medium16_SemiBold else Medium16_Mid,
-                            color = if (uiState.selectedTabIndex == index) Gray001 else Gray006
+                            style = if (pagerState.currentPage == index) Medium16_SemiBold else Medium16_Mid,
+                            color = if (pagerState.currentPage == index) Gray001 else Gray006
                         )
                     },
                 )
@@ -106,7 +113,7 @@ internal fun HomeScreen(
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.fillMaxSize(),
-            key = { uiState.selectedTabIndex }
+            pageSpacing = 32.dp,
         ) { page ->
             ContentForTab(
                 tabIndex = page,
@@ -115,7 +122,6 @@ internal fun HomeScreen(
                 navigateToMateRecruit = navigateToMateRecruit
             )
         }
-
     }
 }
 
@@ -130,7 +136,8 @@ private fun ContentForTab(
     Column {
         HomeFilterChips(
             onChipClick = { onAction(HomeUiAction.OnClickChip(it)) },
-            selectedChips = uiState.selectedChips,
+            selectedChips = if (tabIndex == 0) uiState.activitySelectedChips else uiState.healingSelectedChips,
+            tabIndex = tabIndex
         )
         Spacer(modifier = Modifier.height(16.dp))
         LazyColumn(

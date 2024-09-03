@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
     fun onAction(action: HomeUiAction) {
         when (action) {
             is HomeUiAction.OnBackClicked -> navigateBack()
-            is HomeUiAction.OnClickTab -> onClickTab(action.tab)
+            is HomeUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is HomeUiAction.OnClickChip -> updateSelectedChipList(action.chipName)
         }
     }
@@ -38,34 +38,46 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun onClickTab(tab: Int) {
+    private fun updateSelectedTab(tab: Int) {
         _uiState.update { it.copy(selectedTabIndex = tab) }
     }
 
+
     private fun updateSelectedChipList(chipName: String) {
-        _uiState.update {
-            val newChips = it.selectedChips.toMutableList().apply {
+        _uiState.update { currentState ->
+            val currentChips = if (currentState.selectedTabIndex == 0)
+                currentState.activitySelectedChips else currentState.healingSelectedChips
+
+            val newChips = currentChips.toMutableList().apply {
                 when {
                     chipName == "전체" -> {
                         clear()
                         add("전체")
                     }
+
                     contains("전체") && chipName != "전체" -> {
                         remove("전체")
                         add(chipName)
                     }
+
                     contains(chipName) -> {
                         remove(chipName)
                         if (isEmpty()) {
                             add("전체")
                         }
                     }
+
                     else -> {
                         add(chipName)
                     }
                 }
             }.toImmutableList()
-            it.copy(selectedChips = newChips)
+
+            if (currentState.selectedTabIndex == 0) {
+                currentState.copy(activitySelectedChips = newChips)
+            } else {
+                currentState.copy(healingSelectedChips = newChips)
+            }
         }
     }
 
