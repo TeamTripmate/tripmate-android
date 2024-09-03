@@ -1,6 +1,5 @@
 package com.tripmate.android.feature.home
 
-
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -65,7 +64,7 @@ internal fun HomeScreen(
 ) {
     val pagerState = rememberPagerState(
         initialPage = 0,
-        pageCount = { uiState.tabs.size }
+        pageCount = { uiState.tabs.size },
     )
     val scope = rememberCoroutineScope()
 
@@ -86,9 +85,9 @@ internal fun HomeScreen(
                 SecondaryIndicator(
                     Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                     height = 2.dp,
-                    color = Primary01
+                    color = Primary01,
                 )
-            }
+            },
         ) {
             uiState.tabs.forEachIndexed { index, title ->
                 Tab(
@@ -102,7 +101,7 @@ internal fun HomeScreen(
                         Text(
                             text = title,
                             style = if (pagerState.currentPage == index) Medium16_SemiBold else Medium16_Mid,
-                            color = if (pagerState.currentPage == index) Gray001 else Gray006
+                            color = if (pagerState.currentPage == index) Gray001 else Gray006,
                         )
                     },
                 )
@@ -119,12 +118,11 @@ internal fun HomeScreen(
                 tabIndex = page,
                 uiState = uiState,
                 onAction = onAction,
-                navigateToMateRecruit = navigateToMateRecruit
+                navigateToMateRecruit = navigateToMateRecruit,
             )
         }
     }
 }
-
 
 @Composable
 private fun ContentForTab(

@@ -19,11 +19,11 @@ val homeFiltersHealing = persistentListOf("전체", "자연∙휴양", "문화�
 fun HomeFilterChips(
     onChipClick: (String) -> Unit,
     selectedChips: ImmutableList<String>,
-    tabIndex : Int
+    tabIndex: Int,
 ) {
     val filters = if (tabIndex == 0) homeFiltersActivity else homeFiltersHealing
     LazyRow(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         items(
             items = filters,
@@ -45,6 +45,6 @@ fun HomeFilterChipsPreview() {
     HomeFilterChips(
         onChipClick = {},
         selectedChips = persistentListOf("전체"),
-        tabIndex = 0
+        tabIndex = 0,
     )
 }

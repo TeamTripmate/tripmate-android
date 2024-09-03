@@ -1,20 +1,17 @@
 package com.tripmate.android.feature.home.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -33,17 +29,16 @@ import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
-import com.tripmate.android.feature.home.R
 
 @Composable
 fun HomeItem(
     locationTag: String,
     categoryTag: String,
     mateTag: String,
-    imgUrl : String,
-    title : String,
-    location : String,
-    description : String,
+    imgUrl: String,
+    title: String,
+    location: String,
+    description: String,
     modifier: Modifier = Modifier,
 ) {
     Column {
@@ -60,9 +55,11 @@ fun HomeItem(
                 contentDescription = "Example Image Icon",
             )
 
-            Row(modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(start = 16.dp, top = 14.dp),){
+            Row(
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(start = 16.dp, top = 14.dp),
+            ) {
                 Tag(
                     tagText = locationTag,
                     isLocationTag = true,
@@ -83,12 +80,12 @@ fun HomeItem(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(end = 12.dp, bottom = 12.dp)
-                    .clickable {  },
+                    .clickable { },
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(com.tripmate.android.core.designsystem.R.drawable.ic_heart_button),
                     contentDescription = "Heart Button",
-                    tint = Color.Unspecified
+                    tint = Color.Unspecified,
                 )
             }
         }
@@ -113,7 +110,6 @@ fun HomeItem(
             overflow = TextOverflow.Ellipsis,
         )
     }
-
 }
 
 @ComponentPreview

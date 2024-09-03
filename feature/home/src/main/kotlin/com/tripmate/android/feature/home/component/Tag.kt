@@ -18,14 +18,14 @@ import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 @Composable
 fun Tag(
     isLocationTag: Boolean = false,
-    tagText : String = "Tag",
-    modifier: Modifier = Modifier
+    tagText: String = "Tag",
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(2.dp))
             .background(if (isLocationTag) Primary01 else Gray002)
-            .padding(horizontal = 4.dp, vertical = 2.dp)
+            .padding(horizontal = 4.dp, vertical = 2.dp),
     ) {
         Text(
             text = tagText,

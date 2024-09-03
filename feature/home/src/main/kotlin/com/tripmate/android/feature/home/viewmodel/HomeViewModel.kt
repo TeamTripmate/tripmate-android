@@ -42,7 +42,6 @@ class HomeViewModel @Inject constructor(
         _uiState.update { it.copy(selectedTabIndex = tab) }
     }
 
-
     private fun updateSelectedChipList(chipName: String) {
         _uiState.update { currentState ->
             val currentChips = if (currentState.selectedTabIndex == 0)
@@ -72,7 +71,6 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }.toImmutableList()
-
             if (currentState.selectedTabIndex == 0) {
                 currentState.copy(activitySelectedChips = newChips)
             } else {
@@ -80,5 +78,4 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
-
 }
