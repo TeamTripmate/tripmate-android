@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
@@ -18,10 +19,14 @@ val homeFiltersHealing = persistentListOf("전체", "자연∙휴양", "문화�
 fun HomeFilterChips(
     onChipClick: (String) -> Unit,
     selectedChips: ImmutableList<String>,
+    tabIndex : Int
 ) {
-    LazyRow {
+    val filters = if (tabIndex == 0) homeFiltersActivity else homeFiltersHealing
+    LazyRow(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         items(
-            items = homeFiltersActivity,
+            items = filters,
             key = { it.hashCode() },
         ) {
             FilterChip(
@@ -40,5 +45,6 @@ fun HomeFilterChipsPreview() {
     HomeFilterChips(
         onChipClick = {},
         selectedChips = persistentListOf("전체"),
+        tabIndex = 0
     )
 }

@@ -46,20 +46,22 @@ fun FilterChip(
     ) {
         Box(
             modifier = Modifier
-                .height(33.dp)
                 .clickable(onClick = { onChipClick(filterName) }),
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(horizontal = 13.dp, vertical = 5.dp),
+                modifier = Modifier
+                    .height(33.dp)
+                    .padding(horizontal = 13.dp, vertical = 5.dp),
             ) {
-
-                Icon(
-                    painter = painterResource(id = getIconResourceForFilter(filterName)),
-                    contentDescription = null,
-                    tint = Color.Unspecified,
-                )
-                Spacer(modifier = Modifier.width(4.dp))
+                if (filterName != "전체") {
+                    Icon(
+                        painter = painterResource(id = getIconResourceForFilter(filterName)),
+                        contentDescription = null,
+                        tint = Color.Unspecified,
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                }
                 Text(
                     text = filterName,
                     style = Small14_Med,
@@ -80,6 +82,7 @@ fun getIconResourceForFilter(filterName: String): Int {
         "숙박" -> com.tripmate.android.core.designsystem.R.drawable.ic_hotel
         "레포츠" -> com.tripmate.android.core.designsystem.R.drawable.ic_sports
         "맛집∙카페" -> com.tripmate.android.core.designsystem.R.drawable.ic_dish
+        "쇼핑" -> com.tripmate.android.core.designsystem.R.drawable.ic_shopping
         else -> com.tripmate.android.feature.mate_recruit.R.drawable.ic_mate_type_checked
     }
 }
