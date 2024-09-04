@@ -26,7 +26,7 @@ fun NetworkImage(
 ) {
     if (LocalInspectionMode.current) {
         Image(
-            painter = painterResource(id = R.drawable.ic_mypage),
+            painter = painterResource(id = R.drawable.ic_sample_character),
             contentDescription = "Example Image Icon",
             modifier = modifier,
         )
