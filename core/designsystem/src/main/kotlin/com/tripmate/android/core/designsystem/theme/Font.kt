@@ -141,6 +141,14 @@ val Small14_Light = TextStyle(
     lineHeight = 21.sp,
 )
 
+val Small14_Med = TextStyle(
+    fontFamily = pretendardFamily,
+    fontWeight = FontWeight.Medium,
+    fontSize = 14.sp,
+    letterSpacing = 0.sp,
+    lineHeight = 21.sp,
+)
+
 val XSmall12_SemiBold = TextStyle(
     fontFamily = pretendardFamily,
     fontWeight = FontWeight.SemiBold,
