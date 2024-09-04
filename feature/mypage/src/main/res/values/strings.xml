@@ -4,4 +4,5 @@
     <string name="my_pick">나의 픽</string>
     <string name="logout">로그아웃</string>
     <string name="withdraw">회원 탈퇴</string>
+    <string name="profile_image">프로필 이미지</string>
 </resources>
