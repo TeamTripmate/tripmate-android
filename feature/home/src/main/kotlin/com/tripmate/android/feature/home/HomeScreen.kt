@@ -25,12 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Medium16_Mid
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.home.component.HomeFilterChips
 import com.tripmate.android.feature.home.component.HomeItem
@@ -57,6 +57,7 @@ internal fun HomeRoute(
 }
 
 @OptIn(ExperimentalFoundationApi::class)
+@Suppress("UnusedParameter")
 @Composable
 internal fun HomeScreen(
     uiState: HomeUiState,
@@ -109,12 +110,6 @@ internal fun HomeScreen(
                     },
                 )
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            TripmateButton(
-                onClick = navigateToMateReview,
-            ) {
-                Text(text = "동행 후기 작성")
-            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -133,6 +128,7 @@ internal fun HomeScreen(
     }
 }
 
+@Suppress("UnusedParameter")
 @Composable
 private fun ContentForTab(
     tabIndex: Int,
@@ -161,12 +157,14 @@ private fun ContentForTab(
                     location = "강원도 양양군",
                 )
             }
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        TripmateButton(
-            onClick = navigateToMateRecruit,
-        ) {
-            Text(text = if (tabIndex == 0) "액티비티 모집" else "힐링 모집")
+//            item {
+//                Spacer(modifier = Modifier.height(16.dp))
+//                TripmateButton(
+//                    onClick = navigateToMateRecruit,
+//                ) {
+//                    Text(text = "동행 모집하기")
+//                }
+//            }
         }
     }
 }
@@ -174,11 +172,13 @@ private fun ContentForTab(
 @DevicePreview
 @Composable
 internal fun HomeScreenPreview() {
-    HomeScreen(
-        innerPadding = PaddingValues(16.dp),
-        navigateToMateRecruit = {},
-        uiState = HomeUiState(),
-        onAction = {},
-        navigateToMateReview = {},
-    )
+    TripmateTheme {
+        HomeScreen(
+            innerPadding = PaddingValues(16.dp),
+            navigateToMateRecruit = {},
+            uiState = HomeUiState(),
+            onAction = {},
+            navigateToMateReview = {},
+        )
+    }
 }
