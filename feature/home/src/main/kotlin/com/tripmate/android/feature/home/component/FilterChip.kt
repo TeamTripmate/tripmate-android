@@ -27,6 +27,7 @@ import com.tripmate.android.core.designsystem.theme.Gray009
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Primary03
 import com.tripmate.android.core.designsystem.theme.Small14_Med
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 
 @Composable
 fun FilterChip(
@@ -90,9 +91,11 @@ fun getIconResourceForFilter(filterName: String): Int {
 @ComponentPreview
 @Composable
 fun BoothFilterChipPreview() {
-    FilterChip(
-        filterName = "Filter Chip",
-        onChipClick = {},
-        isSelected = true,
-    )
+    TripmateTheme {
+        FilterChip(
+            filterName = "Filter Chip",
+            onChipClick = {},
+            isSelected = true,
+        )
+    }
 }

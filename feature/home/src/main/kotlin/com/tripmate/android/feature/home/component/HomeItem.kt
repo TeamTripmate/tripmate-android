@@ -28,6 +28,7 @@ import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 
 @Composable
@@ -115,13 +116,15 @@ fun HomeItem(
 @ComponentPreview
 @Composable
 fun HomeItemPreview() {
-    HomeItem(
-        locationTag = "양양",
-        categoryTag = "서핑",
-        mateTag = "액티비티 동행",
-        imgUrl = "https://picsum.photos/36",
-        title = "양양 서핑 체험",
-        description = "양양 서핑 체험을 통해 새로운 경험을 즐겨보세요!",
-        location = "강원도 양양군",
-    )
+    TripmateTheme {
+        HomeItem(
+            locationTag = "양양",
+            categoryTag = "서핑",
+            mateTag = "액티비티 동행",
+            imgUrl = "https://picsum.photos/36",
+            title = "양양 서핑 체험",
+            description = "양양 서핑 체험을 통해 새로운 경험을 즐겨보세요!",
+            location = "강원도 양양군",
+        )
+    }
 }

@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -42,9 +43,11 @@ fun HomeFilterChips(
 @ComponentPreview
 @Composable
 fun HomeFilterChipsPreview() {
-    HomeFilterChips(
-        onChipClick = {},
-        selectedChips = persistentListOf("전체"),
-        tabIndex = 0,
-    )
+    TripmateTheme {
+        HomeFilterChips(
+            onChipClick = {},
+            selectedChips = persistentListOf("전체"),
+            tabIndex = 0,
+        )
+    }
 }

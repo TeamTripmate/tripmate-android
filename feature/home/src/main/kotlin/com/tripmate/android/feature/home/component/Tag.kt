@@ -13,6 +13,7 @@ import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Primary01
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 
 @Composable
@@ -38,5 +39,7 @@ fun Tag(
 @ComponentPreview
 @Composable
 fun TagPreview() {
-    Tag()
+    TripmateTheme {
+        Tag()
+    }
 }
