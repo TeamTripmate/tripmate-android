@@ -18,7 +18,7 @@ fun VerticalDottedDivider(
     thickness: Dp,
     dash: Dp = 8.dp,
     spacedBy: Dp = 8.dp,
-    cornerRadius: Dp = 2.dp
+    cornerRadius: Dp = 2.dp,
 ) {
     val density = LocalDensity.current
     val length = with(density) { dash.toPx() }
@@ -41,16 +41,16 @@ fun VerticalDottedDivider(
                             top = topY,
                             right = thicknessPx,
                             bottom = topY + length,
-                            cornerRadius = CornerRadius(cornerRadiusPx)
-                        )
+                            cornerRadius = CornerRadius(cornerRadiusPx),
+                        ),
                     )
                 }
             }
 
             drawPath(
                 path = path,
-                color = color
+                color = color,
             )
-        }
+        },
     )
 }

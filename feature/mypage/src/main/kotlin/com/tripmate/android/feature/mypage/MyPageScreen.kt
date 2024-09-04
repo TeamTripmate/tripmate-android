@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.mypage
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -92,12 +94,15 @@ internal fun MyPageScreen(
     }
 }
 
+@Suppress("UnusedParameter")
 @Composable
 internal fun MyPageContent(
     uiState: MyPageUiState,
     onAction: (MyPageUiAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -201,7 +206,9 @@ internal fun MyPageContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .noRippleClickable { },
+                .noRippleClickable {
+                    Toast.makeText(context, "나의 픽", Toast.LENGTH_SHORT).show()
+                },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
             Text(
@@ -214,7 +221,9 @@ internal fun MyPageContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .noRippleClickable { },
+                .noRippleClickable {
+                    Toast.makeText(context, "로그아웃", Toast.LENGTH_SHORT).show()
+                },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
             Text(
@@ -227,7 +236,9 @@ internal fun MyPageContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .noRippleClickable { },
+                .noRippleClickable {
+                    Toast.makeText(context, "회원 탈퇴", Toast.LENGTH_SHORT).show()
+                },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
             Text(
