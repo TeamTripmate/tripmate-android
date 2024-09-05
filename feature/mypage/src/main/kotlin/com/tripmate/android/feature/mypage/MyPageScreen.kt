@@ -1,18 +1,14 @@
 package com.tripmate.android.feature.mypage
 
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -22,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -33,16 +28,12 @@ import com.tripmate.android.core.common.extension.noRippleClickable
 import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
-import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
-import com.tripmate.android.core.designsystem.theme.Primary03
-import com.tripmate.android.core.designsystem.theme.Ticket
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
-import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.android.feature.mypage.component.VerticalDottedDivider
+import com.tripmate.android.feature.mypage.component.Ticket
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiEvent
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
@@ -125,83 +116,7 @@ internal fun MyPageContent(
             color = Gray001,
         )
         Spacer(modifier = Modifier.height(32.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(114.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .background(Ticket),
-        ) {
-            Row(
-                modifier = Modifier.fillMaxSize(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Spacer(modifier = Modifier.width(20.dp))
-                NetworkImage(
-                    imgUrl = uiState.characterImgUrl,
-                    contentDescription = stringResource(id = R.string.profile_image),
-                    modifier = Modifier
-                        .height(48.dp)
-                        .clip(RoundedCornerShape(24.dp)),
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-                VerticalDottedDivider(
-                    modifier = Modifier.fillMaxHeight(),
-                    thickness = 2.dp,
-                    color = White,
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-                Column {
-                    Text(
-                        text = uiState.personalizationResult,
-                        style = Medium16_SemiBold,
-                        color = Gray001,
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Row {
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(4.dp))
-                                .background(Background02)
-                                .padding(vertical = 4.dp, horizontal = 8.dp),
-                        ) {
-                            Text(
-                                text = uiState.type1,
-                                style = XSmall12_Reg,
-                                color = Primary03,
-                            )
-                        }
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(4.dp))
-                                .background(Background02)
-                                .padding(vertical = 4.dp, horizontal = 8.dp),
-                        ) {
-                            Text(
-                                text = uiState.type2,
-                                style = XSmall12_Reg,
-                                color = Primary03,
-                            )
-                        }
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(4.dp))
-                                .background(Background02)
-                                .padding(vertical = 4.dp, horizontal = 8.dp),
-                        ) {
-                            Text(
-                                text = uiState.type3,
-                                style = XSmall12_Reg,
-                                color = Primary03,
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(28.dp))
-            }
-        }
+        Ticket(uiState = uiState)
         Spacer(modifier = Modifier.height(32.dp))
         Column(
             modifier = Modifier
