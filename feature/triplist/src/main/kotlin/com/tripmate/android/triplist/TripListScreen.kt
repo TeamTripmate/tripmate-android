@@ -1,4 +1,4 @@
-package com.tripmate.android.writing
+package com.tripmate.android.triplist
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,16 +11,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 
 @Composable
-internal fun WritingRoute(
+internal fun TripListRoute(
     innerPadding: PaddingValues,
 ) {
-    WritingScreen(
+    TripListScreen(
         innerPadding = innerPadding,
     )
 }
 
 @Composable
-internal fun WritingScreen(
+internal fun TripListScreen(
     innerPadding: PaddingValues,
 ) {
     Box(

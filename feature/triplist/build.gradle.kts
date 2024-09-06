@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.tripmate.android.feature.writing"
+    namespace = "com.tripmate.android.feature.triplist"
 }
 
 dependencies {

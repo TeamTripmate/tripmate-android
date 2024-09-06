@@ -15,7 +15,7 @@ import com.tripmate.android.feature.mate_recruit.navigation.navigateToMateRecrui
 import com.tripmate.android.mate.navigation.navigateToMate
 import com.tripmate.android.mate_review.navigation.navigateToMateReview
 import com.tripmate.android.notification.navigation.navigateToNotification
-import com.tripmate.android.writing.navigation.navigateToWriting
+import com.tripmate.android.triplist.navigation.navigateToTripList
 
 internal class MainNavController(
     val navController: NavHostController,
@@ -43,7 +43,7 @@ internal class MainNavController(
         when (tab) {
             MainTab.HOME -> navController.navigateToHome(navOptions)
             MainTab.MATE -> navController.navigateToMate(navOptions)
-            MainTab.WRITING -> navController.navigateToWriting(navOptions)
+            MainTab.TRIPLIST -> navController.navigateToTripList(navOptions)
             MainTab.NOTIFICATION -> navController.navigateToNotification(navOptions)
             MainTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }

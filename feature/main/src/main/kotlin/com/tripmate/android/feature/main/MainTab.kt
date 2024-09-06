@@ -24,12 +24,12 @@ internal enum class MainTab(
         route = "mate_route",
     ),
 
-    WRITING(
-        iconResId = R.drawable.ic_writing,
-        selectedIconResId = R.drawable.ic_selected_writing,
-        contentDescription = "Writing Icon",
-        label = "글쓰기",
-        route = "writing_route",
+    TRIPLIST(
+        iconResId = R.drawable.ic_triplist,
+        selectedIconResId = R.drawable.ic_selected_triplist,
+        contentDescription = "TripList Icon",
+        label = "여행목록",
+        route = "tripList_route",
     ),
 
     NOTIFICATION(

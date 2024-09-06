@@ -46,5 +46,5 @@ include(
     ":feature:map",
     ":feature:notification",
     ":feature:mate",
-    ":feature:writing",
+    ":feature:triplist",
 )
