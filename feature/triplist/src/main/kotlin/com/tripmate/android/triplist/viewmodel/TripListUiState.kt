@@ -8,4 +8,5 @@ data class TripListUiState(
     val selectedTabIndex: Int = 0,
     val activitySelectedChips: ImmutableList<String> = persistentListOf("전체"),
     val healingSelectedChips: ImmutableList<String> = persistentListOf("전체"),
+    val tripList : ImmutableList<String> = persistentListOf()//TODO: Change to TripList
 )

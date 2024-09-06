@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -14,23 +15,33 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,10 +53,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Gray001
+import com.tripmate.android.core.designsystem.theme.Gray003
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Medium16_Mid
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
+import com.tripmate.android.core.designsystem.theme.Small14_Med
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.triplist.component.Tag
 import com.tripmate.android.triplist.viewmodel.TripListUiAction
@@ -65,7 +78,6 @@ internal fun TripListRoute(
         onAction = viewModel::onAction,
     )
 }
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun TripListScreen(
@@ -79,6 +91,7 @@ internal fun TripListScreen(
     )
     val scope = rememberCoroutineScope()
 
+    // 탭 변경 시 호출되는 이벤트 처리
     LaunchedEffect(pagerState.currentPage) {
         onAction(TripListUiAction.OnTabChanged(pagerState.currentPage))
     }
@@ -89,6 +102,7 @@ internal fun TripListScreen(
             .padding(innerPadding)
             .padding(horizontal = 16.dp),
     ) {
+        // 상단 탭바
         TabRow(
             selectedTabIndex = pagerState.currentPage,
             modifier = Modifier.fillMaxWidth(),
@@ -120,33 +134,69 @@ internal fun TripListScreen(
         }
 
         Spacer(modifier = Modifier.height(16.dp))
+
+        var expanded by remember { mutableStateOf(false) }
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.TopEnd
+        ) {
+            TextButton(
+                onClick = { expanded = !expanded },
+            ) {
+                Text(
+                    text = "신청한 동행",
+                    color = Gray003,
+                    style = Small14_Med,
+                )
+                Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null, tint = Gray003)
+            }
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                DropdownMenuItem(
+                    text = { Text("신청한 동행") },
+                    onClick = {
+                    expanded = false
+//                    onAction(TripListUiAction.OnRequestFilterChanged("신청한 동행"))
+                })
+                DropdownMenuItem(
+                    text = { Text("작성한 동행") },
+                    onClick = {
+                    expanded = false
+//                    onAction(TripListUiAction.OnRequestFilterChanged("작성한 동행"))
+                })
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.fillMaxSize(),
             pageSpacing = 32.dp,
         ) { page ->
-            ContentForTab(
-                tabIndex = page,
-                uiState = uiState,
-                onAction = onAction,
-            )
-        }
-    }
-}
+            when (page) {
+                0 -> {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center // 화면의 정중앙에 배치
+                    ) {
+                        if (uiState.tripList.isEmpty()) {
+                            Text(
+                                text = "동행 기록이 없어요.",
+                                style = TextStyle(color = Gray003, fontSize = 16.sp),
+                                modifier = Modifier
+                                    .wrapContentSize(Alignment.Center)
+                            )
+                        } else {
+                        }
+                    }
+                }
+                1 -> {
 
-@Suppress("UnusedParameter")
-@Composable
-private fun ContentForTab(
-    tabIndex: Int,
-    uiState: TripListUiState,
-    onAction: (TripListUiAction) -> Unit,
-) {
-    Column {
-        Spacer(modifier = Modifier.height(16.dp))
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(40.dp),
-        ) {
-            items(5) {
+                }
             }
         }
     }
@@ -220,7 +270,9 @@ fun ReviewComponent(
             } else {
                 OutlinedButton(
                     onClick = onReviewClick,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(44.dp),
                     border = BorderStroke(1.dp, Color.Blue),
                     shape = RoundedCornerShape(8.dp),
                 ) {
