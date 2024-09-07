@@ -1,7 +1,6 @@
 package com.tripmate.android.feature.mypage
 
 import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -38,29 +37,24 @@ import com.tripmate.android.feature.mypage.component.Ticket
 import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiAction
 import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiEvent
 import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiState
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageViewModel
+import com.tripmate.android.feature.mypage.viewmodel.mypage.MyTripCharacterInfoViewModel
 
 @Composable
-internal fun MyPageRoute(
+internal fun MyTripCharacterInfoRoute(
     innerPadding: PaddingValues,
-    navigateToMyTripCharacterInfo: (Long) -> Unit,
-    viewModel: MyPageViewModel = hiltViewModel(),
+    popBackStack: () -> Unit,
+    viewModel: MyTripCharacterInfoViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
-            is MyPageUiEvent.NavigateToMyTripCharacterInfo -> {
-                navigateToMyTripCharacterInfo(event.characterId)
-            }
-            is MyPageUiEvent.Logout -> {}
-            is MyPageUiEvent.Withdraw -> {}
-            is MyPageUiEvent.ShowToast -> {}
+            is MyPageUiEvent.NavigateBack -> popBackStack()
             else -> {}
         }
     }
 
-    MyPageScreen(
+    MyTripCharacterInfoScreen(
         innerPadding = innerPadding,
         uiState = uiState,
         onAction = viewModel::onAction,
@@ -68,7 +62,7 @@ internal fun MyPageRoute(
 }
 
 @Composable
-internal fun MyPageScreen(
+internal fun MyTripCharacterInfoScreen(
     innerPadding: PaddingValues,
     uiState: MyPageUiState,
     onAction: (MyPageUiAction) -> Unit,
@@ -83,7 +77,7 @@ internal fun MyPageScreen(
                 navigationType = TopAppBarNavigationType.None,
                 title = stringResource(id = R.string.my_page),
             )
-            MyPageContent(
+            MyTripCharacterInfoContent(
                 uiState = uiState,
                 onAction = onAction,
             )
@@ -93,7 +87,7 @@ internal fun MyPageScreen(
 
 @Suppress("UnusedParameter")
 @Composable
-internal fun MyPageContent(
+internal fun MyTripCharacterInfoContent(
     uiState: MyPageUiState,
     onAction: (MyPageUiAction) -> Unit,
     modifier: Modifier = Modifier,
@@ -122,18 +116,15 @@ internal fun MyPageContent(
             color = Gray001,
         )
         Spacer(modifier = Modifier.height(32.dp))
-        Ticket(
-            uiState = uiState,
-            modifier = Modifier.clickable {
-                onAction(MyPageUiAction.OnTicketClicked(characterId = uiState.characterId))
-            }
-        )
+        Ticket(uiState = uiState)
         Spacer(modifier = Modifier.height(32.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .noRippleClickable {
-                    Toast.makeText(context, "나의 픽", Toast.LENGTH_SHORT).show()
+                    Toast
+                        .makeText(context, "나의 픽", Toast.LENGTH_SHORT)
+                        .show()
                 },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
@@ -148,7 +139,9 @@ internal fun MyPageContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .noRippleClickable {
-                    Toast.makeText(context, "로그아웃", Toast.LENGTH_SHORT).show()
+                    Toast
+                        .makeText(context, "로그아웃", Toast.LENGTH_SHORT)
+                        .show()
                 },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
@@ -163,7 +156,9 @@ internal fun MyPageContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .noRippleClickable {
-                    Toast.makeText(context, "회원 탈퇴", Toast.LENGTH_SHORT).show()
+                    Toast
+                        .makeText(context, "회원 탈퇴", Toast.LENGTH_SHORT)
+                        .show()
                 },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
@@ -179,7 +174,7 @@ internal fun MyPageContent(
 
 @DevicePreview
 @Composable
-fun MyPagePreview() {
+fun MyTripCharacterInfoPreview() {
     TripmateTheme {
         MyPageScreen(
             innerPadding = PaddingValues(),

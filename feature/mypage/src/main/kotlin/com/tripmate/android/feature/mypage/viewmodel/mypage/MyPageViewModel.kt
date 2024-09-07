@@ -1,6 +1,7 @@
-package com.tripmate.android.feature.mypage.viewmodel
+package com.tripmate.android.feature.mypage.viewmodel.mypage
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.tripmate.android.domain.repository.MateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -9,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,6 +24,17 @@ class MyPageViewModel @Inject constructor(
     private val _uiEvent = Channel<MyPageUiEvent>()
     val uiEvent: Flow<MyPageUiEvent> = _uiEvent.receiveAsFlow()
 
-    @Suppress("EmptyFunctionBlock", "UnusedParameter")
-    fun onAction(action: MyPageUiAction) {}
+    @Suppress("EmptyFunctionBlock",)
+    fun onAction(action: MyPageUiAction) {
+        when(action) {
+            is MyPageUiAction.OnTicketClicked -> navigateToMyTripCharacterInfo(action.characterId)
+            else -> {}
+        }
+    }
+
+    private fun navigateToMyTripCharacterInfo(characterId: Long) {
+        viewModelScope.launch {
+            _uiEvent.send(MyPageUiEvent.NavigateToMyTripCharacterInfo(characterId = characterId))
+        }
+    }
 }
