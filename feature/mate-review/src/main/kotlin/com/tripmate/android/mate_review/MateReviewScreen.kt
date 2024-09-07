@@ -107,143 +107,141 @@ fun MateRecruitContent(
     onAction: (MateReviewUiAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Box {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp),
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp),
+    ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = stringResource(id = R.string.mate_review_title),
+            style = Large20_Bold,
+            color = Color.Black,
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(88.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(Gray010),
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = stringResource(id = R.string.mate_review_title),
-                style = Large20_Bold,
-                color = Color.Black,
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Box(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(88.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(Gray010),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .align(Alignment.Center),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text(
-                        text = uiState.mateReviewTitle,
-                        style = Medium16_SemiBold,
-                        color = Gray001,
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Row {
-                        Text(
-                            text = uiState.tripLocation,
-                            style = XSmall12_Reg,
-                            color = Gray002,
-                        )
-                        Text(
-                            text = " ·",
-                            style = XSmall12_Reg,
-                            color = Gray002,
-                        )
-                        Text(
-                            text = " " + uiState.tripDate,
-                            style = XSmall12_SemiBold,
-                            color = Gray002,
-                        )
-                        Text(
-                            text = " " + uiState.tripTime,
-                            style = XSmall12_SemiBold,
-                            color = Gray002,
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(28.dp))
-            }
-            Spacer(modifier = Modifier.height(32.dp))
-            HorizontalDivider(
-                thickness = 1.dp,
-                modifier = Modifier.fillMaxWidth(),
-                color = Gray010,
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-            Text(
-                text = stringResource(id = R.string.good_point),
-                style = Medium16_SemiBold,
-                color = Gray002,
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = stringResource(id = R.string.select_trip_description_keyword),
-                style = XSmall12_Reg,
-                color = Gray004,
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            FlowRow {
-                uiState.allGoodReviews.forEach { goodReview ->
-                    GoodReviewCheckBox(
-                        review = goodReview,
-                        isSelected = uiState.selectedGoodReviews.contains(goodReview),
-                        onSelectedChange = {
-                            if (uiState.selectedGoodReviews.contains(goodReview)) {
-                                onAction(MateReviewUiAction.OnGoodReviewDeselected(goodReview))
-                            } else {
-                                onAction(MateReviewUiAction.OnGoodReviewSelected(goodReview))
-                            }
-                        },
-                        modifier = Modifier.padding(end = 8.dp, bottom = 8.dp),
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(52.dp))
-            Text(
-                text = stringResource(id = R.string.bad_point),
-                style = Medium16_SemiBold,
-                color = Gray002,
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = stringResource(id = R.string.select_trip_description_keyword),
-                style = XSmall12_Reg,
-                color = Gray004,
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            FlowRow {
-                uiState.allBadReviews.forEach { badReview ->
-                    BadReviewCheckBox(
-                        review = badReview,
-                        isSelected = uiState.selectedBadReviews.contains(badReview),
-                        onSelectedChange = {
-                            if (uiState.selectedBadReviews.contains(badReview)) {
-                                onAction(MateReviewUiAction.OnBadReviewDeselected(badReview))
-                            } else {
-                                onAction(MateReviewUiAction.OnBadReviewSelected(badReview))
-                            }
-                        },
-                        modifier = Modifier.padding(end = 8.dp, bottom = 8.dp),
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(74.dp))
-            TripmateButton(
-                onClick = { onAction(MateReviewUiAction.OnDoneClicked) },
-                modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(vertical = 18.dp),
-                enabled = uiState.selectedGoodReviews.isNotEmpty() && uiState.selectedBadReviews.isNotEmpty(),
+                    .padding(horizontal = 16.dp)
+                    .align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
             ) {
                 Text(
-                    text = stringResource(R.string.done),
+                    text = uiState.mateReviewTitle,
                     style = Medium16_SemiBold,
+                    color = Gray001,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Row {
+                    Text(
+                        text = uiState.tripLocation,
+                        style = XSmall12_Reg,
+                        color = Gray002,
+                    )
+                    Text(
+                        text = " ·",
+                        style = XSmall12_Reg,
+                        color = Gray002,
+                    )
+                    Text(
+                        text = " " + uiState.tripDate,
+                        style = XSmall12_SemiBold,
+                        color = Gray002,
+                    )
+                    Text(
+                        text = " " + uiState.tripTime,
+                        style = XSmall12_SemiBold,
+                        color = Gray002,
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(28.dp))
+        }
+        Spacer(modifier = Modifier.height(32.dp))
+        HorizontalDivider(
+            thickness = 1.dp,
+            modifier = Modifier.fillMaxWidth(),
+            color = Gray010,
+        )
+        Spacer(modifier = Modifier.height(32.dp))
+        Text(
+            text = stringResource(id = R.string.good_point),
+            style = Medium16_SemiBold,
+            color = Gray002,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = stringResource(id = R.string.select_trip_description_keyword),
+            style = XSmall12_Reg,
+            color = Gray004,
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        FlowRow {
+            uiState.allGoodReviews.forEach { goodReview ->
+                GoodReviewCheckBox(
+                    review = goodReview,
+                    isSelected = uiState.selectedGoodReviews.contains(goodReview),
+                    onSelectedChange = {
+                        if (uiState.selectedGoodReviews.contains(goodReview)) {
+                            onAction(MateReviewUiAction.OnGoodReviewDeselected(goodReview))
+                        } else {
+                            onAction(MateReviewUiAction.OnGoodReviewSelected(goodReview))
+                        }
+                    },
+                    modifier = Modifier.padding(end = 8.dp, bottom = 8.dp),
                 )
             }
-            Spacer(modifier = Modifier.height(55.dp))
         }
+        Spacer(modifier = Modifier.height(52.dp))
+        Text(
+            text = stringResource(id = R.string.bad_point),
+            style = Medium16_SemiBold,
+            color = Gray002,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = stringResource(id = R.string.select_trip_description_keyword),
+            style = XSmall12_Reg,
+            color = Gray004,
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        FlowRow {
+            uiState.allBadReviews.forEach { badReview ->
+                BadReviewCheckBox(
+                    review = badReview,
+                    isSelected = uiState.selectedBadReviews.contains(badReview),
+                    onSelectedChange = {
+                        if (uiState.selectedBadReviews.contains(badReview)) {
+                            onAction(MateReviewUiAction.OnBadReviewDeselected(badReview))
+                        } else {
+                            onAction(MateReviewUiAction.OnBadReviewSelected(badReview))
+                        }
+                    },
+                    modifier = Modifier.padding(end = 8.dp, bottom = 8.dp),
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(74.dp))
+        TripmateButton(
+            onClick = { onAction(MateReviewUiAction.OnDoneClicked) },
+            modifier = Modifier.fillMaxWidth(),
+            contentPadding = PaddingValues(vertical = 18.dp),
+            enabled = uiState.selectedGoodReviews.isNotEmpty() && uiState.selectedBadReviews.isNotEmpty(),
+        ) {
+            Text(
+                text = stringResource(R.string.done),
+                style = Medium16_SemiBold,
+            )
+        }
+        Spacer(modifier = Modifier.height(55.dp))
     }
 }
 

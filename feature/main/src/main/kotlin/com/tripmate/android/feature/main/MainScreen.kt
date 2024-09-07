@@ -94,7 +94,6 @@ internal fun MainScreen(
             )
             myPageNavGraph(
                 padding = innerPadding,
-//                popBackStack = navigator::popBackStackIfNotHome,
             )
             mateRecruitNavGraph(
                 padding = innerPadding,
