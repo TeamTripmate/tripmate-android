@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -44,6 +45,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -78,6 +80,7 @@ internal fun TripListRoute(
         onAction = viewModel::onAction,
     )
 }
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun TripListScreen(
@@ -135,6 +138,7 @@ internal fun TripListScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // 드롭다운 메뉴 (신청한 동행, 작성한 동행)
         var expanded by remember { mutableStateOf(false) }
         Box(
             modifier = Modifier.fillMaxWidth(),
@@ -157,50 +161,151 @@ internal fun TripListScreen(
                 DropdownMenuItem(
                     text = { Text("신청한 동행") },
                     onClick = {
-                    expanded = false
-//                    onAction(TripListUiAction.OnRequestFilterChanged("신청한 동행"))
-                })
+                        expanded = false
+//                        onAction(TripListUiAction.OnRequestFilterChanged("신청한 동행"))
+                    })
                 DropdownMenuItem(
                     text = { Text("작성한 동행") },
                     onClick = {
-                    expanded = false
-//                    onAction(TripListUiAction.OnRequestFilterChanged("작성한 동행"))
-                })
+                        expanded = false
+//                        onAction(TripListUiAction.OnRequestFilterChanged("작성한 동행"))
+                    })
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        HorizontalPager(
-            state = pagerState,
-            modifier = Modifier.fillMaxSize(),
-            pageSpacing = 32.dp,
-        ) { page ->
-            when (page) {
-                0 -> {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center // 화면의 정중앙에 배치
-                    ) {
-                        if (uiState.tripList.isEmpty()) {
-                            Text(
-                                text = "동행 기록이 없어요.",
-                                style = TextStyle(color = Gray003, fontSize = 16.sp),
-                                modifier = Modifier
-                                    .wrapContentSize(Alignment.Center)
-                            )
-                        } else {
-                        }
-                    }
-                }
-                1 -> {
+        // 타이틀 "동행 하루전이에요"
+        Text(
+            text = "동행 하루전이에요",
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Blue
+            ),
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
 
-                }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // 동행 상태 바 (신청완료, 수락완료, 동행 시작, 동행 종료)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // 신청 완료 점 및 텍스트
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("신청완료", style = TextStyle(color = Color.Blue, fontSize = 12.sp))
+                Spacer(modifier = Modifier.height(4.dp))
+                Box(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .background(Color.Blue, shape = RoundedCornerShape(50))
+                )
             }
+
+            // 신청완료 -> 수락완료 사이의 파란 선
+            Box(
+                modifier = Modifier
+                    .width(50.dp) // 선의 너비
+                    .height(2.dp)
+                    .background(Color.Blue)
+                    .align(Alignment.CenterVertically) // 선을 가운데 정렬
+            )
+
+            // 수락 완료 점 및 텍스트
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("수락완료", style = TextStyle(color = Color.Blue, fontSize = 12.sp))
+                Spacer(modifier = Modifier.height(4.dp))
+                Box(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .background(Color.Blue, shape = RoundedCornerShape(50))
+                )
+            }
+
+            // 수락완료 -> 동행 시작 사이의 회색 선
+            Box(
+                modifier = Modifier
+                    .width(50.dp)
+                    .height(2.dp)
+                    .background(Color.Gray)
+                    .align(Alignment.CenterVertically)
+            )
+
+            // 동행 시작 점 및 텍스트
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("동행 시작", style = TextStyle(color = Color.Gray, fontSize = 12.sp))
+                Spacer(modifier = Modifier.height(4.dp))
+                Box(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .background(Color.Gray, shape = RoundedCornerShape(50))
+                )
+            }
+
+            // 동행 시작 -> 동행 종료 사이의 회색 선
+            Box(
+                modifier = Modifier
+                    .width(50.dp)
+                    .height(2.dp)
+                    .background(Color.Gray)
+                    .align(Alignment.CenterVertically)
+            )
+
+            // 동행 종료 점 및 텍스트
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("동행 종료", style = TextStyle(color = Color.Gray, fontSize = 12.sp))
+                Spacer(modifier = Modifier.height(4.dp))
+                Box(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .background(Color.Gray, shape = RoundedCornerShape(50))
+                )
+            }
+        }
+        Box(
+            modifier = Modifier.shadow(4.dp, RoundedCornerShape(bottomEnd = 20.dp, bottomStart = 20.dp)),
+        ) {
+
+        }
+
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // "동행 기록이 없어요" 또는 동행 기록 리스트
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+//            if (uiState.tripList.isEmpty()) {
+//                item {
+//                    Box(
+//                        modifier = Modifier
+//                            .fillMaxSize()
+//                            .wrapContentSize(Alignment.Center)
+//                    ) {
+//                        Text("동행 기록이 없어요", style = TextStyle(color = Gray003, fontSize = 16.sp))
+//                    }
+//                }
+//            }
+//            else {
+                items(3) {
+//                    index ->
+//                    val trip = uiState.tripList[index]
+                    ReviewComponent(
+                        title = "서피비치에서 식사해요",
+                        date = "2024.08.24(일) 11:00 AM",
+                        isReviewPeriodOver = true,
+                        onReviewClick = { /* 클릭 처리 */ }
+                    )
+                }
+//            }
         }
     }
 }
+
 
 @Composable
 fun ReviewComponent(
@@ -289,7 +394,7 @@ fun ReviewComponent(
 internal fun TripListPreview() {
     TripmateTheme {
         TripListScreen(
-            innerPadding = PaddingValues(16.dp),
+            innerPadding = PaddingValues(0.dp),
             uiState = TripListUiState(),
             onAction = {},
         )
