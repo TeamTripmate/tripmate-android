@@ -1,6 +1,7 @@
 package com.tripmate.android.feature.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -45,6 +46,7 @@ internal fun HomeRoute(
     navigateToMateRecruit: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToMateReview: () -> Unit,
+    navigateToTripDetail: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     HomeScreen(
@@ -53,6 +55,7 @@ internal fun HomeRoute(
         navigateToMateRecruit = navigateToMateRecruit,
         onAction = viewModel::onAction,
         navigateToMateReview = navigateToMateReview,
+        navigateToTripDetail = navigateToTripDetail,
     )
 }
 
@@ -65,6 +68,7 @@ internal fun HomeScreen(
     navigateToMateRecruit: () -> Unit,
     onAction: (HomeUiAction) -> Unit,
     navigateToMateReview: () -> Unit,
+    navigateToTripDetail: () -> Unit,
 ) {
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -179,6 +183,7 @@ internal fun HomeScreenPreview() {
             uiState = HomeUiState(),
             onAction = {},
             navigateToMateReview = {},
+            navigateToTripDetail = {},
         )
     }
 }
