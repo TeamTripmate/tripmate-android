@@ -1,5 +1,6 @@
 package com.tripmate.android.core.designsystem.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -73,6 +75,36 @@ fun TripmateButton(
         enabled = enabled,
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
+            containerColor = containerColor,
+            contentColor = contentColor,
+            disabledContainerColor = disabledContainerColor,
+            disabledContentColor = disabledContentColor,
+        ),
+        contentPadding = contentPadding,
+        content = content,
+    )
+}
+
+@Composable
+fun TripmateOutlinedButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    border: BorderStroke? = BorderStroke(width = 1.dp, color = Primary01),
+    containerColor: Color = Primary01,
+    contentColor: Color = Color.White,
+    disabledContainerColor: Color = Gray009,
+    disabledContentColor: Color = Gray004,
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    content: @Composable RowScope.() -> Unit,
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        border = border,
+        shape = RoundedCornerShape(8.dp),
+        colors = ButtonDefaults.outlinedButtonColors(
             containerColor = containerColor,
             contentColor = contentColor,
             disabledContainerColor = disabledContainerColor,

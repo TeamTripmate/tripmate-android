@@ -16,6 +16,9 @@ val Primary01Dark = Color(0xFFA8C7FA)
 val Primary02Dark = Color(0xFFD2E3FC)
 val Primary03Dark = Color(0xFF8AB4F8)
 
+val Secondary01 = Color(0xFFCDE1FF)
+val Secondary02 = Color(0xFFE8F1FD)
+
 val Background01Dark = Color(0xFF222327)
 val Background02Dark = Color(0xFF18191B)
 val Background03Dark = Color(0xFF2A2A2A)
