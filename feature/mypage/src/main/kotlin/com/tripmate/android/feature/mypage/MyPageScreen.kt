@@ -1,6 +1,7 @@
 package com.tripmate.android.feature.mypage
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -29,6 +31,7 @@ import com.tripmate.android.core.common.extension.noRippleClickable
 import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
+import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
@@ -53,6 +56,7 @@ internal fun MyPageRoute(
             is MyPageUiEvent.NavigateToMyTripCharacterInfo -> {
                 navigateToMyTripCharacterInfo(event.characterId)
             }
+
             is MyPageUiEvent.Logout -> {}
             is MyPageUiEvent.Withdraw -> {}
             is MyPageUiEvent.ShowToast -> {}
@@ -104,6 +108,7 @@ internal fun MyPageContent(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
+            .background(Background02)
             .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -112,7 +117,7 @@ internal fun MyPageContent(
             imgUrl = uiState.profileImgUrl,
             contentDescription = stringResource(id = R.string.profile_image),
             modifier = Modifier
-                .height(72.dp)
+                .size(72.dp)
                 .clip(RoundedCornerShape(36.dp)),
         )
         Spacer(modifier = Modifier.height(12.dp))
@@ -126,14 +131,16 @@ internal fun MyPageContent(
             uiState = uiState,
             modifier = Modifier.clickable {
                 onAction(MyPageUiAction.OnTicketClicked(characterId = uiState.characterId))
-            }
+            },
         )
         Spacer(modifier = Modifier.height(32.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .noRippleClickable {
-                    Toast.makeText(context, "나의 픽", Toast.LENGTH_SHORT).show()
+                    Toast
+                        .makeText(context, "나의 픽", Toast.LENGTH_SHORT)
+                        .show()
                 },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
@@ -148,7 +155,9 @@ internal fun MyPageContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .noRippleClickable {
-                    Toast.makeText(context, "로그아웃", Toast.LENGTH_SHORT).show()
+                    Toast
+                        .makeText(context, "로그아웃", Toast.LENGTH_SHORT)
+                        .show()
                 },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
@@ -163,7 +172,9 @@ internal fun MyPageContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .noRippleClickable {
-                    Toast.makeText(context, "회원 탈퇴", Toast.LENGTH_SHORT).show()
+                    Toast
+                        .makeText(context, "회원 탈퇴", Toast.LENGTH_SHORT)
+                        .show()
                 },
         ) {
             Spacer(modifier = Modifier.height(18.dp))

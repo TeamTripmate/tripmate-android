@@ -3,13 +3,10 @@ package com.tripmate.android.feature.mypage.navigation
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.tripmate.android.feature.mypage.MyPageRoute
 import com.tripmate.android.feature.mypage.MyTripCharacterInfoRoute
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiEvent
 
 const val CHARACTER_ID = "character_id"
 const val MY_TRIP_CHARACTER_INFO_ROUTE = "my_trip_character_info_route/{$CHARACTER_ID}"
@@ -32,7 +29,7 @@ fun NavGraphBuilder.myTripCharacterInfoNavGraph(
     ) {
         MyTripCharacterInfoRoute(
             innerPadding = padding,
-            popBackStack = popBackStack
+            popBackStack = popBackStack,
         )
     }
 }

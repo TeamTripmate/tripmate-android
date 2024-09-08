@@ -21,7 +21,10 @@ class MyTripCharacterInfoViewModel @Inject constructor(
     private val myPageRepository: MateRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    private val characterId: Long = requireNotNull(savedStateHandle.get<Long>(CHARACTER_ID)) { "characterId is required." }
+    @Suppress("UnusedParameter")
+    private val characterId: Long = requireNotNull(savedStateHandle.get<Long>(CHARACTER_ID)) {
+        "characterId is required."
+    }
 
     private val _uiState = MutableStateFlow(MyPageUiState())
     val uiState: StateFlow<MyPageUiState> = _uiState.asStateFlow()
@@ -29,9 +32,9 @@ class MyTripCharacterInfoViewModel @Inject constructor(
     private val _uiEvent = Channel<MyPageUiEvent>()
     val uiEvent: Flow<MyPageUiEvent> = _uiEvent.receiveAsFlow()
 
-    @Suppress("EmptyFunctionBlock",)
+    @Suppress("EmptyFunctionBlock")
     fun onAction(action: MyPageUiAction) {
-        when(action) {
+        when (action) {
             is MyPageUiAction.OnTicketClicked -> navigateToMyTripCharacterInfo(action.characterId)
             else -> {}
         }

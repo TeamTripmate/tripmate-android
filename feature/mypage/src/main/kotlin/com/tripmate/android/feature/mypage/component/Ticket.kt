@@ -81,7 +81,7 @@ fun Ticket(
             Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(
-                    text = uiState.personalizationResult,
+                    text = uiState.characterName,
                     style = Medium16_SemiBold,
                     color = Gray001,
                 )
@@ -100,17 +100,21 @@ fun Ticket(
 }
 
 @Composable
-fun TicketType(text: String) {
+fun TicketType(
+    text: String,
+    containerColor: Color = Background02,
+    contentColor: Color = Primary03,
+) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(4.dp))
-            .background(Background02)
+            .background(containerColor)
             .padding(vertical = 4.dp, horizontal = 8.dp),
     ) {
         Text(
             text = text,
             style = XSmall12_Reg,
-            color = Primary03,
+            color = contentColor,
         )
     }
 }

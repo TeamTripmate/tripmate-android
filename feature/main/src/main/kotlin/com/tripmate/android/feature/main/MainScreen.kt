@@ -95,7 +95,7 @@ internal fun MainScreen(
             )
             myPageNavGraph(
                 padding = innerPadding,
-                navigateToMyTripCharacterInfo = navigator::navigateToMyTripCharacterInfo
+                navigateToMyTripCharacterInfo = navigator::navigateToMyTripCharacterInfo,
             )
             mateRecruitNavGraph(
                 padding = innerPadding,

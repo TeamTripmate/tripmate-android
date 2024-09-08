@@ -5,4 +5,11 @@
     <string name="logout">로그아웃</string>
     <string name="withdraw">회원 탈퇴</string>
     <string name="profile_image">프로필 이미지</string>
+    <string name="my_trip_character_info">내 여행 캐릭터 정보</string>
+    <string name="character_type_intro">캐릭터 유형에 대한 소개</string>
+    <string name="trip_style_intro">여행 스타일 소개</string>
+    <string name="trip_location_recommend">이 여행지를 추천해요</string>
+    <string name="my_trip_style">내 여행 스타일은</string>
+    <string name="reselect_character_type">캐릭터 유형 다시 선택하기</string>
+    <string name="share_my_trip_style">내 여행 스타일 공유하기</string>
 </resources>

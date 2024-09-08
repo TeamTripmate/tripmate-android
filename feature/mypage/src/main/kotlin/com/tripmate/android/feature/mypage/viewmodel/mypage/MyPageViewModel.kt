@@ -24,9 +24,9 @@ class MyPageViewModel @Inject constructor(
     private val _uiEvent = Channel<MyPageUiEvent>()
     val uiEvent: Flow<MyPageUiEvent> = _uiEvent.receiveAsFlow()
 
-    @Suppress("EmptyFunctionBlock",)
+    @Suppress("EmptyFunctionBlock")
     fun onAction(action: MyPageUiAction) {
-        when(action) {
+        when (action) {
             is MyPageUiAction.OnTicketClicked -> navigateToMyTripCharacterInfo(action.characterId)
             else -> {}
         }
