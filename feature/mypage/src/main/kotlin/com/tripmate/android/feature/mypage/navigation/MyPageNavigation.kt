@@ -7,7 +7,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.tripmate.android.feature.mypage.MyPageRoute
 
-const val MY_PAGE_ROUTE = "mypage_route"
+const val MY_PAGE_ROUTE = "my_page_route"
 
 fun NavController.navigateToMyPage(navOptions: NavOptions) {
     navigate(MY_PAGE_ROUTE, navOptions)
@@ -16,11 +16,13 @@ fun NavController.navigateToMyPage(navOptions: NavOptions) {
 fun NavGraphBuilder.myPageNavGraph(
     padding: PaddingValues,
     navigateToMyTripCharacterInfo: (Long) -> Unit,
+    navigateToMyPick: () -> Unit,
 ) {
     composable(route = MY_PAGE_ROUTE) {
         MyPageRoute(
             innerPadding = padding,
             navigateToMyTripCharacterInfo = navigateToMyTripCharacterInfo,
+            navigateToMyPick = navigateToMyPick,
         )
     }
 }

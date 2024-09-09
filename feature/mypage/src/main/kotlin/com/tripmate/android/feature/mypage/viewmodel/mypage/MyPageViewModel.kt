@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,6 +29,8 @@ class MyPageViewModel @Inject constructor(
     fun onAction(action: MyPageUiAction) {
         when (action) {
             is MyPageUiAction.OnTicketClicked -> navigateToMyTripCharacterInfo(action.characterId)
+            is MyPageUiAction.OnMyPickClicked -> navigateToMyPick()
+            is MyPageUiAction.OnTabChanged -> updateSelectedTab(action.index)
             else -> {}
         }
     }
@@ -36,5 +39,15 @@ class MyPageViewModel @Inject constructor(
         viewModelScope.launch {
             _uiEvent.send(MyPageUiEvent.NavigateToMyTripCharacterInfo(characterId = characterId))
         }
+    }
+
+    private fun navigateToMyPick() {
+        viewModelScope.launch {
+            _uiEvent.send(MyPageUiEvent.NavigateToMyPick)
+        }
+    }
+
+    private fun updateSelectedTab(tab: Int) {
+        _uiState.update { it.copy(selectedTabIndex = tab) }
     }
 }

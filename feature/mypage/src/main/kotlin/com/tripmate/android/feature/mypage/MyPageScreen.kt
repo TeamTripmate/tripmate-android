@@ -47,16 +47,15 @@ import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageViewModel
 internal fun MyPageRoute(
     innerPadding: PaddingValues,
     navigateToMyTripCharacterInfo: (Long) -> Unit,
+    navigateToMyPick: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
-            is MyPageUiEvent.NavigateToMyTripCharacterInfo -> {
-                navigateToMyTripCharacterInfo(event.characterId)
-            }
-
+            is MyPageUiEvent.NavigateToMyTripCharacterInfo -> navigateToMyTripCharacterInfo(event.characterId)
+            is MyPageUiEvent.NavigateToMyPick -> navigateToMyPick()
             is MyPageUiEvent.Logout -> {}
             is MyPageUiEvent.Withdraw -> {}
             is MyPageUiEvent.ShowToast -> {}
@@ -137,9 +136,7 @@ internal fun MyPageContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .noRippleClickable {
-                    Toast
-                        .makeText(context, "나의 픽", Toast.LENGTH_SHORT)
-                        .show()
+                    onAction(MyPageUiAction.OnMyPickClicked)
                 },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
