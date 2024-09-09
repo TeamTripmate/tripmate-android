@@ -23,23 +23,28 @@ internal enum class MainTab(
         label = "동행찾기",
         route = "mate_route",
     ),
-
-    WRITING(
-        iconResId = R.drawable.ic_writing,
-        selectedIconResId = R.drawable.ic_selected_writing,
-        contentDescription = "Writing Icon",
-        label = "글쓰기",
-        route = "writing_route",
+//    WRITING(
+//        iconResId = R.drawable.ic_writing,
+//        selectedIconResId = R.drawable.ic_selected_writing,
+//        contentDescription = "Writing Icon",
+//        label = "글쓰기",
+//        route = "writing_route",
+//    ),
+//
+//    NOTIFICATION(
+//        iconResId = R.drawable.ic_notification,
+//        selectedIconResId = R.drawable.ic_selected_notification,
+//        contentDescription = "Notification Icon",
+//        label = "알림",
+//        route = "notification_route",
+//    ),
+    TRIP_LIST(
+        iconResId = R.drawable.ic_trip_list,
+        selectedIconResId = R.drawable.ic_selected_trip_list,
+        contentDescription = "Trip List Icon",
+        label = "여행목록",
+        route = "trip_list_route",
     ),
-
-    NOTIFICATION(
-        iconResId = R.drawable.ic_notification,
-        selectedIconResId = R.drawable.ic_selected_notification,
-        contentDescription = "Notification Icon",
-        label = "알림",
-        route = "notification_route",
-    ),
-
     MYPAGE(
         iconResId = R.drawable.ic_mypage,
         selectedIconResId = R.drawable.ic_selected_mypage,

@@ -46,6 +46,7 @@ import com.tripmate.android.feature.home.navigation.homeNavGraph
 import com.tripmate.android.feature.mypage.navigation.myPageNavGraph
 import com.tripmate.android.feature.mate_recruit.navigation.mateRecruitNavGraph
 import com.tripmate.android.feature.mypage.navigation.myTripCharacterInfoNavGraph
+import com.tripmate.android.feature.trip_list.navigation.tripListNavGraph
 import com.tripmate.android.mate.navigation.mateNavGraph
 import com.tripmate.android.mate_review.navigation.mateReviewNavGraph
 import com.tripmate.android.notification.navigation.notificationNavGraph
@@ -108,6 +109,10 @@ internal fun MainScreen(
             myTripCharacterInfoNavGraph(
                 padding = innerPadding,
                 popBackStack = navigator::popBackStackIfNotHome,
+            )
+            tripListNavGraph(
+                padding = innerPadding,
+//                popBackStack = navigator::popBackStackIfNotHome,
             )
         }
     }
