@@ -1,23 +1,23 @@
-package com.tripmate.android.mate_review.navigation
+package com.tripmate.android.feature.mypage.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.tripmate.android.mate_review.MateReviewRoute
+import com.tripmate.android.feature.mypage.WithdrawRoute
 
-const val MATE_REVIEW_ROUTE = "mate_review_route"
+const val WITHDRAW_ROUTE = "withdraw_route"
 
-fun NavController.navigateToMateReview() {
-    navigate(MATE_REVIEW_ROUTE)
+fun NavController.navigateToWithdraw() {
+    navigate(WITHDRAW_ROUTE)
 }
 
-fun NavGraphBuilder.mateReviewNavGraph(
+fun NavGraphBuilder.withdrawNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
 ) {
-    composable(route = MATE_REVIEW_ROUTE) {
-        MateReviewRoute(
+    composable(route = WITHDRAW_ROUTE) {
+        WithdrawRoute(
             innerPadding = padding,
             popBackStack = popBackStack,
         )

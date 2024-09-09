@@ -47,6 +47,7 @@ import com.tripmate.android.feature.mypage.navigation.myPageNavGraph
 import com.tripmate.android.feature.mate_recruit.navigation.mateRecruitNavGraph
 import com.tripmate.android.feature.mypage.navigation.myPickNavGraph
 import com.tripmate.android.feature.mypage.navigation.myTripCharacterInfoNavGraph
+import com.tripmate.android.feature.mypage.navigation.withdrawNavGraph
 import com.tripmate.android.feature.trip_list.navigation.tripListNavGraph
 import com.tripmate.android.mate.navigation.mateNavGraph
 import com.tripmate.android.mate_review.navigation.mateReviewNavGraph
@@ -99,6 +100,7 @@ internal fun MainScreen(
                 padding = innerPadding,
                 navigateToMyTripCharacterInfo = navigator::navigateToMyTripCharacterInfo,
                 navigateToMyPick = navigator::navigateToMyPick,
+                navigateToWithdraw = navigator::navigateToWithdraw
             )
             mateRecruitNavGraph(
                 padding = innerPadding,
@@ -117,6 +119,10 @@ internal fun MainScreen(
 //                popBackStack = navigator::popBackStackIfNotHome,
             )
             myPickNavGraph(
+                padding = innerPadding,
+                popBackStack = navigator::popBackStackIfNotHome,
+            )
+            withdrawNavGraph(
                 padding = innerPadding,
                 popBackStack = navigator::popBackStackIfNotHome,
             )

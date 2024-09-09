@@ -1,7 +1,5 @@
 package com.tripmate.android.feature.mypage
 
-import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,7 +29,6 @@ import com.tripmate.android.core.common.extension.noRippleClickable
 import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
-import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
@@ -48,6 +45,7 @@ internal fun MyPageRoute(
     innerPadding: PaddingValues,
     navigateToMyTripCharacterInfo: (Long) -> Unit,
     navigateToMyPick: () -> Unit,
+    navigateToWithdraw: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -57,6 +55,7 @@ internal fun MyPageRoute(
             is MyPageUiEvent.NavigateToMyTripCharacterInfo -> navigateToMyTripCharacterInfo(event.characterId)
             is MyPageUiEvent.NavigateToMyPick -> navigateToMyPick()
             is MyPageUiEvent.Logout -> {}
+            is MyPageUiEvent.NavigateToWithdraw -> navigateToWithdraw()
             is MyPageUiEvent.Withdraw -> {}
             is MyPageUiEvent.ShowToast -> {}
             else -> {}
@@ -101,8 +100,6 @@ internal fun MyPageContent(
     onAction: (MyPageUiAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val context = LocalContext.current
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -151,9 +148,7 @@ internal fun MyPageContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .noRippleClickable {
-                    Toast
-                        .makeText(context, "로그아웃", Toast.LENGTH_SHORT)
-                        .show()
+                    onAction(MyPageUiAction.OnLogoutClicked)
                 },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
@@ -168,9 +163,7 @@ internal fun MyPageContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .noRippleClickable {
-                    Toast
-                        .makeText(context, "회원 탈퇴", Toast.LENGTH_SHORT)
-                        .show()
+                    onAction(MyPageUiAction.OnWithdrawClicked)
                 },
         ) {
             Spacer(modifier = Modifier.height(18.dp))

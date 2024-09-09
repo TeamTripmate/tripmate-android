@@ -1,6 +1,10 @@
 package com.tripmate.android.feature.mypage.viewmodel.mypage
 
+import com.tripmate.android.domain.entity.BadReviewEntity
+import com.tripmate.android.domain.entity.WithdrawReasonEntity
+import com.tripmate.android.feature.mypage.R
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
 data class MyPageUiState(
@@ -18,4 +22,13 @@ data class MyPageUiState(
     val tripLocationRecommend: String = "강릉 커피거리\n 펭귄 유형은 플랜 C까지 세울정도로 예상 가능한 상황에 대비해 준비해서 여행을 떠나요!\n\n 강릉 커피 거리는 펭귄 유형에게 딱인 여행지랍니다.\n이 여행지는 다양한 커피숍과 카페가 모여있는 지역으로, 체계적으로 예측 가능한 일정으로 방문하기 좋은 장소입니다. 일정에 따라 카페를 방문하며, 각 카페의 커피와 분위기를 차분하게 즐길 수 있습니다.\n\n 여행자님 이 곳으로 여행을 떠나보시는 것 어떤가요?",
     val tabs: ImmutableList<String> = persistentListOf("액티비티", "힐링"),
     val selectedTabIndex: Int = 0,
+    val allWithdrawReasons: ImmutableList<WithdrawReasonEntity> = persistentListOf(
+        WithdrawReasonEntity(0, R.string.no_use, false),
+        WithdrawReasonEntity(1, R.string.little_benefit, false),
+        WithdrawReasonEntity(2, R.string.no_feature, false),
+        WithdrawReasonEntity(3, R.string.uncomfortable_trip_mate, false),
+        WithdrawReasonEntity(4, R.string.etc, false),
+    ),
+    val selectedWithdrawReasons: PersistentList<WithdrawReasonEntity> = persistentListOf(),
+    val withdrawReasonDescription: String = "",
 )

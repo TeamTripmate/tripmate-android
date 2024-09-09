@@ -12,4 +12,13 @@
     <string name="my_trip_style">내 여행 스타일은</string>
     <string name="reselect_character_type">캐릭터 유형 다시 선택하기</string>
     <string name="share_my_trip_style">내 여행 스타일 공유하기</string>
+    <string name="withdraw_description">트립메이트를 떠나시는 이유를 알려주세요</string>
+    <string name="no_use">사용을 안해요</string>
+    <string name="etc">기타</string>
+    <string name="little_benefit">혜택이 너무 적어요</string>
+    <string name="no_feature">이용하고 싶은 기능이 없어요</string>
+    <string name="uncomfortable_trip_mate">추천받은 동행자와 여행 스타일 차이가 있어 불편했어요</string>
+    <string name="withdraw_reason_hint">서비스 이용시 아쉬웠던 점을 작성해주세요(선택)</string>
+    <string name="real_withdraw">탈퇴할래요</string>
+    <string name="use_more">더 써볼래요</string>
 </resources>

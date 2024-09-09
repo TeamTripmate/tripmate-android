@@ -14,6 +14,7 @@ import com.tripmate.android.feature.mypage.navigation.navigateToMyPage
 import com.tripmate.android.feature.mate_recruit.navigation.navigateToMateRecruit
 import com.tripmate.android.feature.mypage.navigation.navigateToMyPick
 import com.tripmate.android.feature.mypage.navigation.navigateToMyTripCharacterInfo
+import com.tripmate.android.feature.mypage.navigation.navigateToWithdraw
 import com.tripmate.android.feature.trip_list.navigation.navigateToTripList
 import com.tripmate.android.mate.navigation.navigateToMate
 import com.tripmate.android.mate_review.navigation.navigateToMateReview
@@ -65,6 +66,10 @@ internal class MainNavController(
 
     fun navigateToMyPick() {
         navController.navigateToMyPick()
+    }
+
+    fun navigateToWithdraw() {
+        navController.navigateToWithdraw()
     }
 
     private fun popBackStack() {

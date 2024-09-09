@@ -17,12 +17,14 @@ fun NavGraphBuilder.myPageNavGraph(
     padding: PaddingValues,
     navigateToMyTripCharacterInfo: (Long) -> Unit,
     navigateToMyPick: () -> Unit,
+    navigateToWithdraw: () -> Unit,
 ) {
     composable(route = MY_PAGE_ROUTE) {
         MyPageRoute(
             innerPadding = padding,
             navigateToMyTripCharacterInfo = navigateToMyTripCharacterInfo,
             navigateToMyPick = navigateToMyPick,
+            navigateToWithdraw = navigateToWithdraw,
         )
     }
 }
