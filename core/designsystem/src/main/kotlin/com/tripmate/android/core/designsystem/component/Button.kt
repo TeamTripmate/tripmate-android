@@ -91,8 +91,8 @@ fun TripmateOutlinedButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     border: BorderStroke? = BorderStroke(width = 1.dp, color = Primary01),
-    containerColor: Color = Primary01,
-    contentColor: Color = Color.White,
+    containerColor: Color = Color.White,
+    contentColor: Color = Primary01,
     disabledContainerColor: Color = Gray009,
     disabledContentColor: Color = Gray004,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
@@ -167,5 +167,17 @@ fun TripmateButtonWithLeadingIconPreview() {
                 )
             },
         )
+    }
+}
+
+@ComponentPreview
+@Composable
+fun TripmateOutlinedButtonPreview() {
+    TripmateTheme {
+        TripmateOutlinedButton(
+            onClick = {},
+        ) {
+            Text("Button")
+        }
     }
 }

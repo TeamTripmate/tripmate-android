@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.mypage
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
@@ -29,14 +32,17 @@ import com.tripmate.android.core.designsystem.component.TripmateCheckBox
 import com.tripmate.android.core.designsystem.component.TripmateOutlinedButton
 import com.tripmate.android.core.designsystem.component.TripmateTextField
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
+import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
+import com.tripmate.android.domain.entity.WithdrawReasonEntity
 import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiAction
 import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiEvent
 import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiState
 import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageViewModel
+import kotlinx.collections.immutable.persistentListOf
 import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
@@ -71,6 +77,7 @@ internal fun WithdrawScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(Background02)
             .padding(innerPadding),
     ) {
         Column {
@@ -107,7 +114,7 @@ internal fun MateRecruitContent(
         )
         Spacer(modifier = Modifier.height(40.dp))
         LazyColumn(
-            modifier = modifier.height((uiState.allWithdrawReasons.size * 32).dp),
+            modifier = modifier.height((uiState.allWithdrawReasons.size * 36).dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             items(
@@ -136,28 +143,35 @@ internal fun MateRecruitContent(
             searchTextHintRes = R.string.withdraw_reason_hint,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(52.dp),
+                .height(200.dp),
+            multiline = true,
+            maxLength = 200,
         )
         Spacer(modifier = Modifier.height(84.dp))
-        Row {
-            TripmateButton(
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            TripmateOutlinedButton(
                 onClick = { onAction(MyPageUiAction.OnRealWithdrawClicked) },
-                modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(vertical = 18.dp),
-                enabled = uiState.selectedWithdrawReasons.isNotEmpty() &&
-                    uiState.withdrawReasonDescription.isNotEmpty(),
+                modifier = Modifier
+                    .weight(1f)
+                    .height(56.dp),
+                contentPadding = PaddingValues(horizontal = 0.dp),
+                enabled = uiState.selectedWithdrawReasons.isNotEmpty(),
             ) {
                 Text(
                     text = stringResource(R.string.real_withdraw),
                     style = Medium16_SemiBold,
                 )
             }
-            TripmateOutlinedButton(
+            Spacer(modifier = Modifier.width(8.dp))
+            TripmateButton(
                 onClick = { onAction(MyPageUiAction.OnUseMoreClicked) },
-                modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(vertical = 18.dp),
-                enabled = uiState.selectedWithdrawReasons.isNotEmpty() &&
-                    uiState.withdrawReasonDescription.isNotEmpty(),
+                modifier = Modifier
+                    .weight(2f)
+                    .height(56.dp),
+                contentPadding = PaddingValues(horizontal = 0.dp),
+                enabled = uiState.selectedWithdrawReasons.isNotEmpty(),
             ) {
                 Text(
                     text = stringResource(R.string.use_more),
@@ -174,7 +188,11 @@ internal fun MateRecruitContent(
 private fun WithdrawScreenPreview() {
     TripmateTheme {
         WithdrawScreen(
-            uiState = MyPageUiState(),
+            uiState = MyPageUiState(
+                selectedWithdrawReasons = persistentListOf(
+                    WithdrawReasonEntity(0, R.string.no_use, false),
+                )
+            ),
             innerPadding = PaddingValues(),
             onAction = {},
         )
