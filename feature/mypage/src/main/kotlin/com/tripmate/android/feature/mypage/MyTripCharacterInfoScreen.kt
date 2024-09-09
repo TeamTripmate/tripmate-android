@@ -232,7 +232,7 @@ internal fun MyTripCharacterInfoContent(
 
 @DevicePreview
 @Composable
-fun MyTripCharacterInfoPreview() {
+private fun MyTripCharacterInfoPreview() {
     TripmateTheme {
         MyTripCharacterInfoScreen(
             innerPadding = PaddingValues(),

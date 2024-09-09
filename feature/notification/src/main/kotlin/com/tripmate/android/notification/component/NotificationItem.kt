@@ -25,7 +25,7 @@ import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.domain.entity.NotificationEntity
 
 @Composable
-fun NotificationItem(
+internal fun NotificationItem(
     notification: NotificationEntity,
     modifier: Modifier = Modifier,
 ) {
@@ -70,7 +70,7 @@ fun NotificationItem(
 
 @ComponentPreview
 @Composable
-fun UnReadNotificationItemPreview() {
+private fun UnReadNotificationItemPreview() {
     TripmateTheme {
         NotificationItem(
             notification = NotificationEntity(
@@ -87,7 +87,7 @@ fun UnReadNotificationItemPreview() {
 
 @ComponentPreview
 @Composable
-fun ReadNotificationItemPreview() {
+private fun ReadNotificationItemPreview() {
     TripmateTheme {
         NotificationItem(
             notification = NotificationEntity(

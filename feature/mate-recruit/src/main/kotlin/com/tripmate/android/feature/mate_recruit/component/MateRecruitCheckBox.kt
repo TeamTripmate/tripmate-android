@@ -20,7 +20,7 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.feature.mate_recruit.R
 
 @Composable
-fun MateRecruitCheckBox(
+internal fun MateRecruitCheckBox(
     text: String,
     isSelected: Boolean,
     onSelectedChange: () -> Unit,
@@ -58,7 +58,7 @@ fun MateRecruitCheckBox(
 
 @ComponentPreview
 @Composable
-fun MateRecruitCheckBoxPreview() {
+private fun MateRecruitCheckBoxPreview() {
     TripmateTheme {
         MateRecruitCheckBox(
             text = "니와 비슷한 유형의 동행 찾기",

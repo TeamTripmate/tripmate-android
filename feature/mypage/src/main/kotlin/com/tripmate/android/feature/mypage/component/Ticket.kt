@@ -22,11 +22,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary03
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.feature.mypage.R
 import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiState
@@ -134,4 +136,12 @@ fun TicketHole(
                 else RoundedCornerShape(topStart = 9.dp, topEnd = 9.dp),
             ),
     )
+}
+
+@ComponentPreview
+@Composable
+private fun TickerPreview() {
+    TripmateTheme {
+        Ticket(uiState = MyPageUiState())
+    }
 }

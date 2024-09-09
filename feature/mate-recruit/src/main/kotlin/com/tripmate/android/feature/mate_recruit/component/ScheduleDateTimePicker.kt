@@ -56,7 +56,7 @@ import java.time.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScheduleBottomSheet(
+internal fun ScheduleBottomSheet(
     pickerType: PickerType,
     uiState: MateRecruitUiState,
     onAction: (MateRecruitUiAction) -> Unit,
@@ -165,7 +165,7 @@ fun ScheduleBottomSheet(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScheduleDialog(
+internal fun ScheduleDialog(
     pickerType: PickerType,
     uiState: MateRecruitUiState,
     onAction: (MateRecruitUiAction) -> Unit,
@@ -251,7 +251,7 @@ fun ScheduleDialog(
 
 @ComponentPreview
 @Composable
-fun ScheduleBottomSheetPreview() {
+private fun ScheduleBottomSheetPreview() {
     TripmateTheme {
         ScheduleBottomSheet(
             pickerType = PickerType.DATE,
@@ -263,7 +263,7 @@ fun ScheduleBottomSheetPreview() {
 
 @ComponentPreview
 @Composable
-fun ScheduleDialogPreview() {
+private fun ScheduleDialogPreview() {
     TripmateTheme {
         ScheduleDialog(
             pickerType = PickerType.DATE,

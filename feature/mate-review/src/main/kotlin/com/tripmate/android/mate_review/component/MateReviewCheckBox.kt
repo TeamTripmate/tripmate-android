@@ -26,7 +26,7 @@ import com.tripmate.android.domain.entity.GoodReviewEntity
 import com.tripmate.android.feature.mate_review.R
 
 @Composable
-fun GoodReviewCheckBox(
+internal fun GoodReviewCheckBox(
     review: GoodReviewEntity,
     isSelected: Boolean,
     onSelectedChange: () -> Unit,
@@ -57,7 +57,7 @@ fun GoodReviewCheckBox(
 }
 
 @Composable
-fun BadReviewCheckBox(
+internal fun BadReviewCheckBox(
     review: BadReviewEntity,
     isSelected: Boolean,
     onSelectedChange: () -> Unit,
@@ -89,7 +89,7 @@ fun BadReviewCheckBox(
 
 @ComponentPreview
 @Composable
-fun GoodReviewCheckBoxPreview() {
+private fun GoodReviewCheckBoxPreview() {
     TripmateTheme {
         GoodReviewCheckBox(
             review = GoodReviewEntity(id = 1, textResId = R.string.good_manner, isSelected = false),
@@ -101,7 +101,7 @@ fun GoodReviewCheckBoxPreview() {
 
 @ComponentPreview
 @Composable
-fun BadReviewCheckBoxPreview() {
+private fun BadReviewCheckBoxPreview() {
     TripmateTheme {
         BadReviewCheckBox(
             review = BadReviewEntity(id = 1, textResId = R.string.bad_manner, isSelected = false),

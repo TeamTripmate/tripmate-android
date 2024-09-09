@@ -55,7 +55,7 @@ import com.tripmate.android.feature.mate_recruit.viewmodel.MateType
 import com.tripmate.android.feature.mate_recruit.viewmodel.PickerType
 
 @Composable
-fun MateRecruitRoute(
+internal fun MateRecruitRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
     viewModel: MateRecruitViewModel = hiltViewModel(),
@@ -78,7 +78,7 @@ fun MateRecruitRoute(
 }
 
 @Composable
-fun MateRecruitScreen(
+internal fun MateRecruitScreen(
     uiState: MateRecruitUiState,
     innerPadding: PaddingValues,
     onAction: (MateRecruitUiAction) -> Unit,
@@ -121,7 +121,7 @@ fun MateRecruitScreen(
 }
 
 @Composable
-fun MateRecruitContent(
+internal fun MateRecruitContent(
     uiState: MateRecruitUiState,
     onAction: (MateRecruitUiAction) -> Unit,
     modifier: Modifier = Modifier,
@@ -340,7 +340,7 @@ fun MateRecruitContent(
 
 @DevicePreview
 @Composable
-fun MateRecruitScreenPreview() {
+private fun MateRecruitScreenPreview() {
     TripmateTheme {
         MateRecruitScreen(
             uiState = MateRecruitUiState(),

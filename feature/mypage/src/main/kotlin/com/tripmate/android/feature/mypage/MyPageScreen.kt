@@ -190,7 +190,7 @@ internal fun MyPageContent(
 
 @DevicePreview
 @Composable
-fun MyPagePreview() {
+private fun MyPagePreview() {
     TripmateTheme {
         MyPageScreen(
             innerPadding = PaddingValues(),

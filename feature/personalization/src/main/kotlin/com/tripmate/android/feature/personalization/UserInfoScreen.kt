@@ -41,7 +41,7 @@ import com.tripmate.android.feature.personalization.viewmodel.ScreenType
 import kotlin.system.exitProcess
 
 @Composable
-fun UserInfoRoute(
+internal fun UserInfoRoute(
     navigateToResult: () -> Unit,
     innerPadding: PaddingValues,
     viewModel: PersonalizationViewModel,
@@ -70,7 +70,7 @@ fun UserInfoRoute(
 }
 
 @Composable
-fun UserInfoScreen(
+internal fun UserInfoScreen(
     uiState: PersonalizationUiState,
     innerPadding: PaddingValues,
     onAction: (PersonalizationUiAction) -> Unit,
@@ -94,7 +94,7 @@ fun UserInfoScreen(
 }
 
 @Composable
-fun UserInfoContent(
+internal fun UserInfoContent(
     uiState: PersonalizationUiState,
     onAction: (PersonalizationUiAction) -> Unit,
     modifier: Modifier = Modifier,
@@ -181,7 +181,7 @@ fun UserInfoContent(
 
 @DevicePreview
 @Composable
-fun UserInfoScreenPreview() {
+private fun UserInfoScreenPreview() {
     TripmateTheme {
         UserInfoScreen(
             uiState = PersonalizationUiState(),
