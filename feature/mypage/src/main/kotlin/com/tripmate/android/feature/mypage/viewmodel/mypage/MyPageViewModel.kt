@@ -28,10 +28,15 @@ class MyPageViewModel @Inject constructor(
     @Suppress("EmptyFunctionBlock")
     fun onAction(action: MyPageUiAction) {
         when (action) {
+            is MyPageUiAction.OnBackClicked -> navigateBack()
             is MyPageUiAction.OnTicketClicked -> navigateToMyTripCharacterInfo(action.characterId)
             is MyPageUiAction.OnMyPickClicked -> navigateToMyPick()
             is MyPageUiAction.OnTabChanged -> updateSelectedTab(action.index)
-            else -> {}
+        }
+    }
+    private fun navigateBack() {
+        viewModelScope.launch {
+            _uiEvent.send(MyPageUiEvent.NavigateBack)
         }
     }
 
