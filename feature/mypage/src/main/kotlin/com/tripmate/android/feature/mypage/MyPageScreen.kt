@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
-import com.tripmate.android.core.common.extension.noRippleClickable
 import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
@@ -135,7 +134,7 @@ internal fun MyPageContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .noRippleClickable {
+                .clickable {
                     onAction(MyPageUiAction.OnMyPickClicked)
                 },
         ) {
@@ -150,7 +149,7 @@ internal fun MyPageContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .noRippleClickable {
+                .clickable {
                     onAction(MyPageUiAction.OnLogoutClicked)
                 },
         ) {
@@ -165,7 +164,7 @@ internal fun MyPageContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .noRippleClickable {
+                .clickable {
                     onAction(MyPageUiAction.OnWithdrawClicked)
                 },
         ) {

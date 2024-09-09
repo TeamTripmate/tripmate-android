@@ -92,7 +92,7 @@ fun TripmateOutlinedButton(
     enabled: Boolean = true,
     border: BorderStroke? = BorderStroke(
         width = 1.dp,
-        color = if (enabled) Primary01 else Gray004
+        color = if (enabled) Primary01 else Gray004,
     ),
     containerColor: Color = Color.White,
     contentColor: Color = Primary01,
