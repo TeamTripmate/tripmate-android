@@ -1,7 +1,6 @@
 package com.tripmate.android.feature.detailtrip.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +16,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -90,11 +90,10 @@ fun TripDetailIntroduce(
 
     Spacer(modifier = Modifier.height(36.dp))
 
-    Spacer(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(1.dp)
-            .background(Gray009),
+    HorizontalDivider(
+        thickness = 1.dp,
+        color = Gray009,
+        modifier = Modifier.height(1.dp),
     )
 }
 
@@ -199,11 +198,10 @@ fun TripDetailLocation(
 
     Spacer(modifier = Modifier.height(36.dp))
 
-    Spacer(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(1.dp)
-            .background(Gray009),
+    HorizontalDivider(
+        thickness = 1.dp,
+        color = Gray009,
+        modifier = Modifier.height(1.dp),
     )
 }
 
