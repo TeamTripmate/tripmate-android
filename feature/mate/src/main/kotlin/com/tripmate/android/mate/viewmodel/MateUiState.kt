@@ -103,9 +103,11 @@ data class MateUiState(
                     MarkerInfo(
                         latitude = it.lat,
                         longitude = it.lon,
-                        resourceId = if (isSelect) R.drawable.img_select_default_marker else {
-                            R.drawable.img_unselect_default_marker
-                        },
+                        resourceId = if (isSelect)
+                            if (it.isSearching) categoryType.mateSelectMarkerIcon else categoryType.selectMarkerIcon
+                        else {
+                            if (it.isSearching) categoryType.mateUnselectMarkerIcon else categoryType.unselectMarkerIcon
+                        } ?: R.drawable.img_unselect_default_marker,
                         poiId = it.poiId,
                     ),
                 )
