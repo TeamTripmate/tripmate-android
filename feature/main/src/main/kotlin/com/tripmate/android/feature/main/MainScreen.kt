@@ -100,7 +100,7 @@ internal fun MainScreen(
                 padding = innerPadding,
                 navigateToMyTripCharacterInfo = navigator::navigateToMyTripCharacterInfo,
                 navigateToMyPick = navigator::navigateToMyPick,
-                navigateToWithdraw = navigator::navigateToWithdraw
+                navigateToWithdraw = navigator::navigateToWithdraw,
             )
             mateRecruitNavGraph(
                 padding = innerPadding,

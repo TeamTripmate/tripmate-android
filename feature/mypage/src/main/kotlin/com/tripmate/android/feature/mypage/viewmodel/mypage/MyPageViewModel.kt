@@ -2,7 +2,6 @@ package com.tripmate.android.feature.mypage.viewmodel.mypage
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tripmate.android.domain.entity.GenderAgeGroupEntity
 import com.tripmate.android.domain.entity.WithdrawReasonEntity
 import com.tripmate.android.domain.repository.MateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

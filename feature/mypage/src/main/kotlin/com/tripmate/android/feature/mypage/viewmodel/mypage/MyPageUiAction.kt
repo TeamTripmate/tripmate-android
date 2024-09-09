@@ -9,11 +9,11 @@ sealed interface MyPageUiAction {
     data class OnTabChanged(val index: Int) : MyPageUiAction
     data class OnWithdrawReasonSelected(val withdrawReason: WithdrawReasonEntity) : MyPageUiAction
     data class OnWithdrawReasonDeselected(val withdrawReason: WithdrawReasonEntity) : MyPageUiAction
-    data class OnWithdrawReasonDescriptionUpdated(val withdrawReasonDescription: String): MyPageUiAction
-    data object OnLogoutClicked: MyPageUiAction
-    data object OnWithdrawClicked: MyPageUiAction
+    data class OnWithdrawReasonDescriptionUpdated(val withdrawReasonDescription: String) : MyPageUiAction
+    data object OnLogoutClicked : MyPageUiAction
+    data object OnWithdrawClicked : MyPageUiAction
     data object OnRealWithdrawClicked : MyPageUiAction
-    data object OnUseMoreClicked: MyPageUiAction
+    data object OnUseMoreClicked : MyPageUiAction
 }
 
 enum class ErrorType {

@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
@@ -191,7 +190,7 @@ private fun WithdrawScreenPreview() {
             uiState = MyPageUiState(
                 selectedWithdrawReasons = persistentListOf(
                     WithdrawReasonEntity(0, R.string.no_use, false),
-                )
+                ),
             ),
             innerPadding = PaddingValues(),
             onAction = {},

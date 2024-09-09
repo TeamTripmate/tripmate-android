@@ -84,7 +84,7 @@ internal fun MyPickScreen(
                 title = stringResource(R.string.my_pick),
                 onNavigationClick = {
                     onAction(MyPageUiAction.OnBackClicked)
-                }
+                },
             )
             MyPickContent(
                 uiState = uiState,

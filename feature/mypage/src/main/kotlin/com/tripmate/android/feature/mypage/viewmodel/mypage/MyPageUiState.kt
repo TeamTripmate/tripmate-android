@@ -1,6 +1,5 @@
 package com.tripmate.android.feature.mypage.viewmodel.mypage
 
-import com.tripmate.android.domain.entity.BadReviewEntity
 import com.tripmate.android.domain.entity.WithdrawReasonEntity
 import com.tripmate.android.feature.mypage.R
 import kotlinx.collections.immutable.ImmutableList
