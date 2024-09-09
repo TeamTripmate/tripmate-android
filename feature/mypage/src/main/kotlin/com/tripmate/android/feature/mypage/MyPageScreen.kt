@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.mypage
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,7 @@ import com.tripmate.android.core.common.extension.noRippleClickable
 import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
+import com.tripmate.android.core.designsystem.theme.Background01
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
@@ -77,12 +79,14 @@ internal fun MyPageScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(Background01)
             .padding(innerPadding),
     ) {
         Column {
             TripmateTopAppBar(
                 navigationType = TopAppBarNavigationType.None,
                 title = stringResource(id = R.string.my_page),
+                containerColor = Background01,
             )
             MyPageContent(
                 uiState = uiState,

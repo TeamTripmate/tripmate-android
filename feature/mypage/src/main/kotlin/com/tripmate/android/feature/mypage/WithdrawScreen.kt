@@ -147,6 +147,7 @@ internal fun MateRecruitContent(
             maxLength = 200,
         )
         Spacer(modifier = Modifier.height(84.dp))
+        Spacer(modifier = Modifier.weight(1f))
         Row(
             modifier = Modifier.fillMaxWidth(),
         ) {

@@ -46,7 +46,7 @@ internal class MainNavController(
             MainTab.HOME -> navController.navigateToHome(navOptions)
             MainTab.MATE -> navController.navigateToMate(navOptions)
             MainTab.TRIP_LIST -> navController.navigateToTripList(navOptions)
-            MainTab.MYPAGE -> navController.navigateToMyPage(navOptions)
+            MainTab.MY_PAGE -> navController.navigateToMyPage(navOptions)
         }
     }
 

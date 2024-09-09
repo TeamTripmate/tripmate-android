@@ -30,12 +30,12 @@ internal enum class MainTab(
         label = "여행목록",
         route = "trip_list_route",
     ),
-    MYPAGE(
+    MY_PAGE(
         iconResId = R.drawable.ic_mypage,
         selectedIconResId = R.drawable.ic_selected_mypage,
         contentDescription = "My page Icon",
         label = "마이",
-        route = "mypage_route",
+        route = "my_page_route",
     ),
     ;
 

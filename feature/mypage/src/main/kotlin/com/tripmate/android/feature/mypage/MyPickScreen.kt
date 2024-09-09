@@ -186,7 +186,7 @@ private fun ContentForTab(
 internal fun MyPickScreenPreview() {
     TripmateTheme {
         MyPickScreen(
-            innerPadding = PaddingValues(16.dp),
+            innerPadding = PaddingValues(),
             uiState = MyPageUiState(),
             onAction = {},
         )

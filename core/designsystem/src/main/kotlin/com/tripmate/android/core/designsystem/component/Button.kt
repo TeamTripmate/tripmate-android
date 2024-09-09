@@ -90,10 +90,13 @@ fun TripmateOutlinedButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    border: BorderStroke? = BorderStroke(width = 1.dp, color = Primary01),
+    border: BorderStroke? = BorderStroke(
+        width = 1.dp,
+        color = if (enabled) Primary01 else Gray004
+    ),
     containerColor: Color = Color.White,
     contentColor: Color = Primary01,
-    disabledContainerColor: Color = Gray009,
+    disabledContainerColor: Color = Color.White,
     disabledContentColor: Color = Gray004,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     content: @Composable RowScope.() -> Unit,
@@ -152,6 +155,19 @@ fun TripmateButtonPreview() {
 
 @ComponentPreview
 @Composable
+fun TripmateButtonDisabledPreview() {
+    TripmateTheme {
+        TripmateButton(
+            onClick = {},
+            enabled = false,
+        ) {
+            Text("Button")
+        }
+    }
+}
+
+@ComponentPreview
+@Composable
 fun TripmateButtonWithLeadingIconPreview() {
     TripmateTheme {
         TripmateButton(
@@ -176,6 +192,19 @@ fun TripmateOutlinedButtonPreview() {
     TripmateTheme {
         TripmateOutlinedButton(
             onClick = {},
+        ) {
+            Text("Button")
+        }
+    }
+}
+
+@ComponentPreview
+@Composable
+fun TripmateOutlinedButtonDisabledPreview() {
+    TripmateTheme {
+        TripmateOutlinedButton(
+            onClick = {},
+            enabled = false,
         ) {
             Text("Button")
         }
