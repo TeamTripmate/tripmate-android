@@ -19,11 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.component.NetworkImage
+import com.tripmate.android.core.designsystem.theme.Background01
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
@@ -67,16 +67,16 @@ fun Ticket(
                         .fillMaxHeight()
                         .align(Alignment.Center),
                     thickness = 2.dp,
-                    color = White,
+                    color = Background01,
                 )
                 TicketHole(
                     modifier = Modifier.align(Alignment.TopCenter),
-                    backgroundColor = White,
+                    backgroundColor = Background01,
                     isTop = true,
                 )
                 TicketHole(
                     modifier = Modifier.align(Alignment.BottomCenter),
-                    backgroundColor = White,
+                    backgroundColor = Background01,
                     isTop = false,
                 )
             }

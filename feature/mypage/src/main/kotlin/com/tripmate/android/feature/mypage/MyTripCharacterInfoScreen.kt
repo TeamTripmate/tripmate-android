@@ -227,6 +227,7 @@ internal fun MyTripCharacterInfoContent(
                 style = Medium16_SemiBold,
             )
         }
+        Spacer(modifier = Modifier.height(24.dp))
     }
 }
 
