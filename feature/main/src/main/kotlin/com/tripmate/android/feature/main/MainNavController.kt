@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.tripmate.android.feature.detailtrip.navigation.navigateToTripDetail
 import com.tripmate.android.feature.home.navigation.HOME_ROUTE
 import com.tripmate.android.feature.home.navigation.navigateToHome
 import com.tripmate.android.feature.mate_recruit.navigation.navigateToMateRecruit
@@ -56,6 +57,10 @@ internal class MainNavController(
 
     fun navigateToMateReview() {
         navController.navigateToMateReview()
+    }
+
+    fun navigateToTripDetail() {
+        navController.navigateToTripDetail()
     }
 
     fun navigateToMyTripCharacterInfo(characterId: Long) {

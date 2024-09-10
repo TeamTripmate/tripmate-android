@@ -17,12 +17,14 @@ fun NavGraphBuilder.homeNavGraph(
     padding: PaddingValues,
     navigateToMateRecruit: () -> Unit,
     navigateToMateReview: () -> Unit,
+    navigateToTripDetail: () -> Unit,
 ) {
     composable(route = HOME_ROUTE) {
         HomeRoute(
             innerPadding = padding,
             navigateToMateRecruit = navigateToMateRecruit,
             navigateToMateReview = navigateToMateReview,
+            navigateToTripDetail = navigateToTripDetail,
         )
     }
 }

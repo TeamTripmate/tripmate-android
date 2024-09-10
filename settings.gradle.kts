@@ -47,5 +47,6 @@ include(
     ":feature:notification",
     ":feature:mate",
     ":feature:writing",
+    ":feature:tripdetail",
     ":feature:trip-list",
 )

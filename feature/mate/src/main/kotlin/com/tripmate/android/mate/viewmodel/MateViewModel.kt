@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.kakao.vectormap.LatLng
+import com.tripmate.android.domain.entity.POISimpleListEntity
 import com.tripmate.android.domain.repository.MapRepository
 import com.tripmate.android.feature.map.extension.cameraPosition
 import com.tripmate.android.feature.map.state.CameraPositionDefaults
@@ -47,6 +48,7 @@ class MateViewModel @Inject constructor(
             is MateUiAction.OnShowListClicked -> setShowListClicked(action.isShowing)
             is MateUiAction.OnCurrentLocationClicked -> setCurrentLocation()
             is MateUiAction.OnSearchingListClicked -> setSearchingList(action.isShowing)
+            is MateUiAction.OnMarkerClicked -> setSelectPoi(action.poiId)
         }
     }
 
@@ -55,6 +57,7 @@ class MateViewModel @Inject constructor(
             it.copy(
                 categoryType = categoryType,
                 simpleList = it.getTestList(categoryType),
+                selectPoiItem = it.getTestList(categoryType).first(),
             )
         }
     }
@@ -73,6 +76,14 @@ class MateViewModel @Inject constructor(
         _uiState.update { uiState ->
             uiState.copy(
                 simpleList = if (isShowing) uiState.simpleList.filter { it.isSearching } else uiState.simpleList,
+            )
+        }
+    }
+
+    private fun setSelectPoi(poiId: Int) {
+        _uiState.update { uiState ->
+            uiState.copy(
+                selectPoiItem = getMarkerInfo(poiId),
             )
         }
     }
@@ -106,5 +117,23 @@ class MateViewModel @Inject constructor(
             CameraPositionDefaults.DefaultCameraPosition
         }
         cameraPositionState.position = cameraPosition
+    }
+
+    fun movePoiLocation(cameraPositionState: CameraPositionState, selectPoiItem: POISimpleListEntity) {
+        val cameraPosition = selectPoiItem.let {
+            cameraPosition {
+                setPosition(
+                    LatLng.from(
+                        it.lat,
+                        it.lon,
+                    ),
+                )
+            }
+        }
+        cameraPositionState.position = cameraPosition
+    }
+
+    private fun getMarkerInfo(markerID: Int): POISimpleListEntity? {
+        return uiState.value.simpleList.find { it.poiId == markerID }
     }
 }

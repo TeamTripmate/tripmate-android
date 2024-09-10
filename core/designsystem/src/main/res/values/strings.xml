@@ -20,12 +20,36 @@
     <!--    mate-->
     <string name="category_type_all">전체</string>
     <string name="category_type_searching_mate">동행 모집 중</string>
+    <string name="category_type_experience">체험</string>
+    <string name="category_type_culture">문화예술</string>
+    <string name="category_type_show">축제∙공연</string>
+    <string name="category_type_nature">자연∙휴양</string>
+    <string name="category_type_course">코스</string>
+    <string name="category_type_history">역사</string>
+    <string name="category_type_leports">레포츠</string>
+    <string name="category_type_accommodate">숙박</string>
+    <string name="category_type_shopping">쇼핑</string>
     <string name="category_type_food">음식</string>
-    <string name="category_type_hiking">등산</string>
-    <string name="category_type_healing">힐링</string>
     <string name="see_more_list">목록 보기</string>
     <string name="show_map">지도 보기</string>
     <string name="see_only_searching_mate">동행 모집만 보기</string>
     <string name="searching_mate_title">동행 모집</string>
+
+    <!--    trip-detail-->
+    <string name="trip_detail_title">상세 정보</string>
+    <string name="trip_tip_title">트립메이트 여행 팁</string>
+    <string name="trip_location_title">장소</string>
+    <string name="trip_detail_phone">전화 번호</string>
+    <string name="trip_detail_address">주소</string>
+    <string name="trip_detailfee">입장료</string>
+    <string name="trip_recommend_style_title">추천 스타일</string>
+    <string name="trip_mate_recruit_title">동행인을 찾아 볼까요?</string>
+    <string name="trip_mate_recruit_text">동행글 작성하기</string>
+    <string name="trip_mate_recruit_list">동행 모집글 보기</string>
+    <string name="trip_mate_review_advantage_title">이런 점이 좋았어요!</string>
+    <string name="trip_mate_review_advantage_first">1위</string>
+    <string name="trip_mate_review_advantage_second">2위</string>
+    <string name="trip_mate_review_advantage_third">3위</string>
+    <string name="trip_mate_review_list">방문한 메이트들의 후기</string>
 
 </resources>
