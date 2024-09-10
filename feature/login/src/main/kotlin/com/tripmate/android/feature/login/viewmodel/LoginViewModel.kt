@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.core.common.UiText
 import com.tripmate.android.domain.repository.LoginRepository
+import com.tripmate.android.domain.repository.PersonalizationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginRepository: LoginRepository,
+    private val personalizationRepository: PersonalizationRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
@@ -40,7 +42,12 @@ class LoginViewModel @Inject constructor(
     fun saveAuthToken(accessToken: String, refreshToken: String) {
         viewModelScope.launch {
             loginRepository.saveAuthToken(accessToken, refreshToken)
-            _uiEvent.send(LoginUiEvent.NavigateToMain)
+            val isPersonalizationCompleted = personalizationRepository.checkPersonalizationCompletion()
+            if (isPersonalizationCompleted) {
+                _uiEvent.send(LoginUiEvent.NavigateToMain)
+            } else {
+                _uiEvent.send(LoginUiEvent.NavigateToPersonalization)
+            }
         }
     }
 

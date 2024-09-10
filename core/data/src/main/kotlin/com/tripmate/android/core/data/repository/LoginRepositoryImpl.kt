@@ -2,8 +2,9 @@ package com.tripmate.android.core.data.repository
 
 import com.tripmate.android.core.datastore.TokenDataSource
 import com.tripmate.android.domain.repository.LoginRepository
+import javax.inject.Inject
 
-class LoginRepositoryImpl(
+class LoginRepositoryImpl @Inject constructor(
     private val tokenDataSource: TokenDataSource
 ) : LoginRepository {
     override suspend fun saveAuthToken(accessToken: String, refreshToken: String) {
