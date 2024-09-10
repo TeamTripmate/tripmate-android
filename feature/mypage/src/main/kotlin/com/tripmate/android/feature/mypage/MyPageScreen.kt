@@ -1,6 +1,7 @@
 package com.tripmate.android.feature.mypage
 
-import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -18,39 +20,45 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
-import com.tripmate.android.core.common.extension.noRippleClickable
 import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
+import com.tripmate.android.core.designsystem.theme.Background01
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.mypage.component.Ticket
-import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
-import com.tripmate.android.feature.mypage.viewmodel.MyPageUiEvent
-import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
-import com.tripmate.android.feature.mypage.viewmodel.MyPageViewModel
+import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiAction
+import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiEvent
+import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiState
+import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageViewModel
 
 @Composable
 internal fun MyPageRoute(
     innerPadding: PaddingValues,
+    navigateToMyTripCharacterInfo: (Long) -> Unit,
+    navigateToMyPick: () -> Unit,
+    navigateToWithdraw: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
+            is MyPageUiEvent.NavigateToMyTripCharacterInfo -> navigateToMyTripCharacterInfo(event.characterId)
+            is MyPageUiEvent.NavigateToMyPick -> navigateToMyPick()
             is MyPageUiEvent.Logout -> {}
+            is MyPageUiEvent.NavigateToWithdraw -> navigateToWithdraw()
             is MyPageUiEvent.Withdraw -> {}
             is MyPageUiEvent.ShowToast -> {}
+            else -> {}
         }
     }
 
@@ -70,12 +78,14 @@ internal fun MyPageScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(Background01)
             .padding(innerPadding),
     ) {
         Column {
             TripmateTopAppBar(
                 navigationType = TopAppBarNavigationType.None,
                 title = stringResource(id = R.string.my_page),
+                containerColor = Background01,
             )
             MyPageContent(
                 uiState = uiState,
@@ -92,8 +102,6 @@ internal fun MyPageContent(
     onAction: (MyPageUiAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val context = LocalContext.current
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -106,7 +114,7 @@ internal fun MyPageContent(
             imgUrl = uiState.profileImgUrl,
             contentDescription = stringResource(id = R.string.profile_image),
             modifier = Modifier
-                .height(72.dp)
+                .size(72.dp)
                 .clip(RoundedCornerShape(36.dp)),
         )
         Spacer(modifier = Modifier.height(12.dp))
@@ -116,13 +124,18 @@ internal fun MyPageContent(
             color = Gray001,
         )
         Spacer(modifier = Modifier.height(32.dp))
-        Ticket(uiState = uiState)
+        Ticket(
+            uiState = uiState,
+            modifier = Modifier.clickable {
+                onAction(MyPageUiAction.OnTicketClicked(characterId = uiState.characterId))
+            },
+        )
         Spacer(modifier = Modifier.height(32.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .noRippleClickable {
-                    Toast.makeText(context, "나의 픽", Toast.LENGTH_SHORT).show()
+                .clickable {
+                    onAction(MyPageUiAction.OnMyPickClicked)
                 },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
@@ -136,8 +149,8 @@ internal fun MyPageContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .noRippleClickable {
-                    Toast.makeText(context, "로그아웃", Toast.LENGTH_SHORT).show()
+                .clickable {
+                    onAction(MyPageUiAction.OnLogoutClicked)
                 },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
@@ -151,8 +164,8 @@ internal fun MyPageContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .noRippleClickable {
-                    Toast.makeText(context, "회원 탈퇴", Toast.LENGTH_SHORT).show()
+                .clickable {
+                    onAction(MyPageUiAction.OnWithdrawClicked)
                 },
         ) {
             Spacer(modifier = Modifier.height(18.dp))
@@ -168,7 +181,7 @@ internal fun MyPageContent(
 
 @DevicePreview
 @Composable
-fun MyPagePreview() {
+private fun MyPagePreview() {
     TripmateTheme {
         MyPageScreen(
             innerPadding = PaddingValues(),

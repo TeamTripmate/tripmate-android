@@ -59,7 +59,7 @@ internal fun ResultRoute(
 
 @Suppress("UnusedParameter")
 @Composable
-fun ResultScreen(
+internal fun ResultScreen(
     uiState: PersonalizationUiState,
     innerPadding: PaddingValues,
     onAction: (PersonalizationUiAction) -> Unit,
@@ -109,7 +109,7 @@ fun ResultScreen(
 
 @DevicePreview
 @Composable
-fun ResultScreenPreview() {
+private fun ResultScreenPreview() {
     TripmateTheme {
         ResultScreen(
             uiState = PersonalizationUiState(),

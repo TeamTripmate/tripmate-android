@@ -16,7 +16,7 @@ fun NavGraphBuilder.mateRecruitNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
 ) {
-    composable(route = MATE_RECRUIT_ROUTE) { entry ->
+    composable(route = MATE_RECRUIT_ROUTE) {
         MateRecruitRoute(
             innerPadding = padding,
             popBackStack = popBackStack,

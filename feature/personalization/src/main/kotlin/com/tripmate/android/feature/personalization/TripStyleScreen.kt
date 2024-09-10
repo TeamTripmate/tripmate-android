@@ -67,7 +67,7 @@ internal fun TripStyleRoute(
 }
 
 @Composable
-fun TripStyleScreen(
+internal fun TripStyleScreen(
     uiState: PersonalizationUiState,
     innerPadding: PaddingValues,
     onAction: (PersonalizationUiAction) -> Unit,
@@ -123,7 +123,7 @@ fun TripStyleScreen(
 
 @DevicePreview
 @Composable
-fun TripStyleScreenPreview() {
+private fun TripStyleScreenPreview() {
     TripmateTheme {
         TripStyleScreen(
             uiState = PersonalizationUiState(

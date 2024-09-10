@@ -52,7 +52,7 @@ import com.tripmate.android.mate_review.viewmodel.MateReviewUiState
 import com.tripmate.android.mate_review.viewmodel.MateReviewViewModel
 
 @Composable
-fun MateReviewRoute(
+internal fun MateReviewRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
     viewModel: MateReviewViewModel = hiltViewModel(),
@@ -76,7 +76,7 @@ fun MateReviewRoute(
 }
 
 @Composable
-fun MateReviewScreen(
+internal fun MateReviewScreen(
     uiState: MateReviewUiState,
     innerPadding: PaddingValues,
     onAction: (MateReviewUiAction) -> Unit,
@@ -102,7 +102,7 @@ fun MateReviewScreen(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun MateRecruitContent(
+internal fun MateRecruitContent(
     uiState: MateReviewUiState,
     onAction: (MateReviewUiAction) -> Unit,
     modifier: Modifier = Modifier,
@@ -247,7 +247,7 @@ fun MateRecruitContent(
 
 @DevicePreview
 @Composable
-fun MateRecruitScreenPreview() {
+private fun MateRecruitScreenPreview() {
     TripmateTheme {
         MateReviewScreen(
             uiState = MateReviewUiState(),

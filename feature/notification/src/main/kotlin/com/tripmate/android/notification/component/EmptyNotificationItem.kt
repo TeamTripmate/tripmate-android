@@ -18,7 +18,7 @@ import com.tripmate.android.core.designsystem.theme.Medium16_Mid
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 
 @Composable
-fun EmptyNotificationItem(
+internal fun EmptyNotificationItem(
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -42,7 +42,7 @@ fun EmptyNotificationItem(
 
 @ComponentPreview
 @Composable
-fun EmptyNotificationItemPreview() {
+private fun EmptyNotificationItemPreview() {
     TripmateTheme {
         EmptyNotificationItem(
             modifier = Modifier.fillMaxSize(),

@@ -148,7 +148,7 @@ internal fun LoginScreen(
 
 @DevicePreview
 @Composable
-fun LoginScreenPreview() {
+private fun LoginScreenPreview() {
     TripmateTheme {
         LoginScreen(
             uiState = LoginUiState(),

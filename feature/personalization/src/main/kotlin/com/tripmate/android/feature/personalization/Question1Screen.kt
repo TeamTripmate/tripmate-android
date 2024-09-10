@@ -54,7 +54,7 @@ internal fun Question1Route(
 }
 
 @Composable
-fun Question1Screen(
+internal fun Question1Screen(
     uiState: PersonalizationUiState,
     innerPadding: PaddingValues,
     onAction: (PersonalizationUiAction) -> Unit,
@@ -102,7 +102,7 @@ fun Question1Screen(
 
 @DevicePreview
 @Composable
-fun Question1ScreenPreview() {
+private fun Question1ScreenPreview() {
     TripmateTheme {
         Question1Screen(
             uiState = PersonalizationUiState(),

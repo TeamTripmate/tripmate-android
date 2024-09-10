@@ -10,12 +10,15 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.tripmate.android.core.designsystem.ComponentPreview
+import com.tripmate.android.core.designsystem.theme.Primary01
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 
 @Composable
-fun VerticalDottedDivider(
-    modifier: Modifier = Modifier,
+internal fun VerticalDottedDivider(
     color: Color,
     thickness: Dp,
+    modifier: Modifier = Modifier,
     dash: Dp = 8.dp,
     spacedBy: Dp = 8.dp,
     cornerRadius: Dp = 2.dp,
@@ -53,4 +56,15 @@ fun VerticalDottedDivider(
             )
         },
     )
+}
+
+@ComponentPreview
+@Composable
+private fun VerticalDottedDividerPreview() {
+    TripmateTheme {
+        VerticalDottedDivider(
+            color = Primary01,
+            thickness = 1.dp,
+        )
+    }
 }

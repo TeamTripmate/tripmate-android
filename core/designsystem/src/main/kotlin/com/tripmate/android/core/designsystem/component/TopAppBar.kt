@@ -24,7 +24,7 @@ import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 
-enum class TopAppBarNavigationType { None, Back }
+enum class TopAppBarNavigationType { None, Back, Close }
 
 @Composable
 fun TripmateTopAppBar(
@@ -44,22 +44,8 @@ fun TripmateTopAppBar(
             .background(containerColor)
             .then(modifier),
     ) {
-        if (navigationType == TopAppBarNavigationType.Back) {
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                IconButton(
-                    onClick = onNavigationClick,
-                    modifier = Modifier
-                        .align(Alignment.CenterStart)
-                        .size(48.dp),
-                ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(id = navigationIconRes),
-                        contentDescription = navigationIconContentDescription,
-                        tint = Color.Unspecified,
-                    )
-                }
+        when (navigationType) {
+            TopAppBarNavigationType.None -> {
                 Text(
                     text = title,
                     modifier = Modifier
@@ -69,15 +55,59 @@ fun TripmateTopAppBar(
                     style = titleStyle,
                 )
             }
+            TopAppBarNavigationType.Back -> {
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    IconButton(
+                        onClick = onNavigationClick,
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .size(48.dp),
+                    ) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = navigationIconRes),
+                            contentDescription = navigationIconContentDescription,
+                            tint = Color.Unspecified,
+                        )
+                    }
+                    Text(
+                        text = title,
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(vertical = 18.dp),
+                        color = contentColor,
+                        style = titleStyle,
+                    )
+                }
+            }
+            TopAppBarNavigationType.Close -> {
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    IconButton(
+                        onClick = onNavigationClick,
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .size(48.dp),
+                    ) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_close),
+                            contentDescription = navigationIconContentDescription,
+                            tint = Color.Unspecified,
+                        )
+                    }
+                    Text(
+                        text = title,
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(vertical = 18.dp),
+                        color = contentColor,
+                        style = titleStyle,
+                    )
+                }
+            }
         }
-        Text(
-            text = title,
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(vertical = 18.dp),
-            color = contentColor,
-            style = titleStyle,
-        )
     }
 }
 

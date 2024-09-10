@@ -19,24 +19,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.component.NetworkImage
+import com.tripmate.android.core.designsystem.theme.Background01
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary03
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.feature.mypage.R
-import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
+import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiState
 
 @Composable
 fun Ticket(
     uiState: MyPageUiState,
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(114.dp)
             .clip(RoundedCornerShape(8.dp))
@@ -64,23 +67,23 @@ fun Ticket(
                         .fillMaxHeight()
                         .align(Alignment.Center),
                     thickness = 2.dp,
-                    color = White,
+                    color = Background01,
                 )
                 TicketHole(
                     modifier = Modifier.align(Alignment.TopCenter),
-                    backgroundColor = White,
+                    backgroundColor = Background01,
                     isTop = true,
                 )
                 TicketHole(
                     modifier = Modifier.align(Alignment.BottomCenter),
-                    backgroundColor = White,
+                    backgroundColor = Background01,
                     isTop = false,
                 )
             }
             Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(
-                    text = uiState.personalizationResult,
+                    text = uiState.characterName,
                     style = Medium16_SemiBold,
                     color = Gray001,
                 )
@@ -99,17 +102,21 @@ fun Ticket(
 }
 
 @Composable
-fun TicketType(text: String) {
+fun TicketType(
+    text: String,
+    containerColor: Color = Background02,
+    contentColor: Color = Primary03,
+) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(4.dp))
-            .background(Background02)
+            .background(containerColor)
             .padding(vertical = 4.dp, horizontal = 8.dp),
     ) {
         Text(
             text = text,
             style = XSmall12_Reg,
-            color = Primary03,
+            color = contentColor,
         )
     }
 }
@@ -129,4 +136,12 @@ fun TicketHole(
                 else RoundedCornerShape(topStart = 9.dp, topEnd = 9.dp),
             ),
     )
+}
+
+@ComponentPreview
+@Composable
+private fun TickerPreview() {
+    TripmateTheme {
+        Ticket(uiState = MyPageUiState())
+    }
 }

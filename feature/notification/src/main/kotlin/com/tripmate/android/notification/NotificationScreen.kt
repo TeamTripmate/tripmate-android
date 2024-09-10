@@ -55,7 +55,7 @@ internal fun NotificationRoute(
 }
 
 @Composable
-fun NotificationScreen(
+internal fun NotificationScreen(
     innerPadding: PaddingValues,
     notificationUiState: NotificationUiState,
     onAction: (NotificationUiAction) -> Unit,
@@ -125,7 +125,7 @@ fun NotificationScreen(
 
 @DevicePreview
 @Composable
-fun NotificationScreenPreview() {
+internal fun NotificationScreenPreview() {
     TripmateTheme {
         NotificationScreen(
             innerPadding = PaddingValues(0.dp),
@@ -174,7 +174,7 @@ fun NotificationScreenPreview() {
 
 @DevicePreview
 @Composable
-fun EmptyNotificationScreenPreview() {
+private fun EmptyNotificationScreenPreview() {
     TripmateTheme {
         NotificationScreen(
             innerPadding = PaddingValues(0.dp),

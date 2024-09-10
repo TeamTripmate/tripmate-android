@@ -28,6 +28,7 @@ import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Primary03
 import com.tripmate.android.core.designsystem.theme.Small14_Med
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.core.designsystem.R
 
 @Composable
 fun FilterChip(
@@ -74,17 +75,17 @@ fun FilterChip(
 
 fun getIconResourceForFilter(filterName: String): Int {
     return when (filterName) {
-        "체험" -> com.tripmate.android.core.designsystem.R.drawable.ic_paint
-        "문화∙예술" -> com.tripmate.android.core.designsystem.R.drawable.ic_culture
-        "축제∙공연" -> com.tripmate.android.core.designsystem.R.drawable.ic_show
-        "자연∙휴양" -> com.tripmate.android.core.designsystem.R.drawable.ic_tree
-        "역사" -> com.tripmate.android.core.designsystem.R.drawable.ic_history
-        "코스" -> com.tripmate.android.core.designsystem.R.drawable.ic_course
-        "숙박" -> com.tripmate.android.core.designsystem.R.drawable.ic_hotel
-        "레포츠" -> com.tripmate.android.core.designsystem.R.drawable.ic_sports
-        "맛집∙카페" -> com.tripmate.android.core.designsystem.R.drawable.ic_dish
-        "쇼핑" -> com.tripmate.android.core.designsystem.R.drawable.ic_shopping
-        else -> com.tripmate.android.feature.mate_recruit.R.drawable.ic_mate_type_checked
+        "체험" -> R.drawable.ic_paint
+        "문화∙예술" -> R.drawable.ic_culture
+        "축제∙공연" -> R.drawable.ic_show
+        "자연∙휴양" -> R.drawable.ic_tree
+        "역사" -> R.drawable.ic_history
+        "코스" -> R.drawable.ic_course
+        "숙박" -> R.drawable.ic_hotel
+        "레포츠" -> R.drawable.ic_sports
+        "맛집∙카페" -> R.drawable.ic_dish
+        "쇼핑" -> R.drawable.ic_shopping
+        else -> R.drawable.ic_mate_type_checked
     }
 }
 

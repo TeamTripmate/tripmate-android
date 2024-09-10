@@ -16,7 +16,7 @@ fun NavGraphBuilder.mateReviewNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
 ) {
-    composable(route = MATE_REVIEW_ROUTE) { entry ->
+    composable(route = MATE_REVIEW_ROUTE) {
         MateReviewRoute(
             innerPadding = padding,
             popBackStack = popBackStack,

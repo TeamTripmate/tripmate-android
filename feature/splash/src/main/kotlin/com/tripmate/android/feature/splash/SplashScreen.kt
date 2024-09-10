@@ -37,7 +37,7 @@ internal fun SplashRoute(
 }
 
 @Composable
-fun SplashScreen(
+internal fun SplashScreen(
     uiState: SplashUiState,
 ) {
     if (uiState.isLoading) {

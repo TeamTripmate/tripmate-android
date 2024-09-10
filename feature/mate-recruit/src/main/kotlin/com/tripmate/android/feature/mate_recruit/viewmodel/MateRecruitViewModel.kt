@@ -43,7 +43,7 @@ class MateRecruitViewModel @Inject constructor(
 
             is MateRecruitUiAction.OnMateTypeSelected -> setMateType(action.mateType)
             is MateRecruitUiAction.OnGenderAgeGroupSelected -> addGenderAgeGroup(action.group)
-            is MateRecruitUiAction.OnGenderAgeGroupDeselected -> removeSelectedTripStyle(action.group)
+            is MateRecruitUiAction.OnGenderAgeGroupDeselected -> removeGenderAgeGroup(action.group)
             is MateRecruitUiAction.OnMateRecruitContentUpdated -> setMateRecruitContent(action.content)
             is MateRecruitUiAction.OnOpenKakaoLinkUpdated -> setOpenKakaoLink(action.link)
             is MateRecruitUiAction.OnDoneClicked -> finish()
@@ -100,7 +100,7 @@ class MateRecruitViewModel @Inject constructor(
         }
     }
 
-    private fun removeSelectedTripStyle(genderAgeGroup: GenderAgeGroupEntity) {
+    private fun removeGenderAgeGroup(genderAgeGroup: GenderAgeGroupEntity) {
         _uiState.update {
             it.copy(selectedGenderAgeGroups = it.selectedGenderAgeGroups.remove(genderAgeGroup))
         }

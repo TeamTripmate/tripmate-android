@@ -46,6 +46,10 @@ import com.tripmate.android.feature.detailtrip.navigation.tripDetailNavGraph
 import com.tripmate.android.feature.home.navigation.homeNavGraph
 import com.tripmate.android.feature.mypage.navigation.myPageNavGraph
 import com.tripmate.android.feature.mate_recruit.navigation.mateRecruitNavGraph
+import com.tripmate.android.feature.mypage.navigation.myPickNavGraph
+import com.tripmate.android.feature.mypage.navigation.myTripCharacterInfoNavGraph
+import com.tripmate.android.feature.mypage.navigation.withdrawNavGraph
+import com.tripmate.android.feature.trip_list.navigation.tripListNavGraph
 import com.tripmate.android.mate.navigation.mateNavGraph
 import com.tripmate.android.mate_review.navigation.mateReviewNavGraph
 import com.tripmate.android.notification.navigation.notificationNavGraph
@@ -85,17 +89,18 @@ internal fun MainScreen(
             )
             mateNavGraph(
                 padding = innerPadding,
-//                popBackStack = navigator::popBackStackIfNotHome,
             )
             writingNavGraph(
                 padding = innerPadding,
-//                popBackStack = navigator::popBackStackIfNotHome,
             )
             notificationNavGraph(
                 padding = innerPadding,
             )
             myPageNavGraph(
                 padding = innerPadding,
+                navigateToMyTripCharacterInfo = navigator::navigateToMyTripCharacterInfo,
+                navigateToMyPick = navigator::navigateToMyPick,
+                navigateToWithdraw = navigator::navigateToWithdraw,
             )
             mateRecruitNavGraph(
                 padding = innerPadding,
@@ -106,6 +111,21 @@ internal fun MainScreen(
                 popBackStack = navigator::popBackStackIfNotHome,
             )
             tripDetailNavGraph(
+                padding = innerPadding,
+                popBackStack = navigator::popBackStackIfNotHome,
+            )
+            myTripCharacterInfoNavGraph(
+                padding = innerPadding,
+                popBackStack = navigator::popBackStackIfNotHome,
+            )
+            tripListNavGraph(
+                padding = innerPadding,
+            )
+            myPickNavGraph(
+                padding = innerPadding,
+                popBackStack = navigator::popBackStackIfNotHome,
+            )
+            withdrawNavGraph(
                 padding = innerPadding,
                 popBackStack = navigator::popBackStackIfNotHome,
             )

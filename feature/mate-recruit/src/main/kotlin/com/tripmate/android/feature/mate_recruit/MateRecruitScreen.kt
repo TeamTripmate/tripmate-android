@@ -32,6 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateButton
+import com.tripmate.android.core.designsystem.component.TripmateCheckBox
 import com.tripmate.android.core.designsystem.component.TripmateTextField
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
 import com.tripmate.android.core.designsystem.theme.Gray001
@@ -45,7 +46,6 @@ import com.tripmate.android.core.designsystem.theme.Small14_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.android.feature.mate_recruit.component.MateRecruitCheckBox
 import com.tripmate.android.feature.mate_recruit.component.ScheduleDialog
 import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitUiAction
 import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitUiEvent
@@ -53,9 +53,10 @@ import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitUiState
 import com.tripmate.android.feature.mate_recruit.viewmodel.MateRecruitViewModel
 import com.tripmate.android.feature.mate_recruit.viewmodel.MateType
 import com.tripmate.android.feature.mate_recruit.viewmodel.PickerType
+import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
-fun MateRecruitRoute(
+internal fun MateRecruitRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
     viewModel: MateRecruitViewModel = hiltViewModel(),
@@ -78,7 +79,7 @@ fun MateRecruitRoute(
 }
 
 @Composable
-fun MateRecruitScreen(
+internal fun MateRecruitScreen(
     uiState: MateRecruitUiState,
     innerPadding: PaddingValues,
     onAction: (MateRecruitUiAction) -> Unit,
@@ -121,7 +122,7 @@ fun MateRecruitScreen(
 }
 
 @Composable
-fun MateRecruitContent(
+internal fun MateRecruitContent(
     uiState: MateRecruitUiState,
     onAction: (MateRecruitUiAction) -> Unit,
     modifier: Modifier = Modifier,
@@ -252,20 +253,20 @@ fun MateRecruitContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            MateRecruitCheckBox(
+            TripmateCheckBox(
                 text = stringResource(R.string.similar_mate_type),
                 isSelected = uiState.selectedMateType == MateType.SIMILAR,
                 onSelectedChange = { onAction(MateRecruitUiAction.OnMateTypeSelected(MateType.SIMILAR)) },
-                iconRes = R.drawable.ic_mate_type,
-                checkedIconRes = R.drawable.ic_mate_type_checked,
+                iconRes = designSystemR.drawable.ic_mate_type,
+                checkedIconRes = designSystemR.drawable.ic_mate_type_checked,
             )
             Spacer(modifier = Modifier.height(10.dp))
-            MateRecruitCheckBox(
+            TripmateCheckBox(
                 text = stringResource(R.string.all_mate_type),
                 isSelected = uiState.selectedMateType == MateType.ALL,
                 onSelectedChange = { onAction(MateRecruitUiAction.OnMateTypeSelected(MateType.ALL)) },
-                iconRes = R.drawable.ic_mate_type,
-                checkedIconRes = R.drawable.ic_mate_type_checked,
+                iconRes = designSystemR.drawable.ic_mate_type,
+                checkedIconRes = designSystemR.drawable.ic_mate_type_checked,
             )
         }
         Spacer(modifier = Modifier.height(40.dp))
@@ -283,7 +284,7 @@ fun MateRecruitContent(
                 count = uiState.allGenderAgeGroups.size,
                 key = { index -> uiState.allGenderAgeGroups[index].id },
             ) { index ->
-                MateRecruitCheckBox(
+                TripmateCheckBox(
                     text = stringResource(id = uiState.allGenderAgeGroups[index].textResId),
                     isSelected = uiState.selectedGenderAgeGroups.contains(uiState.allGenderAgeGroups[index]),
                     onSelectedChange = {
@@ -340,7 +341,7 @@ fun MateRecruitContent(
 
 @DevicePreview
 @Composable
-fun MateRecruitScreenPreview() {
+private fun MateRecruitScreenPreview() {
     TripmateTheme {
         MateRecruitScreen(
             uiState = MateRecruitUiState(),

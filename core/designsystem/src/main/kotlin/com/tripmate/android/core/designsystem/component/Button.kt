@@ -1,5 +1,6 @@
 package com.tripmate.android.core.designsystem.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -84,6 +86,39 @@ fun TripmateButton(
 }
 
 @Composable
+fun TripmateOutlinedButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    border: BorderStroke? = BorderStroke(
+        width = 1.dp,
+        color = if (enabled) Primary01 else Gray004,
+    ),
+    containerColor: Color = Color.White,
+    contentColor: Color = Primary01,
+    disabledContainerColor: Color = Color.White,
+    disabledContentColor: Color = Gray004,
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    content: @Composable RowScope.() -> Unit,
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        border = border,
+        shape = RoundedCornerShape(8.dp),
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = containerColor,
+            contentColor = contentColor,
+            disabledContainerColor = disabledContainerColor,
+            disabledContentColor = disabledContentColor,
+        ),
+        contentPadding = contentPadding,
+        content = content,
+    )
+}
+
+@Composable
 private fun TrimpateButtonContent(
     text: @Composable () -> Unit,
     leadingIcon: @Composable (() -> Unit)? = null,
@@ -120,6 +155,19 @@ fun TripmateButtonPreview() {
 
 @ComponentPreview
 @Composable
+fun TripmateButtonDisabledPreview() {
+    TripmateTheme {
+        TripmateButton(
+            onClick = {},
+            enabled = false,
+        ) {
+            Text("Button")
+        }
+    }
+}
+
+@ComponentPreview
+@Composable
 fun TripmateButtonWithLeadingIconPreview() {
     TripmateTheme {
         TripmateButton(
@@ -135,5 +183,30 @@ fun TripmateButtonWithLeadingIconPreview() {
                 )
             },
         )
+    }
+}
+
+@ComponentPreview
+@Composable
+fun TripmateOutlinedButtonPreview() {
+    TripmateTheme {
+        TripmateOutlinedButton(
+            onClick = {},
+        ) {
+            Text("Button")
+        }
+    }
+}
+
+@ComponentPreview
+@Composable
+fun TripmateOutlinedButtonDisabledPreview() {
+    TripmateTheme {
+        TripmateOutlinedButton(
+            onClick = {},
+            enabled = false,
+        ) {
+            Text("Button")
+        }
     }
 }
