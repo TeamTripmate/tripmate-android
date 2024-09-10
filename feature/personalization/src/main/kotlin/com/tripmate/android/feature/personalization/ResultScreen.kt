@@ -72,8 +72,7 @@ internal fun ResultScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(bottom = 60.dp),
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(70.dp))
@@ -96,14 +95,14 @@ internal fun ResultScreen(
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .height(56.dp)
-                .padding(horizontal = 32.dp, vertical = 20.dp),
-            contentPadding = PaddingValues(vertical = 17.dp),
+                .padding(horizontal = 16.dp),
         ) {
             Text(
-                stringResource(R.string.start_tripmate),
+                text = stringResource(R.string.start_tripmate),
                 style = Medium16_SemiBold,
             )
         }
+        Spacer(modifier = Modifier.height(60.dp))
     }
 }
 

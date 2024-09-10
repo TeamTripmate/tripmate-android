@@ -2,6 +2,7 @@ package com.tripmate.android.feature.personalization
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -85,7 +86,7 @@ internal fun Question4Screen(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp, bottom = 62.dp)
+                .padding(horizontal = 16.dp)
                 .height(56.dp)
                 .align(Alignment.BottomCenter),
             enabled = if (uiState.question4Answer == 0) false else true,
@@ -95,6 +96,7 @@ internal fun Question4Screen(
                 style = Medium16_SemiBold,
             )
         }
+        Spacer(modifier = Modifier.height(60.dp))
     }
 }
 

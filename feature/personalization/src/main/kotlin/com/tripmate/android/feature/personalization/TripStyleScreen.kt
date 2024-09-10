@@ -109,8 +109,8 @@ internal fun TripStyleScreen(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 20.dp),
-            contentPadding = PaddingValues(vertical = 17.dp),
+                .height(56.dp)
+                .padding(horizontal = 16.dp),
             enabled = uiState.selectedTripStyles.isNotEmpty(),
         ) {
             Text(
@@ -118,6 +118,7 @@ internal fun TripStyleScreen(
                 style = Medium16_SemiBold,
             )
         }
+        Spacer(modifier = Modifier.height(60.dp))
     }
 }
 

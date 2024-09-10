@@ -23,7 +23,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PersonalizationViewModel @Inject constructor(
-    @Suppress("UnusedPrivateProperty")
     private val personalizationRepository: PersonalizationRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(PersonalizationUiState())
@@ -134,7 +133,7 @@ class PersonalizationViewModel @Inject constructor(
                 }
             }
 
-            ScreenType.RESULT -> navigateToMain()
+            ScreenType.RESULT -> completePersonalization()
         }
     }
 
@@ -211,6 +210,13 @@ class PersonalizationViewModel @Inject constructor(
             }
         } catch (e: IllegalArgumentException) {
             return BirthDateValidationResult.INVALID_DATE
+        }
+    }
+
+    private fun completePersonalization() {
+        viewModelScope.launch {
+            personalizationRepository.completePersonalization(flag = true)
+            navigateToMain()
         }
     }
 }

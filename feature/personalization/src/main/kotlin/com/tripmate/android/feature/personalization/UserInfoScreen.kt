@@ -167,8 +167,8 @@ internal fun UserInfoContent(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 20.dp),
-            contentPadding = PaddingValues(vertical = 17.dp),
+                .height(56.dp)
+                .padding(horizontal = 16.dp),
             enabled = uiState.selectedGender != Gender.NOT_SPECIFIED && uiState.birthDate.length == 6 && uiState.birthDateErrorText == null,
         ) {
             Text(
@@ -176,6 +176,7 @@ internal fun UserInfoContent(
                 style = Medium16_SemiBold,
             )
         }
+        Spacer(modifier = Modifier.height(60.dp))
     }
 }
 
