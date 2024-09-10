@@ -89,11 +89,9 @@ internal fun MainScreen(
             )
             mateNavGraph(
                 padding = innerPadding,
-//                popBackStack = navigator::popBackStackIfNotHome,
             )
             writingNavGraph(
                 padding = innerPadding,
-//                popBackStack = navigator::popBackStackIfNotHome,
             )
             notificationNavGraph(
                 padding = innerPadding,
@@ -122,7 +120,6 @@ internal fun MainScreen(
             )
             tripListNavGraph(
                 padding = innerPadding,
-//                popBackStack = navigator::popBackStackIfNotHome,
             )
             myPickNavGraph(
                 padding = innerPadding,
