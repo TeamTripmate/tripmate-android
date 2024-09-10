@@ -6,7 +6,7 @@ sealed interface MyPageUiEvent {
     data class NavigateToMyTripCharacterInfo(val characterId: Long) : MyPageUiEvent
     data object NavigateToPersonalization : MyPageUiEvent
     data object NavigateToMyPick : MyPageUiEvent
-    data object Logout : MyPageUiEvent
+    data object NavigateToLogin : MyPageUiEvent
     data object NavigateToWithdraw : MyPageUiEvent
     data object Withdraw : MyPageUiEvent
     data object NavigateBack : MyPageUiEvent

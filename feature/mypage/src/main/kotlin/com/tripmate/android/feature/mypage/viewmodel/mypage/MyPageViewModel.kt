@@ -33,7 +33,7 @@ class MyPageViewModel @Inject constructor(
             is MyPageUiAction.OnTicketClicked -> navigateToMyTripCharacterInfo(action.characterId)
             is MyPageUiAction.OnMyPickClicked -> navigateToMyPick()
             is MyPageUiAction.OnTabChanged -> updateSelectedTab(action.index)
-            is MyPageUiAction.OnLogoutClicked -> {}
+            is MyPageUiAction.OnLogoutClicked -> logout()
             is MyPageUiAction.OnWithdrawClicked -> navigateToWithdraw()
             is MyPageUiAction.OnWithdrawReasonSelected -> addWithdrawReason(action.withdrawReason)
             is MyPageUiAction.OnWithdrawReasonDeselected -> removeWithdrawReason(action.withdrawReason)
@@ -64,6 +64,12 @@ class MyPageViewModel @Inject constructor(
 
     private fun updateSelectedTab(tab: Int) {
         _uiState.update { it.copy(selectedTabIndex = tab) }
+    }
+
+    private fun logout() {
+        viewModelScope.launch {
+            _uiEvent.send(MyPageUiEvent.NavigateToLogin)
+        }
     }
 
     private fun navigateToWithdraw() {

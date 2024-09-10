@@ -45,6 +45,7 @@ internal fun MyPageRoute(
     innerPadding: PaddingValues,
     navigateToMyTripCharacterInfo: (Long) -> Unit,
     navigateToMyPick: () -> Unit,
+    navigateToLogin: () -> Unit,
     navigateToWithdraw: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
@@ -54,7 +55,7 @@ internal fun MyPageRoute(
         when (event) {
             is MyPageUiEvent.NavigateToMyTripCharacterInfo -> navigateToMyTripCharacterInfo(event.characterId)
             is MyPageUiEvent.NavigateToMyPick -> navigateToMyPick()
-            is MyPageUiEvent.Logout -> {}
+            is MyPageUiEvent.NavigateToLogin -> navigateToLogin()
             is MyPageUiEvent.NavigateToWithdraw -> navigateToWithdraw()
             is MyPageUiEvent.ShowToast -> {}
             else -> {}
@@ -104,8 +105,7 @@ internal fun MyPageContent(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp),
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(16.dp))
@@ -125,9 +125,11 @@ internal fun MyPageContent(
         Spacer(modifier = Modifier.height(32.dp))
         Ticket(
             uiState = uiState,
-            modifier = Modifier.clickable {
-                onAction(MyPageUiAction.OnTicketClicked(characterId = uiState.characterId))
-            },
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .clickable {
+                    onAction(MyPageUiAction.OnTicketClicked(characterId = uiState.characterId))
+                },
         )
         Spacer(modifier = Modifier.height(32.dp))
         Column(
@@ -135,7 +137,8 @@ internal fun MyPageContent(
                 .fillMaxWidth()
                 .clickable {
                     onAction(MyPageUiAction.OnMyPickClicked)
-                },
+                }
+                .padding(horizontal = 16.dp),
         ) {
             Spacer(modifier = Modifier.height(18.dp))
             Text(
@@ -150,7 +153,8 @@ internal fun MyPageContent(
                 .fillMaxWidth()
                 .clickable {
                     onAction(MyPageUiAction.OnLogoutClicked)
-                },
+                }
+                .padding(horizontal = 16.dp),
         ) {
             Spacer(modifier = Modifier.height(18.dp))
             Text(
@@ -165,7 +169,8 @@ internal fun MyPageContent(
                 .fillMaxWidth()
                 .clickable {
                     onAction(MyPageUiAction.OnWithdrawClicked)
-                },
+                }
+                .padding(horizontal = 16.dp),
         ) {
             Spacer(modifier = Modifier.height(18.dp))
             Text(

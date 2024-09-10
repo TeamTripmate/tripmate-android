@@ -61,6 +61,7 @@ import kotlinx.collections.immutable.toImmutableList
 internal fun MainScreen(
     navController: MainNavController = rememberMainNavController(),
     navigateToPersonalization: () -> Unit,
+    navigateToLogin: () -> Unit,
 ) {
     TripmateScaffold(
         bottomBar = {
@@ -101,6 +102,7 @@ internal fun MainScreen(
                 padding = innerPadding,
                 navigateToMyTripCharacterInfo = navController::navigateToMyTripCharacterInfo,
                 navigateToMyPick = navController::navigateToMyPick,
+                navigateToLogin = navigateToLogin,
                 navigateToWithdraw = navController::navigateToWithdraw,
             )
             mateRecruitNavGraph(
