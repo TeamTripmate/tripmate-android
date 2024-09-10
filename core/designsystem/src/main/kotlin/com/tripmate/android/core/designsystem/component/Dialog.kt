@@ -23,7 +23,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
@@ -143,6 +142,7 @@ fun ServerErrorDialog(
             cancelTextResId = null,
             onCancelClick = {},
             onConfirmClick = onRetryClick,
+            modifier = Modifier.padding(16.dp),
         )
     }
 }
@@ -162,24 +162,6 @@ fun NetworkErrorDialog(
             cancelTextResId = null,
             onCancelClick = {},
             onConfirmClick = onRetryClick,
-        )
-    }
-}
-
-@ComponentPreview
-@Composable
-fun TripMateDialogPreview() {
-    TripmateTheme {
-        TripmateDialog(
-            onDismissRequest = {},
-            titleResId = R.string.under_age_title,
-            iconResId = null,
-            iconDescription = "",
-            descriptionResId = R.string.under_age_description,
-            cancelTextResId = null,
-            confirmTextResId = R.string.under_age_confirm,
-            onCancelClick = {},
-            onConfirmClick = {},
             modifier = Modifier.padding(16.dp),
         )
     }

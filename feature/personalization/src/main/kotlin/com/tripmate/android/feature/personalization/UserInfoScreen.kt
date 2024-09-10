@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,12 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
-import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.component.TripmateButton
+import com.tripmate.android.core.designsystem.component.TripmateTextField
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
@@ -28,7 +30,6 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.android.feature.personalization.component.BirthRateTextField
 import com.tripmate.android.feature.personalization.component.GenderSelectionBox
 import com.tripmate.android.feature.personalization.component.UnderAgeDialog
 import com.tripmate.android.feature.personalization.viewmodel.Gender
@@ -46,7 +47,6 @@ fun UserInfoRoute(
     viewModel: PersonalizationViewModel,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val context = LocalContext.current
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
@@ -142,11 +142,22 @@ fun UserInfoContent(
                         color = Gray001,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    BirthRateTextField(
-                        birthDateText = uiState.birthDate,
-                        updateBirthDateText = { text -> onAction(PersonalizationUiAction.OnBirthDateUpdated(text)) },
+                    // TODO 텍스트 필드가 동작하지 않는 문제 해결
+                    TripmateTextField(
+                        text = uiState.birthDate,
+                        onTextChange = { text ->
+                            onAction(PersonalizationUiAction.OnBirthDateUpdated(text))
+                        },
+                        searchTextHintRes = R.string.birth_date_hint,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                        ),
                         clearText = { onAction(PersonalizationUiAction.OnClearIconClicked) },
                         errorText = uiState.birthDateErrorText?.asString(context),
+                        isClearIconVisible = true,
                     )
                 }
             }
@@ -156,7 +167,7 @@ fun UserInfoContent(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .padding(horizontal = 32.dp, vertical = 20.dp),
+                .padding(horizontal = 16.dp, vertical = 20.dp),
             contentPadding = PaddingValues(vertical = 17.dp),
             enabled = uiState.selectedGender != Gender.NOT_SPECIFIED && uiState.birthDate.length == 6 && uiState.birthDateErrorText == null,
         ) {

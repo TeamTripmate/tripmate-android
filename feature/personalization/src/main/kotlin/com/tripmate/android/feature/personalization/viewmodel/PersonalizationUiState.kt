@@ -2,7 +2,7 @@ package com.tripmate.android.feature.personalization.viewmodel
 
 import com.tripmate.android.core.common.UiText
 import com.tripmate.android.domain.entity.TripStyleEntity
-import com.tripmate.android.core.designsystem.R
+import com.tripmate.android.feature.personalization.R
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf

@@ -700,7 +700,7 @@ fun GetPoiCardViewPreview() {
                 distance = 12.34,
                 address = "강원도 춘천시",
                 description = "This is the description for item 1",
-                imageRes = R.drawable.img_camera_with_flash,
+                imageRes = R.drawable.ic_mypage,
                 lat = 37.5,
                 lon = 127.0,
             ),

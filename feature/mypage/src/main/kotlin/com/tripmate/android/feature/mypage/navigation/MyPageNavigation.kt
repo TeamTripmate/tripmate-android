@@ -15,7 +15,6 @@ fun NavController.navigateToMyPage(navOptions: NavOptions) {
 
 fun NavGraphBuilder.myPageNavGraph(
     padding: PaddingValues,
-//    popBackStack: () -> Unit
 ) {
     composable(route = MYPAGE_ROUTE) {
         MyPageRoute(

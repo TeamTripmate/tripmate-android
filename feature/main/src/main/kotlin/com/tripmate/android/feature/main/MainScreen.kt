@@ -42,9 +42,12 @@ import com.tripmate.android.core.designsystem.theme.Gray007
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Mid
+import com.tripmate.android.feature.detailtrip.navigation.tripDetailNavGraph
 import com.tripmate.android.feature.home.navigation.homeNavGraph
 import com.tripmate.android.feature.mypage.navigation.myPageNavGraph
+import com.tripmate.android.feature.mate_recruit.navigation.mateRecruitNavGraph
 import com.tripmate.android.mate.navigation.mateNavGraph
+import com.tripmate.android.mate_review.navigation.mateReviewNavGraph
 import com.tripmate.android.notification.navigation.notificationNavGraph
 import com.tripmate.android.writing.navigation.writingNavGraph
 import kotlinx.collections.immutable.ImmutableList
@@ -76,6 +79,9 @@ internal fun MainScreen(
         ) {
             homeNavGraph(
                 padding = innerPadding,
+                navigateToMateRecruit = navigator::navigateToMateRecruit,
+                navigateToMateReview = navigator::navigateToMateReview,
+                navigateToTripDetail = navigator::navigateToTripDetail,
             )
             mateNavGraph(
                 padding = innerPadding,
@@ -90,7 +96,18 @@ internal fun MainScreen(
             )
             myPageNavGraph(
                 padding = innerPadding,
-//                popBackStack = navigator::popBackStackIfNotHome,
+            )
+            mateRecruitNavGraph(
+                padding = innerPadding,
+                popBackStack = navigator::popBackStackIfNotHome,
+            )
+            mateReviewNavGraph(
+                padding = innerPadding,
+                popBackStack = navigator::popBackStackIfNotHome,
+            )
+            tripDetailNavGraph(
+                padding = innerPadding,
+                popBackStack = navigator::popBackStackIfNotHome,
             )
         }
     }

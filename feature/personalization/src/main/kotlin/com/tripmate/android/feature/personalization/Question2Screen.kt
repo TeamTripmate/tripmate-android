@@ -15,7 +15,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
-import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
@@ -85,8 +84,8 @@ fun Question2Screen(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 32.dp, end = 32.dp, bottom = 62.dp)
-                .height(50.dp)
+                .padding(start = 16.dp, end = 16.dp, bottom = 62.dp)
+                .height(56.dp)
                 .align(Alignment.BottomCenter),
             enabled = if (uiState.question2Answer == 0) false else true,
         ) {

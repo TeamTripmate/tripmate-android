@@ -3,9 +3,9 @@ package com.tripmate.android.feature.personalization.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.core.common.UiText
-import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.domain.entity.TripStyleEntity
 import com.tripmate.android.domain.repository.PersonalizationRepository
+import com.tripmate.android.feature.personalization.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow

@@ -25,7 +25,7 @@ kotlinx-serialization-converter = "1.0.0"
 kotlinx-collections-immutable = "0.3.7"
 
 android-play-services-location = "21.3.0"
-accompanist-permissions =  "0.35.0-alpha"
+accompanist-permissions = "0.34.0"
 
 androidx-core = "1.13.1"
 androidx-lifecycle = "2.8.3"
@@ -56,6 +56,8 @@ compose-stable-marker = "1.0.4"
 landscapist = "2.3.3"
 kakao-maps = "2.9.5"
 kakao-core = "2.20.4"
+wheel-picker-compose = "1.1.11"
+datetime-wheel-picker = "1.0.0"
 
 [libraries]
 
@@ -116,6 +118,8 @@ landscapist-coil = { group = "com.github.skydoves", name = "landscapist-coil" }
 landscapist-placeholder = { group = "com.github.skydoves", name = "landscapist-placeholder" }
 kakao-maps = { group = "com.kakao.maps.open", name = "android", version.ref = "kakao-maps" }
 kakao-auth = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao-core" }
+datetime-wheel-picker = { group = "io.github.darkokoa", name = "datetime-wheel-picker", version.ref = "datetime-wheel-picker" }
+wheel-picker-compose = { group = "com.github.commandiron", name = "WheelPickerCompose", version.ref = "wheel-picker-compose" }
 
 [plugins]
 

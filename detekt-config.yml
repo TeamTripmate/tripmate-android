@@ -4,6 +4,7 @@ complexity:
     ignoreAnnotated: [ 'Composable' ]
   CyclomaticComplexMethod:
     ignoreAnnotated: [ 'Composable' ]
+    threshold: 20
   LongParameterList:
     active: false
   TooManyFunctions:
