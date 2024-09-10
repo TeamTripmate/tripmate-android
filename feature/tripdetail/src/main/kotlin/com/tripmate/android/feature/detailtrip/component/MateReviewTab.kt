@@ -139,7 +139,7 @@ fun TripMateReviewList(
     tripDetail: TripDetailEntity,
 ) {
     Spacer(modifier = Modifier.height(24.dp))
-    
+
     Row(
         modifier = Modifier
             .fillMaxWidth(),
