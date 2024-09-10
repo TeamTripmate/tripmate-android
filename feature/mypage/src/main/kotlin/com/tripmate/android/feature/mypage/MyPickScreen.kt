@@ -39,10 +39,10 @@ import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.mypage.component.MyPickItem
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiAction
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiEvent
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiState
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageViewModel
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiEvent
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
+import com.tripmate.android.feature.mypage.viewmodel.MyPageViewModel
 import kotlinx.coroutines.launch
 
 @Composable

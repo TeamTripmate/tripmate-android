@@ -1,9 +1,10 @@
-package com.tripmate.android.feature.mypage.viewmodel.mypage
+package com.tripmate.android.feature.mypage.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.domain.repository.MateRepository
+import com.tripmate.android.domain.repository.MyPageRepository
 import com.tripmate.android.feature.mypage.navigation.CHARACTER_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MyTripCharacterInfoViewModel @Inject constructor(
     @Suppress("UnusedPrivateProperty")
-    private val myPageRepository: MateRepository,
+    private val myPageRepository: MyPageRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     @Suppress("UnusedParameter")

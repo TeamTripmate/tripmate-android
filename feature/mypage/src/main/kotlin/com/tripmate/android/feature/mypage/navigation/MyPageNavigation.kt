@@ -19,6 +19,7 @@ fun NavGraphBuilder.myPageNavGraph(
     navigateToMyPick: () -> Unit,
     navigateToLogin: () -> Unit,
     navigateToWithdraw: () -> Unit,
+    navigateToMain: () -> Unit,
 ) {
     composable(route = MY_PAGE_ROUTE) {
         MyPageRoute(
@@ -27,6 +28,7 @@ fun NavGraphBuilder.myPageNavGraph(
             navigateToMyPick = navigateToMyPick,
             navigateToLogin = navigateToLogin,
             navigateToWithdraw = navigateToWithdraw,
+            navigateToMain = navigateToMain,
         )
     }
 }

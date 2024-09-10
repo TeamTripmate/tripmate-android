@@ -104,6 +104,7 @@ internal fun MainScreen(
                 navigateToMyPick = navController::navigateToMyPick,
                 navigateToLogin = navigateToLogin,
                 navigateToWithdraw = navController::navigateToWithdraw,
+                navigateToMain = navController::popBackStackToHome
             )
             mateRecruitNavGraph(
                 padding = innerPadding,

@@ -37,10 +37,10 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.WithdrawReasonEntity
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiAction
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiEvent
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiState
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageViewModel
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiEvent
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
+import com.tripmate.android.feature.mypage.viewmodel.WithdrawViewModel
 import kotlinx.collections.immutable.persistentListOf
 import com.tripmate.android.core.designsystem.R as designSystemR
 
@@ -48,7 +48,7 @@ import com.tripmate.android.core.designsystem.R as designSystemR
 internal fun WithdrawRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
-    viewModel: MyPageViewModel = hiltViewModel(),
+    viewModel: WithdrawViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -56,6 +56,7 @@ internal fun WithdrawRoute(
         when (event) {
             is MyPageUiEvent.NavigateBack -> popBackStack()
             is MyPageUiEvent.Withdraw -> popBackStack()
+            is MyPageUiEvent.NavigateToMain -> popBackStack()
             else -> {}
         }
     }

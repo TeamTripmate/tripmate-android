@@ -86,6 +86,10 @@ internal class MainNavController(
         }
     }
 
+    fun popBackStackToHome() {
+        navController.popBackStack(HOME_ROUTE, false)
+    }
+
     private fun isSameCurrentDestination(route: String) =
         navController.currentDestination?.route == route
 

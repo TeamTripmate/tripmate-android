@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.mypage
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -20,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -35,10 +37,10 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.mypage.component.Ticket
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiAction
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiEvent
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiState
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageViewModel
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiEvent
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
+import com.tripmate.android.feature.mypage.viewmodel.MyPageViewModel
 
 @Composable
 internal fun MyPageRoute(
@@ -47,9 +49,11 @@ internal fun MyPageRoute(
     navigateToMyPick: () -> Unit,
     navigateToLogin: () -> Unit,
     navigateToWithdraw: () -> Unit,
+    navigateToMain: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
@@ -57,7 +61,10 @@ internal fun MyPageRoute(
             is MyPageUiEvent.NavigateToMyPick -> navigateToMyPick()
             is MyPageUiEvent.NavigateToLogin -> navigateToLogin()
             is MyPageUiEvent.NavigateToWithdraw -> navigateToWithdraw()
-            is MyPageUiEvent.ShowToast -> {}
+            is MyPageUiEvent.ShowToast -> {
+                Toast.makeText(context, event.message.asString(context), Toast.LENGTH_SHORT).show()
+            }
+            is MyPageUiEvent.NavigateToMain -> navigateToMain()
             else -> {}
         }
     }
@@ -95,7 +102,6 @@ internal fun MyPageScreen(
     }
 }
 
-@Suppress("UnusedParameter")
 @Composable
 internal fun MyPageContent(
     uiState: MyPageUiState,

@@ -31,7 +31,7 @@ import com.tripmate.android.core.designsystem.theme.Primary03
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.feature.mypage.R
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiState
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
 
 @Composable
 fun Ticket(

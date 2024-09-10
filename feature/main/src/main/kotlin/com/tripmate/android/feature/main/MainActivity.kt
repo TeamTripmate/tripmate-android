@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                             activity = this@MainActivity,
                             withFinish = true,
                         )
-                    }
+                    },
                 )
             }
         }
