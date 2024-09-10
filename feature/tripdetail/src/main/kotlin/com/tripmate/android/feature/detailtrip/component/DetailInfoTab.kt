@@ -134,7 +134,10 @@ fun TripDetailLocation(
             .fillMaxWidth()
             .height(140.dp),
     ) {
-        MapSection(cameraPositionState = cameraPositionState)
+        MapSection(
+            cameraPositionState = cameraPositionState,
+            simpleList = emptyList(),
+        )
     }
 
     Column {
