@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
                     navigateToPersonalization = {
                         personalizationNavigator.navigateFrom(
                             activity = this@MainActivity,
-                            withFinish = true,
+                            withFinish = false,
                         )
                     },
                     navigateToLogin = {

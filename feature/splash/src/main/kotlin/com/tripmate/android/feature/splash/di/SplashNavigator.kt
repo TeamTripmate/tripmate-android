@@ -16,10 +16,12 @@ internal class SplashNavigatorImpl @Inject constructor() : SplashNavigator {
     override fun navigateFrom(
         activity: Activity,
         withFinish: Boolean,
+        clearBackStack: Boolean,
         intentBuilder: Intent.() -> Intent,
     ) {
         activity.startActivityWithAnimation<SplashActivity>(
             withFinish = withFinish,
+            clearBackStack = clearBackStack,
             intentBuilder = intentBuilder,
         )
     }

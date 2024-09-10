@@ -8,9 +8,17 @@ import android.provider.Settings
 
 inline fun <reified T : Activity> Activity.startActivityWithAnimation(
     withFinish: Boolean,
+    clearBackStack: Boolean = false,
     intentBuilder: Intent.() -> Intent = { this },
 ) {
-    startActivity(Intent(this, T::class.java).intentBuilder())
+    val intent = Intent(this, T::class.java).intentBuilder()
+
+    if (clearBackStack) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+    }
+
+    startActivity(intent)
+
     if (Build.VERSION.SDK_INT >= 34) {
         overrideActivityTransition(
             Activity.OVERRIDE_TRANSITION_OPEN,

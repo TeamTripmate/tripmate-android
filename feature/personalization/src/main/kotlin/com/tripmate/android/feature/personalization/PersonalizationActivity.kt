@@ -71,6 +71,7 @@ class PersonalizationActivity : ComponentActivity() {
                                 mainNavigator.navigateFrom(
                                     activity = this@PersonalizationActivity,
                                     withFinish = true,
+                                    clearBackStack = true,
                                 )
                             },
                         )

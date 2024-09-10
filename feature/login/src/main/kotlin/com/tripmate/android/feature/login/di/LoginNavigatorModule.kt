@@ -16,10 +16,12 @@ internal class LoginNavigatorImpl @Inject constructor() : LoginNavigator {
     override fun navigateFrom(
         activity: Activity,
         withFinish: Boolean,
+        clearBackStack: Boolean,
         intentBuilder: Intent.() -> Intent,
     ) {
         activity.startActivityWithAnimation<LoginActivity>(
             withFinish = withFinish,
+            clearBackStack = clearBackStack,
             intentBuilder = intentBuilder,
         )
     }

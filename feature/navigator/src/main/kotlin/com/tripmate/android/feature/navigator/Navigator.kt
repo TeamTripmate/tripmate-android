@@ -8,6 +8,7 @@ interface Navigator {
     fun navigateFrom(
         activity: Activity,
         withFinish: Boolean,
+        clearBackStack: Boolean = false,
         intentBuilder: Intent.() -> Intent = { this },
     )
 }
