@@ -1,10 +1,15 @@
 package com.tripmate.android.feature.map
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import com.kakao.vectormap.label.Label
+import com.tripmate.android.feature.map.model.MarkerInfo
 import com.tripmate.android.feature.map.settings.MapDirection
 import com.tripmate.android.feature.map.settings.MapViewSettings
 import com.tripmate.android.feature.map.settings.MapWidgetPosition
@@ -15,8 +20,12 @@ fun MapSection(
     modifier: Modifier = Modifier,
     toggleBars: () -> Unit = {},
     cameraPositionState: CameraPositionState,
+    simpleList: List<MarkerInfo>,
+    markerClickAction: (Label) -> Unit = {},
 ) {
     val density = LocalDensity.current
+
+    var isMapReady by remember { mutableStateOf(false) }
 
     val mapViewSettings = remember {
         MapViewSettings(
@@ -27,12 +36,20 @@ fun MapSection(
             ),
         )
     }
+
     KakaoMap(
         modifier = modifier,
         mapViewSettings = mapViewSettings,
         onMapClick = { _ ->
             toggleBars()
         },
+        onMapReady = {
+            isMapReady = true
+        },
         cameraPositionState = cameraPositionState,
-    )
+    ) {
+        if (isMapReady) {
+            MapControlObject(simpleList, markerClickAction)
+        }
+    }
 }
