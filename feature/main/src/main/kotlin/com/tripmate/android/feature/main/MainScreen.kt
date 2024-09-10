@@ -91,6 +91,8 @@ internal fun MainScreen(
             )
             mateNavGraph(
                 padding = innerPadding,
+                navigateToTripDetail = navController::navigateToTripDetail,
+//                popBackStack = navigator::popBackStackIfNotHome,
             )
             writingNavGraph(
                 padding = innerPadding,

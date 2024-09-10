@@ -8,6 +8,7 @@ sealed interface MateUiAction {
     data object OnCurrentLocationClicked : MateUiAction
     data class OnSearchingListClicked(val isShowing: Boolean) : MateUiAction
     data class OnMarkerClicked(val poiId: Int) : MateUiAction
+    data object OnTripCardClicked : MateUiAction
 }
 
 enum class CategoryType(
@@ -62,10 +63,10 @@ enum class CategoryType(
     History(
         R.string.category_type_history,
         R.drawable.ic_history,
-        R.drawable.ic_select_mate_course,
-        R.drawable.ic_unselect_mate_course,
-        R.drawable.ic_select_course,
-        R.drawable.ic_unselect_course,
+        R.drawable.ic_select_mate_history,
+        R.drawable.ic_unselect_mate_history,
+        R.drawable.ic_select_history,
+        R.drawable.ic_unselect_history,
     ),
     Leports(
         R.string.category_type_leports,
