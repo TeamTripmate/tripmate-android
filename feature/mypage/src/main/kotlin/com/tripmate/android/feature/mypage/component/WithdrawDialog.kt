@@ -1,7 +1,6 @@
 package com.tripmate.android.feature.mypage.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +23,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import com.tripmate.android.core.common.extension.noRippleClickable
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Background02
@@ -98,7 +98,7 @@ internal fun WithdrawDialog(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .padding(16.dp)
-                    .clickable { onAction(MyPageUiAction.OnDialogCloseClicked) },
+                    .noRippleClickable { onAction(MyPageUiAction.OnDialogCloseClicked) },
             )
         }
     }

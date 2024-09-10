@@ -19,6 +19,7 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
     @Inject
     lateinit var personalizationNavigator: PersonalizationNavigator
+
     @Inject
     lateinit var loginNavigator: LoginNavigator
 

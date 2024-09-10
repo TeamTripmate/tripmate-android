@@ -1,12 +1,9 @@
 package com.tripmate.android.feature.mypage.viewmodel
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.domain.entity.WithdrawReasonEntity
 import com.tripmate.android.domain.repository.AuthRepository
-import com.tripmate.android.domain.repository.MateRepository
-import com.tripmate.android.feature.mypage.navigation.CHARACTER_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -91,4 +88,3 @@ class WithdrawViewModel @Inject constructor(
         }
     }
 }
-

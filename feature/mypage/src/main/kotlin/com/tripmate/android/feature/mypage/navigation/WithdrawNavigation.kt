@@ -23,7 +23,7 @@ fun NavGraphBuilder.withdrawNavGraph(
             innerPadding = padding,
             popBackStack = popBackStack,
             navigateToMain = navigateToMain,
-            navigateToLogin = navigateToLogin
+            navigateToLogin = navigateToLogin,
         )
     }
 }

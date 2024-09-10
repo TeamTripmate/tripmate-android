@@ -10,6 +10,6 @@ sealed interface MyPageUiEvent {
     data object NavigateToLogin : MyPageUiEvent
     data object NavigateToWithdraw : MyPageUiEvent
     data object Withdraw : MyPageUiEvent
-    data object NavigateToMain: MyPageUiEvent
+    data object NavigateToMain : MyPageUiEvent
     data class ShowToast(val message: UiText) : MyPageUiEvent
 }

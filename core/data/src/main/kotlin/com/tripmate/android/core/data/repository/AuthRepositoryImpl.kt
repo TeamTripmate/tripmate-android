@@ -5,7 +5,7 @@ import com.tripmate.android.domain.repository.AuthRepository
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-    private val tokenDataSource: TokenDataSource
+    private val tokenDataSource: TokenDataSource,
 ) : AuthRepository {
     override suspend fun saveAuthToken(accessToken: String, refreshToken: String) {
         tokenDataSource.saveAuthToken(accessToken, refreshToken)

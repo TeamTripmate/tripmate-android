@@ -3,7 +3,6 @@ package com.tripmate.android.feature.mypage.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tripmate.android.domain.repository.MateRepository
 import com.tripmate.android.domain.repository.MyPageRepository
 import com.tripmate.android.feature.mypage.navigation.CHARACTER_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +21,7 @@ class MyTripCharacterInfoViewModel @Inject constructor(
     private val myPageRepository: MyPageRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    @Suppress("UnusedParameter")
+    @Suppress("UnusedPrivateProperty")
     private val characterId: Long = requireNotNull(savedStateHandle.get<Long>(CHARACTER_ID)) {
         "characterId is required."
     }

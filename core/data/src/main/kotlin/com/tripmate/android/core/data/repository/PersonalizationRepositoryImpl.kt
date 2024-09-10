@@ -1,7 +1,6 @@
 package com.tripmate.android.core.data.repository
 
 import com.tripmate.android.core.datastore.PersonalizationDataSource
-import com.tripmate.android.core.datastore.TokenDataSource
 import com.tripmate.android.domain.repository.PersonalizationRepository
 import javax.inject.Inject
 

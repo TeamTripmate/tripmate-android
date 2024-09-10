@@ -3,7 +3,6 @@ package com.tripmate.android.feature.mypage.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.core.common.UiText
-import com.tripmate.android.domain.entity.WithdrawReasonEntity
 import com.tripmate.android.domain.repository.AuthRepository
 import com.tripmate.android.domain.repository.MyPageRepository
 import com.tripmate.android.feature.mypage.R
@@ -29,7 +28,7 @@ class MyPageViewModel @Inject constructor(
 
     private val _uiEvent = Channel<MyPageUiEvent>()
     val uiEvent: Flow<MyPageUiEvent> = _uiEvent.receiveAsFlow()
-    
+
     fun onAction(action: MyPageUiAction) {
         when (action) {
             is MyPageUiAction.OnBackClicked -> navigateBack()
