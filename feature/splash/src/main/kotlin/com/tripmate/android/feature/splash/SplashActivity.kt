@@ -8,6 +8,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.feature.navigator.LoginNavigator
 import com.tripmate.android.feature.navigator.PersonalizationNavigator
 import com.tripmate.android.feature.navigator.MainNavigator
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +18,9 @@ import javax.inject.Inject
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashActivity : ComponentActivity() {
+    @Inject
+    lateinit var loginNavigator: LoginNavigator
+
     @Inject
     lateinit var personalizationNavigator: PersonalizationNavigator
 
@@ -41,15 +45,21 @@ class SplashActivity : ComponentActivity() {
 
             TripmateTheme {
                 SplashRoute(
+                    navigateToLogin = {
+                        loginNavigator.navigateFrom(
+                            activity = this@SplashActivity,
+                            withFinish = true,
+                        )
+                    },
                     navigateToPersonalization = {
                         personalizationNavigator.navigateFrom(
-                            activity = this,
+                            activity = this@SplashActivity,
                             withFinish = true,
                         )
                     },
                     navigateToMain = {
                         mainNavigator.navigateFrom(
-                            activity = this,
+                            activity = this@SplashActivity,
                             withFinish = true,
                         )
                     },

@@ -3,6 +3,8 @@ package com.tripmate.android.feature.login.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.core.common.UiText
+import com.tripmate.android.domain.repository.AuthRepository
+import com.tripmate.android.domain.repository.PersonalizationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -10,12 +12,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor() : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val authRepository: AuthRepository,
+    private val personalizationRepository: PersonalizationRepository,
+) : ViewModel() {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
@@ -34,14 +38,14 @@ class LoginViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    @Suppress("UnusedParameter")
     fun saveAuthToken(accessToken: String, refreshToken: String) {
         viewModelScope.launch {
-            _uiState.update {
-                it.copy(isLoading = true)
-            }
-            _uiState.update {
-                it.copy(isLoading = false)
+            authRepository.saveAuthToken(accessToken, refreshToken)
+            val isPersonalizationCompleted = personalizationRepository.checkPersonalizationCompletion()
+            if (isPersonalizationCompleted) {
+                _uiEvent.send(LoginUiEvent.NavigateToMain)
+            } else {
+                _uiEvent.send(LoginUiEvent.NavigateToPersonalization)
             }
         }
     }

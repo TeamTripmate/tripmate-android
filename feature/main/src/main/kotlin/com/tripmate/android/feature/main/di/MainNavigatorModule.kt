@@ -16,10 +16,12 @@ internal class MainNavigatorImpl @Inject constructor() : MainNavigator {
     override fun navigateFrom(
         activity: Activity,
         withFinish: Boolean,
+        clearBackStack: Boolean,
         intentBuilder: Intent.() -> Intent,
     ) {
         activity.startActivityWithAnimation<MainActivity>(
             withFinish = withFinish,
+            clearBackStack = clearBackStack,
             intentBuilder = intentBuilder,
         )
     }

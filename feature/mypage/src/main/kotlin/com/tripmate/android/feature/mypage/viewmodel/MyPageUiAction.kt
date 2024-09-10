@@ -1,10 +1,11 @@
-package com.tripmate.android.feature.mypage.viewmodel.mypage
+package com.tripmate.android.feature.mypage.viewmodel
 
 import com.tripmate.android.domain.entity.WithdrawReasonEntity
 
 sealed interface MyPageUiAction {
     data object OnBackClicked : MyPageUiAction
     data class OnTicketClicked(val characterId: Long) : MyPageUiAction
+    data object OnCharacterTypeReselectClicked : MyPageUiAction
     data object OnMyPickClicked : MyPageUiAction
     data class OnTabChanged(val index: Int) : MyPageUiAction
     data class OnWithdrawReasonSelected(val withdrawReason: WithdrawReasonEntity) : MyPageUiAction
@@ -13,6 +14,8 @@ sealed interface MyPageUiAction {
     data object OnLogoutClicked : MyPageUiAction
     data object OnWithdrawClicked : MyPageUiAction
     data object OnRealWithdrawClicked : MyPageUiAction
+    data object OnDialogCloseClicked : MyPageUiAction
+    data object OnRealRealWithdrawClicked : MyPageUiAction
     data object OnUseMoreClicked : MyPageUiAction
 }
 

@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.mypage.viewmodel.mypage
+package com.tripmate.android.feature.mypage.viewmodel
 
 import com.tripmate.android.domain.entity.WithdrawReasonEntity
 import com.tripmate.android.feature.mypage.R
@@ -30,4 +30,5 @@ data class MyPageUiState(
     ),
     val selectedWithdrawReasons: PersistentList<WithdrawReasonEntity> = persistentListOf(),
     val withdrawReasonDescription: String = "",
+    val isWithdrawDialogVisible: Boolean = false,
 )

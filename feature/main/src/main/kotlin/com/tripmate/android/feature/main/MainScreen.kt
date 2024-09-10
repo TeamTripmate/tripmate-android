@@ -44,8 +44,8 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Mid
 import com.tripmate.android.feature.detailtrip.navigation.tripDetailNavGraph
 import com.tripmate.android.feature.home.navigation.homeNavGraph
-import com.tripmate.android.feature.mypage.navigation.myPageNavGraph
 import com.tripmate.android.feature.mate_recruit.navigation.mateRecruitNavGraph
+import com.tripmate.android.feature.mypage.navigation.myPageNavGraph
 import com.tripmate.android.feature.mypage.navigation.myPickNavGraph
 import com.tripmate.android.feature.mypage.navigation.myTripCharacterInfoNavGraph
 import com.tripmate.android.feature.mypage.navigation.withdrawNavGraph
@@ -59,33 +59,35 @@ import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 internal fun MainScreen(
-    navigator: MainNavController = rememberMainNavController(),
+    navController: MainNavController = rememberMainNavController(),
+    navigateToPersonalization: () -> Unit,
+    navigateToLogin: () -> Unit,
 ) {
     TripmateScaffold(
         bottomBar = {
             MainBottomBar(
-                visible = navigator.shouldShowBottomBar(),
+                visible = navController.shouldShowBottomBar(),
                 tabs = MainTab.entries.toImmutableList(),
-                currentTab = navigator.currentTab,
+                currentTab = navController.currentTab,
                 onTabSelected = {
-                    navigator.navigate(it)
+                    navController.navigate(it)
                 },
             )
         },
         containerColor = White,
     ) { innerPadding ->
         NavHost(
-            navController = navigator.navController,
-            startDestination = navigator.startDestination,
+            navController = navController.navController,
+            startDestination = navController.startDestination,
             enterTransition = { EnterTransition.None },
             exitTransition = { ExitTransition.None },
             modifier = Modifier.fillMaxSize(),
         ) {
             homeNavGraph(
                 padding = innerPadding,
-                navigateToMateRecruit = navigator::navigateToMateRecruit,
-                navigateToMateReview = navigator::navigateToMateReview,
-                navigateToTripDetail = navigator::navigateToTripDetail,
+                navigateToMateRecruit = navController::navigateToMateRecruit,
+                navigateToMateReview = navController::navigateToMateReview,
+                navigateToTripDetail = navController::navigateToTripDetail,
             )
             mateNavGraph(
                 padding = innerPadding,
@@ -98,36 +100,41 @@ internal fun MainScreen(
             )
             myPageNavGraph(
                 padding = innerPadding,
-                navigateToMyTripCharacterInfo = navigator::navigateToMyTripCharacterInfo,
-                navigateToMyPick = navigator::navigateToMyPick,
-                navigateToWithdraw = navigator::navigateToWithdraw,
+                navigateToMyTripCharacterInfo = navController::navigateToMyTripCharacterInfo,
+                navigateToMyPick = navController::navigateToMyPick,
+                navigateToLogin = navigateToLogin,
+                navigateToWithdraw = navController::navigateToWithdraw,
+                navigateToMain = navController::popBackStackToHome,
             )
             mateRecruitNavGraph(
                 padding = innerPadding,
-                popBackStack = navigator::popBackStackIfNotHome,
+                popBackStack = navController::popBackStackIfNotHome,
             )
             mateReviewNavGraph(
                 padding = innerPadding,
-                popBackStack = navigator::popBackStackIfNotHome,
+                popBackStack = navController::popBackStackIfNotHome,
             )
             tripDetailNavGraph(
                 padding = innerPadding,
-                popBackStack = navigator::popBackStackIfNotHome,
+                popBackStack = navController::popBackStackIfNotHome,
             )
             myTripCharacterInfoNavGraph(
                 padding = innerPadding,
-                popBackStack = navigator::popBackStackIfNotHome,
+                popBackStack = navController::popBackStackIfNotHome,
+                navigateToPersonalization = navigateToPersonalization,
             )
             tripListNavGraph(
                 padding = innerPadding,
             )
             myPickNavGraph(
                 padding = innerPadding,
-                popBackStack = navigator::popBackStackIfNotHome,
+                popBackStack = navController::popBackStackIfNotHome,
             )
             withdrawNavGraph(
                 padding = innerPadding,
-                popBackStack = navigator::popBackStackIfNotHome,
+                popBackStack = navController::popBackStack,
+                navigateToLogin = navigateToLogin,
+                navigateToMain = navController::popBackStackToHome,
             )
         }
     }

@@ -75,7 +75,7 @@ internal class MainNavController(
         navController.navigateToWithdraw()
     }
 
-    private fun popBackStack() {
+    fun popBackStack() {
         navController.popBackStack()
     }
 
@@ -84,6 +84,10 @@ internal class MainNavController(
         if (!isSameCurrentDestination(HOME_ROUTE)) {
             popBackStack()
         }
+    }
+
+    fun popBackStackToHome() {
+        navController.popBackStack(HOME_ROUTE, false)
     }
 
     private fun isSameCurrentDestination(route: String) =

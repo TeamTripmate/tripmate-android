@@ -1,9 +1,9 @@
-package com.tripmate.android.feature.mypage.viewmodel.mypage
+package com.tripmate.android.feature.mypage.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tripmate.android.domain.repository.MateRepository
+import com.tripmate.android.domain.repository.MyPageRepository
 import com.tripmate.android.feature.mypage.navigation.CHARACTER_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -18,10 +18,10 @@ import javax.inject.Inject
 @HiltViewModel
 class MyTripCharacterInfoViewModel @Inject constructor(
     @Suppress("UnusedPrivateProperty")
-    private val myPageRepository: MateRepository,
+    private val myPageRepository: MyPageRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    @Suppress("UnusedParameter")
+    @Suppress("UnusedPrivateProperty")
     private val characterId: Long = requireNotNull(savedStateHandle.get<Long>(CHARACTER_ID)) {
         "characterId is required."
     }
@@ -32,17 +32,23 @@ class MyTripCharacterInfoViewModel @Inject constructor(
     private val _uiEvent = Channel<MyPageUiEvent>()
     val uiEvent: Flow<MyPageUiEvent> = _uiEvent.receiveAsFlow()
 
-    @Suppress("EmptyFunctionBlock")
     fun onAction(action: MyPageUiAction) {
         when (action) {
-            is MyPageUiAction.OnTicketClicked -> navigateToMyTripCharacterInfo(action.characterId)
+            is MyPageUiAction.OnBackClicked -> navigateBack()
+            is MyPageUiAction.OnCharacterTypeReselectClicked -> navigateToPersonalization()
             else -> {}
         }
     }
 
-    private fun navigateToMyTripCharacterInfo(characterId: Long) {
+    private fun navigateBack() {
         viewModelScope.launch {
-            _uiEvent.send(MyPageUiEvent.NavigateToMyTripCharacterInfo(characterId = characterId))
+            _uiEvent.send(MyPageUiEvent.NavigateBack)
+        }
+    }
+
+    private fun navigateToPersonalization() {
+        viewModelScope.launch {
+            _uiEvent.send(MyPageUiEvent.NavigateToPersonalization)
         }
     }
 }

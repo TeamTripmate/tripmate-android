@@ -41,15 +41,16 @@ import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.mypage.component.TicketType
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiAction
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiEvent
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiState
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyTripCharacterInfoViewModel
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiEvent
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
+import com.tripmate.android.feature.mypage.viewmodel.MyTripCharacterInfoViewModel
 
 @Composable
 internal fun MyTripCharacterInfoRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
+    navigateToPersonalization: () -> Unit,
     viewModel: MyTripCharacterInfoViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -57,6 +58,7 @@ internal fun MyTripCharacterInfoRoute(
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is MyPageUiEvent.NavigateBack -> popBackStack()
+            is MyPageUiEvent.NavigateToPersonalization -> navigateToPersonalization()
             else -> {}
         }
     }
@@ -84,6 +86,9 @@ internal fun MyTripCharacterInfoScreen(
             TripmateTopAppBar(
                 navigationType = TopAppBarNavigationType.Close,
                 title = stringResource(id = R.string.my_trip_character_info),
+                onNavigationClick = {
+                    onAction(MyPageUiAction.OnBackClicked)
+                },
             )
             MyTripCharacterInfoContent(
                 uiState = uiState,
@@ -201,7 +206,9 @@ internal fun MyTripCharacterInfoContent(
         }
         Spacer(modifier = Modifier.height(32.dp))
         TripmateOutlinedButton(
-            onClick = {},
+            onClick = {
+                onAction(MyPageUiAction.OnCharacterTypeReselectClicked)
+            },
             containerColor = Background02,
             modifier = Modifier
                 .fillMaxWidth()

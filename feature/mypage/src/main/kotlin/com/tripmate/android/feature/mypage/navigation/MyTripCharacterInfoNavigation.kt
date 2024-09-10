@@ -18,6 +18,7 @@ fun NavController.navigateToMyTripCharacterInfo(characterId: Long) {
 fun NavGraphBuilder.myTripCharacterInfoNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
+    navigateToPersonalization: () -> Unit,
 ) {
     composable(
         route = MY_TRIP_CHARACTER_INFO_ROUTE,
@@ -30,6 +31,7 @@ fun NavGraphBuilder.myTripCharacterInfoNavGraph(
         MyTripCharacterInfoRoute(
             innerPadding = padding,
             popBackStack = popBackStack,
+            navigateToPersonalization = navigateToPersonalization,
         )
     }
 }

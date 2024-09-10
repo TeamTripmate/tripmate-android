@@ -1,4 +1,5 @@
 package com.tripmate.android.feature.splash
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -14,6 +15,7 @@ import com.tripmate.android.feature.splash.viewmodel.SplashViewModel
 
 @Composable
 internal fun SplashRoute(
+    navigateToLogin: () -> Unit,
     navigateToMain: () -> Unit,
     navigateToPersonalization: () -> Unit,
     viewModel: SplashViewModel = hiltViewModel(),
@@ -21,13 +23,10 @@ internal fun SplashRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(uiState.navigateTo) {
-        if (uiState.navigateTo.isEmpty()) {
-            viewModel.checkPersonalizationCompletion()
-        } else {
-            when (uiState.navigateTo) {
-                "main" -> navigateToMain()
-                "personalization" -> navigateToPersonalization()
-            }
+        when (uiState.navigateTo) {
+            "login" -> navigateToLogin()
+            "main" -> navigateToMain()
+            "personalization" -> navigateToPersonalization()
         }
     }
 

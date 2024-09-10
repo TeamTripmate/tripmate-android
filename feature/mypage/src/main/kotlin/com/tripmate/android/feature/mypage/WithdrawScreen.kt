@@ -37,10 +37,11 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.WithdrawReasonEntity
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiAction
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiEvent
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageUiState
-import com.tripmate.android.feature.mypage.viewmodel.mypage.MyPageViewModel
+import com.tripmate.android.feature.mypage.component.WithdrawDialog
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiEvent
+import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
+import com.tripmate.android.feature.mypage.viewmodel.WithdrawViewModel
 import kotlinx.collections.immutable.persistentListOf
 import com.tripmate.android.core.designsystem.R as designSystemR
 
@@ -48,14 +49,18 @@ import com.tripmate.android.core.designsystem.R as designSystemR
 internal fun WithdrawRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
-    viewModel: MyPageViewModel = hiltViewModel(),
+    navigateToLogin: () -> Unit,
+    navigateToMain: () -> Unit,
+    viewModel: WithdrawViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is MyPageUiEvent.NavigateBack -> popBackStack()
-            is MyPageUiEvent.Withdraw -> popBackStack()
+            is MyPageUiEvent.Withdraw -> navigateToLogin()
+            is MyPageUiEvent.NavigateToLogin -> navigateToLogin()
+            is MyPageUiEvent.NavigateToMain -> navigateToMain()
             else -> {}
         }
     }
@@ -90,6 +95,13 @@ internal fun WithdrawScreen(
                 onAction = onAction,
             )
         }
+    }
+
+    if (uiState.isWithdrawDialogVisible) {
+        WithdrawDialog(
+            onDismissRequest = { onAction(MyPageUiAction.OnBackClicked) },
+            onAction = onAction,
+        )
     }
 }
 
