@@ -180,3 +180,11 @@ val XSmall12_Mid = TextStyle(
     letterSpacing = 0.sp,
     lineHeight = 18.sp,
 )
+
+val XSmall10_Mid = TextStyle(
+    fontFamily = pretendardFamily,
+    fontWeight = FontWeight.Medium,
+    fontSize = 10.sp,
+    letterSpacing = 0.sp,
+    lineHeight = 16.sp,
+)
