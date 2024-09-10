@@ -1,6 +1,6 @@
 package com.tripmate.android.core.data.di
 
-import com.tripmate.android.core.data.repository.LoginRepositoryImpl
+import com.tripmate.android.core.data.repository.AuthRepositoryImpl
 import com.tripmate.android.core.data.repository.NotificationRepositoryImpl
 import com.tripmate.android.core.data.repository.MapRepositoryImpl
 import com.tripmate.android.core.data.repository.MateRepositoryImpl
@@ -8,7 +8,7 @@ import com.tripmate.android.core.data.repository.MyPageRepositoryImpl
 import com.tripmate.android.domain.repository.PersonalizationRepository
 import com.tripmate.android.core.data.repository.PersonalizationRepositoryImpl
 import com.tripmate.android.core.data.repository.TripDetailRepositoryImpl
-import com.tripmate.android.domain.repository.LoginRepository
+import com.tripmate.android.domain.repository.AuthRepository
 import com.tripmate.android.domain.repository.NotificationRepository
 import com.tripmate.android.domain.repository.MapRepository
 import com.tripmate.android.domain.repository.MateRepository
@@ -50,5 +50,5 @@ internal abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindLoginRepository(loginRepositoryImpl: LoginRepositoryImpl): LoginRepository
+    abstract fun bindLoginRepository(loginRepositoryImpl: AuthRepositoryImpl): AuthRepository
 }

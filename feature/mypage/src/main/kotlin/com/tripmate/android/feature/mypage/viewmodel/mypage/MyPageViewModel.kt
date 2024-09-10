@@ -3,7 +3,9 @@ package com.tripmate.android.feature.mypage.viewmodel.mypage
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.domain.entity.WithdrawReasonEntity
+import com.tripmate.android.domain.repository.AuthRepository
 import com.tripmate.android.domain.repository.MateRepository
+import com.tripmate.android.domain.repository.MyPageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
     @Suppress("UnusedPrivateProperty")
-    private val myPageRepository: MateRepository,
+    private val myPageRepository: MyPageRepository,
+    private val authRepository: AuthRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(MyPageUiState())
     val uiState: StateFlow<MyPageUiState> = _uiState.asStateFlow()
@@ -68,6 +71,7 @@ class MyPageViewModel @Inject constructor(
 
     private fun logout() {
         viewModelScope.launch {
+            authRepository.clearAuthToken()
             _uiEvent.send(MyPageUiEvent.NavigateToLogin)
         }
     }

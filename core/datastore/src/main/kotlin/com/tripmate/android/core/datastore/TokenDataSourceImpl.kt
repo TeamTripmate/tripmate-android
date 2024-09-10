@@ -39,4 +39,11 @@ class TokenDataSourceImpl @Inject constructor(
             }
             .map { preferences -> preferences[key] ?: "" }
             .first()
+
+    override suspend fun clearAuthToken() {
+        dataStore.edit { preferences ->
+            preferences.remove(KEY_ACCESS_TOKEN)
+            preferences.remove(KEY_REFRESH_TOKEN)
+        }
+    }
 }
