@@ -9,16 +9,21 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.graphics.Color
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.feature.navigator.PersonalizationNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var personalizationNavigator: PersonalizationNavigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            val navigator: MainNavController = rememberMainNavController()
+            val navController: MainNavController = rememberMainNavController()
             val systemUiController = rememberExSystemUiController()
             val isDarkTheme = isSystemInDarkTheme()
 
@@ -34,7 +39,13 @@ class MainActivity : ComponentActivity() {
 
             TripmateTheme {
                 MainScreen(
-                    navigator = navigator,
+                    navController = navController,
+                    navigateToPersonalization = {
+                        personalizationNavigator.navigateFrom(
+                            activity = this@MainActivity,
+                            withFinish = true,
+                        )
+                    }
                 )
             }
         }

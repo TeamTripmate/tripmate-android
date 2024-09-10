@@ -40,6 +40,7 @@ class MyPageViewModel @Inject constructor(
             is MyPageUiAction.OnWithdrawReasonDescriptionUpdated -> setWithdrawReasonDescription(action.withdrawReasonDescription)
             is MyPageUiAction.OnRealWithdrawClicked -> {}
             is MyPageUiAction.OnUseMoreClicked -> {}
+            else -> {}
         }
     }
 

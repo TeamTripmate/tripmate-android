@@ -35,14 +35,21 @@ class MyTripCharacterInfoViewModel @Inject constructor(
     @Suppress("EmptyFunctionBlock")
     fun onAction(action: MyPageUiAction) {
         when (action) {
-            is MyPageUiAction.OnTicketClicked -> navigateToMyTripCharacterInfo(action.characterId)
+            is MyPageUiAction.OnBackClicked -> navigateBack()
+            is MyPageUiAction.OnCharacterTypeReselectClicked -> navigateToPersonalization()
             else -> {}
         }
     }
 
-    private fun navigateToMyTripCharacterInfo(characterId: Long) {
+    private fun navigateBack() {
         viewModelScope.launch {
-            _uiEvent.send(MyPageUiEvent.NavigateToMyTripCharacterInfo(characterId = characterId))
+            _uiEvent.send(MyPageUiEvent.NavigateBack)
+        }
+    }
+
+    private fun navigateToPersonalization() {
+        viewModelScope.launch {
+            _uiEvent.send(MyPageUiEvent.NavigateToPersonalization)
         }
     }
 }

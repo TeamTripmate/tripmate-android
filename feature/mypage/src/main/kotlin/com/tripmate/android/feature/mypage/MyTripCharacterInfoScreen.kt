@@ -50,6 +50,7 @@ import com.tripmate.android.feature.mypage.viewmodel.mypage.MyTripCharacterInfoV
 internal fun MyTripCharacterInfoRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
+    navigateToPersonalization: () -> Unit,
     viewModel: MyTripCharacterInfoViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -57,6 +58,7 @@ internal fun MyTripCharacterInfoRoute(
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is MyPageUiEvent.NavigateBack -> popBackStack()
+            is MyPageUiEvent.NavigateToPersonalization -> navigateToPersonalization()
             else -> {}
         }
     }
@@ -84,6 +86,9 @@ internal fun MyTripCharacterInfoScreen(
             TripmateTopAppBar(
                 navigationType = TopAppBarNavigationType.Close,
                 title = stringResource(id = R.string.my_trip_character_info),
+                onNavigationClick = {
+                    onAction(MyPageUiAction.OnBackClicked)
+                },
             )
             MyTripCharacterInfoContent(
                 uiState = uiState,
@@ -201,7 +206,9 @@ internal fun MyTripCharacterInfoContent(
         }
         Spacer(modifier = Modifier.height(32.dp))
         TripmateOutlinedButton(
-            onClick = {},
+            onClick = {
+                onAction(MyPageUiAction.OnCharacterTypeReselectClicked)
+            },
             containerColor = Background02,
             modifier = Modifier
                 .fillMaxWidth()

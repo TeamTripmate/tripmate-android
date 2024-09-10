@@ -56,7 +56,6 @@ internal fun MyPageRoute(
             is MyPageUiEvent.NavigateToMyPick -> navigateToMyPick()
             is MyPageUiEvent.Logout -> {}
             is MyPageUiEvent.NavigateToWithdraw -> navigateToWithdraw()
-            is MyPageUiEvent.Withdraw -> {}
             is MyPageUiEvent.ShowToast -> {}
             else -> {}
         }
