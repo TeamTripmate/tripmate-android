@@ -29,8 +29,7 @@ class MyPageViewModel @Inject constructor(
 
     private val _uiEvent = Channel<MyPageUiEvent>()
     val uiEvent: Flow<MyPageUiEvent> = _uiEvent.receiveAsFlow()
-
-    @Suppress("EmptyFunctionBlock")
+    
     fun onAction(action: MyPageUiAction) {
         when (action) {
             is MyPageUiAction.OnBackClicked -> navigateBack()

@@ -15,11 +15,15 @@ fun NavController.navigateToWithdraw() {
 fun NavGraphBuilder.withdrawNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
+    navigateToLogin: () -> Unit,
+    navigateToMain: () -> Unit,
 ) {
     composable(route = WITHDRAW_ROUTE) {
         WithdrawRoute(
             innerPadding = padding,
             popBackStack = popBackStack,
+            navigateToMain = navigateToMain,
+            navigateToLogin = navigateToLogin
         )
     }
 }

@@ -14,6 +14,8 @@ sealed interface MyPageUiAction {
     data object OnLogoutClicked : MyPageUiAction
     data object OnWithdrawClicked : MyPageUiAction
     data object OnRealWithdrawClicked : MyPageUiAction
+    data object OnDialogCloseClicked : MyPageUiAction
+    data object OnRealRealWithdrawClicked : MyPageUiAction
     data object OnUseMoreClicked : MyPageUiAction
 }
 

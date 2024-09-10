@@ -28,14 +28,15 @@ class WithdrawViewModel @Inject constructor(
     private val _uiEvent = Channel<MyPageUiEvent>()
     val uiEvent: Flow<MyPageUiEvent> = _uiEvent.receiveAsFlow()
 
-    @Suppress("EmptyFunctionBlock")
     fun onAction(action: MyPageUiAction) {
         when (action) {
             is MyPageUiAction.OnBackClicked -> navigateBack()
             is MyPageUiAction.OnWithdrawReasonSelected -> addWithdrawReason(action.withdrawReason)
             is MyPageUiAction.OnWithdrawReasonDeselected -> removeWithdrawReason(action.withdrawReason)
             is MyPageUiAction.OnWithdrawReasonDescriptionUpdated -> setWithdrawReasonDescription(action.withdrawReasonDescription)
-            is MyPageUiAction.OnRealWithdrawClicked -> withdraw()
+            is MyPageUiAction.OnRealWithdrawClicked -> setWithdrawDialogVisible(true)
+            is MyPageUiAction.OnDialogCloseClicked -> setWithdrawDialogVisible(false)
+            is MyPageUiAction.OnRealRealWithdrawClicked -> withdraw()
             is MyPageUiAction.OnUseMoreClicked -> navigateToMain()
             else -> {}
         }
@@ -43,6 +44,9 @@ class WithdrawViewModel @Inject constructor(
 
     private fun navigateBack() {
         viewModelScope.launch {
+            _uiState.update {
+                it.copy(isWithdrawDialogVisible = false)
+            }
             _uiEvent.send(MyPageUiEvent.NavigateBack)
         }
     }
@@ -65,8 +69,17 @@ class WithdrawViewModel @Inject constructor(
         }
     }
 
+    private fun setWithdrawDialogVisible(flag: Boolean) {
+        _uiState.update {
+            it.copy(isWithdrawDialogVisible = flag)
+        }
+    }
+
     private fun withdraw() {
         viewModelScope.launch {
+            _uiState.update {
+                it.copy(isWithdrawDialogVisible = false)
+            }
             authRepository.clearAuthToken()
             _uiEvent.send(MyPageUiEvent.NavigateToLogin)
         }

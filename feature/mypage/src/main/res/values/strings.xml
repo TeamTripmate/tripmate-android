@@ -22,4 +22,7 @@
     <string name="real_withdraw">탈퇴할래요</string>
     <string name="use_more">더 써볼래요</string>
     <string name="logout_complete">로그아웃 되었습니다.</string>
+    <string name="real_real_withdraw">탈퇴할게요</string>
+    <string name="withdraw_dialog_title">회원 탈퇴 시 모든 계정 정보는 삭제되어 복구가 불가능합니다.</string>
+    <string name="withdraw_dialog_description">정말 트립메이트를 떠나시겠어요?🥲</string>
 </resources>

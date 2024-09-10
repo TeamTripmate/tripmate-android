@@ -75,7 +75,7 @@ internal class MainNavController(
         navController.navigateToWithdraw()
     }
 
-    private fun popBackStack() {
+    fun popBackStack() {
         navController.popBackStack()
     }
 

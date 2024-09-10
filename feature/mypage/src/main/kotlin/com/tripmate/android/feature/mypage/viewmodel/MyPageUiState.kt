@@ -30,4 +30,5 @@ data class MyPageUiState(
     ),
     val selectedWithdrawReasons: PersistentList<WithdrawReasonEntity> = persistentListOf(),
     val withdrawReasonDescription: String = "",
+    val isWithdrawDialogVisible: Boolean = false,
 )

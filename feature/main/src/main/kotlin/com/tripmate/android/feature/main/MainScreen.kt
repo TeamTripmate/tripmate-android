@@ -132,7 +132,9 @@ internal fun MainScreen(
             )
             withdrawNavGraph(
                 padding = innerPadding,
-                popBackStack = navController::popBackStackIfNotHome,
+                popBackStack = navController::popBackStack,
+                navigateToLogin = navigateToLogin,
+                navigateToMain = navController::popBackStackToHome,
             )
         }
     }
