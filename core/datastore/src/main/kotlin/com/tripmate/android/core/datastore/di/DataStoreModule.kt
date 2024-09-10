@@ -14,6 +14,9 @@ import javax.inject.Singleton
 private const val PERSONALIZATION_DATASTORE = "personalization_datastore"
 private val Context.personalizationDataStore: DataStore<Preferences> by preferencesDataStore(name = PERSONALIZATION_DATASTORE)
 
+private const val TOKEN_DATASTORE = "token_datastore"
+private val Context.tokenDataStore: DataStore<Preferences> by preferencesDataStore(name = TOKEN_DATASTORE)
+
 @Module
 @InstallIn(SingletonComponent::class)
 internal object DataStoreModule {
@@ -22,4 +25,9 @@ internal object DataStoreModule {
     @Singleton
     @Provides
     internal fun providePersonalizationDataStore(@ApplicationContext context: Context) = context.personalizationDataStore
+
+    @TokenDataStore
+    @Singleton
+    @Provides
+    internal fun provideTokenDataStore(@ApplicationContext context: Context) = context.tokenDataStore
 }

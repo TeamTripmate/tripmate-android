@@ -15,7 +15,7 @@ class PersonalizationDataSourceImpl @Inject constructor(
     @PersonalizationDataStore private val dataStore: DataStore<Preferences>,
 ) : PersonalizationDataSource {
     private companion object {
-        private val KEY_PERSONALIZATION_COMPLETE = booleanPreferencesKey("Personalization_complete")
+        private val KEY_PERSONALIZATION_COMPLETE = booleanPreferencesKey("personalization_complete")
     }
 
     override suspend fun checkPersonalizationCompletion(): Boolean = dataStore.data

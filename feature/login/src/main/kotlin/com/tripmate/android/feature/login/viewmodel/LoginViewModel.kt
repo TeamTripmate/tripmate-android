@@ -3,6 +3,7 @@ package com.tripmate.android.feature.login.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.core.common.UiText
+import com.tripmate.android.domain.repository.LoginRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +16,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor() : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val loginRepository: LoginRepository,
+) : ViewModel() {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
@@ -34,15 +37,10 @@ class LoginViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    @Suppress("UnusedParameter")
     fun saveAuthToken(accessToken: String, refreshToken: String) {
         viewModelScope.launch {
-            _uiState.update {
-                it.copy(isLoading = true)
-            }
-            _uiState.update {
-                it.copy(isLoading = false)
-            }
+            loginRepository.saveAuthToken(accessToken, refreshToken)
+            _uiEvent.send(LoginUiEvent.NavigateToMain)
         }
     }
 
