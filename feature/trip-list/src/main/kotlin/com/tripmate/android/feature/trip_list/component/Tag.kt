@@ -10,8 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Primary01
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 
 @Composable
@@ -30,5 +32,13 @@ fun Tag(
             style = XSmall12_Reg,
             color = Color.White,
         )
+    }
+}
+
+@ComponentPreview
+@Composable
+fun TagPreview() {
+    TripmateTheme {
+        Tag()
     }
 }
