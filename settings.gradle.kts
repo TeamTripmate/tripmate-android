@@ -39,6 +39,7 @@ include(
     ":feature:main",
     ":feature:mypage",
     ":feature:mate-recruit",
+    ":feature:mate-recruit-post",
     ":feature:mate-review",
     ":feature:navigator",
     ":feature:splash",

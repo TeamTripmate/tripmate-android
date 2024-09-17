@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mate_recruit_post_title">동행 모집글</string>
+    <string name="mate_recruit_post_open_kakao_url">1:1 오픈채팅방 URL</string>
+    <string name="mate_recruit_post_url_description">상대방이 동행 신청을 수락하면 동행 톡방 바로가기 버튼이 활성화 돼요</string>
+    <string name="mate_recruit_post_advantage_title">이전 동행자들 후기</string>
+    <string name="mate_recruit_post_request_button_title">동행 신청하기</string>
+</resources>
