@@ -122,7 +122,6 @@ internal fun TripListScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // "동행 기록이 없어요" 또는 동행 기록 리스트
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(8.dp),

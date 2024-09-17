@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -44,17 +45,20 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tripmate.android.core.designsystem.ComponentPreview
+import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray003
 import com.tripmate.android.core.designsystem.theme.Gray006
+import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Small14_Med
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.feature.triplist.R
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TripStatusCard(pagerState: PagerState) {
+fun TripStatusCardTeamLeader(pagerState: PagerState) {
     // 드롭다운 메뉴 상태
     var expanded by remember { mutableStateOf(false) }
     var selectedOption by remember { mutableStateOf("신청한 동행") } // 기본 선택값
@@ -112,17 +116,12 @@ fun TripStatusCard(pagerState: PagerState) {
                 }
             }
             Text(
-                text = buildAnnotatedString {
-                    append("동행 하루전")
-                    withStyle(style = SpanStyle(color = Gray001)) {
-                        append("이에요")
-                    }
-                },
+                text = "동행 신청자를 확인해보세요",
                 style = TextStyle(
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                 ),
-                color = Primary01,
+                color = Gray001,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -144,7 +143,19 @@ fun TripStatusCard(pagerState: PagerState) {
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
-            TripProgressBar()
+            TripmateButton(
+                onClick = { },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .padding(horizontal = 16.dp),
+                enabled = true,
+            ) {
+                Text(
+                    text = "신청자 보기",
+                    style = Medium16_SemiBold,
+                )
+            }
             Spacer(modifier = Modifier.height(16.dp))
             Row(
                 Modifier
@@ -167,72 +178,15 @@ fun TripStatusCard(pagerState: PagerState) {
     }
 }
 
-
-@Composable
-fun TripProgressBar() {
-    val steps = listOf("신청완료", "수락완료", "동행 시작", "동행 종료")
-    val completedSteps = 2 // 예시로 2단계까지 완료된 것으로 가정
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 30.dp),
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            steps.forEachIndexed { index, step ->
-                Text(
-                    text = step,
-                    style = TextStyle(
-                        color = if (index < completedSteps) Primary01 else Gray006,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium,
-                    ),
-                    textAlign = TextAlign.Center,
-                )
-            }
-        }
-        Spacer(modifier = Modifier.height(4.dp))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
-                .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            steps.forEachIndexed { index, _ ->
-                Box(
-                    modifier = Modifier
-                        .size(8.dp)
-                        .background(
-                            if (index < completedSteps) Primary01 else Gray006,
-                            shape = CircleShape,
-                        ),
-                )
-                if (index < steps.size - 1) {
-                    Box(
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(2.dp)
-                            .background(if (index < completedSteps - 1) Primary01 else Gray006),
-                    )
-                }
-            }
-        }
-    }
-}
-
 @OptIn(ExperimentalFoundationApi::class)
 @ComponentPreview
 @Composable
-fun PreviewTripStatusCard() {
+fun PreviewTripStatusCardTeamLeader() {
     val pagerState = rememberPagerState(
         initialPage = 0,
         pageCount = { 3 },
     )
     TripmateTheme {
-        TripStatusCard(pagerState = pagerState)
+        TripStatusCardTeamLeader(pagerState = pagerState)
     }
 }
