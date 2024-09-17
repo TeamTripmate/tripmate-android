@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -49,6 +50,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -143,7 +145,7 @@ internal fun TripListScreen(
         var expanded by remember { mutableStateOf(false) }
         Box(
             modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.TopEnd
+            contentAlignment = Alignment.TopEnd,
         ) {
             TextButton(
                 onClick = { expanded = !expanded },
@@ -157,20 +159,22 @@ internal fun TripListScreen(
             }
             DropdownMenu(
                 expanded = expanded,
-                onDismissRequest = { expanded = false }
+                onDismissRequest = { expanded = false },
             ) {
                 DropdownMenuItem(
                     text = { Text("신청한 동행") },
                     onClick = {
                         expanded = false
 //                        onAction(TripListUiAction.OnRequestFilterChanged("신청한 동행"))
-                    })
+                    },
+                )
                 DropdownMenuItem(
                     text = { Text("작성한 동행") },
                     onClick = {
                         expanded = false
 //                        onAction(TripListUiAction.OnRequestFilterChanged("작성한 동행"))
-                    })
+                    },
+                )
             }
         }
 
@@ -182,9 +186,9 @@ internal fun TripListScreen(
             style = TextStyle(
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Blue
+                color = Color.Blue,
             ),
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         )
 
         Column(
@@ -222,82 +226,7 @@ internal fun TripListScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         // 동행 상태 바 (신청완료, 수락완료, 동행 시작, 동행 종료)
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // 신청 완료 점 및 텍스트
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("신청완료", style = TextStyle(color = Color.Blue, fontSize = 12.sp))
-                Spacer(modifier = Modifier.height(4.dp))
-                Box(
-                    modifier = Modifier
-                        .size(8.dp)
-                        .background(Color.Blue, shape = RoundedCornerShape(50))
-                )
-            }
-
-            // 신청완료 -> 수락완료 사이의 파란 선
-            Box(
-                modifier = Modifier
-                    .width(50.dp) // 선의 너비
-                    .height(2.dp)
-                    .background(Color.Blue)
-                    .align(Alignment.CenterVertically) // 선을 가운데 정렬
-            )
-
-            // 수락 완료 점 및 텍스트
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("수락완료", style = TextStyle(color = Color.Blue, fontSize = 12.sp))
-                Spacer(modifier = Modifier.height(4.dp))
-                Box(
-                    modifier = Modifier
-                        .size(8.dp)
-                        .background(Color.Blue, shape = RoundedCornerShape(50))
-                )
-            }
-
-            // 수락완료 -> 동행 시작 사이의 회색 선
-            Box(
-                modifier = Modifier
-                    .width(50.dp)
-                    .height(2.dp)
-                    .background(Color.Gray)
-                    .align(Alignment.CenterVertically)
-            )
-
-            // 동행 시작 점 및 텍스트
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("동행 시작", style = TextStyle(color = Color.Gray, fontSize = 12.sp))
-                Spacer(modifier = Modifier.height(4.dp))
-                Box(
-                    modifier = Modifier
-                        .size(8.dp)
-                        .background(Color.Gray, shape = RoundedCornerShape(50))
-                )
-            }
-
-            // 동행 시작 -> 동행 종료 사이의 회색 선
-            Box(
-                modifier = Modifier
-                    .width(50.dp)
-                    .height(2.dp)
-                    .background(Color.Gray)
-                    .align(Alignment.CenterVertically)
-            )
-
-            // 동행 종료 점 및 텍스트
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("동행 종료", style = TextStyle(color = Color.Gray, fontSize = 12.sp))
-                Spacer(modifier = Modifier.height(4.dp))
-                Box(
-                    modifier = Modifier
-                        .size(8.dp)
-                        .background(Color.Gray, shape = RoundedCornerShape(50))
-                )
-            }
-        }
+        TripProgressBar()
         Box(
             modifier = Modifier.shadow(4.dp, RoundedCornerShape(bottomEnd = 20.dp, bottomStart = 20.dp)),
         ) {
@@ -331,7 +260,7 @@ internal fun TripListScreen(
                     title = "서피비치에서 식사해요",
                     date = "2024.08.24(일) 11:00 AM",
                     isReviewPeriodOver = true,
-                    onReviewClick = { /* 클릭 처리 */ }
+                    onReviewClick = { /* 클릭 처리 */ },
                 )
             }
 //            }
@@ -421,6 +350,61 @@ fun ReviewComponent(
     }
 }
 
+@Composable
+fun TripProgressBar() {
+    val steps = listOf("신청완료", "수락완료", "동행 시작", "동행 종료")
+    val completedSteps = 2 // 예시로 2단계까지 완료된 것으로 가정
+
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 30.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            steps.forEachIndexed { index, step ->
+                Text(
+                    text = step,
+                    style = TextStyle(
+                        color = if (index < completedSteps) Primary01 else Gray006,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Medium,
+                    ),
+                    textAlign = TextAlign.Center,
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(4.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(8.dp)
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            steps.forEachIndexed { index, _ ->
+                Box(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .background(
+                            if (index < completedSteps) Primary01 else Gray006,
+                            shape = CircleShape,
+                        ),
+                )
+                if (index < steps.size - 1) {
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(2.dp)
+                            .background(if (index < completedSteps - 1) Primary01 else Gray006),
+                    )
+                }
+            }
+        }
+    }
+}
+
 
 @ComponentPreview
 @Composable
@@ -444,5 +428,13 @@ internal fun ReviewComponentPreview() {
             isReviewPeriodOver = false,
             onReviewClick = {},
         )
+    }
+}
+
+@ComponentPreview
+@Composable
+internal fun TripProgressBarPreview() {
+    TripmateTheme {
+        TripProgressBar()
     }
 }
