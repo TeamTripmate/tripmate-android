@@ -47,6 +47,7 @@ class PersonalizationViewModel @Inject constructor(
             is PersonalizationUiAction.OnClearIconClicked -> clearText()
             is PersonalizationUiAction.OnUnderAgeDialogConfirmClick -> finish()
             is PersonalizationUiAction.OnSelectClick -> navigateToNextScreen(action.screenType)
+            is PersonalizationUiAction.OnShareMyTripStyleClicked -> {}
         }
     }
 

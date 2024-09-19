@@ -11,6 +11,7 @@ sealed interface PersonalizationUiAction {
     data object OnClearIconClicked : PersonalizationUiAction
     data object OnUnderAgeDialogConfirmClick : PersonalizationUiAction
     data class OnSelectClick(val screenType: ScreenType) : PersonalizationUiAction
+    data object OnShareMyTripStyleClicked: PersonalizationUiAction
 }
 
 enum class ScreenType {

@@ -37,6 +37,7 @@ import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.feature.mypage.R
+import com.tripmate.android.core.designsystem.R as designSystemR
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
 
 @Composable
@@ -93,7 +94,7 @@ internal fun Ticket(
             Column {
                 Spacer(modifier = Modifier.height(28.dp))
                 Image(
-                    painter = painterResource(id = R.drawable.img_character_01),
+                    painter = painterResource(id = designSystemR.drawable.img_character_01),
                     contentDescription = "character image",
                     modifier = Modifier.size(110.dp)
                 )
