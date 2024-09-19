@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="my_page">마이페이지</string>
-    <string name="my_pick">나의 픽</string>
+    <string name="my_pick">마이픽💙</string>
     <string name="logout">로그아웃</string>
     <string name="withdraw">회원 탈퇴</string>
     <string name="profile_image">프로필 이미지</string>
@@ -25,4 +25,5 @@
     <string name="real_real_withdraw">탈퇴할게요</string>
     <string name="withdraw_dialog_title">회원 탈퇴 시 모든 계정 정보는 삭제되어 복구가 불가능합니다.</string>
     <string name="withdraw_dialog_description">정말 트립메이트를 떠나시겠어요?🥲</string>
+    <string name="check_character_description">캐릭터 설명보기</string>
 </resources>
