@@ -32,7 +32,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tripmate.android.core.designsystem.ComponentPreview
-import com.tripmate.android.core.designsystem.theme.Background01
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
@@ -41,7 +40,7 @@ import com.tripmate.android.feature.mypage.R
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
 
 @Composable
-fun Ticket(
+internal fun Ticket(
     uiState: MyPageUiState,
     modifier: Modifier = Modifier,
 ) {
