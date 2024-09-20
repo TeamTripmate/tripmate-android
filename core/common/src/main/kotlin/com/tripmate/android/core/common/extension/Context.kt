@@ -19,6 +19,7 @@ fun Context.hasLocationPermission(): Boolean {
     ) == PackageManager.PERMISSION_GRANTED
 }
 
+@Suppress("TooGenericExceptionCaught")
 fun Context.externalShareForBitmap(bitmap: Bitmap) {
     try {
         val imagePath = File(getExternalFilesDir(null)?.absolutePath + "/ShareImgFolder")
@@ -44,6 +45,7 @@ private fun getExternalFilePath(): String {
     return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString().plus(File.separator)
 }
 
+@Suppress("TooGenericExceptionCaught")
 private fun saveImageIntoFileFromUri(bitmap: Bitmap, fileName: String, path: String): File {
     val file = File(path, fileName)
     try {

@@ -50,10 +50,25 @@ fun MyTripStyle(
     characterTypeIntro: String,
     tripStyleIntro: String,
     isShared: Boolean,
-    gradient: Brush,
     onAction: (MyPageUiAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val configuration = LocalConfiguration.current
+    val density = LocalDensity.current
+
+    val screenWidthDp = configuration.screenWidthDp.dp
+    val screenWidthPx = with(density) { screenWidthDp.toPx() }
+    val heightPx = with(density) { 438.dp.toPx() }
+
+    val gradientColors = listOf(Color(0xFF9ABCFF), Color(0xFFC4D8FF), Color(0xFFFFFFFF))
+    val gradientStops = listOf(0f, 0.8f, 1f)
+
+    val gradient = Brush.linearGradient(
+        colorStops = gradientStops.zip(gradientColors).toTypedArray(),
+        start = Offset(screenWidthPx / 2, 0f),
+        end = Offset(screenWidthPx / 2, heightPx),
+    )
+
     val picture = remember { Picture() }
 
     LaunchedEffect(isShared) {
@@ -68,22 +83,25 @@ fun MyTripStyle(
     Column(
         modifier = modifier
             .background(brush = gradient)
-            .drawWithCache {
-                onDrawWithContent {
-                    val pictureCanvas = Canvas(picture.beginRecording(size.width.toInt(), size.height.toInt()))
-                    draw(
-                        density = this,
-                        layoutDirection = layoutDirection,
-                        canvas = pictureCanvas,
-                        size = size,
-                    ) {
-                        this@onDrawWithContent.drawContent()
+            .then(
+                Modifier
+                    .drawWithCache {
+                        onDrawWithContent {
+                            val pictureCanvas = Canvas(picture.beginRecording(size.width.toInt(), size.height.toInt()))
+                            draw(
+                                density = this,
+                                layoutDirection = layoutDirection,
+                                canvas = pictureCanvas,
+                                size = size,
+                            ) {
+                                this@onDrawWithContent.drawContent()
+                            }
+                            picture.endRecording()
+                            drawIntoCanvas { canvas -> canvas.nativeCanvas.drawPicture(picture) }
+                        }
                     }
-                    picture.endRecording()
-                    drawIntoCanvas { canvas -> canvas.nativeCanvas.drawPicture(picture) }
-                }
-            }
-            .padding(horizontal = 16.dp),
+                    .padding(horizontal = 16.dp),
+            ),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(88.dp))
@@ -141,24 +159,7 @@ fun MyTripStyle(
                 color = Gray002,
             )
         }
-    }
-}
-
-private fun createBitmapFromPicture(picture: Picture): Bitmap? {
-    try {
-        val bitmap = Bitmap.createBitmap(
-            picture.width,
-            picture.height,
-            Bitmap.Config.ARGB_8888,
-        )
-        val canvas = android.graphics.Canvas(bitmap)
-        canvas.drawColor(android.graphics.Color.WHITE)
-        canvas.drawPicture(picture)
-
-        return bitmap
-    } catch (e: Exception) {
-        Timber.e("[createBitmapFromPicture] ${e.message}")
-        return null
+        Spacer(modifier = Modifier.height(40.dp))
     }
 }
 

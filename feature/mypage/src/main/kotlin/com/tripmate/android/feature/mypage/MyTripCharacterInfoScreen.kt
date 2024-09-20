@@ -16,12 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -103,23 +98,6 @@ internal fun MyTripCharacterInfoContent(
     onAction: (MyPageUiAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val configuration = LocalConfiguration.current
-    val density = LocalDensity.current
-
-    val screenWidthDp = configuration.screenWidthDp.dp
-    val screenWidthPx = with(density) { screenWidthDp.toPx() }
-    val heightPx = with(density) { 438.dp.toPx() }
-
-    val gradient = Brush.linearGradient(
-        colorStops = arrayOf(
-            0.0f to Color(0xFF9ABCFF),
-            0.80f to Color(0xFFC4D8FF),
-            1.0f to Color(0xFFFFFFFF),
-        ),
-        start = Offset(screenWidthPx / 2, 0f),
-        end = Offset(screenWidthPx / 2, heightPx),
-    )
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -133,11 +111,9 @@ internal fun MyTripCharacterInfoContent(
             characterTypeIntro = uiState.characterTypeIntro,
             tripStyleIntro = uiState.tripStyleIntro,
             isShared = uiState.isMyTripStyleShared,
-            gradient = gradient,
             onAction = onAction,
             modifier = Modifier.fillMaxWidth(),
         )
-        Spacer(modifier = Modifier.height(40.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()

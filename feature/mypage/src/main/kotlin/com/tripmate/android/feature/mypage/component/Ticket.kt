@@ -98,7 +98,7 @@ internal fun Ticket(
                 Image(
                     painter = painterResource(id = designSystemR.drawable.img_character_01),
                     contentDescription = "character image",
-                    modifier = Modifier.size(110.dp)
+                    modifier = Modifier.size(110.dp),
                 )
             }
             Spacer(modifier = Modifier.width(14.dp))
@@ -125,7 +125,7 @@ fun TicketType(
             .padding(vertical = 4.dp),
     ) {
         Text(
-            text = "#${text}",
+            text = "#$text",
             style = XSmall12_Reg,
             fontSize = 10.sp,
             color = contentColor,
