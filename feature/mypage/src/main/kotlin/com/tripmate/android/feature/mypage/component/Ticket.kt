@@ -38,11 +38,13 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.feature.mypage.R
 import com.tripmate.android.core.designsystem.R as designSystemR
-import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
 
 @Composable
 internal fun Ticket(
-    uiState: MyPageUiState,
+    characterName: String,
+    type1: String,
+    type2: String,
+    type3: String,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -63,17 +65,17 @@ internal fun Ticket(
             Spacer(modifier = Modifier.width(14.dp))
             Column {
                 Text(
-                    text = uiState.characterName,
+                    text = characterName,
                     style = Large20_Bold,
                     color = Color.White,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Row {
-                    TicketType(uiState.type1)
+                    TicketType(type1)
                     Spacer(modifier = Modifier.width(4.dp))
-                    TicketType(uiState.type2)
+                    TicketType(type2)
                     Spacer(modifier = Modifier.width(4.dp))
-                    TicketType(uiState.type3)
+                    TicketType(type3)
                 }
                 Spacer(modifier = Modifier.height(46.dp))
                 Row {
@@ -166,7 +168,10 @@ fun TicketHole(
 private fun TickerPreview() {
     TripmateTheme {
         Ticket(
-            uiState = MyPageUiState(),
+            characterName = "캐릭터 이름",
+            type1 = "타입1",
+            type2 = "타입2",
+            type3 = "타입3",
         )
     }
 }

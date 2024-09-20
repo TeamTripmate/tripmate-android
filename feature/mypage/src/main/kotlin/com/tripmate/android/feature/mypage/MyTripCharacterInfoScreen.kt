@@ -20,12 +20,14 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
+import com.tripmate.android.core.common.extension.externalShareForBitmap
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateOutlinedButton
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
@@ -34,7 +36,7 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.android.core.ui.component.MyTripStyle
+import com.tripmate.android.feature.mypage.component.MyTripStyle
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiEvent
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
@@ -49,11 +51,12 @@ internal fun MyTripCharacterInfoRoute(
     viewModel: MyTripCharacterInfoViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is MyPageUiEvent.NavigateBack -> popBackStack()
-            is MyPageUiEvent.ShareMyTripStyle -> {}
+            is MyPageUiEvent.ShareMyTripStyle -> context.externalShareForBitmap(event.image)
             is MyPageUiEvent.NavigateToPersonalization -> navigateToPersonalization()
             else -> {}
         }
@@ -129,9 +132,10 @@ internal fun MyTripCharacterInfoContent(
             characterImageRes = designSystemR.drawable.img_character_01,
             characterTypeIntro = uiState.characterTypeIntro,
             tripStyleIntro = uiState.tripStyleIntro,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(brush = gradient),
+            isShared = uiState.isMyTripStyleShared,
+            gradient = gradient,
+            onAction = onAction,
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(modifier = Modifier.height(40.dp))
         Column(
@@ -170,7 +174,7 @@ internal fun MyTripCharacterInfoContent(
             Spacer(modifier = Modifier.height(8.dp))
             TripmateOutlinedButton(
                 onClick = {
-                    onAction(MyPageUiAction.OnShareMyTripStyleClicked)
+                    onAction(MyPageUiAction.OnShareMyTripStyleClicked(true))
                 },
                 containerColor = Background02,
                 modifier = Modifier
@@ -184,7 +188,6 @@ internal fun MyTripCharacterInfoContent(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(24.dp))
     }
 }
 

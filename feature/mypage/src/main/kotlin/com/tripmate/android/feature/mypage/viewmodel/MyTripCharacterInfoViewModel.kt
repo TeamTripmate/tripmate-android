@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.mypage.viewmodel
 
+import android.graphics.Bitmap
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,6 +38,8 @@ class MyTripCharacterInfoViewModel @Inject constructor(
         when (action) {
             is MyPageUiAction.OnBackClicked -> navigateBack()
             is MyPageUiAction.OnCharacterTypeReselectClicked -> navigateToPersonalization()
+            is MyPageUiAction.OnShareMyTripStyle -> shareMyTripStyle(action.image)
+            is MyPageUiAction.OnShareMyTripStyleClicked -> setMyTripStyleShare(action.isShared)
             else -> {}
         }
     }
@@ -49,6 +53,19 @@ class MyTripCharacterInfoViewModel @Inject constructor(
     private fun navigateToPersonalization() {
         viewModelScope.launch {
             _uiEvent.send(MyPageUiEvent.NavigateToPersonalization)
+        }
+    }
+
+    private fun shareMyTripStyle(image: Bitmap) {
+        viewModelScope.launch {
+            setMyTripStyleShare(false)
+            _uiEvent.send(MyPageUiEvent.ShareMyTripStyle(image))
+        }
+    }
+
+    private fun setMyTripStyleShare(isShared: Boolean) {
+        _uiState.update {
+            it.copy(isMyTripStyleShared = isShared)
         }
     }
 }

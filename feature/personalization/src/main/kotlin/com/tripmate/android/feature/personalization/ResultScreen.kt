@@ -22,11 +22,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
+import com.tripmate.android.core.common.extension.externalShareForBitmap
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.component.TripmateOutlinedButton
 import com.tripmate.android.core.designsystem.theme.Background02
@@ -35,7 +37,7 @@ import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.android.core.ui.component.MyTripStyle
+import com.tripmate.android.feature.personalization.component.MyTripStyle
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiAction
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiEvent
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiState
@@ -53,6 +55,7 @@ internal fun ResultRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val systemUiController = rememberExSystemUiController()
     val isDarkTheme = isSystemInDarkTheme()
+    val context = LocalContext.current
 
     DisposableEffect(systemUiController) {
         systemUiController.setStatusBarColor(
@@ -69,10 +72,8 @@ internal fun ResultRoute(
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
-            is PersonalizationUiEvent.NavigateToMain -> {
-                navigateToMain()
-            }
-
+            is PersonalizationUiEvent.NavigateToMain -> navigateToMain()
+            is PersonalizationUiEvent.ShareMyTripStyle -> context.externalShareForBitmap(event.image)
             else -> {}
         }
     }
@@ -124,9 +125,10 @@ internal fun ResultScreen(
                 characterImageRes = designSystemR.drawable.img_character_01,
                 characterTypeIntro = uiState.characterTypeIntro,
                 tripStyleIntro = uiState.tripStyleIntro,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(brush = gradient),
+                isShared = uiState.isMyTripStyleShared,
+                gradient = gradient,
+                modifier = Modifier.fillMaxWidth(),
+                onAction = onAction,
             )
             Spacer(modifier = Modifier.height(40.dp))
             Text(
@@ -142,9 +144,7 @@ internal fun ResultScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 TripmateOutlinedButton(
-                    onClick = {
-                        onAction(PersonalizationUiAction.OnShareMyTripStyleClicked)
-                    },
+                    onClick = {},
                     containerColor = Background02,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -170,7 +170,6 @@ internal fun ResultScreen(
                 }
             }
         }
-        Spacer(modifier = Modifier.height(60.dp))
     }
 }
 

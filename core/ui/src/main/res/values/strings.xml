@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="my_trip_style">내 여행 스타일은</string>
-    <string name="my_trip_character_info">내 여행 캐릭터 정보</string>
-    <string name="character_type_intro">캐릭터 유형에 대한 소개</string>
-    <string name="trip_style_intro">여행 스타일 소개</string>
-</resources>

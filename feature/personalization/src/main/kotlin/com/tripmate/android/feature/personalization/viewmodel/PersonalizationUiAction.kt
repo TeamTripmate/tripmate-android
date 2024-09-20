@@ -12,7 +12,8 @@ sealed interface PersonalizationUiAction {
     data object OnClearIconClicked : PersonalizationUiAction
     data object OnUnderAgeDialogConfirmClick : PersonalizationUiAction
     data class OnSelectClick(val screenType: ScreenType) : PersonalizationUiAction
-    data class OnShareMyTripStyleClicked(val image: Bitmap) : PersonalizationUiAction
+    data class OnShareMyTripStyle(val image: Bitmap) : PersonalizationUiAction
+    data class OnShareMyTripStyleClicked(val isShared: Boolean) : PersonalizationUiAction
 }
 
 enum class ScreenType {
