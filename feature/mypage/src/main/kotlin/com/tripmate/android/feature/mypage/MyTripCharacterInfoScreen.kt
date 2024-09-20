@@ -24,6 +24,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.common.extension.externalShareForBitmap
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
+import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.component.TripmateOutlinedButton
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
 import com.tripmate.android.core.designsystem.theme.Background02
@@ -131,7 +132,6 @@ internal fun MyTripCharacterInfoContent(
 //                style = Small14_Reg,
 //                color = Gray002,
 //            )
-            Spacer(modifier = Modifier.height(32.dp))
             TripmateOutlinedButton(
                 onClick = {
                     onAction(MyPageUiAction.OnCharacterTypeReselectClicked)
@@ -139,7 +139,7 @@ internal fun MyTripCharacterInfoContent(
                 containerColor = Background02,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp),
+                    .height(56.dp),
             ) {
                 Text(
                     text = stringResource(R.string.reselect_character_type),
@@ -148,18 +148,16 @@ internal fun MyTripCharacterInfoContent(
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
-            TripmateOutlinedButton(
+            TripmateButton(
                 onClick = {
                     onAction(MyPageUiAction.OnShareMyTripStyleClicked(true))
                 },
-                containerColor = Background02,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp),
+                    .height(56.dp),
             ) {
                 Text(
                     text = stringResource(R.string.share_my_trip_style),
-                    color = Primary01,
                     style = Medium16_SemiBold,
                 )
             }

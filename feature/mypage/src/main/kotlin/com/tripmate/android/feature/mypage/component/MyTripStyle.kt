@@ -158,7 +158,7 @@ fun MyTripStyle(
                 color = Gray002,
             )
         }
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(56.dp))
     }
 }
 
