@@ -99,6 +99,7 @@ fun MateRoute(
             is MateUiEvent.ClickCurrentLocation -> {
                 viewModel.moveCurrentLocation(cameraPositionState)
             }
+
             is MateUiEvent.NavigateToTripDetail -> {
                 navigateToTripDetail()
             }
@@ -198,7 +199,7 @@ fun MateScreen(
                         ViewPagerScreen(
                             uiState = uiState,
                             listItem = uiState.simpleList,
-                            onAction = onAction
+                            onAction = onAction,
                         )
                     }
                 } else {
@@ -499,7 +500,8 @@ fun GetPoiCardView(item: POISimpleListEntity, isListView: Boolean, onTripCardCli
                 width = 1.dp,
                 color = Gray009,
                 shape = RoundedCornerShape(12.dp),
-            ).clickable {
+            )
+            .clickable {
                 onTripCardClick()
             },
     ) {
@@ -715,7 +717,7 @@ fun GetPoiCardViewPreview() {
                 lon = 127.0,
             ),
             false,
-            onTripCardClick = {}
+            onTripCardClick = {},
         )
     }
 }
