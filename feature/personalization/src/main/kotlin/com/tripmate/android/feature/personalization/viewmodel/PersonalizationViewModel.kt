@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.personalization.viewmodel
 
+import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.core.common.UiText
@@ -47,6 +48,8 @@ class PersonalizationViewModel @Inject constructor(
             is PersonalizationUiAction.OnClearIconClicked -> clearText()
             is PersonalizationUiAction.OnUnderAgeDialogConfirmClick -> finish()
             is PersonalizationUiAction.OnSelectClick -> navigateToNextScreen(action.screenType)
+            is PersonalizationUiAction.OnShareMyTripStyle -> shareMyTripStyle(action.image)
+            is PersonalizationUiAction.OnShareMyTripStyleClicked -> setMyTripStyleShare(action.isShared)
         }
     }
 
@@ -217,6 +220,19 @@ class PersonalizationViewModel @Inject constructor(
         viewModelScope.launch {
             personalizationRepository.completePersonalization(flag = true)
             navigateToMain()
+        }
+    }
+
+    private fun shareMyTripStyle(image: Bitmap) {
+        viewModelScope.launch {
+            setMyTripStyleShare(false)
+            _uiEvent.send(PersonalizationUiEvent.ShareMyTripStyle(image))
+        }
+    }
+
+    private fun setMyTripStyleShare(isShared: Boolean) {
+        _uiState.update {
+            it.copy(isMyTripStyleShared = isShared)
         }
     }
 }

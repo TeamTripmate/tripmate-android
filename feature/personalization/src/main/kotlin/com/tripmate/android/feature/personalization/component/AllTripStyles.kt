@@ -82,6 +82,7 @@ fun TripStyleItem(
     Box(
         modifier = Modifier
             .width(100.dp)
+            .height(160.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(if (isSelected) Background03 else Background02)
             .border(
