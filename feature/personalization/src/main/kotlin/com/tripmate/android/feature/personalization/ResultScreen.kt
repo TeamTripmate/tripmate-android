@@ -121,7 +121,9 @@ internal fun ResultScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 TripmateOutlinedButton(
-                    onClick = {},
+                    onClick = {
+                        onAction(PersonalizationUiAction.OnShareMyTripStyleClicked(true))
+                    },
                     containerColor = Background02,
                     modifier = Modifier
                         .fillMaxWidth()

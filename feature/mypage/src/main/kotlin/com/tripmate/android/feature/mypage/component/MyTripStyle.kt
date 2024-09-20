@@ -1,6 +1,5 @@
 package com.tripmate.android.feature.mypage.component
 
-import android.graphics.Bitmap
 import android.graphics.Picture
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.tripmate.android.core.common.utils.createBitmapFromPicture
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray002
@@ -40,7 +40,6 @@ import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.feature.mypage.R
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
-import timber.log.Timber
 import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
@@ -73,7 +72,7 @@ fun MyTripStyle(
 
     LaunchedEffect(isShared) {
         if (isShared) {
-            val bitmap = createBitmapFromPicture(picture)
+            val bitmap = createBitmapFromPicture(picture, gradientColors, gradientStops, heightPx)
             if (bitmap != null) {
                 onAction(MyPageUiAction.OnShareMyTripStyle(bitmap))
             }
@@ -167,23 +166,6 @@ fun MyTripStyle(
 @Composable
 private fun MyTripStylePreview() {
     TripmateTheme {
-        val configuration = LocalConfiguration.current
-        val density = LocalDensity.current
-
-        val screenWidthDp = configuration.screenWidthDp.dp
-        val screenWidthPx = with(density) { screenWidthDp.toPx() }
-        val heightPx = with(density) { 438.dp.toPx() }
-
-        val gradient = Brush.linearGradient(
-            colorStops = arrayOf(
-                0.0f to Color(0xFF9ABCFF),
-                0.80f to Color(0xFFC4D8FF),
-                1.0f to Color(0xFFFFFFFF),
-            ),
-            start = Offset(screenWidthPx / 2, 0f),
-            end = Offset(screenWidthPx / 2, heightPx),
-        )
-
         MyTripStyle(
             characterName = "인스타 인생 맛집\n탐험러 펭귄",
             characterImageRes = designSystemR.drawable.img_character_01,
@@ -191,7 +173,6 @@ private fun MyTripStylePreview() {
                 "\n 혼자보다는 집단과 함께 있는 것을 더 편안해하고, 사회적 상호작용보다 자신의 역할에 집중합니다. 매우 세부적으로 계획을 세우고 조직적인 행동을 하는 유형이에요",
             tripStyleIntro = "펭귄은 여행을 떠나기 전에 철저한 계획을 세우는 것을 좋아해요. 여행의 주요 목적지와 일정, 활동을 미리 정해두고, 예상 가능한 상황에 대비해 준비를 철저히 할 때 안정감을 느끼며 편안하게 여행을 즐긴답니다.\n펭귄은 집단 내에서 협력하여 활동하는 것을 좋아하는데요. 여행 중에도 동행자와 함께 계획을 공유하고, 서로의 역할을 명확히 하여 협력적으로 움직이는 것을 선호하죠.",
             isShared = false,
-            gradient = gradient,
             onAction = {},
         )
     }
