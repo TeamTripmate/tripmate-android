@@ -108,23 +108,23 @@ fun TripStatusCard(pagerState: PagerState) {
             Spacer(modifier = Modifier.height(16.dp))
             TripProgressBar()
             Spacer(modifier = Modifier.height(16.dp))
-            Row(
-                Modifier
-                    .height(8.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-            ) {
-                repeat(pagerState.pageCount) { iteration ->
-                    val color = if (pagerState.currentPage == iteration) Primary01 else Gray006
-                    Box(
-                        modifier = Modifier
-                            .padding(2.dp)
-                            .clip(CircleShape)
-                            .background(color)
-                            .size(8.dp),
-                    )
-                }
-            }
+//            Row(
+//                Modifier
+//                    .height(8.dp)
+//                    .fillMaxWidth(),
+//                horizontalArrangement = Arrangement.Center,
+//            ) {
+//                repeat(pagerState.pageCount) { iteration ->
+//                    val color = if (pagerState.currentPage == iteration) Primary01 else Gray006
+//                    Box(
+//                        modifier = Modifier
+//                            .padding(2.dp)
+//                            .clip(CircleShape)
+//                            .background(color)
+//                            .size(8.dp),
+//                    )
+//                }
+//            }
         }
     }
 }

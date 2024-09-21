@@ -82,7 +82,7 @@ fun MateListScreen(
             style = Small14_Reg,
         )
         Spacer(modifier = Modifier.height(32.dp))
-        LazyColumn {
+        LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
             itemsIndexed(
                 items = uiState.ticket,
                 key = { _, ticket -> ticket.ticketId },

@@ -11,6 +11,32 @@ data class TripListUiState(
     val healingSelectedChips: ImmutableList<String> = persistentListOf("전체"),
     val tripList : ImmutableList<String> = persistentListOf(),
     val characterImgUrl: String = "https://picsum.photos/48",
-    val ticket: ImmutableList<TicketEntity> = persistentListOf(),
-    val isTicketClicked: ImmutableList<Boolean> = persistentListOf(),
+    val ticket: ImmutableList<TicketEntity> =
+        persistentListOf(
+            TicketEntity(
+                characterName = "이름",
+                hashtag1 = "해시태그1",
+                hashtag2 = "해시태그2",
+                hashtag3 = "해시태그3",
+                characterImgUrl = "https://picsum.photos/48",
+                ticketId = 0,
+            ),
+            TicketEntity(
+                characterName = "이름",
+                hashtag1 = "해시태그1",
+                hashtag2 = "해시태그2",
+                hashtag3 = "해시태그3",
+                characterImgUrl = "https://picsum.photos/48",
+                ticketId = 1,
+            ),
+            TicketEntity(
+                characterName = "이름",
+                hashtag1 = "해시태그1",
+                hashtag2 = "해시태그2",
+                hashtag3 = "해시태그3",
+                characterImgUrl = "https://picsum.photos/48",
+                ticketId = 2,
+            ),
+        ),
+    val isTicketClicked: ImmutableList<Boolean> = persistentListOf(false, true, false),
 )
