@@ -3,6 +3,7 @@ package com.tripmate.android.feature.trip_list.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +27,7 @@ class TripListViewModel @Inject constructor(
         when (action) {
             is TripListUiAction.OnBackClicked -> navigateBack()
             is TripListUiAction.OnTabChanged -> updateSelectedTab(action.index)
-
+            is TripListUiAction.OnTicketClicked -> ticketClicked(action.ticketId)
         }
     }
 
@@ -38,6 +39,10 @@ class TripListViewModel @Inject constructor(
 
     private fun updateSelectedTab(tab: Int) {
         _uiState.update { it.copy(selectedTabIndex = tab) }
+    }
+
+    private fun ticketClicked(ticketId: Int) {
+        _uiState.update { it.copy(isTicketClicked = it.isTicketClicked.mapIndexed { index, _ -> index == ticketId }.toImmutableList()) }
     }
 
 
