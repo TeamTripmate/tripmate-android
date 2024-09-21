@@ -12,4 +12,7 @@ data class TripDetailMateRecruitEntity(
     val mateStyleType: List<String> = emptyList(),
     val mateRecruitTitle: String = "",
     val mateRecruitDescription: String = "",
+    val mateRecruitSubDescription: String = "",
+    val mateRecruitAddress: String = "",
+    val mateRecruitDate: String = "",
 )

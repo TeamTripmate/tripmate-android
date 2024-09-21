@@ -20,7 +20,7 @@ dependencies {
         projects.feature.mateReview,
         projects.feature.tripdetail,
         projects.feature.tripList,
-
+        projects.feature.mateRecruitPost,
         projects.feature.map,
         libs.androidx.activity.compose,
         libs.kotlinx.collections.immutable,

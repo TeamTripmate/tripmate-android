@@ -46,6 +46,7 @@ internal fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: () -> Unit,
+    navigateToMateReviewPost: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     HomeScreen(
@@ -55,6 +56,7 @@ internal fun HomeRoute(
         onAction = viewModel::onAction,
         navigateToMateReview = navigateToMateReview,
         navigateToTripDetail = navigateToTripDetail,
+        navigateToMateReviewPost = navigateToMateReviewPost,
     )
 }
 
@@ -68,6 +70,7 @@ internal fun HomeScreen(
     onAction: (HomeUiAction) -> Unit,
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: () -> Unit,
+    navigateToMateReviewPost: () -> Unit,
 ) {
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -183,6 +186,7 @@ internal fun HomeScreenPreview() {
             onAction = {},
             navigateToMateReview = {},
             navigateToTripDetail = {},
+            navigateToMateReviewPost = {},
         )
     }
 }
