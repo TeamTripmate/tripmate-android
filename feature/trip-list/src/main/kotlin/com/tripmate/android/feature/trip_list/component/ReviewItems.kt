@@ -24,6 +24,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tripmate.android.core.designsystem.ComponentPreview
+import com.tripmate.android.core.designsystem.theme.TripmateTheme
 
 
 @Composable
@@ -104,5 +106,18 @@ fun ReviewItems(
                 }
             }
         }
+    }
+}
+
+@ComponentPreview
+@Composable
+fun ReviewItemsPreview() {
+    TripmateTheme {
+        ReviewItems(
+            title = "서피비치에서 식사해요",
+            date = "2024.08.24(일) 11:00 AM",
+            isReviewPeriodOver = false,
+            onReviewClick = { /* 클릭 처리 */ },
+        )
     }
 }
