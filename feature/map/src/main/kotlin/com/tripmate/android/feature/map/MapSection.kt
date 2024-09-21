@@ -20,7 +20,7 @@ fun MapSection(
     modifier: Modifier = Modifier,
     toggleBars: () -> Unit = {},
     cameraPositionState: CameraPositionState,
-    simpleList: List<MarkerInfo>,
+    markerInfoList: List<MarkerInfo>,
     markerClickAction: (Label) -> Unit = {},
 ) {
     val density = LocalDensity.current
@@ -49,7 +49,7 @@ fun MapSection(
         cameraPositionState = cameraPositionState,
     ) {
         if (isMapReady) {
-            MapControlObject(simpleList, markerClickAction)
+            MapControlObject(markerInfoList, markerClickAction)
         }
     }
 }

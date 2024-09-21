@@ -136,7 +136,7 @@ fun TripDetailLocation(
     ) {
         MapSection(
             cameraPositionState = cameraPositionState,
-            simpleList = emptyList(),
+            markerInfoList = emptyList(),
         )
     }
 

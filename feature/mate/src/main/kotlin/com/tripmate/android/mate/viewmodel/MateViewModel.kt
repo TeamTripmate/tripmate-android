@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.kakao.vectormap.LatLng
-import com.tripmate.android.domain.entity.POISimpleListEntity
+import com.tripmate.android.domain.entity.SpotEntity
 import com.tripmate.android.domain.repository.MapRepository
 import com.tripmate.android.feature.map.extension.cameraPosition
 import com.tripmate.android.feature.map.state.CameraPositionDefaults
@@ -44,7 +44,7 @@ class MateViewModel @Inject constructor(
 
     fun onAction(action: MateUiAction) {
         when (action) {
-            is MateUiAction.OnMapCategorySelected -> setMapCategoryType(action.categoryType)
+            is MateUiAction.OnMapCategorySelected -> getNearbyTouristSpots(action.categoryType)
             is MateUiAction.OnShowListClicked -> setShowListClicked(action.isShowing)
             is MateUiAction.OnCurrentLocationClicked -> setCurrentLocation()
             is MateUiAction.OnSearchingListClicked -> setSearchingList(action.isShowing)
@@ -53,13 +53,28 @@ class MateViewModel @Inject constructor(
         }
     }
 
-    private fun setMapCategoryType(categoryType: CategoryType) {
-        _uiState.update {
-            it.copy(
-                categoryType = categoryType,
-                simpleList = it.getTestList(categoryType),
-                selectPoiItem = it.getTestList(categoryType).first(),
-            )
+    private fun getNearbyTouristSpots(categoryType: CategoryType) {
+        _currentLocation.value?.let {
+            val latitude = it.latitude
+            val longitude = it.longitude
+            viewModelScope.launch {
+                mapRepository.getNearbyTouristSpots(
+                    latitude = latitude.toString(),
+                    longitude = longitude.toString(),
+                    range = "10000",
+                    category = "EXPERIENCE"
+                )
+                    .onSuccess { spots ->
+                        _uiState.update {
+                            it.copy(
+                                categoryType = categoryType,
+                                spotList = spots,
+                                selectPoiItem = spots.first(),
+                            )
+                        }
+                    }
+                    .onFailure { }
+            }
         }
     }
 
@@ -82,7 +97,7 @@ class MateViewModel @Inject constructor(
     private fun setSearchingList(isShowing: Boolean) {
         _uiState.update { uiState ->
             uiState.copy(
-                simpleList = if (isShowing) uiState.simpleList.filter { it.isSearching } else uiState.simpleList,
+                spotList = if (isShowing) uiState.spotList.filter { it.isSearching } else uiState.spotList,
             )
         }
     }
@@ -126,13 +141,13 @@ class MateViewModel @Inject constructor(
         cameraPositionState.position = cameraPosition
     }
 
-    fun movePoiLocation(cameraPositionState: CameraPositionState, selectPoiItem: POISimpleListEntity) {
+    fun movePoiLocation(cameraPositionState: CameraPositionState, selectPoiItem: SpotEntity) {
         val cameraPosition = selectPoiItem.let {
             cameraPosition {
                 setPosition(
                     LatLng.from(
-                        it.lat,
-                        it.lon,
+                        it.latitude,
+                        it.longitude,
                     ),
                 )
             }
@@ -140,7 +155,7 @@ class MateViewModel @Inject constructor(
         cameraPositionState.position = cameraPosition
     }
 
-    private fun getMarkerInfo(markerID: Int): POISimpleListEntity? {
-        return uiState.value.simpleList.find { it.poiId == markerID }
+    private fun getMarkerInfo(markerID: Int): SpotEntity? {
+        return uiState.value.spotList.find { it.id == markerID }
     }
 }
