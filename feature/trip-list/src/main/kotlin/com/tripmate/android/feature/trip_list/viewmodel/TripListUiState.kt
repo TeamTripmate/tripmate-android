@@ -9,7 +9,7 @@ data class TripListUiState(
     val selectedTabIndex: Int = 0,
     val activitySelectedChips: ImmutableList<String> = persistentListOf("전체"),
     val healingSelectedChips: ImmutableList<String> = persistentListOf("전체"),
-    val tripList : ImmutableList<String> = persistentListOf(),
+    val tripList: ImmutableList<String> = persistentListOf(),
     val characterImgUrl: String = "https://picsum.photos/48",
     val ticket: ImmutableList<TicketEntity> =
         persistentListOf(

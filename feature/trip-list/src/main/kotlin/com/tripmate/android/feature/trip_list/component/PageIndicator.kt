@@ -18,8 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Gray006
-import com.tripmate.android.core.designsystem.theme.Primary01
-import dagger.Component
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

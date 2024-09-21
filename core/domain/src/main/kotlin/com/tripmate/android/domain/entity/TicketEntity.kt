@@ -9,5 +9,5 @@ data class TicketEntity(
     val hashtag2: String,
     val hashtag3: String,
     val characterImgUrl: String,
-    val ticketId : Int,
+    val ticketId: Int,
 )

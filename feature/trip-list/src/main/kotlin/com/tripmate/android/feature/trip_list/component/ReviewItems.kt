@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.sp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 
-
 @Composable
 fun ReviewItems(
     title: String,

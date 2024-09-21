@@ -33,12 +33,9 @@ internal class MateSelectPreviewParameterProvider : PreviewParameterProvider<Tri
                     hashtag3 = "쇼핑마니아",
                     characterImgUrl = "https://picsum.photos/48",
                     ticketId = 3,
+                ),
             ),
-
-            ),
-            isTicketClicked = listOf(false, true, false).toImmutableList()
-
-        )
+            isTicketClicked = listOf(false, true, false).toImmutableList(),
+        ),
     )
-
 }

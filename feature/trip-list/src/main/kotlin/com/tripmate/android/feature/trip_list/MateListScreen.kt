@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
@@ -33,7 +32,6 @@ import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.trip_list.component.Ticket
 import com.tripmate.android.feature.trip_list.preview.MateSelectPreviewParameterProvider
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
-import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
 
@@ -93,7 +91,7 @@ fun MateListScreen(
                         ticket = ticket,
                         ticketIndex = ticketIndex,
                         isTicketClicked = uiState.isTicketClicked[ticketIndex],
-                        onAction = onAction
+                        onAction = onAction,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                 }
@@ -117,7 +115,6 @@ fun MateListScreen(
     }
 }
 
-
 @DevicePreview
 @Composable
 private fun MateListScreenPreview(
@@ -132,4 +129,3 @@ private fun MateListScreenPreview(
         )
     }
 }
-

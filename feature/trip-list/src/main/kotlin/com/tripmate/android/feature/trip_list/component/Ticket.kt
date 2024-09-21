@@ -35,6 +35,7 @@ import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.domain.entity.TicketEntity
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
 
+@Suppress("UnusedParameter")
 @Composable
 internal fun Ticket(
     ticket: TicketEntity,
@@ -53,7 +54,7 @@ internal fun Ticket(
     // isTicketClicked 값에 따른 border 색상과 content 색상 정의
     val borderColor = if (isTicketClicked) Color(0xFF205EFF) else Color(0xFFE1E3E5)
     val backgroundColor = if (isTicketClicked) Color(0xFFE9F1FD) else Color.White
-    val shadowElevation = if (isTicketClicked) 8.dp else 0.dp  // 클릭 여부에 따른 그림자
+    val shadowElevation = if (isTicketClicked) 8.dp else 0.dp // 클릭 여부에 따른 그림자
 
     Box(
         modifier = modifier
@@ -62,7 +63,7 @@ internal fun Ticket(
             .shadow(shadowElevation, ticketShape)
             .clip(ticketShape)
             .background(backgroundColor)
-            .border(2.dp, borderColor, ticketShape)
+            .border(2.dp, borderColor, ticketShape),
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -108,6 +109,7 @@ internal fun Ticket(
     }
 }
 
+@Suppress("UnusedParameter")
 @Composable
 fun TicketType(
     text: String,

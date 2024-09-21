@@ -1,22 +1,29 @@
 package com.tripmate.android.feature.trip_list.component
 
-import androidx.compose.ui.geometry.*
-import androidx.compose.ui.graphics.*
-import androidx.compose.ui.unit.*
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.RoundRect
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.PathOperation
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.LayoutDirection
 
 class TicketShape(private val holeRadius: Float, private val cornerRadius: Float) : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
-        density: Density
+        density: Density,
     ): Outline {
         // Create a rounded rectangle for the ticket's body
         val ticketPath = Path().apply {
             addRoundRect(
                 RoundRect(
                     rect = Rect(0f, 0f, size.width, size.height),
-                    cornerRadius = CornerRadius(cornerRadius, cornerRadius)
-                )
+                    cornerRadius = CornerRadius(cornerRadius, cornerRadius),
+                ),
             )
         }
 
@@ -27,8 +34,8 @@ class TicketShape(private val holeRadius: Float, private val cornerRadius: Float
                     left = -holeRadius,
                     top = size.height / 2 - holeRadius,
                     right = holeRadius,
-                    bottom = size.height / 2 + holeRadius
-                )
+                    bottom = size.height / 2 + holeRadius,
+                ),
             )
         }
 
@@ -39,8 +46,8 @@ class TicketShape(private val holeRadius: Float, private val cornerRadius: Float
                     left = size.width - holeRadius,
                     top = size.height / 2 - holeRadius,
                     right = size.width + holeRadius,
-                    bottom = size.height / 2 + holeRadius
-                )
+                    bottom = size.height / 2 + holeRadius,
+                ),
             )
         }
 
@@ -48,13 +55,13 @@ class TicketShape(private val holeRadius: Float, private val cornerRadius: Float
         val ticketWithoutLeftHole = Path.combine(
             PathOperation.Difference,
             ticketPath,
-            leftHolePath
+            leftHolePath,
         )
 
         val finalTicketPath = Path.combine(
             PathOperation.Difference,
             ticketWithoutLeftHole,
-            rightHolePath
+            rightHolePath,
         )
 
         return Outline.Generic(finalTicketPath)

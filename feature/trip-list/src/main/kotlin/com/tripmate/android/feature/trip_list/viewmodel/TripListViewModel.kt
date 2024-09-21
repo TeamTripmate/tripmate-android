@@ -15,8 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TripListViewModel @Inject constructor(
-) : ViewModel() {
+class TripListViewModel @Inject constructor() : ViewModel() {
     private val _uiState = MutableStateFlow(TripListUiState())
     val uiState: StateFlow<TripListUiState> = _uiState.asStateFlow()
 
@@ -28,7 +27,7 @@ class TripListViewModel @Inject constructor(
             is TripListUiAction.OnBackClicked -> navigateBack()
             is TripListUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is TripListUiAction.OnTicketClicked -> ticketClicked(action.ticketId)
-            is TripListUiAction.OnClickViewMateList -> navigateToMateList()//todo:로직추가
+            is TripListUiAction.OnClickViewMateList -> navigateToMateList() // todo:로직추가
         }
     }
 
@@ -46,7 +45,7 @@ class TripListViewModel @Inject constructor(
         _uiState.update {
             it.copy(
                 isTicketClicked = it.isTicketClicked.mapIndexed
-                { index, _ -> index == ticketId }.toImmutableList(),
+                    { index, _ -> index == ticketId }.toImmutableList(),
             )
         }
     }
@@ -56,6 +55,4 @@ class TripListViewModel @Inject constructor(
             _uiEvent.send(TripListUiEvent.NavigateToMateList)
         }
     }
-
-
 }
