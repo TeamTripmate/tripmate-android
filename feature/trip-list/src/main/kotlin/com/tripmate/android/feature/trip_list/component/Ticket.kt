@@ -1,6 +1,5 @@
 package com.tripmate.android.feature.trip_list.component
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -11,33 +10,23 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.drawscope.Fill
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
-import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray003
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
@@ -74,14 +63,12 @@ internal fun Ticket(
             .clip(ticketShape)
             .background(backgroundColor)
             .border(2.dp, borderColor, ticketShape)
-            .padding(16.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Spacer(modifier = Modifier.width(holeRadius))
-            Spacer(modifier = Modifier.width(14.dp))
+            Spacer(modifier = Modifier.width(30.dp))
             Column {
                 Text(
                     text = "펭귄",
@@ -139,36 +126,6 @@ fun TicketType(
             fontSize = 10.sp,
             color = Gray003,
         )
-    }
-}
-
-@Composable
-fun TicketHole(
-    modifier: Modifier = Modifier,
-    backgroundColor: Color,
-    isStart: Boolean,
-) {
-    Canvas(modifier = modifier.size(width = 17.dp, height = 34.dp)) {
-        val path = Path().apply {
-            if (isStart) {
-                // 오른쪽 반원
-                arcTo(
-                    rect = Rect(left = 0f, top = 0f, right = size.width * 2, bottom = size.height),
-                    startAngleDegrees = -90f,
-                    sweepAngleDegrees = 180f,
-                    forceMoveTo = false,
-                )
-            } else {
-                // 왼쪽 반원
-                arcTo(
-                    rect = Rect(left = -size.width, top = 0f, right = size.width, bottom = size.height),
-                    startAngleDegrees = 90f,
-                    sweepAngleDegrees = 180f,
-                    forceMoveTo = false,
-                )
-            }
-        }
-        drawPath(path = path, color = backgroundColor, style = Fill)
     }
 }
 
