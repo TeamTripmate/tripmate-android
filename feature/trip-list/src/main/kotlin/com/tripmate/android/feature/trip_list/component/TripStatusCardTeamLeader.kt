@@ -53,12 +53,16 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Small14_Med
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
 import com.tripmate.android.feature.triplist.R
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TripStatusCardTeamLeader(pagerState: PagerState) {
+fun TripStatusCardTeamLeader(
+    pagerState: PagerState,
+    onAction: (TripListUiAction) -> Unit = {},
+) {
     // 드롭다운 메뉴 상태
     var expanded by remember { mutableStateOf(false) }
     var selectedOption by remember { mutableStateOf("신청한 동행") } // 기본 선택값
@@ -144,7 +148,7 @@ fun TripStatusCardTeamLeader(pagerState: PagerState) {
             }
             Spacer(modifier = Modifier.height(16.dp))
             TripmateButton(
-                onClick = { },
+                onClick = { onAction(TripListUiAction.OnClickViewMateList) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)

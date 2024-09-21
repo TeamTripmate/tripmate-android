@@ -12,11 +12,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
@@ -29,8 +33,23 @@ import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.trip_list.component.Ticket
 import com.tripmate.android.feature.trip_list.preview.MateSelectPreviewParameterProvider
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
+import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
+import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
 
+@Composable
+internal fun MateListRoute(
+    innerPadding: PaddingValues,
+    viewModel: TripListViewModel = hiltViewModel(),
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    MateListScreen(
+        uiState = uiState,
+        innerPadding = innerPadding,
+        onAction = viewModel::onAction,
+    )
+}
 
 @Composable
 fun MateListScreen(

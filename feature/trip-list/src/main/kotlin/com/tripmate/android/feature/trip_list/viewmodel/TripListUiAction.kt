@@ -4,4 +4,5 @@ sealed interface TripListUiAction {
     data object OnBackClicked : TripListUiAction
     data class OnTabChanged(val index: Int) : TripListUiAction
     data class OnTicketClicked(val ticketId: Int) : TripListUiAction
+    data object OnClickViewMateList : TripListUiAction
 }

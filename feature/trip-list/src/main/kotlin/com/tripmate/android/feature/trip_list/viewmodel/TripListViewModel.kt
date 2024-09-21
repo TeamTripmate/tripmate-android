@@ -28,6 +28,7 @@ class TripListViewModel @Inject constructor(
             is TripListUiAction.OnBackClicked -> navigateBack()
             is TripListUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is TripListUiAction.OnTicketClicked -> ticketClicked(action.ticketId)
+            is TripListUiAction.OnClickViewMateList -> navigateToMateList()//todo:로직추가
         }
     }
 
@@ -42,7 +43,18 @@ class TripListViewModel @Inject constructor(
     }
 
     private fun ticketClicked(ticketId: Int) {
-        _uiState.update { it.copy(isTicketClicked = it.isTicketClicked.mapIndexed { index, _ -> index == ticketId }.toImmutableList()) }
+        _uiState.update {
+            it.copy(
+                isTicketClicked = it.isTicketClicked.mapIndexed
+                { index, _ -> index == ticketId }.toImmutableList(),
+            )
+        }
+    }
+
+    private fun navigateToMateList() {
+        viewModelScope.launch {
+            _uiEvent.send(TripListUiEvent.NavigateToMateList)
+        }
     }
 
 

@@ -48,9 +48,19 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun TripListRoute(
     innerPadding: PaddingValues,
+    navigateToMateList: () -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    ObserveAsEvents(flow = viewModel.uiEvent) { event ->
+        when (event) {
+            is TripListUiEvent.NavigateToMateList -> navigateToMateList()
+            else -> {}
+        }
+    }
+
+
     TripListScreen(
         uiState = uiState,
         innerPadding = innerPadding,
