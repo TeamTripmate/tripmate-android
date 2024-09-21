@@ -1,11 +1,14 @@
 package com.tripmate.android.feature.mypage.viewmodel
 
+import android.graphics.Bitmap
 import com.tripmate.android.domain.entity.WithdrawReasonEntity
 
 sealed interface MyPageUiAction {
     data object OnBackClicked : MyPageUiAction
     data class OnTicketClicked(val characterId: Long) : MyPageUiAction
     data object OnCharacterTypeReselectClicked : MyPageUiAction
+    data class OnShareMyTripStyle(val image: Bitmap) : MyPageUiAction
+    data class OnShareMyTripStyleClicked(val isShared: Boolean) : MyPageUiAction
     data object OnMyPickClicked : MyPageUiAction
     data class OnTabChanged(val index: Int) : MyPageUiAction
     data class OnWithdrawReasonSelected(val withdrawReason: WithdrawReasonEntity) : MyPageUiAction

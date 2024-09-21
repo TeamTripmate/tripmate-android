@@ -49,6 +49,7 @@ class MateViewModel @Inject constructor(
             is MateUiAction.OnCurrentLocationClicked -> setCurrentLocation()
             is MateUiAction.OnSearchingListClicked -> setSearchingList(action.isShowing)
             is MateUiAction.OnMarkerClicked -> setSelectPoi(action.poiId)
+            is MateUiAction.OnTripCardClicked -> navigateToTripDetail()
         }
     }
 
@@ -69,6 +70,12 @@ class MateViewModel @Inject constructor(
     private fun setCurrentLocation() {
         viewModelScope.launch {
             _uiEvent.send(MateUiEvent.ClickCurrentLocation)
+        }
+    }
+
+    private fun navigateToTripDetail() {
+        viewModelScope.launch {
+            _uiEvent.send(MateUiEvent.NavigateToTripDetail)
         }
     }
 

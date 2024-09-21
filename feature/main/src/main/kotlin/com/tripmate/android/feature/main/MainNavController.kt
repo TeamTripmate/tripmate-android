@@ -12,6 +12,7 @@ import com.tripmate.android.feature.detailtrip.navigation.navigateToTripDetail
 import com.tripmate.android.feature.home.navigation.HOME_ROUTE
 import com.tripmate.android.feature.home.navigation.navigateToHome
 import com.tripmate.android.feature.mate_recruit.navigation.navigateToMateRecruit
+import com.tripmate.android.feature.mate_recruit_post.navigation.navigateToMateRecruitPost
 import com.tripmate.android.feature.mypage.navigation.navigateToMyPage
 import com.tripmate.android.feature.mypage.navigation.navigateToMyPick
 import com.tripmate.android.feature.mypage.navigation.navigateToMyTripCharacterInfo
@@ -61,6 +62,10 @@ internal class MainNavController(
 
     fun navigateToTripDetail() {
         navController.navigateToTripDetail()
+    }
+
+    fun navigateToMateReviewPost() {
+        navController.navigateToMateRecruitPost()
     }
 
     fun navigateToMyTripCharacterInfo(characterId: Long) {

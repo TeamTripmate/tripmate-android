@@ -86,6 +86,7 @@ import kotlinx.coroutines.launch
 fun MateRoute(
     innerPadding: PaddingValues,
     viewModel: MateViewModel = hiltViewModel(),
+    navigateToTripDetail: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -97,6 +98,10 @@ fun MateRoute(
         when (event) {
             is MateUiEvent.ClickCurrentLocation -> {
                 viewModel.moveCurrentLocation(cameraPositionState)
+            }
+
+            is MateUiEvent.NavigateToTripDetail -> {
+                navigateToTripDetail()
             }
         }
     }
@@ -194,9 +199,8 @@ fun MateScreen(
                         ViewPagerScreen(
                             uiState = uiState,
                             listItem = uiState.simpleList,
-                        ) {
-                            onAction(MateUiAction.OnMarkerClicked(it))
-                        }
+                            onAction = onAction,
+                        )
                     }
                 } else {
                     Column(
@@ -326,7 +330,9 @@ fun ShowPoiListView(
                     .padding(top = 10.dp),
             ) {
                 items(listItem) { item ->
-                    GetPoiCardView(item, true)
+                    GetPoiCardView(item, true) {
+                        onAction(MateUiAction.OnTripCardClicked)
+                    }
                 }
             }
         }
@@ -442,6 +448,7 @@ fun ViewPagerScreen(
     uiState: MateUiState,
     listItem: List<POISimpleListEntity>,
     viewPagerScrollAction: (Int) -> Unit = {},
+    onAction: (MateUiAction) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -462,25 +469,27 @@ fun ViewPagerScreen(
     }
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        CustomViewPager(pagerState = pagerState, listItem)
+        CustomViewPager(pagerState = pagerState, listItem, onAction)
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CustomViewPager(pagerState: PagerState, listItem: List<POISimpleListEntity>) {
+fun CustomViewPager(pagerState: PagerState, listItem: List<POISimpleListEntity>, onAction: (MateUiAction) -> Unit) {
     HorizontalPager(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         state = pagerState,
     ) {
         val item = listItem[pagerState.currentPage]
-        GetPoiCardView(item, false)
+        GetPoiCardView(item, false) {
+            onAction(MateUiAction.OnTripCardClicked)
+        }
     }
 }
 
 @Composable
-fun GetPoiCardView(item: POISimpleListEntity, isListView: Boolean) {
+fun GetPoiCardView(item: POISimpleListEntity, isListView: Boolean, onTripCardClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -491,7 +500,10 @@ fun GetPoiCardView(item: POISimpleListEntity, isListView: Boolean) {
                 width = 1.dp,
                 color = Gray009,
                 shape = RoundedCornerShape(12.dp),
-            ),
+            )
+            .clickable {
+                onTripCardClick()
+            },
     ) {
         Column(
             modifier = Modifier
@@ -705,6 +717,7 @@ fun GetPoiCardViewPreview() {
                 lon = 127.0,
             ),
             false,
+            onTripCardClick = {},
         )
     }
 }

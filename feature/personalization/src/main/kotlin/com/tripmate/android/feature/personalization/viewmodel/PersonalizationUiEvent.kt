@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.personalization.viewmodel
 
+import android.graphics.Bitmap
 import com.tripmate.android.core.common.UiText
 
 sealed interface PersonalizationUiEvent {
@@ -10,6 +11,7 @@ sealed interface PersonalizationUiEvent {
     data object NavigateToUserInfo : PersonalizationUiEvent
     data object NavigateToResult : PersonalizationUiEvent
     data object NavigateToMain : PersonalizationUiEvent
+    data class ShareMyTripStyle(val image: Bitmap) : PersonalizationUiEvent
     data class ShowToast(val message: UiText) : PersonalizationUiEvent
     data object Finish : PersonalizationUiEvent
 }

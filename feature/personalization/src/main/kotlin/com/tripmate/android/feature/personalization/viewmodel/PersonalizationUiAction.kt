@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.personalization.viewmodel
 
+import android.graphics.Bitmap
 import com.tripmate.android.domain.entity.TripStyleEntity
 
 sealed interface PersonalizationUiAction {
@@ -11,6 +12,8 @@ sealed interface PersonalizationUiAction {
     data object OnClearIconClicked : PersonalizationUiAction
     data object OnUnderAgeDialogConfirmClick : PersonalizationUiAction
     data class OnSelectClick(val screenType: ScreenType) : PersonalizationUiAction
+    data class OnShareMyTripStyle(val image: Bitmap) : PersonalizationUiAction
+    data class OnShareMyTripStyleClicked(val isShared: Boolean) : PersonalizationUiAction
 }
 
 enum class ScreenType {
