@@ -55,9 +55,6 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TripStatusCard(pagerState: PagerState) {
-    // 드롭다운 메뉴 상태
-    var expanded by remember { mutableStateOf(false) }
-    var selectedOption by remember { mutableStateOf("신청한 동행") } // 기본 선택값
 
     Card(
         modifier = Modifier
@@ -75,42 +72,7 @@ fun TripStatusCard(pagerState: PagerState) {
                 .fillMaxWidth()
                 .padding(16.dp),
         ) {
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.TopEnd,
-            ) {
-                TextButton(
-                    onClick = { expanded = !expanded },
-                ) {
-                    Text(
-                        text = selectedOption,
-                        color = Gray003,
-                        style = Small14_Med,
-                    )
-                    Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null, tint = Gray003)
-                }
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false },
-                ) {
-                    DropdownMenuItem(
-                        text = { Text("신청한 동행") },
-                        onClick = {
-                            expanded = false
-                            selectedOption = "신청한 동행"
-                            // onAction(TripListUiAction.OnRequestFilterChanged("신청한 동행"))
-                        },
-                    )
-                    DropdownMenuItem(
-                        text = { Text("작성한 동행") },
-                        onClick = {
-                            expanded = false
-                            selectedOption = "작성한 동행"
-                            // onAction(TripListUiAction.OnRequestFilterChanged("작성한 동행"))
-                        },
-                    )
-                }
-            }
+            Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = buildAnnotatedString {
                     append("동행 하루전")

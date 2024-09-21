@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.trip_list
 
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray006
@@ -36,7 +38,9 @@ import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.feature.trip_list.component.ReviewItems
 import com.tripmate.android.feature.trip_list.component.TripStatusCard
+import com.tripmate.android.feature.trip_list.component.TripStatusCardTeamLeader
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
+import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
 import kotlinx.coroutines.launch
@@ -66,6 +70,10 @@ internal fun TripListScreen(
         initialPage = 0,
         pageCount = { uiState.tabs.size },
     )
+    val horizontalPagerState = rememberPagerState(
+        initialPage = 0,
+        pageCount = { 3 },  // 예를 들어 3개의 페이지가 있다고 가정
+    )
     val scope = rememberCoroutineScope()
 
     // 탭 변경 시 호출되는 이벤트 처리
@@ -82,7 +90,8 @@ internal fun TripListScreen(
         // 상단 탭바
         TabRow(
             selectedTabIndex = pagerState.currentPage,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             indicator = { tabPositions ->
                 SecondaryIndicator(
@@ -112,12 +121,24 @@ internal fun TripListScreen(
             }
         }
 
-
-        HorizontalPager(
-            state = pagerState,
-            modifier = Modifier.fillMaxWidth()
-        ) { page ->
-            TripStatusCard(pagerState = pagerState)
+        // 탭에 따라 다른 HorizontalPager 표시
+        if (pagerState.currentPage == 0) {
+            HorizontalPager(
+                state = horizontalPagerState,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                TripStatusCard(pagerState = pagerState)
+            }
+        } else if (pagerState.currentPage == 1) {
+            HorizontalPager(
+                state = horizontalPagerState,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                TripStatusCardTeamLeader(
+                    pagerState = pagerState,
+                    onAction = onAction,
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
