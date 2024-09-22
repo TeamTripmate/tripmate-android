@@ -54,8 +54,6 @@ import com.tripmate.android.feature.trip_list.navigation.mateListNavGraph
 import com.tripmate.android.feature.trip_list.navigation.tripListNavGraph
 import com.tripmate.android.mate.navigation.mateNavGraph
 import com.tripmate.android.mate_review.navigation.mateReviewNavGraph
-import com.tripmate.android.notification.navigation.notificationNavGraph
-import com.tripmate.android.writing.navigation.writingNavGraph
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
@@ -96,12 +94,6 @@ internal fun MainScreen(
                 padding = innerPadding,
                 navigateToTripDetail = navController::navigateToTripDetail,
 //                popBackStack = navigator::popBackStackIfNotHome,
-            )
-            writingNavGraph(
-                padding = innerPadding,
-            )
-            notificationNavGraph(
-                padding = innerPadding,
             )
             myPageNavGraph(
                 padding = innerPadding,

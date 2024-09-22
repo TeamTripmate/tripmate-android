@@ -45,9 +45,7 @@ include(
     ":feature:splash",
     ":feature:personalization",
     ":feature:map",
-    ":feature:notification",
     ":feature:mate",
-    ":feature:writing",
     ":feature:tripdetail",
     ":feature:trip-list",
 )
