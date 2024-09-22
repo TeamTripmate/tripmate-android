@@ -40,9 +40,12 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 @OptIn(ExperimentalFoundationApi::class)
 @Suppress("UnusedParameter")
 @Composable
-fun TripStatusCard(pagerState: PagerState) {
+fun TripStatusCard(
+    pagerState: PagerState,
+    modifier: Modifier = Modifier,
+) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .shadow(
                 elevation = 8.dp,

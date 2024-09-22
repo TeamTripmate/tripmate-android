@@ -2,6 +2,7 @@ package com.tripmate.android.feature.trip_list
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -52,6 +53,7 @@ import kotlinx.coroutines.launch
 internal fun TripListRoute(
     innerPadding: PaddingValues,
     navigateToMateList: () -> Unit,
+    navigateToMateOpenChat: () -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -59,6 +61,7 @@ internal fun TripListRoute(
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is TripListUiEvent.NavigateToMateList -> navigateToMateList()
+            is TripListUiEvent.NavigateToMateOpenChat -> navigateToMateOpenChat()
             else -> {}
         }
     }
@@ -143,7 +146,12 @@ internal fun TripListScreen(
                     state = horizontalPagerState1,
                     modifier = Modifier.fillMaxWidth(),
                 ) { page ->
-                    TripStatusCard(pagerState = horizontalPagerState1)
+                    TripStatusCard(
+                        pagerState = horizontalPagerState1,
+                        modifier = Modifier.clickable {
+                            onAction(TripListUiAction.OnTripStatusCardClicked)
+                        },
+                    )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 // HorizontalPager 인디케이터

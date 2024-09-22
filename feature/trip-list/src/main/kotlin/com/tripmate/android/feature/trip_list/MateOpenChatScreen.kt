@@ -1,5 +1,8 @@
-package com.tripmate.android.feature.personalization
+package com.tripmate.android.feature.trip_list
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -22,36 +25,34 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
-import com.tripmate.android.core.common.extension.externalShareForBitmap
 import com.tripmate.android.core.designsystem.component.TripmateButton
-import com.tripmate.android.core.designsystem.component.TripmateOutlinedButton
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
-import com.tripmate.android.core.designsystem.theme.Primary01
-import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.android.feature.personalization.component.MyTripStyle
-import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiAction
-import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiEvent
-import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiState
-import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
-import com.tripmate.android.feature.personalization.viewmodel.ScreenType
+import com.tripmate.android.feature.trip_list.component.MyTripStyle
+import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
+import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
+import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
+import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
+import com.tripmate.android.feature.triplist.R
 import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
 import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
-internal fun ResultRoute(
-    navigateToMain: () -> Unit,
+internal fun MateOpenChatRoute(
     innerPadding: PaddingValues,
-    viewModel: PersonalizationViewModel,
+    popBackStack: () -> Unit,
+    viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
     val systemUiController = rememberExSystemUiController()
     val isDarkTheme = isSystemInDarkTheme()
-    val context = LocalContext.current
 
     DisposableEffect(systemUiController) {
         systemUiController.setStatusBarColor(
@@ -68,32 +69,40 @@ internal fun ResultRoute(
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
-            is PersonalizationUiEvent.NavigateToMain -> navigateToMain()
-            is PersonalizationUiEvent.ShareMyTripStyle -> context.externalShareForBitmap(event.image)
+            is TripListUiEvent.NavigateBack -> popBackStack()
+            is TripListUiEvent.NavigateToKakaoOpenChat -> {
+                openKakaoOpenChat(context, event.openChatUrl)
+            }
             else -> {}
         }
     }
 
-    ResultScreen(
-        uiState = uiState,
+    MateOpenChatScreen(
         innerPadding = innerPadding,
+        uiState = uiState,
         onAction = viewModel::onAction,
     )
 }
 
+private fun openKakaoOpenChat(context: Context, url: String) {
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    startActivity(context, intent, null)
+}
+
 @Composable
-internal fun ResultScreen(
-    uiState: PersonalizationUiState,
+internal fun MateOpenChatScreen(
     innerPadding: PaddingValues,
-    onAction: (PersonalizationUiAction) -> Unit,
+    uiState: TripListUiState,
+    onAction: (TripListUiAction) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .padding(bottom = innerPadding.calculateBottomPadding()),
+            .padding(innerPadding),
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .background(Background02),
@@ -104,49 +113,28 @@ internal fun ResultScreen(
                 characterImageRes = designSystemR.drawable.img_character_01,
                 characterTypeIntro = uiState.characterTypeIntro,
                 tripStyleIntro = uiState.tripStyleIntro,
-                isShared = uiState.isMyTripStyleShared,
                 modifier = Modifier.fillMaxWidth(),
-                onAction = onAction,
             )
-            Text(
-                text = stringResource(R.string.my_trip_style_check_description),
-                style = Small14_Reg,
-                color = Primary01,
-            )
-            Spacer(modifier = Modifier.height(24.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                TripmateOutlinedButton(
-                    onClick = {
-                        onAction(PersonalizationUiAction.OnShareMyTripStyleClicked(true))
-                    },
-                    containerColor = Background02,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                ) {
-                    Text(
-                        text = stringResource(R.string.share_my_trip_style),
-                        color = Primary01,
-                        style = Medium16_SemiBold,
-                    )
-                }
-                Spacer(modifier = Modifier.height(8.dp))
                 TripmateButton(
-                    onClick = { onAction(PersonalizationUiAction.OnSelectClick(ScreenType.RESULT)) },
+                    onClick = {
+                        onAction(TripListUiAction.OnMateOpenChatClicked)
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
                 ) {
                     Text(
-                        text = stringResource(R.string.start_tripmate),
+                        text = stringResource(R.string.navigate_to_mate_open_chat),
                         style = Medium16_SemiBold,
                     )
                 }
+                Spacer(modifier = Modifier.height(56.dp))
             }
         }
     }
@@ -154,11 +142,11 @@ internal fun ResultScreen(
 
 @DevicePreview
 @Composable
-private fun ResultScreenPreview() {
+private fun MyTripCharacterInfoPreview() {
     TripmateTheme {
-        ResultScreen(
-            uiState = PersonalizationUiState(),
+        MateOpenChatScreen(
             innerPadding = PaddingValues(),
+            uiState = TripListUiState(),
             onAction = {},
         )
     }
