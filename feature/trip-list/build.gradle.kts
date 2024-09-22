@@ -5,11 +5,14 @@ plugins {
 }
 
 android {
-    namespace = "com.tripmate.android.feature.writing"
+    namespace = "com.tripmate.android.feature.triplist"
 }
 
 dependencies {
     implementations(
+        projects.core.data,
+
+        libs.kotlinx.collections.immutable,
         libs.timber,
     )
 }

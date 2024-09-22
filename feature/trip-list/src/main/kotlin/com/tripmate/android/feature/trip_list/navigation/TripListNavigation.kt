@@ -15,11 +15,13 @@ fun NavController.navigateToTripList(navOptions: NavOptions) {
 
 fun NavGraphBuilder.tripListNavGraph(
     padding: PaddingValues,
+    navigateToMateList: () -> Unit,
 //    popBackStack: () -> Unit
 ) {
     composable(route = TRIP_LIST_ROUTE) {
         TripListRoute(
             innerPadding = padding,
+            navigateToMateList = navigateToMateList,
         )
     }
 }
