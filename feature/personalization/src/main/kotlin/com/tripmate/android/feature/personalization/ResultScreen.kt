@@ -1,5 +1,8 @@
 package com.tripmate.android.feature.personalization
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -22,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.common.extension.externalShareForBitmap
@@ -69,7 +73,11 @@ internal fun ResultRoute(
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is PersonalizationUiEvent.NavigateToMain -> navigateToMain()
-            is PersonalizationUiEvent.ShareMyTripStyle -> context.externalShareForBitmap(event.image)
+            is PersonalizationUiEvent.ShareMyTripStyle -> {
+                val kakaoOpenChatUrl = "https://open.kakao.com/o/gObLOlQg"
+                openKakaoOpenChat(context, kakaoOpenChatUrl)
+                // context.externalShareForBitmap(event.image)
+            }
             else -> {}
         }
     }
@@ -79,6 +87,11 @@ internal fun ResultRoute(
         innerPadding = innerPadding,
         onAction = viewModel::onAction,
     )
+}
+
+private fun openKakaoOpenChat(context: Context, url: String) {
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    startActivity(context, intent, null)
 }
 
 @Composable
