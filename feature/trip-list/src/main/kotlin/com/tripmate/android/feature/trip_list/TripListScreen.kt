@@ -37,6 +37,7 @@ import com.tripmate.android.core.designsystem.theme.Medium16_Mid
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.trip_list.component.PageIndicator
 import com.tripmate.android.feature.trip_list.component.ReviewItems
 import com.tripmate.android.feature.trip_list.component.TripStatusCard
@@ -198,7 +199,7 @@ internal fun TripListScreen(
     }
 }
 
-@DevicePreview 
+@DevicePreview
 @Composable
 internal fun TripListPreview() {
     TripmateTheme {
