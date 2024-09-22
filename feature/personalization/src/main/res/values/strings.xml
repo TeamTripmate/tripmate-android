@@ -15,7 +15,7 @@
     <string name="question4_answer2">첫째날 갈 곳, 둘째날 갈 곳 등 장소정도 찾아본다</string>
     <string name="question4_answer3">여행 전 날 어디 갈지 생각해보기로 한다</string>
     <string name="trip_style_title">당신의 여행 스타일을\n알려주세요.</string>
-    <string name="trip_style_max_count">최대 3개</string>
+    <string name="trip_style_description">원하시는 스타일을 3개를 선택해주세요.</string>
     <string name="trip_style_error_message">키워드는 최대 3개까지 선택가능합니다.</string>
     <string name="trip_style_1">쇼핑매니아\n기념품은 필수</string>
     <string name="trip_style_2">풍경보며\n걷는게 좋아</string>

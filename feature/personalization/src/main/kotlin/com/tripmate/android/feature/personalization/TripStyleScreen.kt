@@ -92,7 +92,7 @@ internal fun TripStyleScreen(
             )
             Spacer(modifier = Modifier.height(18.dp))
             Text(
-                text = stringResource(id = R.string.trip_style_max_count),
+                text = stringResource(id = R.string.trip_style_description),
                 style = Small14_Reg,
                 color = Gray001,
             )
@@ -111,7 +111,7 @@ internal fun TripStyleScreen(
                 .fillMaxWidth()
                 .height(56.dp)
                 .padding(horizontal = 16.dp),
-            enabled = uiState.selectedTripStyles.isNotEmpty(),
+            enabled = uiState.selectedTripStyles.size >= 3,
         ) {
             Text(
                 stringResource(R.string.select),
