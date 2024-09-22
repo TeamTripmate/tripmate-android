@@ -198,7 +198,7 @@ internal fun TripListScreen(
     }
 }
 
-@ComponentPreview
+@DevicePreview 
 @Composable
 internal fun TripListPreview() {
     TripmateTheme {
