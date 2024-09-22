@@ -15,7 +15,6 @@ dependencies {
         projects.feature.navigator,
         projects.feature.mate,
         projects.feature.writing,
-        projects.feature.notification,
         projects.feature.mateRecruit,
         projects.feature.mateReview,
         projects.feature.tripdetail,
