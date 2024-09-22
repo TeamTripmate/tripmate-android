@@ -1,13 +1,13 @@
 package com.tripmate.android.core.network.service
 
 import com.tripmate.android.core.network.request.LikeSpotRequest
-import com.tripmate.android.core.network.request.LocationBasedSpotSearchRequest
 import com.tripmate.android.core.network.response.LocationBasedSpotSearchResponse
 import com.tripmate.android.core.network.response.SpotDetailResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TripmateService {
     @GET("api/home/spot/{spot-id}")
@@ -22,6 +22,9 @@ interface TripmateService {
 
     @GET("/api/v1/spots")
     suspend fun getNearbyTouristSpots(
-        @Body locationBasedSpotSearchRequest: LocationBasedSpotSearchRequest,
+        @Query("latitude") latitude: String,
+        @Query("longitude") longitude: String,
+        @Query("range") range: String,
+        @Query("category") category: String,
     ): LocationBasedSpotSearchResponse
 }

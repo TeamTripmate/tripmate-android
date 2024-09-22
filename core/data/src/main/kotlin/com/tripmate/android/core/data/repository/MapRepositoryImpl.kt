@@ -19,12 +19,10 @@ internal class MapRepositoryImpl @Inject constructor(
     ): Result<List<SpotEntity>> = runSuspendCatching {
 
         service.getNearbyTouristSpots(
-            LocationBasedSpotSearchRequest(
                 latitude = latitude,
                 longitude = longitude,
                 range = range,
                 category = category,
-            ),
         ).spots.map {
             SpotEntity(
                 id = it.id,
