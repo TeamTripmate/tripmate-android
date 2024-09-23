@@ -4,7 +4,6 @@ import com.tripmate.android.core.data.util.runSuspendCatching
 import com.tripmate.android.core.datastore.TokenDataSource
 import com.tripmate.android.core.network.request.LoginRequest
 import com.tripmate.android.core.network.service.LoginService
-import com.tripmate.android.core.network.service.TripmateService
 import com.tripmate.android.domain.repository.AuthRepository
 import javax.inject.Inject
 

@@ -59,7 +59,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun saveAuthToken(
+    private fun saveAuthToken(
         accessToken: String,
         refreshToken: String,
     ) {
