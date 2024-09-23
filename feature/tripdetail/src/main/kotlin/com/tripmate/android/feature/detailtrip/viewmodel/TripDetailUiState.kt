@@ -1,6 +1,8 @@
 package com.tripmate.android.feature.detailtrip.viewmodel
 
 import com.tripmate.android.core.designsystem.R
+import com.tripmate.android.domain.entity.Address
+import com.tripmate.android.domain.entity.Location
 import com.tripmate.android.domain.entity.TripDetailEntity
 import com.tripmate.android.domain.entity.TripDetailMateRecruitEntity
 import com.tripmate.android.domain.entity.TripDetailMateReviewEntity
@@ -18,13 +20,17 @@ fun getTestTripDetail(): TripDetailEntity {
     // Todo 서버 작업 완료 후 제거
     return TripDetailEntity(
         title = "서피 비치",
-        address = "강원 양양군 현복면",
-        tipDescription = "서피비치는 양양의 TOP# 서핑 명소로 꼽히는 곳이에요. \n" +
-            "서핑을 처음하는 사람이라면 트립메이트의 무료 수업 쿠폰을 받아서 서핑을 시작해보세요!\n\n" +
-            "바닷바람이 쎄니 선글라스와 긴옷은 필수로 챙기세요!",
-        tripIntroduceDescription = "Quad eius ea nihilism quasi militia consectetur naus repudiandae aut.",
-        tripDetailPhone = "010-1234-1234",
-        tripDetailAddress = "강원 양양군 현북면 하조대해안길 119",
+        description = "Quad eius ea nihilism quasi militia consectetur naus repudiandae aut.",
+        phoneNumber = "010-1234-1234",
+        location = Location(
+            latitude = "37.5",
+            longitude = "127.0",
+            address = Address(
+                address1 = "강원 양양군 현복면",
+                address2 = "강원 양양군 현북면 하조대해안길 119"
+            )
+        ),
+        category = "EXPERIENCE",
         tripDetailFee = "10000원",
         tripRecommendStyleEntity = persistentListOf(
             TripDetailStyleEntity(1, "자유로운 영혼의 댄싱 여우", R.drawable.ic_sample_character),

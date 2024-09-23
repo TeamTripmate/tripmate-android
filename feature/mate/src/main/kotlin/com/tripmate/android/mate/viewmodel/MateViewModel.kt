@@ -65,12 +65,14 @@ class MateViewModel @Inject constructor(
                     category = categoryType.categoryCode ?: ""
                 )
                     .onSuccess { spots ->
-                        _uiState.update {
-                            it.copy(
-                                categoryType = categoryType,
-                                spotList = spots,
-                                selectPoiItem = spots.first(),
-                            )
+                        spots?.let {
+                            _uiState.update {
+                                it.copy(
+                                    categoryType = categoryType,
+                                    spotList = spots,
+                                    selectPoiItem = spots.first(),
+                                )
+                            }
                         }
                     }
                     .onFailure { }

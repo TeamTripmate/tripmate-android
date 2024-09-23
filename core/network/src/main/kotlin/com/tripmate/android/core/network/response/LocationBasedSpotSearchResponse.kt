@@ -5,6 +5,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LocationBasedSpotSearchResponse(
+    @SerialName("data")
+    var data: Data,
+)
+
+@Serializable
+data class Data(
     @SerialName("spots")
     var spots: List<Spot>,
 )
@@ -16,7 +22,7 @@ data class Spot(
     @SerialName("title")
     val title: String,
     @SerialName("description")
-    val description: String,
+    val description: String? = "",
     @SerialName("thumbnailUrl")
     val thumbnailUrl: String,
     @SerialName("latitude")

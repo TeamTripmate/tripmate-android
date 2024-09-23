@@ -170,18 +170,11 @@ fun TripDetailImage(
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
-                text = uiState.tripDetail.address,
+                text = uiState.tripDetail.location.address.address1,
                 color = Gray004,
                 style = XSmall12_Reg,
             )
             Spacer(modifier = Modifier.height(12.dp))
-            Text(
-                text = uiState.tripDetail.description,
-                color = Gray001,
-                style = Small14_Reg,
-                maxLines = 3,
-                overflow = TextOverflow.Ellipsis,
-            )
         }
 
         TripDetailTips(uiState)
@@ -221,7 +214,7 @@ fun TripDetailTips(uiState: TripDetailUiState) {
 
         Text(
             modifier = Modifier.padding(start = 48.dp, end = 16.dp, bottom = 24.dp),
-            text = uiState.tripDetail.tipDescription,
+            text = uiState.tripDetail.description,
             color = Gray003,
             style = Small14_Reg,
         )

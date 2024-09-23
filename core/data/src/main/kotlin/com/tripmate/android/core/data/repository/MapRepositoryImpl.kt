@@ -17,21 +17,20 @@ internal class MapRepositoryImpl @Inject constructor(
         range: String,
         category: String,
     ): Result<List<SpotEntity>> = runSuspendCatching {
-
         service.getNearbyTouristSpots(
                 latitude = latitude,
                 longitude = longitude,
                 range = range,
                 category = category,
-        ).spots.map {
+        ).data.spots.map {
             SpotEntity(
                 id = it.id,
                 title = it.title,
-                description = it.description,
-                thumbnailUrl = it.thumbnailUrl,
+                description = it.description ?: "",
+                thumbnailUrl = it.thumbnailUrl.replace("http:","https:"),
                 latitude = it.latitude.toDouble(),
                 longitude = it.longitude.toDouble(),
-                distance = it.distance.toDouble()
+                distance = String.format("%.1f", it.distance.toDouble()).toDouble(),
             )
         }
     }
