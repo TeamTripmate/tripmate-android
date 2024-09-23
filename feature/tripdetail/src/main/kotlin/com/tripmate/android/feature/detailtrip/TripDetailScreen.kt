@@ -41,7 +41,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -170,18 +169,11 @@ fun TripDetailImage(
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
-                text = uiState.tripDetail.address,
+                text = uiState.tripDetail.location.address.address1,
                 color = Gray004,
                 style = XSmall12_Reg,
             )
             Spacer(modifier = Modifier.height(12.dp))
-            Text(
-                text = uiState.tripDetail.description,
-                color = Gray001,
-                style = Small14_Reg,
-                maxLines = 3,
-                overflow = TextOverflow.Ellipsis,
-            )
         }
 
         TripDetailTips(uiState)
@@ -221,7 +213,7 @@ fun TripDetailTips(uiState: TripDetailUiState) {
 
         Text(
             modifier = Modifier.padding(start = 48.dp, end = 16.dp, bottom = 24.dp),
-            text = uiState.tripDetail.tipDescription,
+            text = uiState.tripDetail.description,
             color = Gray003,
             style = Small14_Reg,
         )

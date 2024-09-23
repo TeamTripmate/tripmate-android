@@ -61,6 +61,7 @@ import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.common.extension.hasLocationPermission
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
+import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray005
@@ -71,7 +72,7 @@ import com.tripmate.android.core.designsystem.theme.MateTitleBackGround
 import com.tripmate.android.core.designsystem.theme.Medium16_Light
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.android.domain.entity.POISimpleListEntity
+import com.tripmate.android.domain.entity.SpotEntity
 import com.tripmate.android.feature.map.MapSection
 import com.tripmate.android.feature.map.state.CameraPositionState
 import com.tripmate.android.feature.map.state.rememberCameraPositionState
@@ -120,7 +121,7 @@ fun MateScreen(
     innerPadding: PaddingValues,
     uiState: MateUiState,
     onAction: (MateUiAction) -> Unit,
-    selectPoiAction: (CameraPositionState, POISimpleListEntity) -> Unit,
+    selectPoiAction: (CameraPositionState, SpotEntity) -> Unit,
     cameraPositionState: CameraPositionState,
 ) {
     Column(
@@ -150,7 +151,7 @@ fun MateScreen(
             MapSection(
                 modifier = Modifier.fillMaxSize(),
                 cameraPositionState = cameraPositionState,
-                simpleList = uiState.getMarkerInfoList(),
+                markerInfoList = uiState.getMarkerInfoList(),
             ) {
                 onAction(MateUiAction.OnMarkerClicked(it.labelId.toInt()))
             }
@@ -170,13 +171,13 @@ fun MateScreen(
 
             if (uiState.isShowingList) {
                 ShowPoiListView(
-                    uiState.simpleList,
+                    uiState.spotList,
                     onAction,
                 )
             }
 
             if (!uiState.isShowingList) {
-                if (uiState.simpleList.isNotEmpty()) {
+                if (uiState.spotList.isNotEmpty()) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -198,7 +199,7 @@ fun MateScreen(
                         }
                         ViewPagerScreen(
                             uiState = uiState,
-                            listItem = uiState.simpleList,
+                            listItem = uiState.spotList,
                             onAction = onAction,
                         )
                     }
@@ -293,7 +294,7 @@ fun ShowListButton(onAction: () -> Unit) {
 
 @Composable
 fun ShowPoiListView(
-    listItem: List<POISimpleListEntity>,
+    listItem: List<SpotEntity>,
     onAction: (MateUiAction) -> Unit,
 ) {
     Box(
@@ -446,7 +447,7 @@ fun CategoryItemView(categoryType: CategoryType, onItemClick: (CategoryType) -> 
 @Composable
 fun ViewPagerScreen(
     uiState: MateUiState,
-    listItem: List<POISimpleListEntity>,
+    listItem: List<SpotEntity>,
     viewPagerScrollAction: (Int) -> Unit = {},
     onAction: (MateUiAction) -> Unit,
 ) {
@@ -456,7 +457,7 @@ fun ViewPagerScreen(
         listItem.size
     }
 
-    val selectPosition = listItem.indexOfFirst { it.poiId == uiState.selectPoiItem?.poiId }
+    val selectPosition = listItem.indexOfFirst { it.id == uiState.selectPoiItem?.id }
 
     LaunchedEffect(uiState) {
         coroutineScope.launch {
@@ -464,7 +465,7 @@ fun ViewPagerScreen(
         }
 
         snapshotFlow { pagerState.currentPage }.collect { page ->
-            viewPagerScrollAction(listItem[page].poiId)
+            viewPagerScrollAction(listItem[page].id)
         }
     }
 
@@ -475,7 +476,7 @@ fun ViewPagerScreen(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CustomViewPager(pagerState: PagerState, listItem: List<POISimpleListEntity>, onAction: (MateUiAction) -> Unit) {
+fun CustomViewPager(pagerState: PagerState, listItem: List<SpotEntity>, onAction: (MateUiAction) -> Unit) {
     HorizontalPager(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -489,7 +490,7 @@ fun CustomViewPager(pagerState: PagerState, listItem: List<POISimpleListEntity>,
 }
 
 @Composable
-fun GetPoiCardView(item: POISimpleListEntity, isListView: Boolean, onTripCardClick: () -> Unit) {
+fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -512,9 +513,9 @@ fun GetPoiCardView(item: POISimpleListEntity, isListView: Boolean, onTripCardCli
                 .background(Background02)
                 .padding(8.dp),
         ) {
-            Image(
-                painter = painterResource(id = item.imageRes),
-                contentDescription = null,
+            NetworkImage(
+                imgUrl = item.thumbnailUrl,
+                contentDescription = "Example Image Icon",
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier
                     .height(110.dp)
@@ -705,16 +706,14 @@ fun MateScreenPreview() {
 fun GetPoiCardViewPreview() {
     TripmateTheme {
         GetPoiCardView(
-            item = POISimpleListEntity(
-                poiId = 1,
+            item = SpotEntity(
+                id = 1,
                 title = "Title 1",
-                subCategory = "체험",
                 distance = 12.34,
-                address = "강원도 춘천시",
                 description = "This is the description for item 1",
-                imageRes = R.drawable.ic_mypage,
-                lat = 37.5,
-                lon = 127.0,
+                thumbnailUrl = "https://picsum.photos/36",
+                latitude = 37.5,
+                longitude = 127.0,
             ),
             false,
             onTripCardClick = {},
