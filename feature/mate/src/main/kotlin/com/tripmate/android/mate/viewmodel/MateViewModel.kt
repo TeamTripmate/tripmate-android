@@ -62,10 +62,10 @@ class MateViewModel @Inject constructor(
                     latitude = latitude.toString(),
                     longitude = longitude.toString(),
                     range = "10000",
-                    category = categoryType.categoryCode ?: ""
+                    category = categoryType.categoryCode ?: "",
                 )
                     .onSuccess { spots ->
-                        spots?.let {
+                        spots.let {
                             _uiState.update {
                                 it.copy(
                                     categoryType = categoryType,
