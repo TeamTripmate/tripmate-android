@@ -28,6 +28,8 @@ class TripListViewModel @Inject constructor() : ViewModel() {
             is TripListUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is TripListUiAction.OnTicketClicked -> ticketClicked(action.ticketId)
             is TripListUiAction.OnClickViewMateList -> navigateToMateList() // todo:로직추가
+            is TripListUiAction.OnTripStatusCardClicked -> navigateToMateOpenChat()
+            is TripListUiAction.OnMateOpenChatClicked -> navigateToKakaoOpenChat()
         }
     }
 
@@ -53,6 +55,19 @@ class TripListViewModel @Inject constructor() : ViewModel() {
     private fun navigateToMateList() {
         viewModelScope.launch {
             _uiEvent.send(TripListUiEvent.NavigateToMateList)
+        }
+    }
+
+    private fun navigateToMateOpenChat() {
+        // item entity 에 포함 되어있는 openChatUrl 을 통해 uiState update
+        viewModelScope.launch {
+            _uiEvent.send(TripListUiEvent.NavigateToMateOpenChat)
+        }
+    }
+
+    private fun navigateToKakaoOpenChat() {
+        viewModelScope.launch {
+            _uiEvent.send(TripListUiEvent.NavigateToKakaoOpenChat(_uiState.value.openChatUrl))
         }
     }
 }
