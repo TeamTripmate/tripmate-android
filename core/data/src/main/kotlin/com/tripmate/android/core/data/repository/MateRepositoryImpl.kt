@@ -36,7 +36,7 @@ internal class MateRepositoryImpl @Inject constructor(
             ageRange = response.ageRange,
             matchingRatio = response.matchingRatio,
             hostInfo = UserInfoEntity(
-                profileImage = response.hostInfo.profileImage.replace("http:","https:"),
+                profileImage = response.hostInfo.profileImage.replace("http:", "https:"),
                 kakaoNickname = response.hostInfo.kakaoNickname,
                 characterName = response.hostInfo.characterName,
                 styleType = response.hostInfo.selectedKeyword,
@@ -46,7 +46,7 @@ internal class MateRepositoryImpl @Inject constructor(
                 response.reviewInfos.forEach { reviewInfo ->
                     TripDetailMateReviewEntity(
                         userInfo = UserInfoEntity(
-                            profileImage = reviewInfo.userInfo.profileImage.replace("http:","https:"),
+                            profileImage = reviewInfo.userInfo.profileImage.replace("http:", "https:"),
                             kakaoNickname = reviewInfo.userInfo.kakaoNickname,
                             characterName = reviewInfo.userInfo.characterName,
                         ),
