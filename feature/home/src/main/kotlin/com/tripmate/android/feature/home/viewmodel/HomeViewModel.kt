@@ -26,19 +26,52 @@ class HomeViewModel @Inject constructor(
     private val _uiEvent = Channel<HomeUiEvent>()
     val uiEvent: Flow<HomeUiEvent> = _uiEvent.receiveAsFlow()
 
+    // 필터 매핑
+    private val filterMapping = mapOf(
+        "전체" to "",
+        "체험" to "EXPERIENCE",
+        "문화∙예술" to "CULTURE_AND_ART",
+        "축제∙공연" to "FESTIVAL_AND_PERFORMANCE",
+        "자연∙휴양" to "NATURE_AND_REST",
+        "코스" to "TRIP_ITINERARY",
+        "역사" to "HISTORY",
+        "레포츠" to "LEISURE_SPORTS",
+        "숙박" to "ACCOMMODATION",
+        "쇼핑" to "SHOPPING",
+        "맛집∙카페" to "RESTAURANT_AND_CAFE"
+    )
+
+    init {
+        // 기본으로 "전체" 칩 선택 후 리스트 업데이트
+        updateSpotsList("전체")
+    }
+
     fun onAction(action: HomeUiAction) {
         when (action) {
             is HomeUiAction.OnBackClicked -> navigateBack()
-            is HomeUiAction.OnTabChanged -> updateSelectedTab(action.index)
+            is HomeUiAction.OnTabChanged -> {
+                updateSelectedTab(action.index)
+                updateSpotsList("전체") // 탭 변경 시에도 전체로 초기화
+            }
             is HomeUiAction.OnClickChip -> {
-                updateSelectedChips(action.chipName)
-                updateSpotsList(action.chipName)
+                updateSelectedChips(action.chipName) // 선택된 칩 업데이트
+                updateSpotsList(action.chipName)    // 선택된 칩 기반으로 스팟 업데이트
             }
         }
     }
 
-    init {
-        updateSpotsList("전체")
+    // 스팟 리스트 업데이트
+    private fun updateSpotsList(chipName: String) {
+        val currentState = _uiState.value
+
+        // 탭에 따라 spotTypeGroup 설정
+        val spotTypeGroup = if (currentState.selectedTabIndex == 0) "ACTIVITY" else "HEALING"
+
+        // 선택된 칩을 서버 필터 값으로 변환
+        val spotType = filterMapping[chipName] ?: ""
+
+        // 서버에서 필터된 스팟 가져오기
+        getNearbyTouristSpots(spotTypeGroup, spotType)
     }
 
     private fun getNearbyTouristSpots(spotTypeGroup: String, spotType: String) {
@@ -52,15 +85,15 @@ class HomeViewModel @Inject constructor(
                 spotType = spotType,
             )
                 .onSuccess { spots ->
-                    spots.let {
-                        _uiState.update {
-                            it.copy(
-                                spotList = spots.toImmutableList(),
-                            )
-                        }
+                    _uiState.update {
+                        it.copy(
+                            spotList = spots.toImmutableList(),
+                        )
                     }
                 }
-                .onFailure { }
+                .onFailure {
+                    // 실패 처리 로직
+                }
         }
     }
 
@@ -75,27 +108,13 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun updateSelectedChips(chipName: String) {
-        val updatedChips = persistentListOf(chipName)
+        val updatedChips = persistentListOf(chipName) // 하나만 선택 가능하므로 새롭게 설정
         _uiState.update {
             if (it.selectedTabIndex == 0) {
                 it.copy(activitySelectedChips = updatedChips)
             } else {
                 it.copy(healingSelectedChips = updatedChips)
             }
-        }
-    }
-
-    private fun updateSpotsList(chipName: String) {
-        val currentState = _uiState.value
-        val selectedChips = if (currentState.selectedTabIndex == 0)
-            currentState.activitySelectedChips else currentState.healingSelectedChips
-
-        val spotTypeGroup = if (currentState.selectedTabIndex == 0) "ACTIVITY" else "HEALING"
-
-        if (selectedChips.contains("전체") || selectedChips.isEmpty()) {
-            getNearbyTouristSpots(spotTypeGroup, "")
-        } else {
-            getNearbyTouristSpots(spotTypeGroup, chipName)
         }
     }
 }
