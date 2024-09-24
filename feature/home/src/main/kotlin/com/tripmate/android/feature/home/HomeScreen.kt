@@ -141,7 +141,9 @@ private fun ContentForTab(
     onAction: (HomeUiAction) -> Unit,
     navigateToMateRecruit: () -> Unit,
 ) {
-    Column {
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
         HomeFilterChips(
             onChipClick = { onAction(HomeUiAction.OnClickChip(it)) },
             selectedChips = if (tabIndex == 0) uiState.activitySelectedChips else uiState.healingSelectedChips,

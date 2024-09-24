@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.domain.repository.MapRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -29,8 +30,15 @@ class HomeViewModel @Inject constructor(
         when (action) {
             is HomeUiAction.OnBackClicked -> navigateBack()
             is HomeUiAction.OnTabChanged -> updateSelectedTab(action.index)
-            is HomeUiAction.OnClickChip -> updateSpotsList(action.chipName)
+            is HomeUiAction.OnClickChip -> {
+                updateSelectedChips(action.chipName)
+                updateSpotsList(action.chipName)
+            }
         }
+    }
+
+    init {
+        updateSpotsList("전체")
     }
 
     private fun getNearbyTouristSpots(spotTypeGroup: String, spotType: String) {
@@ -64,6 +72,17 @@ class HomeViewModel @Inject constructor(
 
     private fun updateSelectedTab(tab: Int) {
         _uiState.update { it.copy(selectedTabIndex = tab) }
+    }
+
+    private fun updateSelectedChips(chipName: String) {
+        val updatedChips = persistentListOf(chipName)
+        _uiState.update {
+            if (it.selectedTabIndex == 0) {
+                it.copy(activitySelectedChips = updatedChips)
+            } else {
+                it.copy(healingSelectedChips = updatedChips)
+            }
+        }
     }
 
     private fun updateSpotsList(chipName: String) {
