@@ -107,8 +107,7 @@ internal fun MyTripCharacterInfoContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         MyTripStyle(
-            characterName = uiState.characterName,
-            characterImageRes = designSystemR.drawable.img_character_01,
+            characterId = uiState.characterId,
             characterTypeIntro = uiState.characterTypeIntro,
             tripStyleIntro = uiState.tripStyleIntro,
             isShared = uiState.isMyTripStyleShared,
@@ -121,17 +120,6 @@ internal fun MyTripCharacterInfoContent(
                 .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-//            Text(
-//                text = stringResource(id = R.string.trip_location_recommend),
-//                style = Medium16_SemiBold,
-//                color = Primary01,
-//            )
-//            Spacer(modifier = Modifier.height(18.dp))
-//            Text(
-//                text = uiState.tripLocationRecommend,
-//                style = Small14_Reg,
-//                color = Gray002,
-//            )
             TripmateOutlinedButton(
                 onClick = {
                     onAction(MyPageUiAction.OnCharacterTypeReselectClicked)
