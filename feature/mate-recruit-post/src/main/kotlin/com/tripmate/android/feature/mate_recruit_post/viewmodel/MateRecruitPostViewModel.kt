@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,8 +27,44 @@ class MateRecruitPostViewModel @Inject constructor(
 
     fun onAction(action: MateRecruitPostUiAction) {
         when (action) {
-            is MateRecruitPostUiAction.OnMateRecruitTitleUpdated -> navigateBack()
-            is MateRecruitPostUiAction.OnBackClicked -> TODO()
+            is MateRecruitPostUiAction.OnBackClicked -> navigateBack()
+            is MateRecruitPostUiAction.OnCompanionApply -> onCompanionApply()
+            is MateRecruitPostUiAction.GetCompanionsDetailInfo -> getCompanionsDetailInfo()
+        }
+    }
+
+    private fun onCompanionApply() {
+        viewModelScope.launch {
+            mateRepository.companionApply(
+                0,
+                0,
+            ).onSuccess {
+                _uiState.update {
+                    it.copy(
+                        isCompanionApplySuccess = false,
+                    )
+                }
+            }.onFailure {
+                _uiState.update {
+                    it.copy(
+                        isCompanionApplySuccess = true,
+                    )
+                }
+            }
+        }
+    }
+
+    private fun getCompanionsDetailInfo() {
+        viewModelScope.launch {
+            mateRepository.getCompanionsDetailInfo(
+                0,
+            ).onSuccess { respose ->
+                _uiState.update {
+                    it.copy(
+                        mateRecruitPostEntity = respose,
+                    )
+                }
+            }.onFailure { }
         }
     }
 
