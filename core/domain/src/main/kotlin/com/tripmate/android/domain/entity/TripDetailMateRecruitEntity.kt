@@ -4,7 +4,7 @@ import androidx.compose.runtime.Stable
 
 @Stable
 data class TripDetailMateRecruitEntity(
-    val id: Int = 0,
+    val spotId: Int = 0,
     val imageResId: Int = 0,
     val mateName: String = "",
     val mateStyleName: String = "",
@@ -14,5 +14,5 @@ data class TripDetailMateRecruitEntity(
     val mateRecruitDescription: String = "",
     val mateRecruitSubDescription: String = "",
     val mateRecruitAddress: String = "",
-    val mateRecruitDate: String = "",
+    val date: String = "",
 )

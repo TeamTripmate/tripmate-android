@@ -293,7 +293,6 @@ private fun ContentForTab(
     when (tabIndex) {
         0 -> DetailInfoTab(tripDetail = uiState.tripDetail)
         1 -> MateRecruitTab(tripDetail = uiState.tripDetail)
-        2 -> MateReviewTab(tripDetail = uiState.tripDetail)
     }
 }
 

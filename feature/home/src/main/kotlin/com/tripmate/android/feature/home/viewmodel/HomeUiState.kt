@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.home.viewmodel
 
+import com.tripmate.android.domain.entity.SpotEntity
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -8,4 +9,5 @@ data class HomeUiState(
     val selectedTabIndex: Int = 0,
     val activitySelectedChips: ImmutableList<String> = persistentListOf("전체"),
     val healingSelectedChips: ImmutableList<String> = persistentListOf("전체"),
+    val spotList: ImmutableList<SpotEntity> = persistentListOf(),
 )

@@ -5,13 +5,12 @@ import com.tripmate.android.domain.entity.Address
 import com.tripmate.android.domain.entity.Location
 import com.tripmate.android.domain.entity.TripDetailEntity
 import com.tripmate.android.domain.entity.TripDetailMateRecruitEntity
-import com.tripmate.android.domain.entity.TripDetailMateReviewEntity
 import com.tripmate.android.domain.entity.TripDetailStyleEntity
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 data class TripDetailUiState(
-    val tabs: ImmutableList<String> = persistentListOf("상세정보", "동행모집", "후기"),
+    val tabs: ImmutableList<String> = persistentListOf("상세정보", "동행모집"),
     val selectedTabIndex: Int = 0,
     val tripDetail: TripDetailEntity = getTestTripDetail(),
 )
@@ -71,36 +70,6 @@ fun getTestTripDetail(): TripDetailEntity {
             "뷰가 좋아요",
             "사진이 잘 나와요",
             "친구와 함께하기 좋아요",
-        ),
-        tripDetailMateReviewList = persistentListOf(
-            TripDetailMateReviewEntity(
-                imageResId = R.drawable.ic_sample_character,
-                mateName = "춤추는 심바",
-                mateStyleName = "쇼핑을 즐기는 비버",
-                mateReviewDate = "24.08.03",
-                imageReviewUrl = "https://picsum.photos/36",
-                mateReviewDescription = "아짱더워요 최고기온30도 근데서핑 너무 재밌어요~아짱더워요 최고기온30도 근데서핑 너무재밌어요~.\n" +
-                    "동행 없이 가기에는 좀 후미진 곳에 있어요. 그래서저는요말이",
-                mateReviewType = persistentListOf(
-                    "뷰가 좋아요",
-                    "사진이 잘 나와요",
-                    "친구와 함께하기 좋아요",
-                ),
-            ),
-            TripDetailMateReviewEntity(
-                imageResId = R.drawable.ic_sample_character,
-                mateName = "춤추는 심바",
-                mateStyleName = "쇼핑을 즐기는 비버",
-                mateReviewDate = "24.08.03",
-                imageReviewUrl = "https://picsum.photos/36",
-                mateReviewDescription = "아짱더워요 최고기온30도 근데서핑 너무 재밌어요~아짱더워요 최고기온30도 근데서핑 너무재밌어요~.\n" +
-                    "동행 없이 가기에는 좀 후미진 곳에 있어요. 그래서저는요말이",
-                mateReviewType = persistentListOf(
-                    "뷰가 좋아요",
-                    "사진이 잘 나와요",
-                    "친구와 함께하기 좋아요",
-                ),
-            ),
         ),
     )
 }

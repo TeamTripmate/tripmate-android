@@ -4,16 +4,23 @@ import androidx.compose.runtime.Stable
 
 @Stable
 data class SpotEntity(
-    var id: Int,
+    val id: Int,
     val title: String,
     val description: String,
+    val spotType: String,
+    val category: CategoryEntity,
     val thumbnailUrl: String,
     val latitude: Double,
     val longitude: Double,
     val distance: Double,
-
-    // 서버 요청 필요
+    val address: String,
+    val companionYn: Boolean,
     val isSearching: Boolean = false,
     val subCategory: String = "ALL",
-    val address: String = "강원도 추천",
+)
+
+data class CategoryEntity(
+    val largeCategory: String,
+    val mediumCategory: String,
+    val smallCategory: String,
 )

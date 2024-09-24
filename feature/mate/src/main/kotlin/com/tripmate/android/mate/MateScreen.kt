@@ -72,6 +72,7 @@ import com.tripmate.android.core.designsystem.theme.MateTitleBackGround
 import com.tripmate.android.core.designsystem.theme.Medium16_Light
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
+import com.tripmate.android.domain.entity.CategoryEntity
 import com.tripmate.android.domain.entity.SpotEntity
 import com.tripmate.android.feature.map.MapSection
 import com.tripmate.android.feature.map.state.CameraPositionState
@@ -714,6 +715,14 @@ fun GetPoiCardViewPreview() {
                 thumbnailUrl = "https://picsum.photos/36",
                 latitude = 37.5,
                 longitude = 127.0,
+                address = "Address 1",
+                companionYn = false,
+                spotType = "Spot Type 1",
+                category = CategoryEntity(
+                    largeCategory = "Large Category 1",
+                    mediumCategory = "Medium Category 1",
+                    smallCategory = "Small Category 1",
+                ),
             ),
             false,
             onTripCardClick = {},

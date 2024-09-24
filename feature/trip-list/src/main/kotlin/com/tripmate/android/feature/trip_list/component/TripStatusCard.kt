@@ -33,9 +33,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Gray001
+import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 
 @OptIn(ExperimentalFoundationApi::class)
 @Suppress("UnusedParameter")
@@ -81,7 +83,13 @@ fun TripStatusCard(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
             ) {
-                Tag(tagText = "1:1 동행")
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Tag(tagText = "1:1 동행")
+                    Text(text = "상세정보 보기>", color = Gray004, style = XSmall12_Reg)
+                }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "서피비치에서 식사해요",

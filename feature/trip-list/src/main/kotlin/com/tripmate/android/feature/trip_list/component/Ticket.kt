@@ -3,6 +3,7 @@ package com.tripmate.android.feature.trip_list.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -63,7 +64,8 @@ internal fun Ticket(
             .shadow(shadowElevation, ticketShape)
             .clip(ticketShape)
             .background(backgroundColor)
-            .border(2.dp, borderColor, ticketShape),
+            .border(2.dp, borderColor, ticketShape)
+            .clickable { onAction(TripListUiAction.OnTicketClicked(ticketIndex)) },
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
