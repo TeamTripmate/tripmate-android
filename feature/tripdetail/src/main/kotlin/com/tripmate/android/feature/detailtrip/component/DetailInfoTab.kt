@@ -75,7 +75,7 @@ fun TripDetailIntroduce(
         Spacer(modifier = Modifier.width(8.dp))
 
         Text(
-            text = stringResource(id = R.string.trip_tip_title),
+            text = stringResource(id = R.string.trip_introduce_title),
             color = Gray001,
             style = Medium16_Mid,
         )
@@ -83,7 +83,7 @@ fun TripDetailIntroduce(
 
     Text(
         modifier = Modifier.padding(top = 12.dp),
-        text = tripDetail.tripIntroduceDescription,
+        text = tripDetail.description,
         color = Gray003,
         style = Small14_Reg,
     )
@@ -136,7 +136,7 @@ fun TripDetailLocation(
     ) {
         MapSection(
             cameraPositionState = cameraPositionState,
-            simpleList = emptyList(),
+            markerInfoList = emptyList(),
         )
     }
 
@@ -179,13 +179,13 @@ fun TripDetailLocation(
                     .padding(end = 16.dp),
             ) {
                 Text(
-                    text = tripDetail.tripDetailPhone,
+                    text = tripDetail.phoneNumber,
                     color = Gray003,
                     style = Small14_Reg,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = tripDetail.tripDetailAddress,
+                    text = tripDetail.location.address.address2,
                     color = Gray003,
                     style = Small14_Reg,
                 )

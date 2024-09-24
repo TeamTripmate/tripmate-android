@@ -4,17 +4,27 @@ import androidx.compose.runtime.Stable
 
 @Stable
 data class TripDetailEntity(
-    val id: Int = 0,
+    val spotId: Long = 0L,
     val title: String = "",
-    val address: String = "",
     val description: String = "",
-    val tipDescription: String = "",
-    val tripIntroduceDescription: String = "",
-    val tripDetailPhone: String = "",
-    val tripDetailAddress: String = "",
+    val phoneNumber: String = "",
+    val imageUrl: String = "",
+    val location: Location = Location(),
+    val category: String = "",
     val tripDetailFee: String = "",
     val tripRecommendStyleEntity: List<TripDetailStyleEntity> = emptyList(),
     val tripDetailMateRecruit: List<TripDetailMateRecruitEntity> = emptyList(),
     val tripDetailMateReviewAdvantage: List<String> = emptyList(),
     val tripDetailMateReviewList: List<TripDetailMateReviewEntity> = emptyList(),
+)
+
+data class Location(
+    val longitude: String = "",
+    val latitude: String = "",
+    val address: Address = Address(),
+)
+
+data class Address(
+    val address1: String = "",
+    val address2: String = "",
 )
