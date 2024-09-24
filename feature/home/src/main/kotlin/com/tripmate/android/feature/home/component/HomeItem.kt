@@ -35,7 +35,7 @@ import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 fun HomeItem(
     locationTag: String,
     categoryTag: String,
-    mateTag: String,
+    mateTag: String?,
     imgUrl: String,
     title: String,
     location: String,
@@ -70,11 +70,15 @@ fun HomeItem(
                     tagText = categoryTag,
                     isLocationTag = false,
                 )
-                Spacer(modifier = Modifier.width(4.dp))
-                Tag(
-                    tagText = mateTag,
-                    isLocationTag = false,
-                )
+                mateTag?.let {
+                    if (it.isNotEmpty()) {
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Tag(
+                            tagText = mateTag,
+                            isLocationTag = false,
+                        )
+                    }
+                }
             }
 
             Box(

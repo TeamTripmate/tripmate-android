@@ -158,12 +158,12 @@ private fun ContentForTab(
                 val locationTag = spot.address.split(" ").getOrNull(1) ?: ""
                 val mateTag = if (spot.companionYn) {
                     if (tabIndex == 0) "액티비티 동행" else "힐링 동행"
-                } else ""
+                } else null  // 동행모집이 없으면 mateTag는 null
 
                 HomeItem(
                     locationTag = locationTag,
                     categoryTag = spot.spotType,
-                    mateTag = mateTag,
+                    mateTag = mateTag, // mateTag가 null일 경우 표시되지 않음
                     imgUrl = spot.thumbnailUrl,
                     title = spot.title,
                     description = spot.description,
