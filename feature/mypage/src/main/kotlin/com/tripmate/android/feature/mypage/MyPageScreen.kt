@@ -213,6 +213,38 @@ internal fun MyPageContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
+                    onAction(MyPageUiAction.OnTermOfUseClicked)
+                }
+                .padding(horizontal = 16.dp),
+        ) {
+            Spacer(modifier = Modifier.height(18.dp))
+            Text(
+                text = stringResource(R.string.term_of_use),
+                style = Medium16_SemiBold,
+                color = Gray002,
+            )
+            Spacer(modifier = Modifier.height(18.dp))
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    onAction(MyPageUiAction.OnPrivacyPolicyClicked)
+                }
+                .padding(horizontal = 16.dp),
+        ) {
+            Spacer(modifier = Modifier.height(18.dp))
+            Text(
+                text = stringResource(R.string.privacy_policy),
+                style = Medium16_SemiBold,
+                color = Gray002,
+            )
+            Spacer(modifier = Modifier.height(18.dp))
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
                     onAction(MyPageUiAction.OnLogoutClicked)
                 }
                 .padding(horizontal = 16.dp),
