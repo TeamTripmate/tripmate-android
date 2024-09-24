@@ -134,6 +134,7 @@ internal fun HomeScreen(
     }
 }
 
+@Suppress("UnusedParameter")
 @Composable
 private fun ContentForTab(
     tabIndex: Int,
@@ -142,7 +143,7 @@ private fun ContentForTab(
     navigateToMateRecruit: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         HomeFilterChips(
             onChipClick = { onAction(HomeUiAction.OnClickChip(it)) },
@@ -158,7 +159,7 @@ private fun ContentForTab(
                 val locationTag = spot.address.split(" ").getOrNull(1) ?: ""
                 val mateTag = if (spot.companionYn) {
                     if (tabIndex == 0) "액티비티 동행" else "힐링 동행"
-                } else null  // 동행모집이 없으면 mateTag는 null
+                } else null // 동행모집이 없으면 mateTag는 null
 
                 HomeItem(
                     locationTag = locationTag,

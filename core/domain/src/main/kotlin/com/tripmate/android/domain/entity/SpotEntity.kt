@@ -13,11 +13,11 @@ data class SpotEntity(
     val address: String,
     val companionYn: Boolean,
     val isSearching: Boolean = false,
-    val subCategory: String = "ALL"
+    val subCategory: String = "ALL",
 )
 
 data class CategoryEntity(
     val largeCategory: String,
     val mediumCategory: String,
-    val smallCategory: String
+    val smallCategory: String,
 )

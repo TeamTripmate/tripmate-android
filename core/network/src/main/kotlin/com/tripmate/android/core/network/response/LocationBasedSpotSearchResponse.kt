@@ -10,13 +10,13 @@ data class LocationBasedSpotSearchResponse(
     @SerialName("data")
     val data: Data,
     @SerialName("error")
-    val error: String?
+    val error: String?,
 )
 
 @Serializable
 data class Data(
     @SerialName("spots")
-    val spots: List<Spot>
+    val spots: List<Spot>,
 )
 
 @Serializable
@@ -38,7 +38,7 @@ data class Spot(
     @SerialName("distance")
     val distance: String,
     @SerialName("companionYn")
-    val companionYn: Boolean
+    val companionYn: Boolean,
 )
 
 @Serializable
@@ -48,7 +48,7 @@ data class Category(
     @SerialName("mediumCategory")
     val mediumCategory: String,
     @SerialName("smallCategory")
-    val smallCategory: String
+    val smallCategory: String,
 )
 
 @Serializable
@@ -58,7 +58,7 @@ data class Location(
     @SerialName("longitude")
     val longitude: String,
     @SerialName("address")
-    val address: Address
+    val address: Address,
 )
 
 @Serializable
@@ -66,5 +66,5 @@ data class Address(
     @SerialName("address1")
     val address1: String,
     @SerialName("address2")
-    val address2: String
+    val address2: String,
 )

@@ -36,7 +36,7 @@ internal class MapRepositoryImpl @Inject constructor(
                 category = CategoryEntity(
                     largeCategory = spot.category.largeCategory,
                     mediumCategory = spot.category.mediumCategory,
-                    smallCategory = spot.category.smallCategory
+                    smallCategory = spot.category.smallCategory,
                 ),
                 thumbnailUrl = spot.thumbnailUrl.replace("http:", "https:"),
                 latitude = spot.location.latitude.toDouble(),
@@ -45,7 +45,7 @@ internal class MapRepositoryImpl @Inject constructor(
                 address = "${spot.location.address.address1} ${spot.location.address.address2}".trim(),
                 companionYn = spot.companionYn,
                 isSearching = false,
-                subCategory = "ALL"
+                subCategory = "ALL",
             )
         }
     }

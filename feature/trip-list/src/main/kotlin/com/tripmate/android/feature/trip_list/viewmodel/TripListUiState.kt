@@ -63,7 +63,7 @@ data class TripListUiState(
             ),
 
         ),
-    val isTicketClicked: ImmutableList<Boolean> = persistentListOf(false, false, false,false,false,false),
+    val isTicketClicked: ImmutableList<Boolean> = persistentListOf(false, false, false, false, false, false),
     val openChatUrl: String = "https://open.kakao.com/o/gObLOlQg",
     val characterName: String = "인스타 인생 맛집\n탐험러 펭귄",
     val characterTypeIntro: String = "펭귄은 내향적인 성향을 가지고 있고, 대부분의 시간을 집단 내에서 조용히 보내며, 개인적인 공간과 안정적인 환경을 선호해요.\n" +

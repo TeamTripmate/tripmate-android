@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(
         "레포츠" to "LEISURE_SPORTS",
         "숙박" to "ACCOMMODATION",
         "쇼핑" to "SHOPPING",
-        "맛집∙카페" to "RESTAURANT_AND_CAFE"
+        "맛집∙카페" to "RESTAURANT_AND_CAFE",
     )
 
     init {
@@ -55,7 +55,7 @@ class HomeViewModel @Inject constructor(
             }
             is HomeUiAction.OnClickChip -> {
                 updateSelectedChips(action.chipName) // 선택된 칩 업데이트
-                updateSpotsList(action.chipName)    // 선택된 칩 기반으로 스팟 업데이트
+                updateSpotsList(action.chipName) // 선택된 칩 기반으로 스팟 업데이트
             }
         }
     }

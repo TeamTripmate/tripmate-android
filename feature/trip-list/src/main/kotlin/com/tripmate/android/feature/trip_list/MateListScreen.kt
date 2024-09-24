@@ -62,7 +62,7 @@ fun MateListScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(innerPadding)
-            .background(Color.White)
+            .background(Color.White),
     ) {
         Column(
             modifier = Modifier
@@ -91,7 +91,7 @@ fun MateListScreen(
             LazyColumn(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 16.dp),
             ) {
                 itemsIndexed(
                     items = uiState.ticket,
@@ -123,8 +123,8 @@ fun MateListScreen(
                 .shadow(
                     elevation = 8.dp,
                     shape = RectangleShape,
-                    spotColor = Color.Black.copy(alpha = 0.1f)
-                )
+                    spotColor = Color.Black.copy(alpha = 0.1f),
+                ),
         ) {
             TripmateButton(
                 onClick = { },
