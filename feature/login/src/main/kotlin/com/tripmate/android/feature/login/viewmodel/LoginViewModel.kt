@@ -51,7 +51,7 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             authRepository.serverLogin(id, nickname, thumbnailImageUrl, profileImageUrl, accessToken, refreshToken)
                 .onSuccess {
-                    saveAuthToken(accessToken, refreshToken)
+                    saveAuthToken(id, accessToken, refreshToken)
                 }
                 .onFailure { exception ->
                     handleException(exception, this@LoginViewModel)
@@ -60,11 +60,12 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun saveAuthToken(
+        id: Long,
         accessToken: String,
         refreshToken: String,
     ) {
         viewModelScope.launch {
-            authRepository.saveAuthToken(accessToken, refreshToken)
+            authRepository.saveAuthToken(id, accessToken, refreshToken)
             val isPersonalizationCompleted = personalizationRepository.checkPersonalizationCompletion()
             if (isPersonalizationCompleted) {
                 _uiEvent.send(LoginUiEvent.NavigateToMain)

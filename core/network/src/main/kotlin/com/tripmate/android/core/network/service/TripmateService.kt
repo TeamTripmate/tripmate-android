@@ -1,6 +1,7 @@
 package com.tripmate.android.core.network.service
 
 import com.tripmate.android.core.network.request.LikeSpotRequest
+import com.tripmate.android.core.network.request.WithdrawalRequest
 import com.tripmate.android.core.network.response.SpotDetailResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -17,4 +18,9 @@ interface TripmateService {
     suspend fun likeSpot(
         @Body likeSpotRequest: LikeSpotRequest,
     ): LikeSpotRequest
+
+    @POST("api/v1/user/withdrawal")
+    suspend fun withdrawal(
+        @Body withdrawalRequest: WithdrawalRequest,
+    )
 }
