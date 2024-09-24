@@ -1,5 +1,6 @@
 package com.tripmate.android.core.network.di
 
+import com.tripmate.android.core.network.LoginApi
 import com.tripmate.android.core.network.TripmateApi
 import com.tripmate.android.core.network.service.LoginService
 import com.tripmate.android.core.network.service.TripmateService
@@ -23,7 +24,7 @@ object ApiModule {
     @Singleton
     @Provides
     internal fun provideLoginService(
-        @TripmateApi retrofit: Retrofit,
+        @LoginApi retrofit: Retrofit,
     ): LoginService {
         return retrofit.create(LoginService::class.java)
     }
