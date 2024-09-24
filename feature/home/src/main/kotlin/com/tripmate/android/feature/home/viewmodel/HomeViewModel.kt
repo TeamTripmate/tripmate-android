@@ -47,30 +47,13 @@ class HomeViewModel @Inject constructor(
             val currentChips = if (currentState.selectedTabIndex == 0)
                 currentState.activitySelectedChips else currentState.healingSelectedChips
 
-            val newChips = currentChips.toMutableList().apply {
-                when {
-                    chipName == "전체" -> {
-                        clear()
-                        add("전체")
-                    }
-
-                    contains("전체") && chipName != "전체" -> {
-                        remove("전체")
-                        add(chipName)
-                    }
-
-                    contains(chipName) -> {
-                        remove(chipName)
-                        if (isEmpty()) {
-                            add("전체")
-                        }
-                    }
-
-                    else -> {
-                        add(chipName)
-                    }
-                }
+            val newChips = when {
+                chipName == "전체" -> listOf("전체")
+                currentChips.contains("전체") || currentChips.isEmpty() -> listOf(chipName)
+                currentChips.contains(chipName) -> listOf("전체")
+                else -> listOf(chipName)
             }.toImmutableList()
+
             if (currentState.selectedTabIndex == 0) {
                 currentState.copy(activitySelectedChips = newChips)
             } else {
