@@ -38,7 +38,7 @@ class MyPageViewModel @Inject constructor(
                     _uiState.update {
                         it.copy(
                             type1 = result.tripStyle,
-                            type2 = result.selectedKeyword,
+                            type2 = result.selectedKeyword[0],
                             type3 = result.characterId.toString(),
                         )
                     }

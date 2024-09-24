@@ -4,7 +4,7 @@ import androidx.compose.runtime.Stable
 
 @Stable
 data class UserInfoEntity(
-    val selectedKeyword: String,
+    val selectedKeyword: List<String>,
     val characterId: Long,
     val tripStyle: String,
 )

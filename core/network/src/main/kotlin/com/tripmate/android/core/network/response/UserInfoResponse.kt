@@ -5,10 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserInfoResponse(
-    @SerialName("code")
-    val code: String,
-    @SerialName("message")
-    val message: String,
     @SerialName("data")
     val data: UserInfo,
 )
@@ -16,7 +12,7 @@ data class UserInfoResponse(
 @Serializable
 data class UserInfo(
     @SerialName("selectedKeyword")
-    val selectedKeyword: String,
+    val selectedKeyword: List<String>,
     @SerialName("characterId")
     val characterId: Long,
     @SerialName("tripStyle")

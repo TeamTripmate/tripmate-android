@@ -37,7 +37,6 @@ import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiEvent
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
 import com.tripmate.android.feature.mypage.viewmodel.MyTripCharacterInfoViewModel
-import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
 internal fun MyTripCharacterInfoRoute(

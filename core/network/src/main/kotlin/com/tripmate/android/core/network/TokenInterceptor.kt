@@ -11,11 +11,11 @@ class TokenInterceptor @Inject constructor(
     private val dataStore: TokenDataSource,
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val accessToken = runBlocking {
-            dataStore.getAccessToken()
+        val jwtToken = runBlocking {
+            dataStore.getJwtToken()
         }
         val request: Request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer $accessToken")
+            .addHeader("Authorization", jwtToken)
             .build()
         return chain.proceed(request)
     }
