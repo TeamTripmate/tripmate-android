@@ -63,7 +63,6 @@ import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.tripdetail.component.DetailInfoTab
 import com.tripmate.android.feature.tripdetail.component.MateRecruitTab
-import com.tripmate.android.feature.tripdetail.component.MateReviewTab
 import com.tripmate.android.feature.tripdetail.viewmodel.TripDetailUiAction
 import com.tripmate.android.feature.tripdetail.viewmodel.TripDetailUiEvent
 import com.tripmate.android.feature.tripdetail.viewmodel.TripDetailUiState
