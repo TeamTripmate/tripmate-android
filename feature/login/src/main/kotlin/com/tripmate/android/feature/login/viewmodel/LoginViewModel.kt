@@ -2,7 +2,9 @@ package com.tripmate.android.feature.login.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tripmate.android.core.common.ErrorHandlerActions
 import com.tripmate.android.core.common.UiText
+import com.tripmate.android.core.common.handleException
 import com.tripmate.android.domain.repository.AuthRepository
 import com.tripmate.android.domain.repository.PersonalizationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +21,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     private val personalizationRepository: PersonalizationRepository,
-) : ViewModel() {
+) : ViewModel(), ErrorHandlerActions {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
@@ -38,9 +40,32 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun saveAuthToken(accessToken: String, refreshToken: String) {
+    fun serverLogin(
+        id: Long,
+        nickname: String,
+        thumbnailImageUrl: String,
+        profileImageUrl: String,
+        accessToken: String,
+        refreshToken: String,
+    ) {
         viewModelScope.launch {
-            authRepository.saveAuthToken(accessToken, refreshToken)
+            authRepository.serverLogin(id, nickname, thumbnailImageUrl, profileImageUrl, accessToken, refreshToken)
+                .onSuccess {
+                    saveAuthToken(id, accessToken, refreshToken)
+                }
+                .onFailure { exception ->
+                    handleException(exception, this@LoginViewModel)
+                }
+        }
+    }
+
+    private fun saveAuthToken(
+        id: Long,
+        accessToken: String,
+        refreshToken: String,
+    ) {
+        viewModelScope.launch {
+            authRepository.saveAuthToken(id, accessToken, refreshToken)
             val isPersonalizationCompleted = personalizationRepository.checkPersonalizationCompletion()
             if (isPersonalizationCompleted) {
                 _uiEvent.send(LoginUiEvent.NavigateToMain)
@@ -54,5 +79,13 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             _uiEvent.send(LoginUiEvent.ShowToast(message))
         }
+    }
+
+    override fun setServerErrorDialogVisible(flag: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override fun setNetworkErrorDialogVisible(flag: Boolean) {
+        TODO("Not yet implemented")
     }
 }

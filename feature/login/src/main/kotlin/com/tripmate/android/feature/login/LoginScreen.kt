@@ -97,8 +97,21 @@ internal fun LoginRoute(
 
             token != null -> UserApiClient.instance.me { user, _ ->
                 user?.let {
-                    Timber.d("로그인 성공: ${token.accessToken}, ${token.refreshToken}, ${it.kakaoAccount?.profile?.nickname}")
-                    viewModel.saveAuthToken(token.accessToken, token.refreshToken)
+                    Timber.d(
+                        "로그인 성공: ${token.accessToken}," +
+                            " ${token.refreshToken}," +
+                            " ${it.id}" +
+                            " ${it.kakaoAccount?.profile?.nickname}" +
+                            " ${it.kakaoAccount?.profile?.thumbnailImageUrl}",
+                    )
+                    viewModel.serverLogin(
+                        it.id!!,
+                        it.kakaoAccount?.profile?.nickname!!,
+                        it.kakaoAccount?.profile?.thumbnailImageUrl!!,
+                        it.kakaoAccount?.profile?.profileImageUrl!!,
+                        token.accessToken,
+                        token.refreshToken,
+                    )
                 } ?: viewModel.setErrorMessage(UiText.StringResource(R.string.unknown_error_message))
             }
 

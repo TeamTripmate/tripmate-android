@@ -1,8 +1,10 @@
 package com.tripmate.android.core.network.service
 
 import com.tripmate.android.core.network.request.LikeSpotRequest
+import com.tripmate.android.core.network.request.WithdrawalRequest
 import com.tripmate.android.core.network.response.LocationBasedSpotSearchResponse
 import com.tripmate.android.core.network.response.SpotDetailResponse
+import com.tripmate.android.core.network.response.UserInfoResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -27,4 +29,14 @@ interface TripmateService {
         @Query("range") range: String,
         @Query("category") category: String,
     ): LocationBasedSpotSearchResponse
+
+    @POST("api/v1/user/withdrawal")
+    suspend fun withdrawal(
+        @Body withdrawalRequest: WithdrawalRequest,
+    )
+
+    @GET("api/v1/user/{userId}")
+    suspend fun getUserInfo(
+        @Path("userId") userId: Long,
+    ): UserInfoResponse
 }
