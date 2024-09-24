@@ -62,6 +62,8 @@ internal fun MyPageRoute(
     navigateToLogin: () -> Unit,
     navigateToWithdraw: () -> Unit,
     navigateToMain: () -> Unit,
+    navigateToPrivacyPolicy: () -> Unit,
+    navigateToTermOfUse: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -78,6 +80,8 @@ internal fun MyPageRoute(
             }
 
             is MyPageUiEvent.NavigateToMain -> navigateToMain()
+            is MyPageUiEvent.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
+            is MyPageUiEvent.NavigateToTermOfUse -> navigateToTermOfUse()
             else -> {}
         }
     }

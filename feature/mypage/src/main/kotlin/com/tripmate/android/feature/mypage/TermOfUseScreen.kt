@@ -26,14 +26,14 @@ internal fun TermOfUseRoute(
 ) {
     TermOfUseScreen(
         onCloseClick = popBackStack,
-        privacyPolicyWebViewUrl = BuildConfig.TERM_OF_USE_URL,
+        termOfUseUrl = "https://bubbly-stoplight-4e6.notion.site/Trip-Mate-1155df692efb45feaa6016e5458457a5?pvs=4",
     )
 }
 
 @Composable
 internal fun TermOfUseScreen(
     onCloseClick: () -> Unit,
-    privacyPolicyWebViewUrl: String,
+    termOfUseUrl: String,
 ) {
     Column(
         modifier = Modifier
@@ -41,14 +41,14 @@ internal fun TermOfUseScreen(
             .background(Color.White),
     ) {
         TermOfUseTopAppBar(onCloseClick = onCloseClick)
-        TermOfUseContent(termOfUseWebViewUrl = privacyPolicyWebViewUrl)
+        TermOfUseContent(termOfUseUrl = termOfUseUrl)
     }
 }
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 internal fun TermOfUseContent(
-    termOfUseWebViewUrl: String,
+    termOfUseUrl: String,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         AndroidView(
@@ -66,7 +66,7 @@ internal fun TermOfUseContent(
                         loadWithOverviewMode = true
                         useWideViewPort = true
                     }
-                    loadUrl(termOfUseWebViewUrl)
+                    loadUrl(termOfUseUrl)
                 }
             },
             modifier = Modifier.fillMaxSize(),
@@ -80,7 +80,7 @@ internal fun TermOfUseTopAppBar(
     modifier: Modifier = Modifier,
 ) {
     TripmateTopAppBar(
-        navigationType = TopAppBarNavigationType.Close,
+        navigationType = TopAppBarNavigationType.Back,
         title = stringResource(R.string.term_of_use) ,
         onNavigationClick = onCloseClick,
         navigationIconContentDescription = null,

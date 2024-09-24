@@ -26,14 +26,14 @@ internal fun PrivacyPolicyRoute(
 ) {
     PrivacyPolicyScreen(
         onCloseClick = popBackStack,
-        privacyPolicyWebViewUrl = BuildConfig.PRIVACY_POLICY_URL,
+        privacyPolicyUrl = "http://bubbly-stoplight-4e6.notion.site",
     )
 }
 
 @Composable
 internal fun PrivacyPolicyScreen(
     onCloseClick: () -> Unit,
-    privacyPolicyWebViewUrl: String,
+    privacyPolicyUrl: String,
 ) {
     Column(
         modifier = Modifier
@@ -41,14 +41,14 @@ internal fun PrivacyPolicyScreen(
             .background(Color.White),
     ) {
         PrivacyPolicyTopAppBar(onCloseClick = onCloseClick)
-        PrivacyPolicyContent(privacyPolicyWebViewUrl = privacyPolicyWebViewUrl)
+        PrivacyPolicyContent(privacyPolicyUrl = privacyPolicyUrl)
     }
 }
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 internal fun PrivacyPolicyContent(
-    privacyPolicyWebViewUrl: String,
+    privacyPolicyUrl: String,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         AndroidView(
@@ -66,7 +66,7 @@ internal fun PrivacyPolicyContent(
                         loadWithOverviewMode = true
                         useWideViewPort = true
                     }
-                    loadUrl(privacyPolicyWebViewUrl)
+                    loadUrl(privacyPolicyUrl)
                 }
             },
             modifier = Modifier.fillMaxSize(),
@@ -80,7 +80,7 @@ internal fun PrivacyPolicyTopAppBar(
     modifier: Modifier = Modifier,
 ) {
     TripmateTopAppBar(
-        navigationType = TopAppBarNavigationType.Close,
+        navigationType = TopAppBarNavigationType.Back,
         title = stringResource(R.string.privacy_policy) ,
         onNavigationClick = onCloseClick,
         navigationIconContentDescription = null,

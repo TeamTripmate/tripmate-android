@@ -49,6 +49,8 @@ import com.tripmate.android.feature.mate_recruit_post.navigation.mateRecruitPost
 import com.tripmate.android.feature.mypage.navigation.myPageNavGraph
 import com.tripmate.android.feature.mypage.navigation.myPickNavGraph
 import com.tripmate.android.feature.mypage.navigation.myTripCharacterInfoNavGraph
+import com.tripmate.android.feature.mypage.navigation.privacyPolicyNavGraph
+import com.tripmate.android.feature.mypage.navigation.termOfUseNavGraph
 import com.tripmate.android.feature.mypage.navigation.withdrawNavGraph
 import com.tripmate.android.feature.trip_list.navigation.mateListNavGraph
 import com.tripmate.android.feature.trip_list.navigation.mateOpenChatNavGraph
@@ -104,6 +106,8 @@ internal fun MainScreen(
                 navigateToLogin = navigateToLogin,
                 navigateToWithdraw = navController::navigateToWithdraw,
                 navigateToMain = navController::popBackStackToHome,
+                navigateToPrivacyPolicy = navController::navigateToPrivacyPolicy,
+                navigateToTermOfUse = navController::navigateToTermOfUse,
             )
             mateRecruitNavGraph(
                 padding = innerPadding,
@@ -150,6 +154,12 @@ internal fun MainScreen(
             )
             reportNavGraph(
                 padding = innerPadding,
+                popBackStack = navController::popBackStackIfNotHome,
+            )
+            privacyPolicyNavGraph(
+                popBackStack = navController::popBackStackIfNotHome,
+            )
+            termOfUseNavGraph(
                 popBackStack = navController::popBackStackIfNotHome,
             )
         }

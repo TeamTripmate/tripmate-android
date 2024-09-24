@@ -16,6 +16,8 @@ import com.tripmate.android.feature.mate_recruit_post.navigation.navigateToMateR
 import com.tripmate.android.feature.mypage.navigation.navigateToMyPage
 import com.tripmate.android.feature.mypage.navigation.navigateToMyPick
 import com.tripmate.android.feature.mypage.navigation.navigateToMyTripCharacterInfo
+import com.tripmate.android.feature.mypage.navigation.navigateToPrivacyPolicy
+import com.tripmate.android.feature.mypage.navigation.navigateToTermOfUse
 import com.tripmate.android.feature.mypage.navigation.navigateToWithdraw
 import com.tripmate.android.feature.trip_list.navigation.navigateToMateList
 import com.tripmate.android.feature.trip_list.navigation.navigateToMateOpenChat
@@ -93,6 +95,14 @@ internal class MainNavController(
 
     fun navigateToReport() {
         navController.navigateToReport()
+    }
+
+    fun navigateToPrivacyPolicy() {
+        navController.navigateToPrivacyPolicy()
+    }
+
+    fun navigateToTermOfUse() {
+        navController.navigateToTermOfUse()
     }
 
     fun popBackStack() {
