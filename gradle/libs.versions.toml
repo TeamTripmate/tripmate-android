@@ -39,6 +39,7 @@ androidx-compose-bom = "2024.06.00"
 androidx-compose-material3 = "1.2.1"
 androidx-compose-animation = "1.7.0-alpha08"
 androidx-hilt-navigation-compose = "1.2.0"
+androidx-room = "2.6.1"
 
 desugar-jdk-libs = "2.0.4"
 hilt = "2.51.1"
@@ -63,6 +64,7 @@ datetime-wheel-picker = "1.0.0"
 
 gradle-android = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
 gradle-kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin-core" }
+gradle-androidx-room = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "androidx-room" }
 
 kotlin-ktlint = { group = "com.pinterest", name = "ktlint", version.ref = "kotlin-ktlint-source" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -95,6 +97,9 @@ androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidx-hilt-navigation-compose" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "androidx-room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
 
 compose-system-ui-controller = { group = "tech.thdev", name = "extensions-compose-system-ui-controller", version.ref = "compose-extensions" }
 compose-keyboard-state = { group = "tech.thdev", name = "extensions-compose-keyboard-state", version.ref = "compose-extensions" }
@@ -138,6 +143,8 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-core" }
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 
+androidx-room = { id = "androidx.room", version.ref = "androidx-room" }
+
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
@@ -151,6 +158,7 @@ tripmate-android-library-compose = { id = "tripmate.android.library.compose", ve
 tripmate-android-feature = { id = "tripmate.android.feature", version = "unspecified" }
 tripmate-android-hilt = { id = "tripmate.android.hilt", version = "unspecified" }
 tripmate-android-retrofit = { id = "tripmate.android.retrofit", version = "unspecified" }
+tripmate-android-room = { id = "tripmate.android.room", version = "unspecified" }
 tripmate-jvm-kotlin = { id = "tripmate.jvm.kotlin", version = "unspecified" }
 
 [bundles]

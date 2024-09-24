@@ -3,6 +3,7 @@
 plugins {
     alias(libs.plugins.tripmate.android.library)
     alias(libs.plugins.tripmate.android.hilt)
+    alias(libs.plugins.tripmate.android.room)
     id("kotlinx-serialization")
 }
 
