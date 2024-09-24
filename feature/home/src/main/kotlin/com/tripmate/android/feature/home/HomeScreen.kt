@@ -134,7 +134,6 @@ internal fun HomeScreen(
     }
 }
 
-@Suppress("UnusedParameter")
 @Composable
 private fun ContentForTab(
     tabIndex: Int,
@@ -152,25 +151,23 @@ private fun ContentForTab(
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(40.dp),
         ) {
-            items(5) {
+            items(uiState.spotList.size) { index ->
+                val spot = uiState.spotList[index]
+                val locationTag = spot.address.split(" ").getOrNull(1) ?: ""
+                val mateTag = if (spot.companionYn) {
+                    if (tabIndex == 0) "액티비티 동행" else "힐링 동행"
+                } else ""
+
                 HomeItem(
-                    locationTag = "양양",
-                    categoryTag = "서핑",
-                    mateTag = "액티비티 동행",
-                    imgUrl = "https://picsum.photos/36",
-                    title = "양양 서핑 체험",
-                    description = "양양 서핑 체험을 통해 새로운 경험을 즐겨보세요!",
-                    location = "강원도 양양군",
+                    locationTag = locationTag,
+                    categoryTag = spot.spotType,
+                    mateTag = mateTag,
+                    imgUrl = spot.thumbnailUrl,
+                    title = spot.title,
+                    description = spot.description,
+                    location = spot.address,
                 )
             }
-//            item {
-//                Spacer(modifier = Modifier.height(16.dp))
-//                TripmateButton(
-//                    onClick = navigateToMateRecruit,
-//                ) {
-//                    Text(text = "동행 모집하기")
-//                }
-//            }
         }
     }
 }
