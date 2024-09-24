@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.detailtrip.component
+package com.tripmate.android.feature.tripdetail.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

@@ -1,5 +1,8 @@
 package com.tripmate.android.domain.entity
 
+import androidx.compose.runtime.Stable
+
+@Stable
 data class SpotEntity(
     val id: Int,
     val title: String,

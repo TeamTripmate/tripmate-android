@@ -3,10 +3,15 @@
 plugins {
     alias(libs.plugins.tripmate.android.feature)
     alias(libs.plugins.tripmate.android.retrofit)
+    alias(libs.plugins.google.secrets)
 }
 
 android {
     namespace = "com.tripmate.android.feature.mypage"
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -18,4 +23,8 @@ dependencies {
         libs.androidx.navigation.compose,
         libs.timber,
     )
+}
+
+secrets {
+    defaultPropertiesFileName = "secrets.properties"
 }

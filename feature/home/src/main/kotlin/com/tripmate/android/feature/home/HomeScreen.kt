@@ -47,8 +47,10 @@ internal fun HomeRoute(
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: () -> Unit,
     navigateToMateReviewPost: () -> Unit,
+    navigateToReport: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     HomeScreen(
         uiState = uiState,
         innerPadding = innerPadding,
@@ -57,6 +59,7 @@ internal fun HomeRoute(
         navigateToMateReview = navigateToMateReview,
         navigateToTripDetail = navigateToTripDetail,
         navigateToMateReviewPost = navigateToMateReviewPost,
+        navigateToReport = navigateToReport,
     )
 }
 
@@ -71,6 +74,7 @@ internal fun HomeScreen(
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: () -> Unit,
     navigateToMateReviewPost: () -> Unit,
+    navigateToReport: () -> Unit,
 ) {
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -129,6 +133,7 @@ internal fun HomeScreen(
                 uiState = uiState,
                 onAction = onAction,
                 navigateToMateRecruit = navigateToMateRecruit,
+                navigateToReport = navigateToReport,
             )
         }
     }
@@ -141,6 +146,7 @@ private fun ContentForTab(
     uiState: HomeUiState,
     onAction: (HomeUiAction) -> Unit,
     navigateToMateRecruit: () -> Unit,
+    navigateToReport: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -187,6 +193,7 @@ internal fun HomeScreenPreview() {
             navigateToMateReview = {},
             navigateToTripDetail = {},
             navigateToMateReviewPost = {},
+            navigateToReport = {},
         )
     }
 }

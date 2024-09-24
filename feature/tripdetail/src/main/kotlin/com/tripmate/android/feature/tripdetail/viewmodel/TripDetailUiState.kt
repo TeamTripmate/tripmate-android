@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.detailtrip.viewmodel
+package com.tripmate.android.feature.tripdetail.viewmodel
 
 import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.domain.entity.Address

@@ -14,8 +14,7 @@ internal class MyPageRepositoryImpl @Inject constructor(
     private val tokenDataSource: TokenDataSource,
 ) : MyPageRepository {
     override suspend fun getUserInfo() = runSuspendCatching {
-        val id = tokenDataSource.getId()
-        tripmateService.getUserInfo(id).data.toEntity()
+        tripmateService.getUserInfo(tokenDataSource.getId()).data.toEntity()
     }
 
     override suspend fun checkPersonalizationCompletion(): Boolean {

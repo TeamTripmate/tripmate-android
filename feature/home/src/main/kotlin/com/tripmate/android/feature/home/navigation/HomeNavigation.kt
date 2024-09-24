@@ -19,6 +19,7 @@ fun NavGraphBuilder.homeNavGraph(
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: () -> Unit,
     navigateToMateReviewPost: () -> Unit,
+    navigateToReport: () -> Unit,
 ) {
     composable(route = HOME_ROUTE) {
         HomeRoute(
@@ -27,6 +28,7 @@ fun NavGraphBuilder.homeNavGraph(
             navigateToMateReview = navigateToMateReview,
             navigateToTripDetail = navigateToTripDetail,
             navigateToMateReviewPost = navigateToMateReviewPost,
+            navigateToReport = navigateToReport,
         )
     }
 }

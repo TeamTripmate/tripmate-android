@@ -20,6 +20,7 @@ class TokenDataSourceImpl @Inject constructor(
         private val KEY_ID = longPreferencesKey("id")
         private val KEY_ACCESS_TOKEN = stringPreferencesKey("access_token")
         private val KEY_REFRESH_TOKEN = stringPreferencesKey("refresh_token")
+        private val KEY_JWT_TOKEN = stringPreferencesKey("jwt_token")
     }
 
     override suspend fun saveAuthToken(id: Long, accessToken: String, refreshToken: String) {
@@ -30,11 +31,19 @@ class TokenDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun saveJwtToken(jwtToken: String) {
+        dataStore.edit { preferences ->
+            preferences[KEY_JWT_TOKEN] = jwtToken
+        }
+    }
+
     override suspend fun getAccessToken(): String = getToken(KEY_ACCESS_TOKEN)
 
     override suspend fun getRefreshToken(): String = getToken(KEY_REFRESH_TOKEN)
 
     override suspend fun getId(): Long = getId(KEY_ID)
+
+    override suspend fun getJwtToken(): String = getToken(KEY_JWT_TOKEN)
 
     private suspend fun getId(key: Preferences.Key<Long>): Long =
         dataStore.data

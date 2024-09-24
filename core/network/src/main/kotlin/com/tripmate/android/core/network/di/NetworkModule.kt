@@ -3,6 +3,7 @@ package com.tripmate.android.core.network.di
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.tripmate.android.core.datastore.TokenDataSource
 import com.tripmate.android.core.network.BuildConfig
+import com.tripmate.android.core.network.JwtInterceptor
 import com.tripmate.android.core.network.LoginApi
 import com.tripmate.android.core.network.LoginClient
 import com.tripmate.android.core.network.TokenInterceptor
@@ -58,16 +59,26 @@ internal object NetworkModule {
         return TokenInterceptor(dataStore)
     }
 
+    @Singleton
+    @Provides
+    internal fun provideJwtInterceptor(
+        dataStore: TokenDataSource,
+    ): JwtInterceptor {
+        return JwtInterceptor(dataStore)
+    }
+
     @LoginClient
     @Singleton
     @Provides
     internal fun provideTripmateOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
+        jwtInterceptor: JwtInterceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(MaxTimeoutMillis, TimeUnit.MILLISECONDS)
             .readTimeout(MaxTimeoutMillis, TimeUnit.MILLISECONDS)
             .writeTimeout(MaxTimeoutMillis, TimeUnit.MILLISECONDS)
+            .addInterceptor(jwtInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .build()
     }
@@ -76,8 +87,8 @@ internal object NetworkModule {
     @Singleton
     @Provides
     internal fun provideTokenOkHttpClient(
-        httpLoggingInterceptor: HttpLoggingInterceptor,
         tokenInterceptor: TokenInterceptor,
+        httpLoggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(MaxTimeoutMillis, TimeUnit.MILLISECONDS)

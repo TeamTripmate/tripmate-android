@@ -14,6 +14,7 @@ dependencies {
     implementation(project(":feature:map"))
     implementations(
         libs.timber,
+        libs.kotlinx.collections.immutable,
         libs.androidx.compose.material3,
         libs.android.play.services.location,
         libs.accompanist.permissions,

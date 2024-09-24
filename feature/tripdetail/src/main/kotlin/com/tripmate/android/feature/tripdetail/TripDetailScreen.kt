@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.detailtrip
+package com.tripmate.android.feature.tripdetail
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -61,12 +61,12 @@ import com.tripmate.android.core.designsystem.theme.Tips
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.android.feature.detailtrip.component.DetailInfoTab
-import com.tripmate.android.feature.detailtrip.component.MateRecruitTab
-import com.tripmate.android.feature.detailtrip.viewmodel.TripDetailUiAction
-import com.tripmate.android.feature.detailtrip.viewmodel.TripDetailUiEvent
-import com.tripmate.android.feature.detailtrip.viewmodel.TripDetailUiState
-import com.tripmate.android.feature.detailtrip.viewmodel.TripDetailViewModel
+import com.tripmate.android.feature.tripdetail.component.DetailInfoTab
+import com.tripmate.android.feature.tripdetail.component.MateRecruitTab
+import com.tripmate.android.feature.tripdetail.viewmodel.TripDetailUiAction
+import com.tripmate.android.feature.tripdetail.viewmodel.TripDetailUiEvent
+import com.tripmate.android.feature.tripdetail.viewmodel.TripDetailUiState
+import com.tripmate.android.feature.tripdetail.viewmodel.TripDetailViewModel
 import kotlinx.coroutines.launch
 
 @Composable

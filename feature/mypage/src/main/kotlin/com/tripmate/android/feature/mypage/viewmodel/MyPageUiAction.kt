@@ -20,6 +20,8 @@ sealed interface MyPageUiAction {
     data object OnDialogCloseClicked : MyPageUiAction
     data object OnRealRealWithdrawClicked : MyPageUiAction
     data object OnUseMoreClicked : MyPageUiAction
+    data object OnTermOfUseClicked : MyPageUiAction
+    data object OnPrivacyPolicyClicked : MyPageUiAction
 }
 
 enum class ErrorType {

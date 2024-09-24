@@ -62,6 +62,8 @@ internal fun MyPageRoute(
     navigateToLogin: () -> Unit,
     navigateToWithdraw: () -> Unit,
     navigateToMain: () -> Unit,
+    navigateToPrivacyPolicy: () -> Unit,
+    navigateToTermOfUse: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -78,6 +80,8 @@ internal fun MyPageRoute(
             }
 
             is MyPageUiEvent.NavigateToMain -> navigateToMain()
+            is MyPageUiEvent.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
+            is MyPageUiEvent.NavigateToTermOfUse -> navigateToTermOfUse()
             else -> {}
         }
     }
@@ -209,6 +213,38 @@ internal fun MyPageContent(
             color = Gray009,
         )
         Spacer(modifier = Modifier.height(8.dp))
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    onAction(MyPageUiAction.OnTermOfUseClicked)
+                }
+                .padding(horizontal = 16.dp),
+        ) {
+            Spacer(modifier = Modifier.height(18.dp))
+            Text(
+                text = stringResource(R.string.term_of_use),
+                style = Medium16_SemiBold,
+                color = Gray002,
+            )
+            Spacer(modifier = Modifier.height(18.dp))
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    onAction(MyPageUiAction.OnPrivacyPolicyClicked)
+                }
+                .padding(horizontal = 16.dp),
+        ) {
+            Spacer(modifier = Modifier.height(18.dp))
+            Text(
+                text = stringResource(R.string.privacy_policy),
+                style = Medium16_SemiBold,
+                color = Gray002,
+            )
+            Spacer(modifier = Modifier.height(18.dp))
+        }
         Column(
             modifier = Modifier
                 .fillMaxWidth()

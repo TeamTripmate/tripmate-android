@@ -57,6 +57,8 @@ class MyPageViewModel @Inject constructor(
             is MyPageUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is MyPageUiAction.OnLogoutClicked -> logout()
             is MyPageUiAction.OnWithdrawClicked -> navigateToWithdraw()
+            is MyPageUiAction.OnPrivacyPolicyClicked -> navigateToPrivacyPolicy()
+            is MyPageUiAction.OnTermOfUseClicked -> navigateToTermOfUse()
             else -> {}
         }
     }
@@ -94,6 +96,18 @@ class MyPageViewModel @Inject constructor(
     private fun navigateToWithdraw() {
         viewModelScope.launch {
             _uiEvent.send(MyPageUiEvent.NavigateToWithdraw)
+        }
+    }
+
+    private fun navigateToPrivacyPolicy() {
+        viewModelScope.launch {
+            _uiEvent.send(MyPageUiEvent.NavigateToPrivacyPolicy)
+        }
+    }
+
+    private fun navigateToTermOfUse() {
+        viewModelScope.launch {
+            _uiEvent.send(MyPageUiEvent.NavigateToTermOfUse)
         }
     }
 

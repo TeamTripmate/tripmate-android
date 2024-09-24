@@ -20,6 +20,8 @@ fun NavGraphBuilder.myPageNavGraph(
     navigateToLogin: () -> Unit,
     navigateToWithdraw: () -> Unit,
     navigateToMain: () -> Unit,
+    navigateToPrivacyPolicy: () -> Unit,
+    navigateToTermOfUse: () -> Unit,
 ) {
     composable(route = MY_PAGE_ROUTE) {
         MyPageRoute(
@@ -29,6 +31,8 @@ fun NavGraphBuilder.myPageNavGraph(
             navigateToLogin = navigateToLogin,
             navigateToWithdraw = navigateToWithdraw,
             navigateToMain = navigateToMain,
+            navigateToPrivacyPolicy = navigateToPrivacyPolicy,
+            navigateToTermOfUse = navigateToTermOfUse,
         )
     }
 }

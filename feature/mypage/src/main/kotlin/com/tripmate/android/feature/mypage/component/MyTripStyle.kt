@@ -44,8 +44,7 @@ import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
 fun MyTripStyle(
-    characterName: String,
-    characterImageRes: Int,
+    characterId: Long,
     characterTypeIntro: String,
     tripStyleIntro: String,
     isShared: Boolean,
@@ -59,7 +58,14 @@ fun MyTripStyle(
     val screenWidthPx = with(density) { screenWidthDp.toPx() }
     val heightPx = with(density) { 438.dp.toPx() }
 
-    val gradientColors = listOf(Color(0xFF9ABCFF), Color(0xFFC4D8FF), Color(0xFFFFFFFF))
+    val gradientColors = when (characterId) {
+        1L -> listOf(Color(0xFF9ABCFF), Color(0xFFC4D8FF), Color(0xFFFFFFFF))
+        2L -> listOf(Color(0xFFAEFF5D), Color(0xFFFFE7C4), Color(0xFFFFFFFF))
+        3L -> listOf(Color(0xFF5AC4FF), Color(0xFFFFFAF0), Color(0xFFFFFFFF))
+        4L -> listOf(Color(0xFF8CBAFF), Color(0xFFC0FFF0), Color(0xFFFFFFFF))
+        5L -> listOf(Color(0xFF05A5FF), Color(0xFF77C6FF), Color(0xFFFFFFFF))
+        else -> listOf(Color(0xFF61E013), Color(0xFFC0FF99), Color(0xFFFFFFFF))
+    }
     val gradientStops = listOf(0f, 0.8f, 1f)
 
     val gradient = Brush.linearGradient(
@@ -111,54 +117,72 @@ fun MyTripStyle(
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = characterName,
+            text = "여행가 아기 ${getCharacterName(characterId)}",
             style = Large20_Bold,
             textAlign = TextAlign.Center,
             color = Gray001,
         )
         Spacer(modifier = Modifier.height(22.dp))
         Image(
-            painter = painterResource(id = characterImageRes),
+            painter = when (characterId) {
+                1L -> painterResource(id = designSystemR.drawable.img_character_01)
+                2L -> painterResource(id = designSystemR.drawable.img_character_02)
+                3L -> painterResource(id = designSystemR.drawable.img_character_03)
+                4L -> painterResource(id = designSystemR.drawable.img_character_04)
+                5L -> painterResource(id = designSystemR.drawable.img_character_05)
+                else -> painterResource(id = designSystemR.drawable.img_character_06)
+            },
             contentDescription = "Character Image",
             modifier = Modifier
                 .height(184.dp)
                 .width(212.dp),
         )
         Spacer(modifier = Modifier.height(48.dp))
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Spacer(modifier = Modifier.height(32.dp))
-            Text(
-                text = stringResource(id = R.string.character_type_intro),
-                style = Medium16_SemiBold,
-                color = Primary01,
-            )
-            Spacer(modifier = Modifier.height(18.dp))
-            Text(
-                text = characterTypeIntro,
-                style = Small14_Reg,
-                color = Gray002,
-            )
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(),
-        ) {
-            Spacer(modifier = Modifier.height(40.dp))
-            Text(
-                text = stringResource(id = R.string.trip_style_intro),
-                style = Medium16_SemiBold,
-                color = Primary01,
-            )
-            Spacer(modifier = Modifier.height(18.dp))
-            Text(
-                text = tripStyleIntro,
-                style = Small14_Reg,
-                color = Gray002,
-            )
-        }
-        Spacer(modifier = Modifier.height(56.dp))
+    }
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Spacer(modifier = Modifier.height(32.dp))
+        Text(
+            text = stringResource(id = R.string.character_type_intro),
+            style = Medium16_SemiBold,
+            color = Primary01,
+        )
+        Spacer(modifier = Modifier.height(18.dp))
+        Text(
+            text = characterTypeIntro,
+            style = Small14_Reg,
+            color = Gray002,
+        )
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+    ) {
+        Spacer(modifier = Modifier.height(40.dp))
+        Text(
+            text = stringResource(id = R.string.trip_style_intro),
+            style = Medium16_SemiBold,
+            color = Primary01,
+        )
+        Spacer(modifier = Modifier.height(18.dp))
+        Text(
+            text = tripStyleIntro,
+            style = Small14_Reg,
+            color = Gray002,
+        )
+    }
+    Spacer(modifier = Modifier.height(56.dp))
+}
+
+private fun getCharacterName(characterId: Long): String {
+    return when (characterId) {
+        1L -> "펭귄"
+        2L -> "꿀벌"
+        3L -> "코끼리"
+        4L -> "돌고래"
+        5L -> "거북이"
+        else -> "판다"
     }
 }
 
@@ -167,8 +191,7 @@ fun MyTripStyle(
 private fun MyTripStylePreview() {
     TripmateTheme {
         MyTripStyle(
-            characterName = "인스타 인생 맛집\n탐험러 펭귄",
-            characterImageRes = designSystemR.drawable.img_character_01,
+            characterId = 1,
             characterTypeIntro = "펭귄은 내향적인 성향을 가지고 있고, 대부분의 시간을 집단 내에서 조용히 보내며, 개인적인 공간과 안정적인 환경을 선호해요.\n" +
                 "\n 혼자보다는 집단과 함께 있는 것을 더 편안해하고, 사회적 상호작용보다 자신의 역할에 집중합니다. 매우 세부적으로 계획을 세우고 조직적인 행동을 하는 유형이에요",
             tripStyleIntro = "펭귄은 여행을 떠나기 전에 철저한 계획을 세우는 것을 좋아해요. 여행의 주요 목적지와 일정, 활동을 미리 정해두고, 예상 가능한 상황에 대비해 준비를 철저히 할 때 안정감을 느끼며 편안하게 여행을 즐긴답니다.\n펭귄은 집단 내에서 협력하여 활동하는 것을 좋아하는데요. 여행 중에도 동행자와 함께 계획을 공유하고, 서로의 역할을 명확히 하여 협력적으로 움직이는 것을 선호하죠.",

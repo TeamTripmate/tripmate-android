@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="report">신고하기</string>
+    <string name="report_description">신고하시는 이유를 알려주세요</string>
+    <string name="report_reason_hint">신고 이유를 상세히 작성해주세요(선택)</string>
+    <string name="cancel">취소</string>
+    <string name="privacy">개인정보 유출 및 명예훼손 및 저작권 침해</string>
+    <string name="advertisement">광고 및 홍보성 내용</string>
+    <string name="no_mate_content">동행과 무관한 내용 혹은 사진</string>
+    <string name="abuse">욕설,비방,선정성 등 미풍양속을 해치는 내용</string>
+    <string name="etc">기타</string>
+    <string name="confirm">확인</string>
+    <string name="report_dialog_title">신고가 완료되었습니다</string>
+    <string name="report_dialog_description">트립메이트는 안전한 동행문화를 지양합니다</string>
+</resources>
