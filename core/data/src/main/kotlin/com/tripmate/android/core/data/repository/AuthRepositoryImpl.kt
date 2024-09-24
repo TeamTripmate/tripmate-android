@@ -41,7 +41,7 @@ class AuthRepositoryImpl @Inject constructor(
         tokenDataSource.clearAuthToken()
     }
 
-    override suspend fun withdrawal()= runSuspendCatching {
+    override suspend fun withdrawal() = runSuspendCatching {
         tripMateService.withdrawal(WithdrawalRequest(tokenDataSource.getId()))
     }
 }
