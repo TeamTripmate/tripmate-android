@@ -59,15 +59,18 @@ class MateViewModel @Inject constructor(
             val longitude = it.longitude
             viewModelScope.launch {
                 mapRepository.getNearbyTouristSpots(
+                    searchType = "AROUND_ME",
                     latitude = latitude.toString(),
                     longitude = longitude.toString(),
                     range = "10000",
-                    category = categoryType.categoryCode ?: "",
+                    spotType = categoryType.categoryCode ?: "",
+                    spotTypeGroup = "ACTIVITY",
+                    //todo: spotTypeGroup 로직 추가
                 )
                     .onSuccess { spots ->
                         spots.let {
-                            _uiState.update {
-                                it.copy(
+                            _uiState.update { uiState ->
+                                uiState.copy(
                                     categoryType = categoryType,
                                     spotList = spots,
                                     selectPoiItem = spots.first(),
