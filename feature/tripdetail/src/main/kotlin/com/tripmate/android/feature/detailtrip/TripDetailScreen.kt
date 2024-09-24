@@ -64,7 +64,6 @@ import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.detailtrip.component.DetailInfoTab
 import com.tripmate.android.feature.detailtrip.component.MateRecruitTab
-import com.tripmate.android.feature.detailtrip.component.MateReviewTab
 import com.tripmate.android.feature.detailtrip.viewmodel.TripDetailUiAction
 import com.tripmate.android.feature.detailtrip.viewmodel.TripDetailUiEvent
 import com.tripmate.android.feature.detailtrip.viewmodel.TripDetailUiState
@@ -301,7 +300,6 @@ private fun ContentForTab(
     when (tabIndex) {
         0 -> DetailInfoTab(tripDetail = uiState.tripDetail)
         1 -> MateRecruitTab(tripDetail = uiState.tripDetail)
-        2 -> MateReviewTab(tripDetail = uiState.tripDetail)
     }
 }
 

@@ -24,9 +24,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -35,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
+import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
@@ -58,7 +61,6 @@ import com.tripmate.android.core.designsystem.theme.XSmall10_Mid
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.MateRecruitPostEntity
-import com.tripmate.android.domain.entity.TripDetailMateRecruitEntity
 import com.tripmate.android.domain.entity.TripDetailMateReviewEntity
 import com.tripmate.android.feature.mate_recruit_post.viewmodel.MateRecruitPostUiAction
 import com.tripmate.android.feature.mate_recruit_post.viewmodel.MateRecruitPostUiEvent
@@ -79,6 +81,10 @@ internal fun MateRecruitPostRoute(
             is MateRecruitPostUiEvent.NavigateBack -> popBackStack()
             is MateRecruitPostUiEvent.Finish -> popBackStack()
         }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.onAction(MateRecruitPostUiAction.GetCompanionsDetailInfo)
     }
 
     MateRecruitPostScreen(
@@ -111,7 +117,7 @@ internal fun MateRecruitPostScreen(
             )
 
             MateRecruitPostContent(
-                mateRecruit = uiState.mateRecruitPostEntity.mateRecruit,
+                mateRecruitPost = uiState.mateRecruitPostEntity,
             )
 
             HorizontalDivider(
@@ -122,6 +128,7 @@ internal fun MateRecruitPostScreen(
 
             MateRecruitRequest(
                 uiState = uiState,
+                onAction = onAction,
             )
 
             HorizontalDivider(
@@ -135,7 +142,7 @@ internal fun MateRecruitPostScreen(
             )
         }
 
-        if (uiState.mateRecruitPostEntity.isAvailableMateRequest) {
+        if (uiState.isCompanionApplySuccess) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -163,7 +170,7 @@ internal fun MateRecruitPostScreen(
 
 @Composable
 fun MateRecruitPostContent(
-    mateRecruit: TripDetailMateRecruitEntity,
+    mateRecruitPost: MateRecruitPostEntity,
 ) {
     Column(
         modifier = Modifier
@@ -179,17 +186,19 @@ fun MateRecruitPostContent(
             modifier = Modifier
                 .fillMaxWidth(),
         ) {
-            Image(
-                modifier = Modifier.size(36.dp),
-                painter = painterResource(id = mateRecruit.imageResId),
-                contentDescription = "Profile Image Icon",
+            NetworkImage(
+                imgUrl = mateRecruitPost.hostInfo.profileImage,
+                contentDescription = "Profile",
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(RoundedCornerShape(22.dp)),
             )
 
             Spacer(modifier = Modifier.width(8.dp))
 
             Column {
                 Text(
-                    text = mateRecruit.mateName,
+                    text = mateRecruitPost.hostInfo.kakaoNickname,
                     color = Gray001,
                     style = Small14_SemiBold,
                 )
@@ -198,7 +207,7 @@ fun MateRecruitPostContent(
 
                 Row {
                     Text(
-                        text = mateRecruit.mateStyleName,
+                        text = mateRecruitPost.hostInfo.characterName,
                         color = Gray003,
                         style = XSmall12_Reg,
                     )
@@ -206,7 +215,7 @@ fun MateRecruitPostContent(
                     Spacer(modifier = Modifier.width(8.dp))
 
                     Text(
-                        text = mateRecruit.mateMatchingRatio,
+                        text = mateRecruitPost.matchingRatio + "% 일치",
                         color = Primary01,
                         style = XSmall12_Reg,
                     )
@@ -217,7 +226,7 @@ fun MateRecruitPostContent(
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(2.dp),
                 ) {
-                    items(mateRecruit.mateStyleType) { item ->
+                    items(mateRecruitPost.hostInfo.styleType) { item ->
                         TripDetailMateStyleTypeItem(item)
                     }
                 }
@@ -227,7 +236,7 @@ fun MateRecruitPostContent(
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = mateRecruit.mateRecruitTitle,
+            text = mateRecruitPost.title,
             color = Gray001,
             style = Medium16_Mid,
         )
@@ -236,13 +245,7 @@ fun MateRecruitPostContent(
 
         Row {
             Text(
-                text = mateRecruit.mateRecruitAddress + "·",
-                color = Gray002,
-                style = XSmall12_Reg,
-            )
-
-            Text(
-                text = mateRecruit.mateRecruitDate,
+                text = mateRecruitPost.date,
                 color = Gray001,
                 style = XSmall12_Reg,
             )
@@ -251,15 +254,20 @@ fun MateRecruitPostContent(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = mateRecruit.mateRecruitDescription,
+            text = mateRecruitPost.description,
             color = Gray002,
             style = Small14_Reg,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
+        val genderString =
+            if (mateRecruitPost.gender.isNotEmpty())
+                if (mateRecruitPost.ageRange.isNotEmpty()) mateRecruitPost.gender + "만∙"
+                else mateRecruitPost.gender
+            else ""
         Text(
-            text = mateRecruit.mateRecruitSubDescription,
+            text = genderString + mateRecruitPost.ageRange,
             color = Gray006,
             style = Small14_Reg,
         )
@@ -271,6 +279,7 @@ fun MateRecruitPostContent(
 @Composable
 fun MateRecruitRequest(
     uiState: MateRecruitPostUiState,
+    onAction: (MateRecruitPostUiAction) -> Unit,
 ) {
     Spacer(modifier = Modifier.height(12.dp))
 
@@ -299,15 +308,16 @@ fun MateRecruitRequest(
 
     TripmateButton(
         onClick = {
+            onAction.invoke(MateRecruitPostUiAction.OnCompanionApply)
         },
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, top = 12.dp)
             .height(56.dp),
-        enabled = uiState.mateRecruitPostEntity.isAvailableMateRequest.not(),
+        enabled = uiState.isCompanionApplySuccess,
     ) {
         Text(
-            text = stringResource(designSystemR.string.trip_mate_recruit_text),
+            text = stringResource(designSystemR.string.trip_mate_recruit_kakao),
             style = Medium16_SemiBold,
         )
     }
@@ -381,7 +391,7 @@ fun MateRecruitPostReview(
             .background(MateReview)
             .padding(horizontal = 20.dp, vertical = 16.dp),
     ) {
-        mateRecruitPostEntity.mateRecruitPostReviewAdvantage.forEachIndexed { index, item ->
+        mateRecruitPostEntity.reviewRanks.forEachIndexed { index, item ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -437,17 +447,19 @@ fun MateReviewItem(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Image(
-                modifier = Modifier.size(36.dp),
-                painter = painterResource(id = tripDetailMateReviewEntity.imageResId),
-                contentDescription = "Profile Image Icon",
+            NetworkImage(
+                imgUrl = tripDetailMateReviewEntity.userInfo.profileImage,
+                contentDescription = "Profile",
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(RoundedCornerShape(22.dp)),
             )
 
             Spacer(modifier = Modifier.width(8.dp))
 
             Column {
                 Text(
-                    text = tripDetailMateReviewEntity.mateName,
+                    text = tripDetailMateReviewEntity.userInfo.kakaoNickname,
                     color = Gray001,
                     style = Small14_SemiBold,
                 )
@@ -455,7 +467,7 @@ fun MateReviewItem(
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = tripDetailMateReviewEntity.mateStyleName,
+                    text = tripDetailMateReviewEntity.userInfo.profileImage,
                     color = Gray003,
                     style = XSmall12_Reg,
                 )
@@ -464,25 +476,17 @@ fun MateReviewItem(
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                text = tripDetailMateReviewEntity.mateReviewDate,
+                text = tripDetailMateReviewEntity.reviewDate,
                 color = Gray005,
                 style = XSmall12_Reg,
             )
         }
         Spacer(modifier = Modifier.height(12.dp))
 
-        Text(
-            text = tripDetailMateReviewEntity.mateReviewDescription,
-            color = Gray006,
-            style = Small14_Reg,
-        )
-
-        Spacer(modifier = Modifier.height(14.dp))
-
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(2.dp),
         ) {
-            items(tripDetailMateReviewEntity.mateReviewType) { item ->
+            items(tripDetailMateReviewEntity.likeList) { item ->
                 TripDetailMateStyleTypeItem(item)
             }
         }

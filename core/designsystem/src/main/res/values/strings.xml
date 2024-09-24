@@ -45,6 +45,7 @@
     <string name="trip_recommend_style_title">추천 스타일</string>
     <string name="trip_mate_recruit_title">동행인을 찾아 볼까요?</string>
     <string name="trip_mate_recruit_text">동행글 작성하기</string>
+    <string name="trip_mate_recruit_kakao">동행 톡방 바로가기</string>
     <string name="trip_mate_recruit_list">동행 모집글 보기</string>
     <string name="trip_mate_review_advantage_title">이런 점이 좋았어요!</string>
     <string name="trip_mate_review_advantage_first">1위</string>
