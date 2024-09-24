@@ -39,8 +39,8 @@ data class HostInfo(
     val kakaoNickname: String,
     @SerialName("characterName")
     val characterName: String,
-    @SerialName("styleType")
-    val styleType: List<String>,
+    @SerialName("selectedKeyword")
+    val selectedKeyword: List<String>,
 )
 
 @Serializable

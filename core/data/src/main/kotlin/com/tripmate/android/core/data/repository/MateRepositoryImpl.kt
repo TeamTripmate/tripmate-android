@@ -36,17 +36,17 @@ internal class MateRepositoryImpl @Inject constructor(
             ageRange = response.ageRange,
             matchingRatio = response.matchingRatio,
             hostInfo = UserInfoEntity(
-                profileImage = response.hostInfo.profileImage,
+                profileImage = response.hostInfo.profileImage.replace("http:","https:"),
                 kakaoNickname = response.hostInfo.kakaoNickname,
                 characterName = response.hostInfo.characterName,
-                styleType = response.hostInfo.styleType,
+                styleType = response.hostInfo.selectedKeyword,
             ),
             reviewRanks = response.reviewRanks,
             mateRecruitPostReviewList = emptyList<TripDetailMateReviewEntity>().apply {
                 response.reviewInfos.forEach { reviewInfo ->
                     TripDetailMateReviewEntity(
                         userInfo = UserInfoEntity(
-                            profileImage = reviewInfo.userInfo.profileImage,
+                            profileImage = reviewInfo.userInfo.profileImage.replace("http:","https:"),
                             kakaoNickname = reviewInfo.userInfo.kakaoNickname,
                             characterName = reviewInfo.userInfo.characterName,
                         ),
