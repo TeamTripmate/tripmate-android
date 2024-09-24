@@ -8,7 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.tripmate.android.feature.detailtrip.navigation.navigateToTripDetail
+import com.tripmate.android.feature.tripdetail.navigation.navigateToTripDetail
 import com.tripmate.android.feature.home.navigation.HOME_ROUTE
 import com.tripmate.android.feature.home.navigation.navigateToHome
 import com.tripmate.android.feature.mate_recruit.navigation.navigateToMateRecruit
@@ -21,6 +21,7 @@ import com.tripmate.android.feature.trip_list.navigation.navigateToMateList
 import com.tripmate.android.feature.trip_list.navigation.navigateToMateOpenChat
 import com.tripmate.android.feature.trip_list.navigation.navigateToTripList
 import com.tripmate.android.mate.navigation.navigateToMate
+import com.tripmate.android.feature.tripdetail.navigation.navigateToReport
 import com.tripmate.android.mate_review.navigation.navigateToMateReview
 
 internal class MainNavController(
@@ -88,6 +89,10 @@ internal class MainNavController(
 
     fun navigateToMateOpenChat() {
         navController.navigateToMateOpenChat()
+    }
+
+    fun navigateToReport() {
+        navController.navigateToReport()
     }
 
     fun popBackStack() {

@@ -1,6 +1,7 @@
 package com.tripmate.android.feature.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -47,8 +48,10 @@ internal fun HomeRoute(
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: () -> Unit,
     navigateToMateReviewPost: () -> Unit,
+    navigateToReport: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     HomeScreen(
         uiState = uiState,
         innerPadding = innerPadding,
@@ -57,6 +60,7 @@ internal fun HomeRoute(
         navigateToMateReview = navigateToMateReview,
         navigateToTripDetail = navigateToTripDetail,
         navigateToMateReviewPost = navigateToMateReviewPost,
+        navigateToReport = navigateToReport,
     )
 }
 
@@ -71,6 +75,7 @@ internal fun HomeScreen(
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: () -> Unit,
     navigateToMateReviewPost: () -> Unit,
+    navigateToReport: () -> Unit,
 ) {
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -129,6 +134,7 @@ internal fun HomeScreen(
                 uiState = uiState,
                 onAction = onAction,
                 navigateToMateRecruit = navigateToMateRecruit,
+                navigateToReport = navigateToReport,
             )
         }
     }
@@ -141,6 +147,7 @@ private fun ContentForTab(
     uiState: HomeUiState,
     onAction: (HomeUiAction) -> Unit,
     navigateToMateRecruit: () -> Unit,
+    navigateToReport: () -> Unit,
 ) {
     Column {
         HomeFilterChips(
@@ -161,6 +168,9 @@ private fun ContentForTab(
                     title = "양양 서핑 체험",
                     description = "양양 서핑 체험을 통해 새로운 경험을 즐겨보세요!",
                     location = "강원도 양양군",
+                    modifier = Modifier.clickable {
+                        navigateToReport()
+                    }
                 )
             }
 //            item {
@@ -187,6 +197,7 @@ internal fun HomeScreenPreview() {
             navigateToMateReview = {},
             navigateToTripDetail = {},
             navigateToMateReviewPost = {},
+            navigateToReport = {},
         )
     }
 }

@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.detailtrip.component
+package com.tripmate.android.feature.tripdetail.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,54 +14,53 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
-import com.tripmate.android.core.designsystem.component.TripmateButton
+import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.theme.Gray001
-import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Gray003
+import com.tripmate.android.core.designsystem.theme.Gray005
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Gray009
-import com.tripmate.android.core.designsystem.theme.Gray010
+import com.tripmate.android.core.designsystem.theme.MateReview
 import com.tripmate.android.core.designsystem.theme.Medium16_Mid
-import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.Small14_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
-import com.tripmate.android.core.designsystem.theme.XSmall10_Mid
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.domain.entity.TripDetailEntity
-import com.tripmate.android.domain.entity.TripDetailMateRecruitEntity
+import com.tripmate.android.domain.entity.TripDetailMateReviewEntity
 
 @Composable
-fun MateRecruitTab(
+fun MateReviewTab(
     tripDetail: TripDetailEntity,
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
     ) {
-        TripDetailMateRecruit()
+        TripMateReviewAdvantage(tripDetail)
 
-        TripDetailMateRecruitList(tripDetail)
+        TripMateReviewList(tripDetail)
     }
 }
 
 @Composable
-fun TripDetailMateRecruit() {
+fun TripMateReviewAdvantage(
+    tripDetail: TripDetailEntity,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),
@@ -78,25 +77,55 @@ fun TripDetailMateRecruit() {
         Spacer(modifier = Modifier.width(8.dp))
 
         Text(
-            text = stringResource(id = R.string.trip_mate_recruit_title),
+            text = stringResource(id = R.string.trip_mate_review_advantage_title),
             color = Gray001,
             style = Medium16_Mid,
         )
     }
 
-    TripmateButton(
-        onClick = {
-        },
+    val advantageTextAndColor: List<Triple<Int, Color, Color>> = listOf(
+        Triple(R.string.trip_mate_review_advantage_first, Primary01, Gray001),
+        Triple(R.string.trip_mate_review_advantage_second, Gray003, Gray003),
+        Triple(R.string.trip_mate_review_advantage_third, Gray005, Gray005),
+    )
+
+    Spacer(modifier = Modifier.height(12.dp))
+
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 24.dp, bottom = 24.dp)
-            .height(56.dp),
+            .border(
+                width = 1.dp,
+                color = Gray009,
+                shape = RoundedCornerShape(4.dp),
+            )
+            .background(MateReview)
+            .padding(horizontal = 20.dp, vertical = 16.dp),
     ) {
-        Text(
-            text = stringResource(R.string.trip_mate_recruit_text),
-            style = Medium16_SemiBold,
-        )
+        tripDetail.tripDetailMateReviewAdvantage.forEachIndexed { index, item ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp),
+            ) {
+                Text(
+                    text = stringResource(advantageTextAndColor[index].first),
+                    color = advantageTextAndColor[index].second,
+                    style = Medium16_Mid,
+                )
+
+                Spacer(modifier = Modifier.width(14.dp))
+
+                Text(
+                    text = item,
+                    color = advantageTextAndColor[index].third,
+                    style = Medium16_Mid,
+                )
+            }
+        }
     }
+
+    Spacer(modifier = Modifier.height(24.dp))
 
     HorizontalDivider(
         thickness = 1.dp,
@@ -106,19 +135,20 @@ fun TripDetailMateRecruit() {
 }
 
 @Composable
-fun TripDetailMateRecruitList(
+fun TripMateReviewList(
     tripDetail: TripDetailEntity,
 ) {
+    Spacer(modifier = Modifier.height(24.dp))
+
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp),
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
             modifier = Modifier
                 .wrapContentSize(),
-            painter = painterResource(id = R.drawable.ic_mate_recruit_list),
+            painter = painterResource(id = R.drawable.ic_introduce),
             contentDescription = "introduce icon",
             contentScale = ContentScale.Crop,
         )
@@ -126,7 +156,7 @@ fun TripDetailMateRecruitList(
         Spacer(modifier = Modifier.width(8.dp))
 
         Text(
-            text = stringResource(id = R.string.trip_mate_recruit_list),
+            text = stringResource(id = R.string.trip_mate_review_list),
             color = Gray001,
             style = Medium16_Mid,
         )
@@ -138,33 +168,28 @@ fun TripDetailMateRecruitList(
             .padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        tripDetail.tripDetailMateRecruit.forEach { item ->
-            TripDetailMateRecruitItem(item)
+        tripDetail.tripDetailMateReviewList.forEach { item ->
+            TripDetailMateReviewItem(item)
         }
     }
 }
 
 @Composable
-fun TripDetailMateRecruitItem(
-    tripDetailMateRecruitEntity: TripDetailMateRecruitEntity,
+fun TripDetailMateReviewItem(
+    tripDetailMateReviewEntity: TripDetailMateReviewEntity,
 ) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .border(
-                width = 1.dp,
-                color = Gray009,
-                shape = RoundedCornerShape(4.dp),
-            )
-            .padding(20.dp),
+            .fillMaxWidth(),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
                 modifier = Modifier.size(36.dp),
-                painter = painterResource(id = tripDetailMateRecruitEntity.imageResId),
+                painter = painterResource(id = tripDetailMateReviewEntity.imageResId),
                 contentDescription = "Profile Image Icon",
             )
 
@@ -172,77 +197,53 @@ fun TripDetailMateRecruitItem(
 
             Column {
                 Text(
-                    text = tripDetailMateRecruitEntity.mateName,
+                    text = tripDetailMateReviewEntity.mateName,
                     color = Gray001,
                     style = Small14_SemiBold,
                 )
 
                 Spacer(modifier = Modifier.height(4.dp))
 
-                Row {
-                    Text(
-                        text = tripDetailMateRecruitEntity.mateStyleName,
-                        color = Gray003,
-                        style = XSmall12_Reg,
-                    )
-
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    Text(
-                        text = tripDetailMateRecruitEntity.mateMatchingRatio,
-                        color = Primary01,
-                        style = XSmall12_Reg,
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(2.dp),
-                ) {
-                    items(tripDetailMateRecruitEntity.mateStyleType) { item ->
-                        TripDetailMateStyleTypeItem(item)
-                    }
-                }
+                Text(
+                    text = tripDetailMateReviewEntity.mateStyleName,
+                    color = Gray003,
+                    style = XSmall12_Reg,
+                )
             }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = tripDetailMateReviewEntity.mateReviewDate,
+                color = Gray005,
+                style = XSmall12_Reg,
+            )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
-        Text(
-            text = tripDetailMateRecruitEntity.mateRecruitTitle,
-            color = Gray001,
-            style = Medium16_Mid,
+        NetworkImage(
+            imgUrl = tripDetailMateReviewEntity.imageReviewUrl,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(250.dp),
+            contentDescription = "Example Image Icon",
         )
 
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = tripDetailMateRecruitEntity.mateRecruitDescription,
+            text = tripDetailMateReviewEntity.mateReviewDescription,
             color = Gray006,
             style = Small14_Reg,
         )
     }
 }
 
-@Composable
-fun TripDetailMateStyleTypeItem(
-    mateStyleTypeItem: String,
-) {
-    Text(
-        modifier = Modifier
-            .background(color = Gray010)
-            .padding(2.dp),
-        text = mateStyleTypeItem,
-        color = Gray002,
-        style = XSmall10_Mid,
-    )
-}
-
 @ComponentPreview
 @Composable
-fun MateRecruitTabPreview() {
+fun MateReviewTabPreview() {
     TripmateTheme {
-        MateRecruitTab(TripDetailEntity())
+        MateReviewTab(TripDetailEntity())
     }
 }
