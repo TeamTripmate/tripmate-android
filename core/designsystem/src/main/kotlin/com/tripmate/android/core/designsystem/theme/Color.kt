@@ -48,7 +48,7 @@ val Gray009Dark = Color(0xFF2A2A2A)
 
 val Positive = Color(0xFF00CF5F)
 val Error = Color(0xFFF23444)
-val Kakao = Color(0xFFFBD300)
+val Kakao = Color(0xFFFEE524)
 val Orange = Color(0xFFFF8311)
 val Ticket = Color(0xFFCFEAFF)
 val Tips = Color(0xFFFFFBEF)

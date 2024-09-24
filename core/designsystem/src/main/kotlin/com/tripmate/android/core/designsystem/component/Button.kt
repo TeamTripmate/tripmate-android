@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,6 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -123,21 +125,24 @@ private fun TrimpateButtonContent(
     text: @Composable () -> Unit,
     leadingIcon: @Composable (() -> Unit)? = null,
 ) {
-    if (leadingIcon != null) {
-        Box(Modifier.sizeIn(maxHeight = ButtonDefaults.IconSize)) {
-            leadingIcon()
-        }
-    }
     Box(
-        Modifier.padding(
-            start = if (leadingIcon != null) {
-                ButtonDefaults.IconSpacing
-            } else {
-                0.dp
-            },
-        ),
+        modifier = Modifier.fillMaxWidth(),
     ) {
-        text()
+        if (leadingIcon != null) {
+            Box(
+                Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(start = 14.dp)
+                    .sizeIn(18.dp),
+            ) {
+                leadingIcon()
+            }
+        }
+        Box(
+            modifier = Modifier.align(Alignment.Center),
+        ) {
+            text()
+        }
     }
 }
 
