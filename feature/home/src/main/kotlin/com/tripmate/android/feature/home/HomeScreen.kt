@@ -170,7 +170,7 @@ private fun ContentForTab(
                     location = "강원도 양양군",
                     modifier = Modifier.clickable {
                         navigateToReport()
-                    }
+                    },
                 )
             }
 //            item {

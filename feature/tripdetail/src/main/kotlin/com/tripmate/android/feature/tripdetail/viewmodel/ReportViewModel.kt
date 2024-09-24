@@ -72,10 +72,4 @@ class ReportViewModel @Inject constructor() : ViewModel() {
         setReportDialogVisible(false)
         navigateBack()
     }
-
-    private fun navigateToMain() {
-        viewModelScope.launch {
-            _uiEvent.send(ReportUiEvent.NavigateToMain)
-        }
-    }
 }

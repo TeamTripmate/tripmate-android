@@ -10,7 +10,7 @@ sealed interface ReportUiAction {
     data object OnDialogCloseClicked : ReportUiAction
     data object OnReportClicked : ReportUiAction
     data object OnCancelClicked : ReportUiAction
-    data object OnConfirmClicked: ReportUiAction
+    data object OnConfirmClicked : ReportUiAction
 }
 
 enum class ErrorType {

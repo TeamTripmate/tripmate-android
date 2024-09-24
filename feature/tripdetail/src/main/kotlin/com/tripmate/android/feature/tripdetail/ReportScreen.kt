@@ -38,6 +38,7 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.ReportReasonEntity
 import com.tripmate.android.feature.tripdetail.component.ReportDialog
+import com.tripmate.android.feature.tripdetail.viewmodel.ReportUiAction
 import com.tripmate.android.core.designsystem.R as designSystemR
 import com.tripmate.android.feature.tripdetail.viewmodel.ReportUiState
 import kotlinx.collections.immutable.persistentListOf
@@ -69,7 +70,7 @@ internal fun ReportRoute(
 internal fun ReportScreen(
     uiState: ReportUiState,
     innerPadding: PaddingValues,
-    onAction: (com.tripmate.android.feature.tripdetail.viewmodel.ReportUiAction) -> Unit,
+    onAction: (ReportUiAction) -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -81,7 +82,7 @@ internal fun ReportScreen(
             TripmateTopAppBar(
                 navigationType = TopAppBarNavigationType.Back,
                 title = stringResource(id = R.string.report),
-                onNavigationClick = { onAction(com.tripmate.android.feature.tripdetail.viewmodel.ReportUiAction.OnBackClicked) },
+                onNavigationClick = { onAction(ReportUiAction.OnBackClicked) },
             )
             ReportContent(
                 uiState = uiState,
@@ -92,7 +93,7 @@ internal fun ReportScreen(
 
     if (uiState.isReportDialogVisible) {
         ReportDialog(
-            onDismissRequest = { onAction(com.tripmate.android.feature.tripdetail.viewmodel.ReportUiAction.OnBackClicked) },
+            onDismissRequest = { onAction(ReportUiAction.OnBackClicked) },
             onAction = onAction,
         )
     }
@@ -101,7 +102,7 @@ internal fun ReportScreen(
 @Composable
 internal fun ReportContent(
     uiState: ReportUiState,
-    onAction: (com.tripmate.android.feature.tripdetail.viewmodel.ReportUiAction) -> Unit,
+    onAction: (ReportUiAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -130,9 +131,9 @@ internal fun ReportContent(
                     isSelected = uiState.selectedReportReasons.contains(uiState.allReportReasons[index]),
                     onSelectedChange = {
                         if (uiState.selectedReportReasons.contains(uiState.allReportReasons[index])) {
-                            onAction(com.tripmate.android.feature.tripdetail.viewmodel.ReportUiAction.OnReportReasonDeselected(uiState.allReportReasons[index]))
+                            onAction(ReportUiAction.OnReportReasonDeselected(uiState.allReportReasons[index]))
                         } else {
-                            onAction(com.tripmate.android.feature.tripdetail.viewmodel.ReportUiAction.OnReportReasonSelected(uiState.allReportReasons[index]))
+                            onAction(ReportUiAction.OnReportReasonSelected(uiState.allReportReasons[index]))
                         }
                     },
                     iconRes = designSystemR.drawable.ic_mate_type,
@@ -143,7 +144,7 @@ internal fun ReportContent(
         Spacer(modifier = Modifier.height(24.dp))
         TripmateTextField(
             text = uiState.reportReasonDescription,
-            onTextChange = { text -> onAction(com.tripmate.android.feature.tripdetail.viewmodel.ReportUiAction.OnReportReasonDescriptionUpdated(text)) },
+            onTextChange = { text -> onAction(ReportUiAction.OnReportReasonDescriptionUpdated(text)) },
             searchTextHintRes = R.string.report_reason_hint,
             modifier = Modifier
                 .fillMaxWidth()
@@ -157,7 +158,7 @@ internal fun ReportContent(
             modifier = Modifier.fillMaxWidth(),
         ) {
             TripmateOutlinedButton(
-                onClick = { onAction(com.tripmate.android.feature.tripdetail.viewmodel.ReportUiAction.OnCancelClicked) },
+                onClick = { onAction(ReportUiAction.OnCancelClicked) },
                 modifier = Modifier
                     .weight(1f)
                     .height(56.dp),
@@ -171,7 +172,7 @@ internal fun ReportContent(
             }
             Spacer(modifier = Modifier.width(8.dp))
             TripmateButton(
-                onClick = { onAction(com.tripmate.android.feature.tripdetail.viewmodel.ReportUiAction.OnReportClicked) },
+                onClick = { onAction(ReportUiAction.OnReportClicked) },
                 modifier = Modifier
                     .weight(2f)
                     .height(56.dp),
