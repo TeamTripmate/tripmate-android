@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.detailtrip.viewmodel
+package com.tripmate.android.feature.tripdetail.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.tripmate.android.domain.repository.TripDetailRepository
