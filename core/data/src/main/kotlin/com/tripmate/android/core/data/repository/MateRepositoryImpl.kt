@@ -5,6 +5,7 @@ import com.tripmate.android.core.datastore.PersonalizationDataSource
 import com.tripmate.android.core.network.request.CompanionApplyRequest
 import com.tripmate.android.core.network.service.TripmateService
 import com.tripmate.android.domain.entity.MateRecruitPostEntity
+import com.tripmate.android.domain.entity.MateReviewType
 import com.tripmate.android.domain.entity.TripDetailMateReviewEntity
 import com.tripmate.android.domain.entity.UserInfoEntity
 import com.tripmate.android.domain.repository.MateRepository
@@ -36,22 +37,26 @@ internal class MateRepositoryImpl @Inject constructor(
             ageRange = response.ageRange,
             matchingRatio = response.matchingRatio,
             hostInfo = UserInfoEntity(
-                profileImage = response.hostInfo.profileImage.replace("http:","https:"),
+                profileImage = response.hostInfo.profileImage.replace("http:", "https:"),
                 kakaoNickname = response.hostInfo.kakaoNickname,
                 characterName = response.hostInfo.characterName,
                 styleType = response.hostInfo.selectedKeyword,
             ),
-            reviewRanks = response.reviewRanks,
+            reviewRanks = response.reviewRanks.map { reviewRanks ->
+                MateReviewType.entries.find { it.code == reviewRanks }?.reviewText ?: ""
+            },
             mateRecruitPostReviewList = emptyList<TripDetailMateReviewEntity>().apply {
                 response.reviewInfos.forEach { reviewInfo ->
                     TripDetailMateReviewEntity(
                         userInfo = UserInfoEntity(
-                            profileImage = reviewInfo.userInfo.profileImage.replace("http:","https:"),
+                            profileImage = reviewInfo.userInfo.profileImage.replace("http:", "https:"),
                             kakaoNickname = reviewInfo.userInfo.kakaoNickname,
                             characterName = reviewInfo.userInfo.characterName,
                         ),
                         reviewDate = reviewInfo.reviewDate,
-                        likeList = reviewInfo.likeList,
+                        likeList = reviewInfo.likeList.map { reviewRanks ->
+                            MateReviewType.entries.find { it.code == reviewRanks }?.reviewText ?: ""
+                        },
                     )
                 }
             },
