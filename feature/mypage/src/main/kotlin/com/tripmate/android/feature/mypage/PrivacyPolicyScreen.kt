@@ -81,7 +81,7 @@ internal fun PrivacyPolicyTopAppBar(
 ) {
     TripmateTopAppBar(
         navigationType = TopAppBarNavigationType.Back,
-        title = stringResource(R.string.privacy_policy) ,
+        title = stringResource(R.string.privacy_policy),
         onNavigationClick = onCloseClick,
         navigationIconContentDescription = null,
         modifier = modifier

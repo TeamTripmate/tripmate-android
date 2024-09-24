@@ -42,4 +42,3 @@ data class MyPickEntity(
     @ColumnInfo(name = "distance")
     val distance: Double,
 )
-

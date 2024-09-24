@@ -81,7 +81,7 @@ internal fun TermOfUseTopAppBar(
 ) {
     TripmateTopAppBar(
         navigationType = TopAppBarNavigationType.Back,
-        title = stringResource(R.string.term_of_use) ,
+        title = stringResource(R.string.term_of_use),
         onNavigationClick = onCloseClick,
         navigationIconContentDescription = null,
         modifier = modifier

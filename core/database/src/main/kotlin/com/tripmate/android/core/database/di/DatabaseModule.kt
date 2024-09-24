@@ -2,7 +2,7 @@ package com.tripmate.android.core.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.unifest.android.core.database.MyPickDatabase
+import com.tripmate.android.core.database.MyPickDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -169,7 +169,7 @@ private fun ContentForTab(
                     description = "양양 서핑 체험을 통해 새로운 경험을 즐겨보세요!",
                     location = "강원도 양양군",
                     modifier = Modifier.clickable {
-                        navigateToReport()
+                        // navigateToReport()
                     },
                 )
             }

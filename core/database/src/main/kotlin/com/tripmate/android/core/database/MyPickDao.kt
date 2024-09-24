@@ -1,4 +1,4 @@
-package com.unifest.android.core.database
+package com.tripmate.android.core.database
 
 import androidx.room.Dao
 import androidx.room.Delete
