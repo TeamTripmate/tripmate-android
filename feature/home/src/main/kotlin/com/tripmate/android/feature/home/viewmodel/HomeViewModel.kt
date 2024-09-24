@@ -2,6 +2,7 @@ package com.tripmate.android.feature.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tripmate.android.domain.repository.MapRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.Channel
@@ -16,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    // private val homeRepository: HomeRepository,
+    private val mapRepository: MapRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
@@ -28,7 +29,30 @@ class HomeViewModel @Inject constructor(
         when (action) {
             is HomeUiAction.OnBackClicked -> navigateBack()
             is HomeUiAction.OnTabChanged -> updateSelectedTab(action.index)
-            is HomeUiAction.OnClickChip -> updateSelectedChipList(action.chipName)
+            is HomeUiAction.OnClickChip -> updateSpotsList(action.chipName)
+        }
+    }
+
+    private fun getNearbyTouristSpots(spotTypeGroup: String, spotType: String) {
+        viewModelScope.launch {
+            mapRepository.getNearbyTouristSpots(
+                searchType = "RANDOM",
+                latitude = "37.751853",
+                longitude = "128.8760574",
+                range = "10000",
+                spotTypeGroup = spotTypeGroup,
+                spotType = spotType,
+            )
+                .onSuccess { spots ->
+                    spots.let {
+                        _uiState.update {
+                            it.copy(
+                                spotList = spots.toImmutableList(),
+                            )
+                        }
+                    }
+                }
+                .onFailure { }
         }
     }
 
@@ -42,23 +66,17 @@ class HomeViewModel @Inject constructor(
         _uiState.update { it.copy(selectedTabIndex = tab) }
     }
 
-    private fun updateSelectedChipList(chipName: String) {
-        _uiState.update { currentState ->
-            val currentChips = if (currentState.selectedTabIndex == 0)
-                currentState.activitySelectedChips else currentState.healingSelectedChips
+    private fun updateSpotsList(chipName: String) {
+        val currentState = _uiState.value
+        val selectedChips = if (currentState.selectedTabIndex == 0)
+            currentState.activitySelectedChips else currentState.healingSelectedChips
 
-            val newChips = when {
-                chipName == "전체" -> listOf("전체")
-                currentChips.contains("전체") || currentChips.isEmpty() -> listOf(chipName)
-                currentChips.contains(chipName) -> listOf("전체")
-                else -> listOf(chipName)
-            }.toImmutableList()
+        val spotTypeGroup = if (currentState.selectedTabIndex == 0) "ACTIVITY" else "HEALING"
 
-            if (currentState.selectedTabIndex == 0) {
-                currentState.copy(activitySelectedChips = newChips)
-            } else {
-                currentState.copy(healingSelectedChips = newChips)
-            }
+        if (selectedChips.contains("전체") || selectedChips.isEmpty()) {
+            getNearbyTouristSpots(spotTypeGroup, "")
+        } else {
+            getNearbyTouristSpots(spotTypeGroup, chipName)
         }
     }
 }
