@@ -64,8 +64,7 @@ class MateViewModel @Inject constructor(
                     longitude = longitude.toString(),
                     range = "10000",
                     spotType = categoryType.categoryCode ?: "",
-                    spotTypeGroup = "ACTIVITY",
-                    //todo: spotTypeGroup 로직 추가
+                    spotTypeGroup = "",
                 )
                     .onSuccess { spots ->
                         spots.let {
