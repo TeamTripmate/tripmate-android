@@ -5,6 +5,7 @@ import com.tripmate.android.core.datastore.PersonalizationDataSource
 import com.tripmate.android.core.network.request.CompanionApplyRequest
 import com.tripmate.android.core.network.service.TripmateService
 import com.tripmate.android.domain.entity.MateRecruitPostEntity
+import com.tripmate.android.domain.entity.MateReviewType
 import com.tripmate.android.domain.entity.TripDetailMateReviewEntity
 import com.tripmate.android.domain.entity.UserInfoEntity
 import com.tripmate.android.domain.repository.MateRepository
@@ -41,7 +42,9 @@ internal class MateRepositoryImpl @Inject constructor(
                 characterName = response.hostInfo.characterName,
                 styleType = response.hostInfo.selectedKeyword,
             ),
-            reviewRanks = response.reviewRanks,
+            reviewRanks = response.reviewRanks.map { reviewRanks ->
+                MateReviewType.entries.find { it.code == reviewRanks }?.reviewText ?: ""
+            },
             mateRecruitPostReviewList = emptyList<TripDetailMateReviewEntity>().apply {
                 response.reviewInfos.forEach { reviewInfo ->
                     TripDetailMateReviewEntity(
@@ -51,7 +54,9 @@ internal class MateRepositoryImpl @Inject constructor(
                             characterName = reviewInfo.userInfo.characterName,
                         ),
                         reviewDate = reviewInfo.reviewDate,
-                        likeList = reviewInfo.likeList,
+                        likeList = reviewInfo.likeList.map { reviewRanks ->
+                            MateReviewType.entries.find { it.code == reviewRanks }?.reviewText ?: ""
+                        },
                     )
                 }
             },
