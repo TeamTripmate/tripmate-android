@@ -26,7 +26,7 @@ internal fun PrivacyPolicyRoute(
 ) {
     PrivacyPolicyScreen(
         onCloseClick = popBackStack,
-        privacyPolicyUrl = "http://bubbly-stoplight-4e6.notion.site",
+        privacyPolicyUrl = "https://bubbly-stoplight-4e6.notion.site",
     )
 }
 
