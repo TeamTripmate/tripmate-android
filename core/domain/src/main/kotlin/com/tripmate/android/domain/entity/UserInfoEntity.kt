@@ -4,8 +4,7 @@ import androidx.compose.runtime.Stable
 
 @Stable
 data class UserInfoEntity(
-    val profileImage: String = "",
-    val kakaoNickname: String = "",
-    val characterName: String = "",
-    val styleType: List<String> = emptyList(),
+    val selectedKeyword: String,
+    val characterId: Long,
+    val tripStyle: String,
 )

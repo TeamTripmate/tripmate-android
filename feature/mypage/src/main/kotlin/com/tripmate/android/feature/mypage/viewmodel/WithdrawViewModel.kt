@@ -2,8 +2,11 @@ package com.tripmate.android.feature.mypage.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tripmate.android.core.common.ErrorHandlerActions
+import com.tripmate.android.core.common.handleException
 import com.tripmate.android.domain.entity.WithdrawReasonEntity
 import com.tripmate.android.domain.repository.AuthRepository
+import com.tripmate.android.domain.repository.MyPageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WithdrawViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-) : ViewModel() {
+    private val myPageRepository: MyPageRepository,
+) : ViewModel(), ErrorHandlerActions {
     private val _uiState = MutableStateFlow(MyPageUiState())
     val uiState: StateFlow<MyPageUiState> = _uiState.asStateFlow()
 
@@ -77,8 +81,14 @@ class WithdrawViewModel @Inject constructor(
             _uiState.update {
                 it.copy(isWithdrawDialogVisible = false)
             }
-            authRepository.clearAuthToken()
-            _uiEvent.send(MyPageUiEvent.NavigateToLogin)
+            authRepository.withdrawal()
+                .onSuccess {
+                    authRepository.clearAuthToken()
+                    myPageRepository.completePersonalization(false)
+                    _uiEvent.send(MyPageUiEvent.NavigateToLogin)
+                }.onFailure { exception ->
+                    handleException(exception, this@WithdrawViewModel)
+                }
         }
     }
 
@@ -86,5 +96,13 @@ class WithdrawViewModel @Inject constructor(
         viewModelScope.launch {
             _uiEvent.send(MyPageUiEvent.NavigateToMain)
         }
+    }
+
+    override fun setServerErrorDialogVisible(flag: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override fun setNetworkErrorDialogVisible(flag: Boolean) {
+        TODO("Not yet implemented")
     }
 }

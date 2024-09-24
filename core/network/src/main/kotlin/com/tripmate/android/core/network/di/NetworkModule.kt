@@ -1,7 +1,11 @@
 package com.tripmate.android.core.network.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.tripmate.android.core.datastore.TokenDataSource
 import com.tripmate.android.core.network.BuildConfig
+import com.tripmate.android.core.network.LoginApi
+import com.tripmate.android.core.network.LoginClient
+import com.tripmate.android.core.network.TokenInterceptor
 import com.tripmate.android.core.network.TripmateApi
 import com.tripmate.android.core.network.TripmateClient
 import dagger.Module
@@ -46,7 +50,15 @@ internal object NetworkModule {
         }
     }
 
-    @TripmateClient
+    @Singleton
+    @Provides
+    internal fun provideTokenInterceptor(
+        dataStore: TokenDataSource,
+    ): TokenInterceptor {
+        return TokenInterceptor(dataStore)
+    }
+
+    @LoginClient
     @Singleton
     @Provides
     internal fun provideTripmateOkHttpClient(
@@ -60,11 +72,42 @@ internal object NetworkModule {
             .build()
     }
 
+    @TripmateClient
+    @Singleton
+    @Provides
+    internal fun provideTokenOkHttpClient(
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        tokenInterceptor: TokenInterceptor,
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .connectTimeout(MaxTimeoutMillis, TimeUnit.MILLISECONDS)
+            .readTimeout(MaxTimeoutMillis, TimeUnit.MILLISECONDS)
+            .writeTimeout(MaxTimeoutMillis, TimeUnit.MILLISECONDS)
+            .addInterceptor(tokenInterceptor)
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
+    }
+
     @TripmateApi
     @Singleton
     @Provides
     internal fun provideTripmateApiRetrofit(
-        @TripmateClient okHttpClient: OkHttpClient,
+        @TripmateClient
+        okHttpClient: OkHttpClient,
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.SERVER_BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(jsonConverterFactory)
+            .build()
+    }
+
+    @LoginApi
+    @Singleton
+    @Provides
+    internal fun provideLoginApiRetrofit(
+        @LoginClient
+        okHttpClient: OkHttpClient,
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.SERVER_BASE_URL)

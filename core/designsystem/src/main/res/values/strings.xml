@@ -38,6 +38,7 @@
     <!--    trip-detail-->
     <string name="trip_detail_title">상세 정보</string>
     <string name="trip_tip_title">트립메이트 여행 팁</string>
+    <string name="trip_introduce_title">우리 여행을 소개합니다</string>
     <string name="trip_location_title">장소</string>
     <string name="trip_detail_phone">전화 번호</string>
     <string name="trip_detail_address">주소</string>
