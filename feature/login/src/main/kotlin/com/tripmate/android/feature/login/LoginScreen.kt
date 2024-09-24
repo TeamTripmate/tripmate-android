@@ -1,9 +1,13 @@
 package com.tripmate.android.feature.login
 
 import android.widget.Toast
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,12 +17,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
@@ -36,22 +42,44 @@ import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Kakao
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.android.core.designsystem.R
+import com.tripmate.android.core.designsystem.R as designSystemR
 import com.tripmate.android.core.designsystem.component.LoadingWheel
+import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
+import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.feature.login.viewmodel.LoginUiAction
 import com.tripmate.android.feature.login.viewmodel.LoginUiEvent
 import com.tripmate.android.feature.login.viewmodel.LoginViewModel
+import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
 import timber.log.Timber
 
 @Composable
 internal fun LoginRoute(
+    innerPadding: PaddingValues,
     navigateToMain: () -> Unit,
     navigateToPersonalization: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val systemUiController = rememberExSystemUiController()
+    val isDarkTheme = isSystemInDarkTheme()
+
+    DisposableEffect(systemUiController) {
+        systemUiController.setSystemBarsColor(
+            color = Primary01,
+            darkIcons = true,
+            isNavigationBarContrastEnforced = false,
+        )
+
+        onDispose {
+            systemUiController.setSystemBarsColor(
+                color = if (isDarkTheme) Gray001 else Color.White,
+                darkIcons = !isDarkTheme,
+                isNavigationBarContrastEnforced = false,
+            )
+        }
+    }
 
     val kakaoCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         when {
@@ -95,6 +123,7 @@ internal fun LoginRoute(
     }
 
     LoginScreen(
+        innerPadding = innerPadding,
         uiState = uiState,
         onAction = viewModel::onAction,
     )
@@ -102,15 +131,31 @@ internal fun LoginRoute(
 
 @Composable
 internal fun LoginScreen(
+    innerPadding: PaddingValues,
     uiState: LoginUiState,
     onAction: (LoginUiAction) -> Unit,
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Primary01)
+            .padding(innerPadding),
+    ) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start,
         ) {
+            Spacer(modifier = Modifier.height(81.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 48.dp),
+            ) {
+                AppIcon()
+                Spacer(modifier = Modifier.height(44.dp))
+                AppDescription()
+            }
             Spacer(modifier = Modifier.weight(1f))
             TripmateButton(
                 onClick = {
@@ -119,7 +164,7 @@ internal fun LoginScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .navigationBarsPadding()
-                    .padding(start = 20.dp, end = 20.dp, bottom = 34.dp)
+                    .padding(start = 20.dp, end = 20.dp)
                     .height(60.dp),
                 containerColor = Kakao,
                 contentColor = Gray001,
@@ -132,7 +177,7 @@ internal fun LoginScreen(
                 },
                 leadingIcon = {
                     Icon(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_kakao),
+                        imageVector = ImageVector.vectorResource(id = designSystemR.drawable.ic_kakao),
                         contentDescription = "Kakao Icon",
                         tint = Color.Unspecified,
                     )
@@ -145,11 +190,29 @@ internal fun LoginScreen(
     }
 }
 
+@Composable
+fun AppIcon() {
+    Image(
+        painter = painterResource(id = R.drawable.img_tripmate_icon),
+        contentDescription = "App Icon",
+    )
+}
+
+@Composable
+fun AppDescription() {
+    Text(
+        text = "I 에게도 액티비티가\n필요한 순간이 있다!\n\nE 에게도 힐링이\n필요한 순간이 있다!",
+        color = Color.White,
+        style = Large20_Bold,
+    )
+}
+
 @DevicePreview
 @Composable
 private fun LoginScreenPreview() {
     TripmateTheme {
         LoginScreen(
+            innerPadding = PaddingValues(),
             uiState = LoginUiState(),
             onAction = {},
         )

@@ -13,6 +13,7 @@ dependencies {
         projects.feature.navigator,
 
         libs.androidx.activity.compose,
+        libs.compose.system.ui.controller,
         libs.timber,
         libs.kakao.auth,
     )

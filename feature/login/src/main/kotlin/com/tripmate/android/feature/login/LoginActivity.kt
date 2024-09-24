@@ -4,6 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
+import com.tripmate.android.core.designsystem.component.TripmateScaffold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.feature.navigator.MainNavigator
 import com.tripmate.android.feature.navigator.PersonalizationNavigator
@@ -24,20 +28,25 @@ class LoginActivity : ComponentActivity() {
 
         setContent {
             TripmateTheme {
-                LoginRoute(
-                    navigateToMain = {
-                        mainNavigator.navigateFrom(
-                            activity = this,
-                            withFinish = true,
-                        )
-                    },
-                    navigateToPersonalization = {
-                        personalizationNavigator.navigateFrom(
-                            activity = this,
-                            withFinish = true,
-                        )
-                    },
-                )
+                TripmateScaffold(
+                    containerColor = White,
+                ) { innerPadding ->
+                    LoginRoute(
+                        innerPadding = innerPadding,
+                        navigateToMain = {
+                            mainNavigator.navigateFrom(
+                                activity = this,
+                                withFinish = true,
+                            )
+                        },
+                        navigateToPersonalization = {
+                            personalizationNavigator.navigateFrom(
+                                activity = this,
+                                withFinish = true,
+                            )
+                        },
+                    )
+                }
             }
         }
     }
