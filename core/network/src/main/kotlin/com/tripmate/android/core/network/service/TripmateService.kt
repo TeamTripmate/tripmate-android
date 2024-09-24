@@ -24,6 +24,7 @@ interface TripmateService {
 
     @GET("/api/v1/spots")
     suspend fun getNearbyTouristSpots(
+        @Query("searchType") searchType: String,
         @Query("latitude") latitude: String,
         @Query("longitude") longitude: String,
         @Query("range") range: String,

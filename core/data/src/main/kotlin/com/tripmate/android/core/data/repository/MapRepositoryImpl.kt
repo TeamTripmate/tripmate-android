@@ -12,12 +12,14 @@ internal class MapRepositoryImpl @Inject constructor(
 ) : MapRepository {
 
     override suspend fun getNearbyTouristSpots(
+        searchType: String,
         latitude: String,
         longitude: String,
         range: String,
         category: String,
     ): Result<List<SpotEntity>> = runSuspendCatching {
         service.getNearbyTouristSpots(
+            searchType = searchType,
             latitude = latitude,
             longitude = longitude,
             range = range,

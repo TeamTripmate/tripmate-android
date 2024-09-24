@@ -59,6 +59,7 @@ class MateViewModel @Inject constructor(
             val longitude = it.longitude
             viewModelScope.launch {
                 mapRepository.getNearbyTouristSpots(
+                    SearchType.AROUND_ME.typeText,
                     latitude = latitude.toString(),
                     longitude = longitude.toString(),
                     range = "10000",
@@ -160,4 +161,9 @@ class MateViewModel @Inject constructor(
     private fun getMarkerInfo(markerID: Int): SpotEntity? {
         return uiState.value.spotList.find { it.id == markerID }
     }
+}
+
+enum class SearchType(val typeText: String) {
+    AROUND_ME("AROUND_ME"),
+    RANDOM("RANDOM"),
 }

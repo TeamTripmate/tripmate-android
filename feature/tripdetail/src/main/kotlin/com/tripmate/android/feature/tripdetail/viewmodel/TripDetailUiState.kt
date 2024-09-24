@@ -27,7 +27,6 @@ fun getTestTripDetail(): TripDetailEntity {
             longitude = "127.0",
             address = Address(
                 address1 = "강원 양양군 현복면",
-                address2 = "강원 양양군 현북면 하조대해안길 119",
             ),
         ),
         category = "EXPERIENCE",

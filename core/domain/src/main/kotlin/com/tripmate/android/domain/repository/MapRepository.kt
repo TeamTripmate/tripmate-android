@@ -4,6 +4,7 @@ import com.tripmate.android.domain.entity.SpotEntity
 
 interface MapRepository {
     suspend fun getNearbyTouristSpots(
+        searchType: String,
         latitude: String,
         longitude: String,
         range: String,

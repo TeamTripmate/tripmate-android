@@ -185,7 +185,7 @@ fun TripDetailLocation(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = tripDetail.location.address.address2,
+                    text = tripDetail.location.address.address1,
                     color = Gray003,
                     style = Small14_Reg,
                 )
