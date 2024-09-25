@@ -17,5 +17,5 @@ internal fun MyPageUserInfo.toEntity() =
 
 internal fun PersonalizedTestResult.toEntity() =
     PersonalizedTestResultEntity(
-        characterType = characterType
+        characterType = characterType,
     )
