@@ -26,7 +26,7 @@ internal class MateRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getCompanionsDetailInfo(companionId: Int): Result<MateRecruitPostEntity> = runSuspendCatching {
-        val response = service.getCompanionsDetailInfo(companionId)
+        val response = service.getCompanionsDetailInfo(companionId).data
 
         MateRecruitPostEntity(
             spotId = response.spotId,
