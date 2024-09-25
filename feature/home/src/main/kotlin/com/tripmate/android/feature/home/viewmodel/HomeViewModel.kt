@@ -109,6 +109,12 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun updateSelectedChips(chipName: String) {
+        if (chipName == "Trip Original") {
+            _uiState.update { it.copy(showTripOriginal = true) }
+            return
+        } else {
+            _uiState.update { it.copy(showTripOriginal = false) }
+        }
         val updatedChips = persistentListOf(chipName) // 하나만 선택 가능하므로 새롭게 설정
         _uiState.update {
             if (it.selectedTabIndex == 0) {
