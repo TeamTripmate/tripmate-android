@@ -33,7 +33,6 @@ class HomeViewModel @Inject constructor(
         "문화∙예술" to "CULTURE_AND_ART",
         "축제∙공연" to "FESTIVAL_AND_PERFORMANCE",
         "자연∙휴양" to "NATURE_AND_REST",
-        "코스" to "TRIP_ITINERARY",
         "역사" to "HISTORY",
         "레포츠" to "LEISURE_SPORTS",
         "숙박" to "ACCOMMODATION",

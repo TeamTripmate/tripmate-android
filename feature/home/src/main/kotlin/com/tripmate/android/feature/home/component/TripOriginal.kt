@@ -15,6 +15,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -48,11 +50,12 @@ fun TripOriginal(
                 .fillMaxWidth()
                 .height(200.dp)
                 .clip(RoundedCornerShape(4.dp))
-                .background(Gray004),
+                .background(Color.White),
         ) {
             Image(
                 painter = painterResource(id = imgUrl),
                 modifier = Modifier.matchParentSize(),
+                contentScale = ContentScale.Crop,
                 contentDescription = "App Icon",
             )
         }
