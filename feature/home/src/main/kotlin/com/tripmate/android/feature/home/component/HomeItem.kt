@@ -80,19 +80,19 @@ fun HomeItem(
                     }
                 }
             }
-
-            Box(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(end = 12.dp, bottom = 12.dp)
-                    .clickable { },
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(com.tripmate.android.core.designsystem.R.drawable.ic_heart_button),
-                    contentDescription = "Heart Button",
-                    tint = Color.Unspecified,
-                )
-            }
+//
+//            Box(
+//                modifier = Modifier
+//                    .align(Alignment.BottomEnd)
+//                    .padding(end = 12.dp, bottom = 12.dp)
+//                    .clickable { },
+//            ) {
+//                Icon(
+//                    imageVector = ImageVector.vectorResource(com.tripmate.android.core.designsystem.R.drawable.ic_heart_button),
+//                    contentDescription = "Heart Button",
+//                    tint = Color.Unspecified,
+//                )
+//            }
         }
         Spacer(modifier = Modifier.height(8.dp))
         Text(
