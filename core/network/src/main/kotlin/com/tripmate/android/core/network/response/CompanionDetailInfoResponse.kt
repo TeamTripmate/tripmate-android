@@ -27,8 +27,6 @@ data class CompanionDetailInfo(
     val gender: String,
     @SerialName("ageRange")
     val ageRange: String,
-    @SerialName("matchingRatio")
-    val matchingRatio: String,
     @SerialName("hostInfo")
     val hostInfo: HostInfo,
     @SerialName("reviewInfos")
@@ -47,6 +45,8 @@ data class HostInfo(
     val characterName: String,
     @SerialName("selectedKeyword")
     val selectedKeyword: List<String>,
+    @SerialName("matchingRatio")
+    val matchingRatio: Int,
 )
 
 @Serializable

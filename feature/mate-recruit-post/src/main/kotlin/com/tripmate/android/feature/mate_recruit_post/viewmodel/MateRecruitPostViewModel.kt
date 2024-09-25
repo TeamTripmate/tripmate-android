@@ -46,13 +46,13 @@ class MateRecruitPostViewModel @Inject constructor(
             ).onSuccess {
                 _uiState.update {
                     it.copy(
-                        isCompanionApplySuccess = false,
+                        isCompanionApplySuccess = true,
                     )
                 }
             }.onFailure {
                 _uiState.update {
                     it.copy(
-                        isCompanionApplySuccess = true,
+                        isCompanionApplySuccess = false,
                     )
                 }
             }
@@ -67,6 +67,7 @@ class MateRecruitPostViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         mateRecruitPostEntity = respose,
+                        isCompanionApplySuccess = respose.accompanyYn,
                     )
                 }
             }.onFailure { }
