@@ -1,75 +1,59 @@
 package com.tripmate.android.feature.tripdetail.viewmodel
 
+import com.kakao.vectormap.LatLng
 import com.tripmate.android.core.designsystem.R
-import com.tripmate.android.domain.entity.Address
-import com.tripmate.android.domain.entity.Location
 import com.tripmate.android.domain.entity.TripDetailEntity
-import com.tripmate.android.domain.entity.TripDetailMateRecruitEntity
-import com.tripmate.android.domain.entity.TripDetailStyleEntity
+import com.tripmate.android.feature.map.extension.cameraPosition
+import com.tripmate.android.feature.map.model.MarkerInfo
+import com.tripmate.android.feature.map.state.CameraPositionState
+import com.tripmate.android.mate.viewmodel.CategoryType
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 data class TripDetailUiState(
     val tabs: ImmutableList<String> = persistentListOf("상세정보", "동행모집"),
     val selectedTabIndex: Int = 0,
-    val tripDetail: TripDetailEntity = getTestTripDetail(),
-)
+    val tripDetail: TripDetailEntity = TripDetailEntity(),
+) {
+    fun getCategoryTypeTips(): String {
+        return CategoryType.entries.find { it.categoryCode == tripDetail.category }?.tips ?: ""
+    }
 
-fun getTestTripDetail(): TripDetailEntity {
-    // Todo 서버 작업 완료 후 제거
-    return TripDetailEntity(
-        title = "서피 비치",
-        description = "Quad eius ea nihilism quasi militia consectetur naus repudiandae aut.",
-        phoneNumber = "010-1234-1234",
-        location = Location(
-            latitude = "37.5",
-            longitude = "127.0",
-            address = Address(
-                address1 = "강원 양양군 현복면",
-                address2 = "강원 양양군 현북면 하조대해안길 119",
-            ),
-        ),
-        category = "EXPERIENCE",
-        tripDetailFee = "10000원",
-        tripRecommendStyleEntity = persistentListOf(
-            TripDetailStyleEntity(1, "자유로운 영혼의 댄싱 여우", R.drawable.ic_sample_character),
-            TripDetailStyleEntity(2, "자유로운 영혼의 댄싱 여우", R.drawable.ic_sample_character),
-            TripDetailStyleEntity(3, "자유로운 영혼의 댄싱 여우", R.drawable.ic_sample_character),
-            TripDetailStyleEntity(4, "자유로운 영혼의 댄싱 여우", R.drawable.ic_sample_character),
-        ),
-        tripDetailMateRecruit = persistentListOf(
-            TripDetailMateRecruitEntity(
-                imageResId = R.drawable.ic_sample_character,
-                mateName = "춤추는 심바",
-                mateStyleName = "인생이 즐거운 쇼핑 비버",
-                mateMatchingRatio = "70% 일치",
-                mateStyleType = persistentListOf("맛집탐험형", "액티비티형", "쇼핑형"),
-                mateRecruitTitle = "서피비치 인근에서 같이 식사할 사람 구해요!",
-                mateRecruitDescription = "식사동행∙여자만∙20대",
-            ),
-            TripDetailMateRecruitEntity(
-                imageResId = R.drawable.ic_sample_character,
-                mateName = "춤추는 심바",
-                mateStyleName = "인생이 즐거운 쇼핑 비버",
-                mateMatchingRatio = "70% 일치",
-                mateStyleType = persistentListOf("맛집탐험형", "액티비티형", "쇼핑형"),
-                mateRecruitTitle = "8/24일 서피비치에서 서핑타고 간맥할 사람 구해요",
-                mateRecruitDescription = "식사동행∙여자만∙20대",
-            ),
-            TripDetailMateRecruitEntity(
-                imageResId = R.drawable.ic_sample_character,
-                mateName = "춤추는 심바",
-                mateStyleName = "인생이 즐거운 쇼핑 비버",
-                mateMatchingRatio = "70% 일치",
-                mateStyleType = persistentListOf("맛집탐험형", "액티비티형", "쇼핑형"),
-                mateRecruitTitle = "양양에서 가장 재밌는 남자 2명이랑 노실 분~^^",
-                mateRecruitDescription = "식사동행∙여자만∙20대",
-            ),
-        ),
-        tripDetailMateReviewAdvantage = persistentListOf(
-            "뷰가 좋아요",
-            "사진이 잘 나와요",
-            "친구와 함께하기 좋아요",
-        ),
-    )
+    fun getMarkerInfo(): List<MarkerInfo> {
+        return mutableListOf<MarkerInfo>().apply {
+            add(
+                MarkerInfo(
+                    latitude = tripDetail.location.latitude.toDouble(),
+                    longitude = tripDetail.location.longitude.toDouble(),
+                    resourceId = R.drawable.ic_location_pin,
+                ),
+            )
+        }
+    }
+
+    fun movePoiLocation(cameraPositionState: CameraPositionState) {
+        val cameraPosition =  cameraPosition {
+            setPosition(
+                LatLng.from(
+                    tripDetail.location.latitude.toDouble(),
+                    tripDetail.location.longitude.toDouble(),
+                ),
+            )
+            setZoomLevel(12)
+        }
+        cameraPositionState.position = cameraPosition
+    }
+
+    fun getCharterImageResourceId(characterType: String): Int {
+        return TripmateCharacterType.entries.find { characterType == it.characterType}?.resouceId ?: R.drawable.ic_penguin
+    }
+}
+
+enum class TripmateCharacterType(val characterType: String, val resouceId: Int) {
+    PENGUIN("PENGUIN", R.drawable.ic_penguin),
+    HONEYBEE("HONEYBEE", R.drawable.ic_honeybee),
+    ELEPHANT("ELEPHANT", R.drawable.ic_elephant),
+    DOLPHIN("DOLPHIN", R.drawable.ic_dolphin),
+    TURTLE("TURTLE", R.drawable.ic_turtle),
+    PANDA("PANDA", R.drawable.ic_panda),
 }

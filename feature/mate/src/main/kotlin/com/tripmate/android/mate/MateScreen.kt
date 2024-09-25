@@ -70,6 +70,8 @@ import com.tripmate.android.core.designsystem.theme.Gray009
 import com.tripmate.android.core.designsystem.theme.MateTitle
 import com.tripmate.android.core.designsystem.theme.MateTitleBackGround
 import com.tripmate.android.core.designsystem.theme.Medium16_Light
+import com.tripmate.android.core.designsystem.theme.Primary01
+import com.tripmate.android.core.designsystem.theme.Primary03
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.CategoryEntity
@@ -88,7 +90,7 @@ import kotlinx.coroutines.launch
 fun MateRoute(
     innerPadding: PaddingValues,
     viewModel: MateViewModel = hiltViewModel(),
-    navigateToTripDetail: () -> Unit,
+    navigateToTripDetail: (spotId: String) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -103,7 +105,7 @@ fun MateRoute(
             }
 
             is MateUiEvent.NavigateToTripDetail -> {
-                navigateToTripDetail()
+                navigateToTripDetail(event.spotId)
             }
         }
     }
@@ -162,9 +164,9 @@ fun MateScreen(
                 contentPadding = PaddingValues(12.dp),
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
             ) {
-                val categoryList = CategoryType.entries.toTypedArray()
+                val categoryList = CategoryType.entries.filter { it != CategoryType.None }.toTypedArray()
                 items(categoryList) { item ->
-                    CategoryItemView(item) {
+                    CategoryItemView(uiState.categoryType, item) {
                         onAction(MateUiAction.OnMapCategorySelected(item))
                     }
                 }
@@ -172,13 +174,14 @@ fun MateScreen(
 
             if (uiState.isShowingList) {
                 ShowPoiListView(
-                    uiState.spotList,
+                    uiState.categoryType,
+                    uiState.getShowingSpotList(),
                     onAction,
                 )
             }
 
             if (!uiState.isShowingList) {
-                if (uiState.spotList.isNotEmpty()) {
+                if (uiState.getShowingSpotList().isNotEmpty()) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -200,7 +203,7 @@ fun MateScreen(
                         }
                         ViewPagerScreen(
                             uiState = uiState,
-                            listItem = uiState.spotList,
+                            listItem = uiState.getShowingSpotList(),
                             onAction = onAction,
                         )
                     }
@@ -295,6 +298,7 @@ fun ShowListButton(onAction: () -> Unit) {
 
 @Composable
 fun ShowPoiListView(
+    categoryType: CategoryType,
     listItem: List<SpotEntity>,
     onAction: (MateUiAction) -> Unit,
 ) {
@@ -314,9 +318,9 @@ fun ShowPoiListView(
                 contentPadding = PaddingValues(horizontal = 12.dp),
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
             ) {
-                val categoryList = CategoryType.entries.toTypedArray()
+                val categoryList = CategoryType.entries.filter { it != CategoryType.None }.toTypedArray()
                 items(categoryList) { item ->
-                    CategoryItemView(item) {
+                    CategoryItemView(categoryType, item) {
                         onAction(MateUiAction.OnMapCategorySelected(item))
                     }
                 }
@@ -333,7 +337,7 @@ fun ShowPoiListView(
             ) {
                 items(listItem) { item ->
                     GetPoiCardView(item, true) {
-                        onAction(MateUiAction.OnTripCardClicked)
+                        onAction(MateUiAction.OnTripCardClicked(item.id.toString()))
                     }
                 }
             }
@@ -398,7 +402,8 @@ fun ShowMapButton(
 }
 
 @Composable
-fun CategoryItemView(categoryType: CategoryType, onItemClick: (CategoryType) -> Unit) {
+fun CategoryItemView(selectCategoryType: CategoryType, categoryType: CategoryType, onItemClick: (CategoryType) -> Unit) {
+    val isSelect = selectCategoryType == categoryType
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -406,7 +411,7 @@ fun CategoryItemView(categoryType: CategoryType, onItemClick: (CategoryType) -> 
             .clip(RoundedCornerShape(50.dp))
             .border(
                 width = 1.dp,
-                color = Gray009,
+                color = if (isSelect) Primary01 else  Gray009,
                 shape = RoundedCornerShape(50.dp),
             )
             .clickable {
@@ -417,7 +422,7 @@ fun CategoryItemView(categoryType: CategoryType, onItemClick: (CategoryType) -> 
             modifier = Modifier
                 .wrapContentWidth()
                 .fillMaxHeight()
-                .background(Background02)
+                .background(if (isSelect) Primary03.copy(alpha = 0.1f)  else Background02)
                 .align(Alignment.Center)
                 .padding(horizontal = 14.dp, vertical = 6.dp),
         ) {
@@ -485,7 +490,7 @@ fun CustomViewPager(pagerState: PagerState, listItem: List<SpotEntity>, onAction
     ) {
         val item = listItem[pagerState.currentPage]
         GetPoiCardView(item, false) {
-            onAction(MateUiAction.OnTripCardClicked)
+            onAction(MateUiAction.OnTripCardClicked(item.id.toString()))
         }
     }
 }

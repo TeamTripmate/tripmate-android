@@ -32,15 +32,18 @@ import com.tripmate.android.core.designsystem.theme.Gray003
 import com.tripmate.android.core.designsystem.theme.Gray009
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Medium16_Mid
+import com.tripmate.android.core.designsystem.theme.Small14_Med
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.domain.entity.TripDetailEntity
 import com.tripmate.android.domain.entity.TripDetailStyleEntity
 import com.tripmate.android.feature.map.MapSection
 import com.tripmate.android.feature.map.state.rememberCameraPositionState
+import com.tripmate.android.feature.tripdetail.viewmodel.TripDetailUiState
 
 @Composable
 fun DetailInfoTab(
+    uiState: TripDetailUiState,
     tripDetail: TripDetailEntity,
 ) {
     Column(
@@ -49,9 +52,15 @@ fun DetailInfoTab(
     ) {
         TripDetailIntroduce(tripDetail)
 
-        TripDetailLocation(tripDetail)
+        TripDetailLocation(
+            uiState,
+            tripDetail,
+        )
 
-        TripDetailStyle(tripDetail)
+        TripDetailStyle(
+            uiState,
+            tripDetail,
+        )
     }
 }
 
@@ -99,10 +108,12 @@ fun TripDetailIntroduce(
 
 @Composable
 fun TripDetailLocation(
+    uiState: TripDetailUiState,
     tripDetail: TripDetailEntity,
 ) {
     val cameraPositionState = rememberCameraPositionState()
 
+    uiState.movePoiLocation(cameraPositionState)
     Spacer(modifier = Modifier.height(36.dp))
 
     Row(
@@ -136,7 +147,7 @@ fun TripDetailLocation(
     ) {
         MapSection(
             cameraPositionState = cameraPositionState,
-            markerInfoList = emptyList(),
+            markerInfoList = uiState.getMarkerInfo(),
         )
     }
 
@@ -165,12 +176,15 @@ fun TripDetailLocation(
                     color = Gray003,
                     style = Small14_Reg,
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = stringResource(id = R.string.trip_detailfee),
-                    color = Gray003,
-                    style = Small14_Reg,
-                )
+
+                if (tripDetail.tripDetailFee.isNotEmpty()) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = stringResource(id = R.string.trip_detailfee),
+                        color = Gray003,
+                        style = Small14_Reg,
+                    )
+                }
             }
 
             Column(
@@ -185,16 +199,19 @@ fun TripDetailLocation(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = tripDetail.location.address.address2,
+                    text = tripDetail.location.address.address1,
                     color = Gray003,
                     style = Small14_Reg,
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = tripDetail.tripDetailFee,
-                    color = Gray003,
-                    style = Small14_Reg,
-                )
+
+                if (tripDetail.tripDetailFee.isNotEmpty()) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = tripDetail.tripDetailFee,
+                        color = Gray003,
+                        style = Small14_Reg,
+                    )
+                }
             }
         }
     }
@@ -210,6 +227,7 @@ fun TripDetailLocation(
 
 @Composable
 fun TripDetailStyle(
+    uiState: TripDetailUiState,
     tripDetail: TripDetailEntity,
 ) {
     Spacer(modifier = Modifier.height(36.dp))
@@ -243,6 +261,7 @@ fun TripDetailStyle(
     ) {
         items(tripDetail.tripRecommendStyleEntity) { item ->
             TripDetailStyleItem(
+                uiState,
                 item,
             )
             Spacer(modifier = Modifier.width(25.dp))
@@ -252,25 +271,27 @@ fun TripDetailStyle(
 
 @Composable
 fun TripDetailStyleItem(
+    uiState: TripDetailUiState,
     tripDetailStyleEntity: TripDetailStyleEntity,
 ) {
     Column(
         modifier = Modifier.width(95.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
     ) {
         Image(
             modifier = Modifier.size(80.dp),
-            painter = painterResource(id = tripDetailStyleEntity.imageResId),
+            painter = painterResource(id = uiState.getCharterImageResourceId(tripDetailStyleEntity.characterType)),
             contentDescription = "Example Image Icon",
         )
 
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = tripDetailStyleEntity.text,
+            modifier = Modifier.height(60.dp),
+            text = tripDetailStyleEntity.characterName,
             color = Gray001,
-            style = Medium16_Mid,
+            style = Small14_Med,
         )
     }
 }
@@ -279,6 +300,9 @@ fun TripDetailStyleItem(
 @Composable
 fun DetailInfoTabPreview() {
     TripmateTheme {
-        DetailInfoTab(TripDetailEntity())
+        DetailInfoTab(
+            uiState = TripDetailUiState(),
+            TripDetailEntity(),
+        )
     }
 }

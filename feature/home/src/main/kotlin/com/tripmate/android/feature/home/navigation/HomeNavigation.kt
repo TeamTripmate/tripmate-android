@@ -17,7 +17,7 @@ fun NavGraphBuilder.homeNavGraph(
     padding: PaddingValues,
     navigateToMateRecruit: () -> Unit,
     navigateToMateReview: () -> Unit,
-    navigateToTripDetail: () -> Unit,
+    navigateToTripDetail: (spotId: String) -> Unit,
     navigateToMateReviewPost: () -> Unit,
     navigateToReport: () -> Unit,
 ) {

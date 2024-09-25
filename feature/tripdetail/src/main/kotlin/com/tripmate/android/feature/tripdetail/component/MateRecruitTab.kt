@@ -22,12 +22,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
+import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray002
@@ -162,9 +164,11 @@ fun TripDetailMateRecruitItem(
             modifier = Modifier
                 .fillMaxWidth(),
         ) {
-            Image(
-                modifier = Modifier.size(36.dp),
-                painter = painterResource(id = tripDetailMateRecruitEntity.imageResId),
+            NetworkImage(
+                imgUrl = tripDetailMateRecruitEntity.profileImage,
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(RoundedCornerShape(22.dp)),
                 contentDescription = "Profile Image Icon",
             )
 
@@ -189,7 +193,7 @@ fun TripDetailMateRecruitItem(
                     Spacer(modifier = Modifier.width(8.dp))
 
                     Text(
-                        text = tripDetailMateRecruitEntity.mateMatchingRatio,
+                        text = tripDetailMateRecruitEntity.mateMatchingRatio + "% 일치",
                         color = Primary01,
                         style = XSmall12_Reg,
                     )
@@ -217,8 +221,13 @@ fun TripDetailMateRecruitItem(
 
         Spacer(modifier = Modifier.height(4.dp))
 
+        val genderString =
+            if (tripDetailMateRecruitEntity.gender.isNotEmpty())
+                if (tripDetailMateRecruitEntity.ageRange.isNotEmpty()) tripDetailMateRecruitEntity.gender + "만∙"
+                else tripDetailMateRecruitEntity.gender
+            else ""
         Text(
-            text = tripDetailMateRecruitEntity.mateRecruitDescription,
+            text = genderString + tripDetailMateRecruitEntity.ageRange,
             color = Gray006,
             style = Small14_Reg,
         )

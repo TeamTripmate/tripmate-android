@@ -46,7 +46,7 @@ internal fun HomeRoute(
     navigateToMateRecruit: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToMateReview: () -> Unit,
-    navigateToTripDetail: () -> Unit,
+    navigateToTripDetail: (spotId: String) -> Unit,
     navigateToMateReviewPost: () -> Unit,
     navigateToReport: () -> Unit,
 ) {
@@ -73,7 +73,7 @@ internal fun HomeScreen(
     navigateToMateRecruit: () -> Unit,
     onAction: (HomeUiAction) -> Unit,
     navigateToMateReview: () -> Unit,
-    navigateToTripDetail: () -> Unit,
+    navigateToTripDetail: (spotId: String) -> Unit,
     navigateToMateReviewPost: () -> Unit,
     navigateToReport: () -> Unit,
 ) {

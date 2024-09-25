@@ -4,7 +4,6 @@ import androidx.compose.runtime.Stable
 
 @Stable
 data class TripDetailStyleEntity(
-    val id: Int = 0,
-    val text: String = "",
-    val imageResId: Int = 0,
+    val characterName: String = "",
+    val characterType: String = "",
 )

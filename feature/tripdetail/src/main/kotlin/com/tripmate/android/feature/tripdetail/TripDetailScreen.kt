@@ -83,6 +83,10 @@ fun TripDetailRoute(
         }
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.onAction(TripDetailUiAction.GetTripDetailInfo)
+    }
+
     TripDetailScreen(
         innerPadding = innerPadding,
         uiState = uiState,
@@ -212,7 +216,7 @@ fun TripDetailTips(uiState: TripDetailUiState) {
 
         Text(
             modifier = Modifier.padding(start = 48.dp, end = 16.dp, bottom = 24.dp),
-            text = uiState.tripDetail.description,
+            text = uiState.getCategoryTypeTips(),
             color = Gray003,
             style = Small14_Reg,
         )
@@ -290,7 +294,7 @@ private fun ContentForTab(
     uiState: TripDetailUiState,
 ) {
     when (tabIndex) {
-        0 -> DetailInfoTab(tripDetail = uiState.tripDetail)
+        0 -> DetailInfoTab(uiState = uiState, tripDetail = uiState.tripDetail)
         1 -> MateRecruitTab(tripDetail = uiState.tripDetail)
     }
 }
