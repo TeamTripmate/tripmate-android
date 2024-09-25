@@ -15,7 +15,8 @@ fun NavController.navigateToMate(navOptions: NavOptions) {
 
 fun NavGraphBuilder.mateNavGraph(
     padding: PaddingValues,
-    navigateToTripDetail: () -> Unit,
+    navigateToTripDetail: (spotId: String) -> Unit,
+//    popBackStack: () -> Unit,
 ) {
     composable(route = MATE_ROUTE) {
         MateRoute(

@@ -73,6 +73,8 @@ import kotlinx.coroutines.launch
 fun TripDetailRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
+    navigateToMateRecruit: () -> Unit,
+    navigateToMateReviewPost: (Int) -> Unit,
     viewModel: TripDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -80,7 +82,13 @@ fun TripDetailRoute(
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is TripDetailUiEvent.NavigateBack -> popBackStack()
+            is TripDetailUiEvent.NavigateMateRecruit -> navigateToMateRecruit()
+            is TripDetailUiEvent.NavigateToMateReviewPost -> navigateToMateReviewPost(event.companionId)
         }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.onAction(TripDetailUiAction.GetTripDetailInfo)
     }
 
     TripDetailScreen(
@@ -117,14 +125,13 @@ fun TripDetailScreen(
             modifier = Modifier
                 .fillMaxSize(),
         ) {
-            TripDetailImage("https://picsum.photos/36", uiState, onAction = onAction)
+            TripDetailImage(uiState, onAction = onAction)
         }
     }
 }
 
 @Composable
 fun TripDetailImage(
-    imgUrl: String,
     uiState: TripDetailUiState,
     modifier: Modifier = Modifier,
     onAction: (TripDetailUiAction) -> Unit,
@@ -138,7 +145,7 @@ fun TripDetailImage(
                 .background(Gray004),
         ) {
             NetworkImage(
-                imgUrl = imgUrl,
+                imgUrl = uiState.tripDetail.imageUrl,
                 modifier = Modifier.matchParentSize(),
                 contentDescription = "Example Image Icon",
             )
@@ -212,7 +219,7 @@ fun TripDetailTips(uiState: TripDetailUiState) {
 
         Text(
             modifier = Modifier.padding(start = 48.dp, end = 16.dp, bottom = 24.dp),
-            text = uiState.tripDetail.description,
+            text = uiState.getCategoryTypeTips(),
             color = Gray003,
             style = Small14_Reg,
         )
@@ -279,6 +286,7 @@ fun TripDetailCategoryInfo(
             ContentForTab(
                 tabIndex = page,
                 uiState = uiState,
+                onAction = onAction,
             )
         }
     }
@@ -288,10 +296,11 @@ fun TripDetailCategoryInfo(
 private fun ContentForTab(
     tabIndex: Int,
     uiState: TripDetailUiState,
+    onAction: (TripDetailUiAction) -> Unit,
 ) {
     when (tabIndex) {
-        0 -> DetailInfoTab(tripDetail = uiState.tripDetail)
-        1 -> MateRecruitTab(tripDetail = uiState.tripDetail)
+        0 -> DetailInfoTab(uiState = uiState, tripDetail = uiState.tripDetail)
+        1 -> MateRecruitTab(tripDetail = uiState.tripDetail, onAction = onAction)
     }
 }
 

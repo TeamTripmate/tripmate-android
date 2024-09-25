@@ -26,7 +26,6 @@ internal class MapRepositoryImpl @Inject constructor(
             longitude = longitude,
             range = range,
             spotTypeGroup = spotTypeGroup,
-            category = spotType,
         ).data.spots.map { spot ->
             SpotEntity(
                 id = spot.id,

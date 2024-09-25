@@ -49,7 +49,7 @@ class MateViewModel @Inject constructor(
             is MateUiAction.OnCurrentLocationClicked -> setCurrentLocation()
             is MateUiAction.OnSearchingListClicked -> setSearchingList(action.isShowing)
             is MateUiAction.OnMarkerClicked -> setSelectPoi(action.poiId)
-            is MateUiAction.OnTripCardClicked -> navigateToTripDetail()
+            is MateUiAction.OnTripCardClicked -> navigateToTripDetail(action.spotId)
         }
     }
 
@@ -92,16 +92,16 @@ class MateViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToTripDetail() {
+    private fun navigateToTripDetail(spotId: String) {
         viewModelScope.launch {
-            _uiEvent.send(MateUiEvent.NavigateToTripDetail)
+            _uiEvent.send(MateUiEvent.NavigateToTripDetail(spotId))
         }
     }
 
     private fun setSearchingList(isShowing: Boolean) {
         _uiState.update { uiState ->
             uiState.copy(
-                spotList = if (isShowing) uiState.spotList.filter { it.isSearching } else uiState.spotList,
+                isShowRecruitList = isShowing,
             )
         }
     }
@@ -137,7 +137,7 @@ class MateViewModel @Inject constructor(
                         it.longitude,
                     ),
                 )
-                setZoomLevel(16)
+                setZoomLevel(12)
             }
         } ?: run {
             CameraPositionDefaults.DefaultCameraPosition
@@ -154,6 +154,7 @@ class MateViewModel @Inject constructor(
                         it.longitude,
                     ),
                 )
+                setZoomLevel(12)
             }
         }
         cameraPositionState.position = cameraPosition

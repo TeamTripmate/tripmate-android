@@ -65,12 +65,12 @@ internal class MainNavController(
         navController.navigateToMateReview()
     }
 
-    fun navigateToTripDetail() {
-        navController.navigateToTripDetail()
+    fun navigateToTripDetail(spotId: String) {
+        navController.navigateToTripDetail(spotId)
     }
 
-    fun navigateToMateReviewPost() {
-        navController.navigateToMateRecruitPost()
+    fun navigateToMateReviewPost(companionId: Int) {
+        navController.navigateToMateRecruitPost(companionId)
     }
 
     fun navigateToMyTripCharacterInfo(characterId: String, tripStyle: String) {

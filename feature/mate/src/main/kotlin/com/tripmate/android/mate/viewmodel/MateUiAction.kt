@@ -8,7 +8,7 @@ sealed interface MateUiAction {
     data object OnCurrentLocationClicked : MateUiAction
     data class OnSearchingListClicked(val isShowing: Boolean) : MateUiAction
     data class OnMarkerClicked(val poiId: Int) : MateUiAction
-    data object OnTripCardClicked : MateUiAction
+    data class OnTripCardClicked(val spotId: String) : MateUiAction
 }
 
 enum class CategoryType(
@@ -141,4 +141,5 @@ enum class CategoryType(
             "현지에서만 맛볼 수 있는 특색 있는 음식들을 도전해 보세요.\n" +
             "인기 있는 장소일수록 리뷰를 참고해 메뉴를 선택하면 실패 확률이 줄어들어요.",
     ),
+    None(R.string.category_type_none, null, null, null, null, null, null, ""),
 }

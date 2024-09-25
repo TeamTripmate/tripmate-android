@@ -5,11 +5,16 @@ import com.tripmate.android.domain.entity.SpotEntity
 import com.tripmate.android.feature.map.model.MarkerInfo
 
 data class MateUiState(
-    val categoryType: CategoryType = CategoryType.All,
+    val categoryType: CategoryType = CategoryType.None,
     val isShowingList: Boolean = false,
     val spotList: List<SpotEntity> = emptyList(),
     val selectPoiItem: SpotEntity? = null,
+    val isShowRecruitList: Boolean = false,
 ) {
+    fun getShowingSpotList(): List<SpotEntity> {
+        return if (isShowRecruitList) spotList.filter { it.isSearching == isShowRecruitList } else spotList
+    }
+
     fun getMarkerInfoList(): List<MarkerInfo> {
         return mutableListOf<MarkerInfo>().apply {
             spotList.forEach {

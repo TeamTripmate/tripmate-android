@@ -19,8 +19,8 @@ data class TripDetailEntity(
 )
 
 data class Location(
-    val longitude: String = "",
-    val latitude: String = "",
+    val longitude: String = "0.0",
+    val latitude: String = "0.0",
     val address: Address = Address(),
 )
 

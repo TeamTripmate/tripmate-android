@@ -17,8 +17,8 @@ fun NavGraphBuilder.homeNavGraph(
     padding: PaddingValues,
     navigateToMateRecruit: () -> Unit,
     navigateToMateReview: () -> Unit,
-    navigateToTripDetail: () -> Unit,
-    navigateToMateReviewPost: () -> Unit,
+    navigateToTripDetail: (spotId: String) -> Unit,
+    navigateToMateReviewPost: (Int) -> Unit,
     navigateToReport: () -> Unit,
 ) {
     composable(route = HOME_ROUTE) {

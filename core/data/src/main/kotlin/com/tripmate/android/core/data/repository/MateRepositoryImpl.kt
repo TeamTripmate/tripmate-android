@@ -2,6 +2,7 @@ package com.tripmate.android.core.data.repository
 
 import com.tripmate.android.core.data.util.runSuspendCatching
 import com.tripmate.android.core.datastore.PersonalizationDataSource
+import com.tripmate.android.core.datastore.TokenDataSource
 import com.tripmate.android.core.network.request.CompanionApplyRequest
 import com.tripmate.android.core.network.service.TripmateService
 import com.tripmate.android.domain.entity.MateRecruitPostEntity
@@ -14,6 +15,7 @@ import javax.inject.Inject
 internal class MateRepositoryImpl @Inject constructor(
     private val personalizationDataSource: PersonalizationDataSource,
     private val service: TripmateService,
+    private val tokenDataSource: TokenDataSource,
 ) : MateRepository {
     override suspend fun checkPersonalizationCompletion(): Boolean {
         return personalizationDataSource.checkPersonalizationCompletion()
@@ -63,7 +65,7 @@ internal class MateRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun companionApply(companionId: Int, userId: Int): Result<Unit> = runSuspendCatching {
-        service.companionsApply(CompanionApplyRequest(companionId, userId))
+    override suspend fun companionApply(companionId: Int): Result<Unit> = runSuspendCatching {
+        service.companionsApply(CompanionApplyRequest(companionId.toLong(), tokenDataSource.getId()))
     }
 }

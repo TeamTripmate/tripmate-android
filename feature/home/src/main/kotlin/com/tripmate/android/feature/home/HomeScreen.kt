@@ -1,6 +1,7 @@
 package com.tripmate.android.feature.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -46,8 +47,8 @@ internal fun HomeRoute(
     navigateToMateRecruit: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToMateReview: () -> Unit,
-    navigateToTripDetail: () -> Unit,
-    navigateToMateReviewPost: () -> Unit,
+    navigateToTripDetail: (spotId: String) -> Unit,
+    navigateToMateReviewPost: (Int) -> Unit,
     navigateToReport: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -73,8 +74,8 @@ internal fun HomeScreen(
     navigateToMateRecruit: () -> Unit,
     onAction: (HomeUiAction) -> Unit,
     navigateToMateReview: () -> Unit,
-    navigateToTripDetail: () -> Unit,
-    navigateToMateReviewPost: () -> Unit,
+    navigateToTripDetail: (spotId: String) -> Unit,
+    navigateToMateReviewPost: (Int) -> Unit,
     navigateToReport: () -> Unit,
 ) {
     val pagerState = rememberPagerState(
@@ -134,6 +135,7 @@ internal fun HomeScreen(
                 uiState = uiState,
                 onAction = onAction,
                 navigateToMateRecruit = navigateToMateRecruit,
+                navigateToTripDetail = navigateToTripDetail,
                 navigateToReport = navigateToReport,
             )
         }
@@ -147,6 +149,7 @@ private fun ContentForTab(
     uiState: HomeUiState,
     onAction: (HomeUiAction) -> Unit,
     navigateToMateRecruit: () -> Unit,
+    navigateToTripDetail: (spotId: String) -> Unit,
     navigateToReport: () -> Unit,
 ) {
     Column(
@@ -193,6 +196,9 @@ private fun ContentForTab(
                         title = spot.title,
                         description = spot.description,
                         location = spot.address,
+                        modifier = Modifier.clickable {
+                            navigateToTripDetail(spot.id.toString())
+                        },
                     )
                 }
             }
