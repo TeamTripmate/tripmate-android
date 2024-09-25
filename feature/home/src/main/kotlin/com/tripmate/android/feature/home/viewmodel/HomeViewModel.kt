@@ -33,12 +33,12 @@ class HomeViewModel @Inject constructor(
         "문화∙예술" to "CULTURE_AND_ART",
         "축제∙공연" to "FESTIVAL_AND_PERFORMANCE",
         "자연∙휴양" to "NATURE_AND_REST",
-        "코스" to "TRIP_ITINERARY",
         "역사" to "HISTORY",
         "레포츠" to "LEISURE_SPORTS",
         "숙박" to "ACCOMMODATION",
         "쇼핑" to "SHOPPING",
         "맛집∙카페" to "RESTAURANT_AND_CAFE",
+        "Trip Original" to "TripOriginal",
     )
 
     init {
@@ -108,6 +108,11 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun updateSelectedChips(chipName: String) {
+        if (chipName == "Trip Original") {
+            _uiState.update { it.copy(showTripOriginal = true) }
+        } else {
+            _uiState.update { it.copy(showTripOriginal = false) }
+        }
         val updatedChips = persistentListOf(chipName) // 하나만 선택 가능하므로 새롭게 설정
         _uiState.update {
             if (it.selectedTabIndex == 0) {

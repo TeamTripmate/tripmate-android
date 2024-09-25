@@ -34,6 +34,7 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.home.component.HomeFilterChips
 import com.tripmate.android.feature.home.component.HomeItem
+import com.tripmate.android.feature.home.component.TripOriginal
 import com.tripmate.android.feature.home.viewmodel.HomeUiAction
 import com.tripmate.android.feature.home.viewmodel.HomeUiState
 import com.tripmate.android.feature.home.viewmodel.HomeViewModel
@@ -157,25 +158,43 @@ private fun ContentForTab(
             tabIndex = tabIndex,
         )
         Spacer(modifier = Modifier.height(16.dp))
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(40.dp),
-        ) {
-            items(uiState.spotList.size) { index ->
-                val spot = uiState.spotList[index]
-                val locationTag = spot.address.split(" ").getOrNull(1) ?: ""
-                val mateTag = if (spot.companionYn) {
-                    if (tabIndex == 0) "액티비티 동행" else "힐링 동행"
-                } else null // 동행모집이 없으면 mateTag는 null
+        if (uiState.showTripOriginal) {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(40.dp),
+            ) {
+                items(uiState.tripOriginalList.size) { index ->
+                    val tripOriginal = uiState.tripOriginalList[index]
 
-                HomeItem(
-                    locationTag = locationTag,
-                    categoryTag = spot.spotType,
-                    mateTag = mateTag, // mateTag가 null일 경우 표시되지 않음
-                    imgUrl = spot.thumbnailUrl,
-                    title = spot.title,
-                    description = spot.description,
-                    location = spot.address,
-                )
+                    TripOriginal(
+                        imgUrl = tripOriginal.imgUrl,
+                        title = tripOriginal.title,
+                        description = tripOriginal.description,
+                        location = tripOriginal.location,
+                        time = tripOriginal.time,
+                    )
+                }
+            }
+        } else {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(40.dp),
+            ) {
+                items(uiState.spotList.size) { index ->
+                    val spot = uiState.spotList[index]
+                    val locationTag = spot.address.split(" ").getOrNull(1) ?: ""
+                    val mateTag = if (spot.companionYn) {
+                        if (tabIndex == 0) "액티비티 동행" else "힐링 동행"
+                    } else null // 동행모집이 없으면 mateTag는 null
+
+                    HomeItem(
+                        locationTag = locationTag,
+                        categoryTag = spot.spotType,
+                        mateTag = mateTag, // mateTag가 null일 경우 표시되지 않음
+                        imgUrl = spot.thumbnailUrl,
+                        title = spot.title,
+                        description = spot.description,
+                        location = spot.address,
+                    )
+                }
             }
         }
     }

@@ -80,7 +80,7 @@ fun getIconResourceForFilter(filterName: String): Int {
         "축제∙공연" -> R.drawable.ic_show
         "자연∙휴양" -> R.drawable.ic_tree
         "역사" -> R.drawable.ic_history
-        "코스" -> R.drawable.ic_course
+        "Trip Original" -> R.drawable.ic_course
         "숙박" -> R.drawable.ic_hotel
         "레포츠" -> R.drawable.ic_sports
         "맛집∙카페" -> R.drawable.ic_dish
