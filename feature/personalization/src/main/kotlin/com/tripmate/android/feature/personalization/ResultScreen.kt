@@ -40,7 +40,6 @@ import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiS
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
 import com.tripmate.android.feature.personalization.viewmodel.ScreenType
 import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
-import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
 internal fun ResultRoute(
@@ -100,8 +99,7 @@ internal fun ResultScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             MyTripStyle(
-                characterName = uiState.characterName,
-                characterImageRes = designSystemR.drawable.img_character_01,
+                characterId = uiState.characterId,
                 characterTypeIntro = uiState.characterTypeIntro,
                 tripStyleIntro = uiState.tripStyleIntro,
                 isShared = uiState.isMyTripStyleShared,

@@ -10,7 +10,7 @@ data class MyPageUiState(
     val profileImgUrl: String = "https://picsum.photos/72",
     val nickname: String = "나트립",
     val characterId: String = "PENGUIN",
-    val tripStyle: String = "여행가 아기판다",
+    val tripStyle: String = "여행가 아기 펭귄",
     val type1: String = "안생사진",
     val type2: String = "맛집방문",
     val type3: String = "인스타",
