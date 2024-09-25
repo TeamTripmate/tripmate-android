@@ -1,6 +1,7 @@
 package com.tripmate.android.feature.home.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,7 +37,9 @@ fun TripOriginal(
     description: String,
     modifier: Modifier = Modifier,
 ) {
-    Column {
+    Column(
+        modifier = modifier.clickable {  },
+    ) {
         Box(
             modifier = modifier
                 .fillMaxWidth()
