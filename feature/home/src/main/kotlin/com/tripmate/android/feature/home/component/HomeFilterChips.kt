@@ -14,7 +14,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 val homeFiltersActivity = persistentListOf("전체", "Trip Original", "체험", "문화∙예술", "축제∙공연", "레포츠", "숙박", "쇼핑", "맛집∙카페")
-val homeFiltersHealing = persistentListOf("전체","Trip Original", "자연∙휴양", "문화∙예술", "역사", "숙박", "쇼핑", "맛집∙카페")
+val homeFiltersHealing = persistentListOf("전체", "Trip Original", "자연∙휴양", "문화∙예술", "역사", "숙박", "쇼핑", "맛집∙카페")
 
 @Composable
 fun HomeFilterChips(

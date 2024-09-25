@@ -21,7 +21,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
-import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Gray003
@@ -30,8 +29,6 @@ import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
-import com.tripmate.android.feature.home.R
-
 
 @Composable
 fun TripOriginal(
@@ -43,7 +40,7 @@ fun TripOriginal(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.clickable {  },
+        modifier = modifier.clickable { },
     ) {
         Box(
             modifier = modifier
@@ -68,10 +65,10 @@ fun TripOriginal(
         Spacer(modifier = Modifier.height(2.dp))
         Row {
             Text(
-            text = location,
-            color = Gray004,
-            style = XSmall12_Reg,
-        )
+                text = location,
+                color = Gray004,
+                style = XSmall12_Reg,
+            )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = "·",
@@ -106,7 +103,7 @@ fun TripOriginalpreview() {
             title = "양양 서핑 체험",
             description = "양양 서핑 체험을 통해 새로운 경험을 즐겨보세요!",
             location = "강원도 양양군",
-            time = "오전 10:00 - 오후 2:00"
+            time = "오전 10:00 - 오후 2:00",
         )
     }
 }

@@ -170,7 +170,7 @@ private fun ContentForTab(
                         title = tripOriginal.title,
                         description = tripOriginal.description,
                         location = tripOriginal.location,
-                        time = tripOriginal.time
+                        time = tripOriginal.time,
                     )
                 }
             }
