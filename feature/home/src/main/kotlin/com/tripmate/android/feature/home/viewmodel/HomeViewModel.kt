@@ -39,6 +39,7 @@ class HomeViewModel @Inject constructor(
         "숙박" to "ACCOMMODATION",
         "쇼핑" to "SHOPPING",
         "맛집∙카페" to "RESTAURANT_AND_CAFE",
+        "Trip Original" to "TripOriginal"
     )
 
     init {
