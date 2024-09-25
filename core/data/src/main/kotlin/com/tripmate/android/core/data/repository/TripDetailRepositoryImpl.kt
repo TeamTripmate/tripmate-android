@@ -29,6 +29,7 @@ internal class TripDetailRepositoryImpl @Inject constructor(
                     address1 = tripDetailInfo.location.address.address1
                 ),
             ),
+            imageUrl = tripDetailInfo.imageUrl.replace("http:", "https:"),
             category = tripDetailInfo.spotType,
 //            tripDetailFee = "10000원",
             tripRecommendStyleEntity = arrayListOf<TripDetailStyleEntity>().apply {

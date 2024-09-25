@@ -121,14 +121,13 @@ fun TripDetailScreen(
             modifier = Modifier
                 .fillMaxSize(),
         ) {
-            TripDetailImage("https://picsum.photos/36", uiState, onAction = onAction)
+            TripDetailImage(uiState, onAction = onAction)
         }
     }
 }
 
 @Composable
 fun TripDetailImage(
-    imgUrl: String,
     uiState: TripDetailUiState,
     modifier: Modifier = Modifier,
     onAction: (TripDetailUiAction) -> Unit,
@@ -142,7 +141,7 @@ fun TripDetailImage(
                 .background(Gray004),
         ) {
             NetworkImage(
-                imgUrl = imgUrl,
+                imgUrl = uiState.tripDetail.imageUrl,
                 modifier = Modifier.matchParentSize(),
                 contentDescription = "Example Image Icon",
             )
