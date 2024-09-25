@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.home.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
@@ -26,11 +28,12 @@ import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
+import com.tripmate.android.feature.home.R
 
 
 @Composable
 fun TripOriginal(
-    imgUrl: String,
+    imgUrl: Int,
     title: String,
     location: String,
     time: String,
@@ -47,12 +50,11 @@ fun TripOriginal(
                 .clip(RoundedCornerShape(4.dp))
                 .background(Gray004),
         ) {
-            NetworkImage(
-                imgUrl = imgUrl,
+            Image(
+                painter = painterResource(id = imgUrl),
                 modifier = Modifier.matchParentSize(),
-                contentDescription = "Example Image Icon",
+                contentDescription = "App Icon",
             )
-
         }
         Spacer(modifier = Modifier.height(8.dp))
         Text(
@@ -97,7 +99,7 @@ fun TripOriginal(
 fun TripOriginalpreview() {
     TripmateTheme {
         TripOriginal(
-            imgUrl = "https://picsum.photos/36",
+            imgUrl = 1,
             title = "양양 서핑 체험",
             description = "양양 서핑 체험을 통해 새로운 경험을 즐겨보세요!",
             location = "강원도 양양군",

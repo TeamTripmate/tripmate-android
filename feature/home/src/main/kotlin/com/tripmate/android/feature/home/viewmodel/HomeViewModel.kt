@@ -111,7 +111,6 @@ class HomeViewModel @Inject constructor(
     private fun updateSelectedChips(chipName: String) {
         if (chipName == "Trip Original") {
             _uiState.update { it.copy(showTripOriginal = true) }
-            return
         } else {
             _uiState.update { it.copy(showTripOriginal = false) }
         }
