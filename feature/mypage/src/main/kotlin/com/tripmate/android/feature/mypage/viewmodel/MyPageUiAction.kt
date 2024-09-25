@@ -5,7 +5,7 @@ import com.tripmate.android.domain.entity.WithdrawReasonEntity
 
 sealed interface MyPageUiAction {
     data object OnBackClicked : MyPageUiAction
-    data class OnTicketClicked(val characterId: Long) : MyPageUiAction
+    data class OnTicketClicked(val characterId: String, val tripStyle: String) : MyPageUiAction
     data object OnCharacterTypeReselectClicked : MyPageUiAction
     data class OnShareMyTripStyle(val image: Bitmap) : MyPageUiAction
     data class OnShareMyTripStyleClicked(val isShared: Boolean) : MyPageUiAction

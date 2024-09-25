@@ -34,12 +34,16 @@ class MyPageViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             myPageRepository.getUserInfo()
-                .onSuccess { result ->
+                .onSuccess { userInfo ->
                     _uiState.update {
                         it.copy(
-                            type1 = result.tripStyle,
-                            type2 = result.selectedKeyword[0],
-                            type3 = result.characterId.toString(),
+                            nickname = userInfo.nickname,
+                            profileImgUrl = userInfo.profileImageUrl,
+                            type1 = userInfo.selectedKeyword[0],
+                            type2 = userInfo.selectedKeyword[1],
+                            type3 = userInfo.selectedKeyword[2],
+                            characterId = userInfo.characterId,
+                            tripStyle = userInfo.tripStyle,
                         )
                     }
                 }
@@ -52,7 +56,7 @@ class MyPageViewModel @Inject constructor(
     fun onAction(action: MyPageUiAction) {
         when (action) {
             is MyPageUiAction.OnBackClicked -> navigateBack()
-            is MyPageUiAction.OnTicketClicked -> navigateToMyTripCharacterInfo(action.characterId)
+            is MyPageUiAction.OnTicketClicked -> navigateToMyTripCharacterInfo(action.characterId, action.tripStyle)
             is MyPageUiAction.OnMyPickClicked -> navigateToMyPick()
             is MyPageUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is MyPageUiAction.OnLogoutClicked -> logout()
@@ -69,9 +73,9 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToMyTripCharacterInfo(characterId: Long) {
+    private fun navigateToMyTripCharacterInfo(characterId: String, tripStyle: String) {
         viewModelScope.launch {
-            _uiEvent.send(MyPageUiEvent.NavigateToMyTripCharacterInfo(characterId = characterId))
+            _uiEvent.send(MyPageUiEvent.NavigateToMyTripCharacterInfo(characterId = characterId, tripStyle = tripStyle))
         }
     }
 

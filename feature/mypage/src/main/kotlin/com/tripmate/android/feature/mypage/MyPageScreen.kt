@@ -57,7 +57,7 @@ import com.tripmate.android.feature.mypage.viewmodel.MyPageViewModel
 @Composable
 internal fun MyPageRoute(
     innerPadding: PaddingValues,
-    navigateToMyTripCharacterInfo: (Long) -> Unit,
+    navigateToMyTripCharacterInfo: (String, String) -> Unit,
     navigateToMyPick: () -> Unit,
     navigateToLogin: () -> Unit,
     navigateToWithdraw: () -> Unit,
@@ -71,7 +71,7 @@ internal fun MyPageRoute(
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
-            is MyPageUiEvent.NavigateToMyTripCharacterInfo -> navigateToMyTripCharacterInfo(event.characterId)
+            is MyPageUiEvent.NavigateToMyTripCharacterInfo -> navigateToMyTripCharacterInfo(event.characterId, event.tripStyle)
             is MyPageUiEvent.NavigateToMyPick -> navigateToMyPick()
             is MyPageUiEvent.NavigateToLogin -> navigateToLogin()
             is MyPageUiEvent.NavigateToWithdraw -> navigateToWithdraw()
@@ -193,7 +193,7 @@ internal fun MyPageContent(
         }
         Spacer(modifier = Modifier.height(32.dp))
         Ticket(
-            characterName = uiState.characterName,
+            characterName = uiState.tripStyle,
             type1 = uiState.type1,
             type2 = uiState.type2,
             type3 = uiState.type3,
@@ -201,7 +201,7 @@ internal fun MyPageContent(
                 .padding(horizontal = 16.dp)
                 .background(gradient, shape = RoundedCornerShape(12.dp))
                 .clickable {
-                    onAction(MyPageUiAction.OnTicketClicked(characterId = uiState.characterId))
+                    onAction(MyPageUiAction.OnTicketClicked(characterId = uiState.characterId, tripStyle = uiState.tripStyle))
                 },
         )
         Spacer(modifier = Modifier.height(32.dp))

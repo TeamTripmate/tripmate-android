@@ -24,6 +24,14 @@ val XLarge26_Bold = TextStyle(
     lineHeight = 33.8.sp,
 )
 
+val XLarge26_SemiBold = TextStyle(
+    fontFamily = pretendardFamily,
+    fontWeight = FontWeight.SemiBold,
+    fontSize = 26.sp,
+    letterSpacing = 0.sp,
+    lineHeight = 33.8.sp,
+)
+
 val XLarge26_Reg = TextStyle(
     fontFamily = pretendardFamily,
     fontWeight = FontWeight.Normal,

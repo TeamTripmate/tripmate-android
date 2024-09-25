@@ -8,4 +8,7 @@ internal fun MyPageUserInfo.toEntity() =
         selectedKeyword = selectedKeyword,
         characterId = characterId,
         tripStyle = tripStyle,
+        nickname = nickname,
+        thumbnailImageUrl = thumbnailImageUrl,
+        profileImageUrl = profileImageUrl,
     )

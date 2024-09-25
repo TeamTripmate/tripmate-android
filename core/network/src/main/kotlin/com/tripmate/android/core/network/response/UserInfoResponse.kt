@@ -14,7 +14,13 @@ data class MyPageUserInfo(
     @SerialName("selectedKeyword")
     val selectedKeyword: List<String>,
     @SerialName("characterId")
-    val characterId: Long,
+    val characterId: String,
     @SerialName("tripStyle")
     val tripStyle: String,
+    @SerialName("nickname")
+    val nickname: String,
+    @SerialName("thumbnailImageUrl")
+    val thumbnailImageUrl: String,
+    @SerialName("profileImageUrl")
+    val profileImageUrl: String,
 )

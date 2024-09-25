@@ -43,7 +43,7 @@
     <string name="start_tripmate">트립메이트 시작하기</string>
     <string name="share_my_trip_style">내 여행 스타일 공유하기</string>
     <string name="my_trip_style_check_description">나의 여행 스타일은 마이페이지에서도 확인 가능해요!</string>
-    <string name="my_trip_style">내 여행 스타일은</string>
+    <string name="my_trip_style">나의 여행 스타일은</string>
     <string name="my_trip_character_info">내 여행 캐릭터 정보</string>
     <string name="character_type_intro">캐릭터 유형에 대한 소개</string>
     <string name="trip_style_intro">여행 스타일 소개</string>

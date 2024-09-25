@@ -73,8 +73,8 @@ internal class MainNavController(
         navController.navigateToMateRecruitPost()
     }
 
-    fun navigateToMyTripCharacterInfo(characterId: Long) {
-        navController.navigateToMyTripCharacterInfo(characterId = characterId)
+    fun navigateToMyTripCharacterInfo(characterId: String, tripStyle: String) {
+        navController.navigateToMyTripCharacterInfo(characterId, tripStyle)
     }
 
     fun navigateToMyPick() {

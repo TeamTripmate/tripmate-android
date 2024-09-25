@@ -15,7 +15,7 @@ fun NavController.navigateToMyPage(navOptions: NavOptions) {
 
 fun NavGraphBuilder.myPageNavGraph(
     padding: PaddingValues,
-    navigateToMyTripCharacterInfo: (Long) -> Unit,
+    navigateToMyTripCharacterInfo: (String, String) -> Unit,
     navigateToMyPick: () -> Unit,
     navigateToLogin: () -> Unit,
     navigateToWithdraw: () -> Unit,
