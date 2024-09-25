@@ -99,7 +99,7 @@ internal fun ResultScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             MyTripStyle(
-                characterId = uiState.characterId,
+                characterId = uiState.characterType,
                 characterTypeIntro = uiState.characterTypeIntro,
                 tripStyleIntro = uiState.tripStyleIntro,
                 isShared = uiState.isMyTripStyleShared,

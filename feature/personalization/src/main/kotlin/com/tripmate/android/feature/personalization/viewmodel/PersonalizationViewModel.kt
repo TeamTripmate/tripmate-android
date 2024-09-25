@@ -3,7 +3,10 @@ package com.tripmate.android.feature.personalization.viewmodel
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tripmate.android.core.common.ErrorHandlerActions
 import com.tripmate.android.core.common.UiText
+import com.tripmate.android.core.common.handleException
+import com.tripmate.android.domain.entity.PersonalizedTestEntity
 import com.tripmate.android.domain.entity.TripStyleEntity
 import com.tripmate.android.domain.repository.PersonalizationRepository
 import com.tripmate.android.feature.personalization.R
@@ -25,7 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PersonalizationViewModel @Inject constructor(
     private val personalizationRepository: PersonalizationRepository,
-) : ViewModel() {
+) : ViewModel(), ErrorHandlerActions {
     private val _uiState = MutableStateFlow(PersonalizationUiState())
     val uiState: StateFlow<PersonalizationUiState> = _uiState.asStateFlow()
 
@@ -80,7 +83,7 @@ class PersonalizationViewModel @Inject constructor(
         }
     }
 
-    private fun setGender(gender: Gender) {
+    private fun setGender(gender: String) {
         _uiState.update { it.copy(selectedGender = gender) }
     }
 
@@ -172,8 +175,46 @@ class PersonalizationViewModel @Inject constructor(
 
     private fun navigateToResult() {
         viewModelScope.launch {
-            _uiEvent.send(PersonalizationUiEvent.NavigateToResult)
+            personalizationRepository.submitPersonalizedTest(
+                PersonalizedTestEntity(
+                    mbti = getMBTI(
+                        _uiState.value.question1Answer,
+                        _uiState.value.question2Answer,
+                        _uiState.value.question3Answer,
+                        _uiState.value.question4Answer,
+                    ),
+                    gender = _uiState.value.selectedGender,
+                    birthDate = _uiState.value.birthDate,
+                    keywords = listOf(
+                        _uiState.value.selectedTripStyles[0].keyword,
+                        _uiState.value.selectedTripStyles[1].keyword,
+                        _uiState.value.selectedTripStyles[2].keyword,
+                    ),
+                ),
+            ).onSuccess { result ->
+                _uiState.update {
+                    it.copy(
+                        characterType = result.characterType,
+                    )
+                }
+                _uiEvent.send(PersonalizationUiEvent.NavigateToResult)
+            }.onFailure { exception ->
+                handleException(exception, this@PersonalizationViewModel)
+            }
         }
+    }
+
+    private fun getMBTI(answer1: Int, answer2: Int, answer3: Int, answer4: Int): String {
+        val mbti = StringBuilder()
+        mbti.append(if (answer1 == 1) "E" else "I")
+        mbti.append(if (answer2 == 1) "S" else "N")
+        mbti.append(if (answer3 == 1) "F" else "T")
+        mbti.append(
+            if (answer4 == 1) "J"
+            else if (answer4 == 2) "j"
+            else "P",
+        )
+        return mbti.toString()
     }
 
     private fun navigateToUserInfo() {
@@ -234,5 +275,13 @@ class PersonalizationViewModel @Inject constructor(
         _uiState.update {
             it.copy(isMyTripStyleShared = isShared)
         }
+    }
+
+    override fun setServerErrorDialogVisible(flag: Boolean) {
+        //
+    }
+
+    override fun setNetworkErrorDialogVisible(flag: Boolean) {
+        //
     }
 }

@@ -32,12 +32,11 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary03
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.feature.personalization.R
-import com.tripmate.android.feature.personalization.viewmodel.Gender
 
 @Composable
 fun GenderSelectionBox(
-    selectedGender: Gender,
-    onSelectedChange: (Gender) -> Unit,
+    selectedGender: String,
+    onSelectedChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
@@ -56,14 +55,14 @@ fun GenderSelectionBox(
                     modifier = Modifier
                         .weight(1f)
                         .clip(RoundedCornerShape(8.dp))
-                        .background(if (selectedGender == Gender.FEMALE) Background03 else Background02)
+                        .background(if (selectedGender == "FEMALE") Background03 else Background02)
                         .border(
                             width = 1.dp,
-                            color = if (selectedGender == Gender.FEMALE) Primary03 else Background02,
+                            color = if (selectedGender == "FEMALE") Primary03 else Background02,
                             shape = RoundedCornerShape(8.dp),
                         )
                         .clickable {
-                            onSelectedChange(Gender.FEMALE)
+                            onSelectedChange("FEMALE")
                         },
                 ) {
                     Column(
@@ -91,14 +90,14 @@ fun GenderSelectionBox(
                     modifier = Modifier
                         .weight(1f)
                         .clip(RoundedCornerShape(8.dp))
-                        .background(if (selectedGender == Gender.MALE) Background03 else Background02)
+                        .background(if (selectedGender == "MALE") Background03 else Background02)
                         .border(
                             width = 1.dp,
-                            color = if (selectedGender == Gender.MALE) Primary03 else Background02,
+                            color = if (selectedGender == "MALE") Primary03 else Background02,
                             shape = RoundedCornerShape(8.dp),
                         )
                         .clickable {
-                            onSelectedChange(Gender.MALE)
+                            onSelectedChange("MALE")
                         },
                 ) {
                     Column(
@@ -131,7 +130,7 @@ fun GenderSelectionBox(
 fun GenderSelectionBoxPreview() {
     TripmateTheme {
         GenderSelectionBox(
-            selectedGender = Gender.FEMALE,
+            selectedGender = "FEMALE",
             onSelectedChange = {},
         )
     }

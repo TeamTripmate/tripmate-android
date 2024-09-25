@@ -2,9 +2,11 @@ package com.tripmate.android.core.network.service
 
 import com.tripmate.android.core.network.request.CompanionApplyRequest
 import com.tripmate.android.core.network.request.LikeSpotRequest
+import com.tripmate.android.core.network.request.PersonalizedTestRequest
 import com.tripmate.android.core.network.response.CompanionDetailInfoResponse
 import com.tripmate.android.core.network.request.WithdrawalRequest
 import com.tripmate.android.core.network.response.LocationBasedSpotSearchResponse
+import com.tripmate.android.core.network.response.PersonalizedTestResultResponse
 import com.tripmate.android.core.network.response.SpotDetailResponse
 import com.tripmate.android.core.network.response.UserInfoResponse
 import retrofit2.http.Body
@@ -53,4 +55,10 @@ interface TripmateService {
     suspend fun companionsApply(
         @Body companionApplyRequest: CompanionApplyRequest,
     )
+
+    @POST("api/v1/users/{userId}/personalized-tests")
+    suspend fun submitPersonalizedTest(
+        @Path("userId") userId: Long,
+        @Body personalizedTestRequest: PersonalizedTestRequest,
+    ): PersonalizedTestResultResponse
 }
