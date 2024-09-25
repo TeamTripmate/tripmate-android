@@ -73,6 +73,8 @@ import kotlinx.coroutines.launch
 fun TripDetailRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
+    navigateToMateRecruit: () -> Unit,
+    navigateToMateReviewPost: (Int) -> Unit,
     viewModel: TripDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -80,6 +82,8 @@ fun TripDetailRoute(
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is TripDetailUiEvent.NavigateBack -> popBackStack()
+            is TripDetailUiEvent.NavigateMateRecruit -> navigateToMateRecruit()
+            is TripDetailUiEvent.NavigateToMateReviewPost -> navigateToMateReviewPost(event.companionId)
         }
     }
 
@@ -282,6 +286,7 @@ fun TripDetailCategoryInfo(
             ContentForTab(
                 tabIndex = page,
                 uiState = uiState,
+                onAction = onAction,
             )
         }
     }
@@ -291,10 +296,11 @@ fun TripDetailCategoryInfo(
 private fun ContentForTab(
     tabIndex: Int,
     uiState: TripDetailUiState,
+    onAction: (TripDetailUiAction) -> Unit,
 ) {
     when (tabIndex) {
         0 -> DetailInfoTab(uiState = uiState, tripDetail = uiState.tripDetail)
-        1 -> MateRecruitTab(tripDetail = uiState.tripDetail)
+        1 -> MateRecruitTab(tripDetail = uiState.tripDetail, onAction = onAction)
     }
 }
 

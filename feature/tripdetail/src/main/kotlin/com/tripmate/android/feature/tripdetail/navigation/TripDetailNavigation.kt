@@ -18,6 +18,8 @@ fun NavController.navigateToTripDetail(spotId: String) {
 fun NavGraphBuilder.tripDetailNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
+    navigateToMateRecruit: () -> Unit,
+    navigateToMateReviewPost: (Int) -> Unit,
 ) {
     composable(
         route = TRIP_DETAIL_ROUTE,
@@ -30,6 +32,8 @@ fun NavGraphBuilder.tripDetailNavGraph(
         TripDetailRoute(
             innerPadding = padding,
             popBackStack = popBackStack,
+            navigateToMateRecruit = navigateToMateRecruit,
+            navigateToMateReviewPost = navigateToMateReviewPost,
         )
     }
 }

@@ -32,7 +32,7 @@ data class TripDetailUiState(
     }
 
     fun movePoiLocation(cameraPositionState: CameraPositionState) {
-        val cameraPosition =  cameraPosition {
+        val cameraPosition = cameraPosition {
             setPosition(
                 LatLng.from(
                     tripDetail.location.latitude.toDouble(),
@@ -45,7 +45,7 @@ data class TripDetailUiState(
     }
 
     fun getCharterImageResourceId(characterType: String): Int {
-        return TripmateCharacterType.entries.find { characterType == it.characterType}?.resouceId ?: R.drawable.ic_penguin
+        return TripmateCharacterType.entries.find { characterType == it.characterType }?.resouceId ?: R.drawable.ic_penguin
     }
 }
 

@@ -411,7 +411,7 @@ fun CategoryItemView(selectCategoryType: CategoryType, categoryType: CategoryTyp
             .clip(RoundedCornerShape(50.dp))
             .border(
                 width = 1.dp,
-                color = if (isSelect) Primary01 else  Gray009,
+                color = if (isSelect) Primary01 else Gray009,
                 shape = RoundedCornerShape(50.dp),
             )
             .clickable {
@@ -422,7 +422,7 @@ fun CategoryItemView(selectCategoryType: CategoryType, categoryType: CategoryTyp
             modifier = Modifier
                 .wrapContentWidth()
                 .fillMaxHeight()
-                .background(if (isSelect) Primary03.copy(alpha = 0.1f)  else Background02)
+                .background(if (isSelect) Primary03.copy(alpha = 0.1f) else Background02)
                 .align(Alignment.Center)
                 .padding(horizontal = 14.dp, vertical = 6.dp),
         ) {

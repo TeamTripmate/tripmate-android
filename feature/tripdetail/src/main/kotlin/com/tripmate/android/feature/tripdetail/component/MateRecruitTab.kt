@@ -3,6 +3,7 @@ package com.tripmate.android.feature.tripdetail.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -47,23 +48,27 @@ import com.tripmate.android.core.designsystem.theme.XSmall10_Mid
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.domain.entity.TripDetailEntity
 import com.tripmate.android.domain.entity.TripDetailMateRecruitEntity
+import com.tripmate.android.feature.tripdetail.viewmodel.TripDetailUiAction
 
 @Composable
 fun MateRecruitTab(
     tripDetail: TripDetailEntity,
+    onAction: (TripDetailUiAction) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
     ) {
-        TripDetailMateRecruit()
+        TripDetailMateRecruit(onAction)
 
-        TripDetailMateRecruitList(tripDetail)
+        TripDetailMateRecruitList(tripDetail, onAction)
     }
 }
 
 @Composable
-fun TripDetailMateRecruit() {
+fun TripDetailMateRecruit(
+    onAction: (TripDetailUiAction) -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),
@@ -88,6 +93,7 @@ fun TripDetailMateRecruit() {
 
     TripmateButton(
         onClick = {
+            onAction(TripDetailUiAction.OnClickMateRecruit)
         },
         modifier = Modifier
             .fillMaxWidth()
@@ -110,6 +116,7 @@ fun TripDetailMateRecruit() {
 @Composable
 fun TripDetailMateRecruitList(
     tripDetail: TripDetailEntity,
+    onAction: (TripDetailUiAction) -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -141,7 +148,7 @@ fun TripDetailMateRecruitList(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         tripDetail.tripDetailMateRecruit.forEach { item ->
-            TripDetailMateRecruitItem(item)
+            TripDetailMateRecruitItem(item, onAction)
         }
     }
 }
@@ -149,9 +156,13 @@ fun TripDetailMateRecruitList(
 @Composable
 fun TripDetailMateRecruitItem(
     tripDetailMateRecruitEntity: TripDetailMateRecruitEntity,
+    onAction: (TripDetailUiAction) -> Unit,
 ) {
     Column(
         modifier = Modifier
+            .clickable {
+                onAction(TripDetailUiAction.OnClickMateReviewPost(tripDetailMateRecruitEntity.companionId))
+            }
             .fillMaxWidth()
             .border(
                 width = 1.dp,
@@ -252,6 +263,6 @@ fun TripDetailMateStyleTypeItem(
 @Composable
 fun MateRecruitTabPreview() {
     TripmateTheme {
-        MateRecruitTab(TripDetailEntity())
+        MateRecruitTab(TripDetailEntity()) { }
     }
 }

@@ -28,7 +28,7 @@ data class TripDetailInfo(
     @SerialName("recommendedStyles")
     val recommendedStyles: List<RecommendedStyle>,
     @SerialName("companionRecruits")
-    val companionRecruits: List<CompanionRecruit>
+    val companionRecruits: List<CompanionRecruit>,
 )
 
 @Serializable
@@ -38,7 +38,7 @@ data class TripDetailLocation(
     @SerialName("longitude")
     val longitude: String,
     @SerialName("address")
-    val address: TripDetailAddress
+    val address: TripDetailAddress,
 )
 
 @Serializable
@@ -52,7 +52,7 @@ data class RecommendedStyle(
     @SerialName("characterName")
     val characterName: String,
     @SerialName("characterType")
-    val characterType: String
+    val characterType: String,
 )
 
 @Serializable
@@ -66,7 +66,7 @@ data class CompanionRecruit(
     @SerialName("gender")
     val gender: String,
     @SerialName("ageRange")
-    val ageRange: String
+    val ageRange: String,
 )
 
 @Serializable
@@ -80,5 +80,5 @@ data class TripDetailHostInfo(
     @SerialName("selectedKeyword")
     val selectedKeyword: List<String>,
     @SerialName("matchingRatio")
-    val matchingRatio: Int
+    val matchingRatio: Int,
 )

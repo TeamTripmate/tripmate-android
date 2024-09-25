@@ -34,6 +34,8 @@ class TripDetailViewModel @Inject constructor(
         when (action) {
             is TripDetailUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is TripDetailUiAction.GetTripDetailInfo -> getTripDetailInfo(spotId)
+            is TripDetailUiAction.OnClickMateRecruit -> navigateMateRecruit()
+            is TripDetailUiAction.OnClickMateReviewPost -> navigateMateReviewPost(action.companionId)
         }
     }
 
@@ -43,14 +45,27 @@ class TripDetailViewModel @Inject constructor(
 
     private fun getTripDetailInfo(spotId: String) {
         viewModelScope.launch {
-            tripDetailRepository.getTripDetail(spotId,)
+            tripDetailRepository.getTripDetail(spotId)
                 .onSuccess { respose ->
-                _uiState.update {
-                    it.copy(
-                        tripDetail = respose,
-                    )
+                    _uiState.update {
+                        it.copy(
+                            tripDetail = respose,
+                        )
+                    }
                 }
-            }.onFailure { }
+                .onFailure { }
+        }
+    }
+
+    private fun navigateMateRecruit() {
+        viewModelScope.launch {
+            _uiEvent.send(TripDetailUiEvent.NavigateMateRecruit)
+        }
+    }
+
+    private fun navigateMateReviewPost(companionId: Int) {
+        viewModelScope.launch {
+            _uiEvent.send(TripDetailUiEvent.NavigateToMateReviewPost(companionId))
         }
     }
 }
