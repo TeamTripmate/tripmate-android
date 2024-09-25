@@ -34,6 +34,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
+import com.tripmate.trip_original.navigation.tripOriginalNavGraph
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.component.TripmateScaffold
 import com.tripmate.android.core.designsystem.theme.Background02
@@ -94,6 +95,7 @@ internal fun MainScreen(
                 navigateToTripDetail = navController::navigateToTripDetail,
                 navigateToMateReviewPost = navController::navigateToMateReviewPost,
                 navigateToReport = navController::navigateToReport,
+                navigateToTripOriginal = navController::navigateToTripOriginal,
             )
             mateNavGraph(
                 padding = innerPadding,
@@ -163,6 +165,10 @@ internal fun MainScreen(
             )
             termOfUseNavGraph(
                 popBackStack = navController::popBackStackIfNotHome,
+            )
+            tripOriginalNavGraph(
+                padding = innerPadding,
+                navigateToMateList = navController::navigateToMateList,
             )
         }
     }

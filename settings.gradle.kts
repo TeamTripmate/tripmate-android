@@ -48,4 +48,5 @@ include(
     ":feature:mate",
     ":feature:tripdetail",
     ":feature:trip-list",
+    ":feature:trip-original",
 )
