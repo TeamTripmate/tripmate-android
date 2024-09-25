@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -28,10 +27,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -44,7 +41,6 @@ import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Gray009
-import com.tripmate.android.core.designsystem.theme.Gray010
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
@@ -166,31 +162,31 @@ internal fun MyPageContent(
             )
         }
         Spacer(modifier = Modifier.height(32.dp))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-                .padding(horizontal = 16.dp)
-                .background(Gray010, shape = RoundedCornerShape(8.dp))
-                .clickable {
-                    onAction(MyPageUiAction.OnMyPickClicked)
-                },
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                text = stringResource(id = R.string.my_pick),
-                style = Medium16_SemiBold,
-                color = Gray002,
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_right_24),
-                contentDescription = stringResource(id = R.string.my_pick),
-                tint = Gray002,
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-        }
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(60.dp)
+//                .padding(horizontal = 16.dp)
+//                .background(Gray010, shape = RoundedCornerShape(8.dp))
+//                .clickable {
+//                    onAction(MyPageUiAction.OnMyPickClicked)
+//                },
+//            verticalAlignment = Alignment.CenterVertically,
+//        ) {
+//            Spacer(modifier = Modifier.width(16.dp))
+//            Text(
+//                text = stringResource(id = R.string.my_pick),
+//                style = Medium16_SemiBold,
+//                color = Gray002,
+//            )
+//            Spacer(modifier = Modifier.weight(1f))
+//            Icon(
+//                imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_right_24),
+//                contentDescription = stringResource(id = R.string.my_pick),
+//                tint = Gray002,
+//            )
+//            Spacer(modifier = Modifier.width(16.dp))
+//        }
         Spacer(modifier = Modifier.height(32.dp))
         Ticket(
             characterName = uiState.tripStyle,

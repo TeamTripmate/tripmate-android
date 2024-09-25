@@ -116,10 +116,10 @@ class MyPageViewModel @Inject constructor(
     }
 
     override fun setServerErrorDialogVisible(flag: Boolean) {
-        TODO("Not yet implemented")
+        //
     }
 
     override fun setNetworkErrorDialogVisible(flag: Boolean) {
-        TODO("Not yet implemented")
+        //
     }
 }

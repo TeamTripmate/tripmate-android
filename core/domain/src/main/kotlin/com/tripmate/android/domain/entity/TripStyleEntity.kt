@@ -8,4 +8,5 @@ data class TripStyleEntity(
     val textResId: Int = 0,
     val imageResId: Int = 0,
     val isSelected: Boolean = false,
+    val keyword: String = "",
 )

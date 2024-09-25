@@ -32,7 +32,6 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.personalization.component.GenderSelectionBox
 import com.tripmate.android.feature.personalization.component.UnderAgeDialog
-import com.tripmate.android.feature.personalization.viewmodel.Gender
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiAction
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiEvent
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiState
@@ -142,7 +141,6 @@ internal fun UserInfoContent(
                         color = Gray001,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    // TODO 텍스트 필드가 동작하지 않는 문제 해결
                     TripmateTextField(
                         text = uiState.birthDate,
                         onTextChange = { text ->
@@ -169,7 +167,7 @@ internal fun UserInfoContent(
                 .fillMaxWidth()
                 .height(56.dp)
                 .padding(horizontal = 16.dp),
-            enabled = uiState.selectedGender != Gender.NOT_SPECIFIED && uiState.birthDate.length == 6 && uiState.birthDateErrorText == null,
+            enabled = uiState.selectedGender != "" && uiState.birthDate.length == 6 && uiState.birthDateErrorText == null,
         ) {
             Text(
                 text = stringResource(R.string.select),
