@@ -5,6 +5,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CompanionDetailInfoResponse(
+    @SerialName("data")
+    var data: CompanionDetailInfo,
+)
+
+@Serializable
+data class CompanionDetailInfo(
     @SerialName("title")
     val title: String,
     @SerialName("spotId")
