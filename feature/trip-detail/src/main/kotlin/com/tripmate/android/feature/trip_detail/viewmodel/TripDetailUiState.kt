@@ -39,7 +39,7 @@ data class TripDetailUiState(
                     tripDetail.location.longitude.toDouble(),
                 ),
             )
-            setZoomLevel(12)
+            setZoomLevel(14)
         }
         cameraPositionState.position = cameraPosition
     }

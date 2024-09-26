@@ -40,6 +40,11 @@ class TripListViewModel @Inject constructor(
         }
     }
 
+    init {
+        getCreatedTripList()
+        getParticipatedTripList()
+    }
+
     private fun navigateBack() {
         viewModelScope.launch {
             _uiEvent.send(TripListUiEvent.NavigateBack)

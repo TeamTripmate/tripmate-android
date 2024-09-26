@@ -8,16 +8,11 @@ data class CreatedTripListResponse(
     @SerialName("success")
     val success: Boolean,
     @SerialName("data")
-    val data: CreatedTripList,
+    val data: List<CreatedCompanionInfo>,
     @SerialName("error")
     val error: String? = null,
 )
 
-@Serializable
-data class CreatedTripList(
-    @SerialName("companions")
-    val companions: List<CreatedCompanionInfo>,
-)
 
 @Serializable
 data class CreatedCompanionInfo(

@@ -63,6 +63,7 @@ import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.theme.Background02
+import com.tripmate.android.core.designsystem.theme.Background03
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray005
 import com.tripmate.android.core.designsystem.theme.Gray006
@@ -422,7 +423,7 @@ fun CategoryItemView(selectCategoryType: CategoryType, categoryType: CategoryTyp
             modifier = Modifier
                 .wrapContentWidth()
                 .fillMaxHeight()
-                .background(if (isSelect) Primary03.copy(alpha = 0.1f) else Background02)
+                .background(if (isSelect) Background03 else Background02)
                 .align(Alignment.Center)
                 .padding(horizontal = 14.dp, vertical = 6.dp),
         ) {

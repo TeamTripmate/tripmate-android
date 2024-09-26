@@ -14,12 +14,12 @@ internal class TripListRepositoryImpl @Inject constructor(
 ) : TripListRepository {
     override suspend fun getCreatedTripListByUser() = runSuspendCatching {
         val userId = tokenDataSource.getId()
-        service.getCreatedTripList(userId).data.companions.map { it.toEntity() }
+        service.getCreatedTripList(userId).data.map { it.toEntity() }
     }
 
     override suspend fun getTripsParticipatedByUser() = runSuspendCatching {
         val userId = tokenDataSource.getId()
-        service.getParticipatedTripList(userId).data.companions.map { it.toEntity() }
+        service.getParticipatedTripList(userId).data.map { it.toEntity() }
     }
 
     override suspend fun selectMate(userId: Long, companionId: Long) = runSuspendCatching {
