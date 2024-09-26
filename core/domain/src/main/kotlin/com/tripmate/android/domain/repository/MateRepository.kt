@@ -1,5 +1,6 @@
 package com.tripmate.android.domain.repository
 
+import com.tripmate.android.domain.entity.MateRecruitmentEntity
 import com.tripmate.android.domain.entity.MateRecruitPostEntity
 
 interface MateRepository {
@@ -7,4 +8,5 @@ interface MateRepository {
     suspend fun completePersonalization(flag: Boolean)
     suspend fun companionApply(companionId: Int): Result<Unit>
     suspend fun getCompanionsDetailInfo(companionId: Int): Result<MateRecruitPostEntity>
+    suspend fun createCompanionRecruitment(mateRecruitmentEntity: MateRecruitmentEntity): Result<Unit>
 }

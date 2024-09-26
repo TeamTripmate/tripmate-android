@@ -1,10 +1,12 @@
 package com.tripmate.android.core.data.repository
 
+import com.tripmate.android.core.data.mapper.toRequest
 import com.tripmate.android.core.data.util.runSuspendCatching
 import com.tripmate.android.core.datastore.PersonalizationDataSource
 import com.tripmate.android.core.datastore.TokenDataSource
 import com.tripmate.android.core.network.request.CompanionApplyRequest
 import com.tripmate.android.core.network.service.TripmateService
+import com.tripmate.android.domain.entity.MateRecruitmentEntity
 import com.tripmate.android.domain.entity.MateRecruitPostEntity
 import com.tripmate.android.domain.entity.MateReviewType
 import com.tripmate.android.domain.entity.TripDetailMateReviewEntity
@@ -69,5 +71,9 @@ internal class MateRepositoryImpl @Inject constructor(
 
     override suspend fun companionApply(companionId: Int): Result<Unit> = runSuspendCatching {
         service.companionsApply(CompanionApplyRequest(companionId.toLong(), tokenDataSource.getId()))
+    }
+
+    override suspend fun createCompanionRecruitment(mateRecruitmentEntity: MateRecruitmentEntity) = runSuspendCatching {
+        service.createCompanionRecruitment(mateRecruitmentEntity.toRequest())
     }
 }

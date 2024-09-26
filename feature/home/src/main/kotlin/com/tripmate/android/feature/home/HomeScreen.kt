@@ -44,13 +44,13 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun HomeRoute(
     innerPadding: PaddingValues,
-    navigateToMateRecruit: () -> Unit,
-    viewModel: HomeViewModel = hiltViewModel(),
+    navigateToMateRecruit: (String) -> Unit,
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
     navigateToMateReviewPost: (Int) -> Unit,
     navigateToReport: () -> Unit,
     navigateToTripOriginal: (Int) -> Unit,
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -73,7 +73,7 @@ internal fun HomeRoute(
 internal fun HomeScreen(
     uiState: HomeUiState,
     innerPadding: PaddingValues,
-    navigateToMateRecruit: () -> Unit,
+    navigateToMateRecruit: (String) -> Unit,
     onAction: (HomeUiAction) -> Unit,
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
@@ -152,7 +152,7 @@ private fun ContentForTab(
     tabIndex: Int,
     uiState: HomeUiState,
     onAction: (HomeUiAction) -> Unit,
-    navigateToMateRecruit: () -> Unit,
+    navigateToMateRecruit: (String) -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
     navigateToTripOriginal: (spotId: Int) -> Unit,
     navigateToReport: () -> Unit,

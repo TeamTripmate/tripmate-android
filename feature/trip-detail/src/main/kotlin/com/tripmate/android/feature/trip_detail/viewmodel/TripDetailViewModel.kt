@@ -60,7 +60,7 @@ class TripDetailViewModel @Inject constructor(
 
     private fun navigateMateRecruit() {
         viewModelScope.launch {
-            _uiEvent.send(TripDetailUiEvent.NavigateMateRecruit)
+            _uiEvent.send(TripDetailUiEvent.NavigateMateRecruit(spotId))
         }
     }
 
