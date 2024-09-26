@@ -20,6 +20,7 @@ import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -78,6 +79,7 @@ internal fun TripListScreen(
     uiState: TripListUiState,
     innerPadding: PaddingValues,
     onAction: (TripListUiAction) -> Unit,
+    viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val scope = rememberCoroutineScope()
 
@@ -93,6 +95,14 @@ internal fun TripListScreen(
         initialPage = 0,
         pageCount = { 3 }, // 두 번째 탭의 HorizontalPager 페이지 수
     )
+
+    LaunchedEffect(selectedTabIndex) {
+        if (selectedTabIndex == 0) {
+            viewModel.getParticipatedTripList()
+        } else {
+            viewModel.getCreatedTripList()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -157,6 +167,7 @@ internal fun TripListScreen(
                 // HorizontalPager 인디케이터
                 PageIndicator(pagerState = horizontalPagerState1)
             }
+
             1 -> {
                 HorizontalPager(
                     state = horizontalPagerState2,

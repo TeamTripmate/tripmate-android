@@ -7,11 +7,13 @@ import com.tripmate.android.core.data.repository.MyPageRepositoryImpl
 import com.tripmate.android.domain.repository.PersonalizationRepository
 import com.tripmate.android.core.data.repository.PersonalizationRepositoryImpl
 import com.tripmate.android.core.data.repository.TripDetailRepositoryImpl
+import com.tripmate.android.core.data.repository.TripListRepositoryImpl
 import com.tripmate.android.domain.repository.AuthRepository
 import com.tripmate.android.domain.repository.MapRepository
 import com.tripmate.android.domain.repository.MateRepository
 import com.tripmate.android.domain.repository.MyPageRepository
 import com.tripmate.android.domain.repository.TripDetailRepository
+import com.tripmate.android.domain.repository.TripListRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -45,4 +47,8 @@ internal abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindTripListRepository(tripListRepositoryImpl: TripListRepositoryImpl): TripListRepository
 }

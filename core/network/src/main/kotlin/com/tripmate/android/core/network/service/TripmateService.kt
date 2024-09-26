@@ -3,9 +3,12 @@ package com.tripmate.android.core.network.service
 import com.tripmate.android.core.network.request.CompanionApplyRequest
 import com.tripmate.android.core.network.request.LikeSpotRequest
 import com.tripmate.android.core.network.request.PersonalizedTestRequest
+import com.tripmate.android.core.network.request.SelectCompanionRequest
 import com.tripmate.android.core.network.response.CompanionDetailInfoResponse
 import com.tripmate.android.core.network.request.WithdrawalRequest
+import com.tripmate.android.core.network.response.CreatedTripListResponse
 import com.tripmate.android.core.network.response.LocationBasedSpotSearchResponse
+import com.tripmate.android.core.network.response.ParticipatedTripListResponse
 import com.tripmate.android.core.network.response.PersonalizedTestResultResponse
 import com.tripmate.android.core.network.response.SpotDetailResponse
 import com.tripmate.android.core.network.response.TripDetailInfoResponse
@@ -66,4 +69,19 @@ interface TripmateService {
         @Path("userId") userId: Long,
         @Body personalizedTestRequest: PersonalizedTestRequest,
     ): PersonalizedTestResultResponse
+
+    @GET("api/v1/trip-list/collect/companions/{userId}")
+    suspend fun getCreatedTripList(
+        @Path("userId") userId: Long,
+    ): CreatedTripListResponse
+
+    @GET("api/v1/trip-list/apply/companions/{userId}")
+    suspend fun getParticipatedTripList(
+        @Path("userId") userId: Long,
+    ): ParticipatedTripListResponse
+
+    @POST("api/v1/trip-list/choose/companion")
+    suspend fun selectCompanion(
+        @Body selectCompanionRequest: SelectCompanionRequest,
+    )
 }
