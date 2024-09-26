@@ -1,9 +1,15 @@
 package com.tripmate.android.feature.mate_recruit.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tripmate.android.core.common.ErrorHandlerActions
+import com.tripmate.android.core.common.handleException
 import com.tripmate.android.domain.entity.GenderAgeGroupEntity
+import com.tripmate.android.domain.entity.MateRecruitmentEntity
+import com.tripmate.android.domain.repository.AuthRepository
 import com.tripmate.android.domain.repository.MateRepository
+import com.tripmate.android.feature.mate_recruit.navigation.SPOT_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -13,13 +19,22 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
 class MateRecruitViewModel @Inject constructor(
-    @Suppress("UnusedPrivateProperty")
     private val mateRepository: MateRepository,
-) : ViewModel() {
+    private val authRepository: AuthRepository,
+    savedStateHandle: SavedStateHandle,
+) : ViewModel(), ErrorHandlerActions {
+    private val spotId = requireNotNull(savedStateHandle.get<String>(SPOT_ID)) {
+        "spotId is required."
+    }
+
     private val _uiState = MutableStateFlow(MateRecruitUiState())
     val uiState: StateFlow<MateRecruitUiState> = _uiState.asStateFlow()
 
@@ -46,7 +61,7 @@ class MateRecruitViewModel @Inject constructor(
             is MateRecruitUiAction.OnGenderAgeGroupDeselected -> removeGenderAgeGroup(action.group)
             is MateRecruitUiAction.OnMateRecruitContentUpdated -> setMateRecruitContent(action.content)
             is MateRecruitUiAction.OnOpenKakaoLinkUpdated -> setOpenKakaoLink(action.link)
-            is MateRecruitUiAction.OnDoneClicked -> finish()
+            is MateRecruitUiAction.OnDoneClicked -> createCompanionRecruitment()
         }
     }
 
@@ -110,9 +125,46 @@ class MateRecruitViewModel @Inject constructor(
         _uiState.update { it.copy(isDatePickerVisible = flag) }
     }
 
-    private fun finish() {
+    private fun createCompanionRecruitment() {
         viewModelScope.launch {
-            _uiEvent.send(MateRecruitUiEvent.Finish)
+            mateRepository.createCompanionRecruitment(
+                MateRecruitmentEntity(
+                    spotId = spotId.toInt(),
+                    date = getCurrentUTCDateTime(),
+                    title = _uiState.value.mateRecruitTitle,
+                    description = _uiState.value.mateRecruitContent,
+                    type = if (uiState.value.selectedMateType == MateType.ALL) "ALL" else "SIMILAR",
+                    sameGenderYn = _uiState.value.allGenderAgeGroups[0].isSelected,
+                    sameAgeYn = _uiState.value.allGenderAgeGroups[1].isSelected,
+                    openChatLink = _uiState.value.openKakaoLink,
+                    creatorId = authRepository.getId(),
+                ),
+            ).onSuccess {
+                _uiEvent.send(MateRecruitUiEvent.Finish)
+            }.onFailure { exception ->
+                handleException(exception, this@MateRecruitViewModel)
+            }
         }
+    }
+
+    private fun getCurrentUTCDateTime(): String {
+        val seoulZoneId = ZoneId.of("Asia/Seoul")
+        val combinedDateTime = "${_uiState.value.mateRecruitDate} ${_uiState.value.mateRecruitTime}"
+
+        val koreanFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 a h시 mm분", Locale.KOREAN)
+        val localDateTime = LocalDateTime.parse(combinedDateTime, koreanFormatter)
+
+        val utcZoneId = ZoneId.of("UTC")
+        val utcZonedDateTime = localDateTime.atZone(seoulZoneId).withZoneSameInstant(utcZoneId)
+
+        return utcZonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"))
+    }
+
+    override fun setServerErrorDialogVisible(flag: Boolean) {
+        //
+    }
+
+    override fun setNetworkErrorDialogVisible(flag: Boolean) {
+        //
     }
 }

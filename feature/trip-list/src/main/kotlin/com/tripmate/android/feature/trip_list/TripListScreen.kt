@@ -4,6 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +27,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -89,11 +91,11 @@ internal fun TripListScreen(
     // 각 탭에 대한 별도의 HorizontalPagerState 정의 (예: 두 개의 탭)
     val horizontalPagerState1 = rememberPagerState(
         initialPage = 0,
-        pageCount = { 3 }, // 첫 번째 탭의 HorizontalPager 페이지 수
+        pageCount = { uiState.participatedCompanionList.size }, // 첫 번째 탭의 HorizontalPager 페이지 수
     )
     val horizontalPagerState2 = rememberPagerState(
         initialPage = 0,
-        pageCount = { 3 }, // 두 번째 탭의 HorizontalPager 페이지 수
+        pageCount = { uiState.createdCompanionList.size }, // 두 번째 탭의 HorizontalPager 페이지 수
     )
 
     LaunchedEffect(selectedTabIndex) {
@@ -152,31 +154,61 @@ internal fun TripListScreen(
         // 각 탭에 따른 HorizontalPager 표시
         when (selectedTabIndex) {
             0 -> {
-                HorizontalPager(
-                    state = horizontalPagerState1,
-                    modifier = Modifier.fillMaxWidth(),
-                ) { page ->
-                    TripStatusCard(
-                        pagerState = horizontalPagerState1,
-                        modifier = Modifier.clickable {
-                            onAction(TripListUiAction.OnTripStatusCardClicked)
-                        },
-                    )
+                if (uiState.participatedCompanionList.isNotEmpty()) {
+                    HorizontalPager(
+                        state = horizontalPagerState1,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) { page ->
+                        val companion = uiState.participatedCompanionList[page]
+                        TripStatusCard(
+                            title = companion.title,
+                            date = companion.date,
+                            matchingStatus = companion.matchingStatus,
+                            selectedKeyword = companion.tripHostInfoEntity.selectedKeyword,
+                            characterId = companion.tripHostInfoEntity.characterId,
+                            modifier = Modifier.clickable {
+                                onAction(TripListUiAction.OnTripStatusCardClicked)
+                            },
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    // HorizontalPager 인디케이터
+                    PageIndicator(pagerState = horizontalPagerState1)
+                } else {
+                    // Handle empty state when there are no active trips
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp), // Adjust height as needed
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            text = "활성화된 여행이 없습니다.",
+                            style = Medium16_Mid,
+                            color = Gray006,
+                        )
+                    }
                 }
-                Spacer(modifier = Modifier.height(16.dp))
-                // HorizontalPager 인디케이터
-                PageIndicator(pagerState = horizontalPagerState1)
             }
 
             1 -> {
-                HorizontalPager(
-                    state = horizontalPagerState2,
-                    modifier = Modifier.fillMaxWidth(),
-                ) { page ->
-                    TripStatusCardTeamLeader(
-                        pagerState = horizontalPagerState2,
-                        onAction = onAction,
-                    )
+                if (uiState.createdCompanionList.isNotEmpty()) {
+                    HorizontalPager(
+                        state = horizontalPagerState2,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) { page ->
+                        val companion = uiState.createdCompanionList[page]
+                        TripStatusCardTeamLeader(
+                            title = companion.title,
+                            date = companion.date,
+                            companionStatus = companion.companionStatus,
+                            appliedMateInfo = companion.applicantInfoEntityInfo,
+                            modifier = Modifier.clickable {
+                                onAction(TripListUiAction.OnTripStatusCardClicked)
+                            },
+                            onAction = onAction,
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 // HorizontalPager 인디케이터

@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -33,8 +31,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Gray001
+import com.tripmate.android.core.designsystem.theme.Gray003
 import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Gray006
+import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
@@ -43,7 +43,11 @@ import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 @Suppress("UnusedParameter")
 @Composable
 fun TripStatusCard(
-    pagerState: PagerState,
+    title: String,
+    date: String,
+    matchingStatus: String,
+    selectedKeyword: List<String>,
+    characterId: String,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -92,17 +96,18 @@ fun TripStatusCard(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "서피비치에서 식사해요",
-                    style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold),
+                    text = title,
+                    style = Medium16_SemiBold,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "2024.08.24(일) 11:00 AM",
-                    style = TextStyle(fontSize = 14.sp),
+                    text = date,
+                    style = XSmall12_Reg,
+                    color = Gray003,
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
-            TripProgressBar()
+            TripProgressBar(matchingStatus)
             Spacer(modifier = Modifier.height(16.dp))
 //            Row(
 //                Modifier
@@ -126,9 +131,16 @@ fun TripStatusCard(
 }
 
 @Composable
-fun TripProgressBar() {
+fun TripProgressBar(matchingStatus: String) {
     val steps = listOf("신청완료", "수락완료", "동행 시작", "동행 종료")
-    val completedSteps = 2 // 예시로 2단계까지 완료된 것으로 가정
+    val completedSteps = when (matchingStatus) {
+        "REQUEST" -> 1
+        "ACCEPTED" -> 2
+        "ACCOMPANY" -> 3
+        "FINISHED" -> 4
+        "REJECTED", "CANCELED" -> 0 // 신청 거절 또는 취소된 경우 진행 없음
+        else -> 0 // 알 수 없는 상태일 경우 기본값
+    }
 
     Column(
         modifier = Modifier
@@ -185,11 +197,16 @@ fun TripProgressBar() {
 @ComponentPreview
 @Composable
 fun PreviewTripStatusCard() {
-    val pagerState = rememberPagerState(
-        initialPage = 0,
-        pageCount = { 3 },
-    )
     TripmateTheme {
-        TripStatusCard(pagerState = pagerState)
+        TripStatusCard(
+            title = "서피비치에서 식사해요",
+            date = "2024.08.24(일) 11:00 AM",
+            matchingStatus = "ACCEPTED",
+            selectedKeyword = listOf("전체"),
+            characterId = "1",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        )
     }
 }

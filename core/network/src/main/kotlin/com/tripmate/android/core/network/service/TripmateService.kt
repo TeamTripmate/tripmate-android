@@ -1,6 +1,7 @@
 package com.tripmate.android.core.network.service
 
 import com.tripmate.android.core.network.request.CompanionApplyRequest
+import com.tripmate.android.core.network.request.CompanionRecruitmentRequest
 import com.tripmate.android.core.network.request.LikeSpotRequest
 import com.tripmate.android.core.network.request.PersonalizedTestRequest
 import com.tripmate.android.core.network.request.SelectCompanionRequest
@@ -83,5 +84,10 @@ interface TripmateService {
     @POST("api/v1/trip-list/choose/companion")
     suspend fun selectCompanion(
         @Body selectCompanionRequest: SelectCompanionRequest,
+    )
+
+    @POST("api/v1/companions")
+    suspend fun createCompanionRecruitment(
+        @Body companionRecruitmentRequest: CompanionRecruitmentRequest,
     )
 }

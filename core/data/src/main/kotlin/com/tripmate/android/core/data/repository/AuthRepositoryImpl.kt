@@ -29,6 +29,10 @@ class AuthRepositoryImpl @Inject constructor(
         loginService.login(LoginRequest(id, nickname, thumbnailImageUrl, profileImageUrl, accessToken, refreshToken))
     }
 
+    override suspend fun getId(): Long {
+        return tokenDataSource.getId()
+    }
+
     override suspend fun getAccessToken(): String {
         return tokenDataSource.getAccessToken()
     }

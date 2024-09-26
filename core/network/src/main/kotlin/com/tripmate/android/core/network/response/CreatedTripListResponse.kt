@@ -30,7 +30,7 @@ data class CreatedCompanionInfo(
     @SerialName("companionStatus")
     val companionStatus: String,
     @SerialName("applicantInfo")
-    val applicantInfo: ApplicantInfo,
+    val applicantInfo: List<ApplicantInfo>, // 리스트 형식으로 변경
 )
 
 @Serializable

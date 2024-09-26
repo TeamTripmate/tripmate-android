@@ -15,7 +15,7 @@ fun NavController.navigateToHome(navOptions: NavOptions) {
 
 fun NavGraphBuilder.homeNavGraph(
     padding: PaddingValues,
-    navigateToMateRecruit: () -> Unit,
+    navigateToMateRecruit: (String) -> Unit,
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
     navigateToMateReviewPost: (Int) -> Unit,
