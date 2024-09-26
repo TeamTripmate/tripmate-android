@@ -1,7 +1,7 @@
 package com.tripmate.android.domain.repository
 
-import com.tripmate.android.domain.entity.MateRecruitmentEntity
 import com.tripmate.android.domain.entity.MateRecruitPostEntity
+import com.tripmate.android.domain.entity.MateRecruitmentEntity
 
 interface MateRepository {
     suspend fun checkPersonalizationCompletion(): Boolean
