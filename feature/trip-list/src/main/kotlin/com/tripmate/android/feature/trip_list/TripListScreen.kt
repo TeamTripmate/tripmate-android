@@ -154,7 +154,6 @@ internal fun TripListScreen(
         // 각 탭에 따른 HorizontalPager 표시
         when (selectedTabIndex) {
             0 -> {
-
                 if (uiState.participatedCompanionList.isNotEmpty()) {
                     HorizontalPager(
                         state = horizontalPagerState1,
@@ -168,7 +167,7 @@ internal fun TripListScreen(
                             selectedKeyword = companion.tripHostInfoEntity.selectedKeyword,
                             characterId = companion.tripHostInfoEntity.characterId,
                             modifier = Modifier.clickable {
-                                onAction(TripListUiAction.OnTripStatusCardClicked) //todo: 로직추가
+                                onAction(TripListUiAction.OnTripStatusCardClicked)
                             },
                         )
                     }
