@@ -167,7 +167,13 @@ internal fun TripListScreen(
                             selectedKeyword = companion.tripHostInfoEntity.selectedKeyword,
                             characterId = companion.tripHostInfoEntity.characterId,
                             modifier = Modifier.clickable {
-                                onAction(TripListUiAction.OnTripStatusCardClicked)
+                                onAction(
+                                    TripListUiAction.OnTripStatusCardClicked(
+                                        companion.openChatLink,
+                                        companion.tripHostInfoEntity.selectedKeyword,
+                                        companion.tripHostInfoEntity.characterId,
+                                    ),
+                                )
                             },
                         )
                     }
@@ -203,9 +209,6 @@ internal fun TripListScreen(
                             date = companion.date,
                             companionStatus = companion.companionStatus,
                             appliedMateInfo = companion.applicantInfoEntityInfo,
-                            modifier = Modifier.clickable {
-                                onAction(TripListUiAction.OnTripStatusCardClicked)
-                            },
                             onAction = onAction,
                         )
                     }

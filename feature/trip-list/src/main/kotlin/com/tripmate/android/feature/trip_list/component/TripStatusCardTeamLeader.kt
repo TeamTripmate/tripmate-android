@@ -81,13 +81,7 @@ fun TripStatusCardTeamLeader(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Tag(tagText = "1:1 동행")
-                    Text(text = "상세정보 보기>", color = Gray004, style = XSmall12_Reg)
-                }
+                Tag(tagText = "1:1 동행")
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = title,
