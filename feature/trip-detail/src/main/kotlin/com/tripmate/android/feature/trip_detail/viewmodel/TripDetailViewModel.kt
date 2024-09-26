@@ -1,10 +1,10 @@
-package com.tripmate.android.feature.tripdetail.viewmodel
+package com.tripmate.android.feature.trip_detail.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.domain.repository.TripDetailRepository
-import com.tripmate.android.feature.tripdetail.navigation.SPOT_ID
+import com.tripmate.android.feature.trip_detail.navigation.SPOT_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -46,10 +46,10 @@ class TripDetailViewModel @Inject constructor(
     private fun getTripDetailInfo(spotId: String) {
         viewModelScope.launch {
             tripDetailRepository.getTripDetail(spotId)
-                .onSuccess { respose ->
+                .onSuccess { response ->
                     _uiState.update {
                         it.copy(
-                            tripDetail = respose,
+                            tripDetail = response,
                         )
                     }
                 }

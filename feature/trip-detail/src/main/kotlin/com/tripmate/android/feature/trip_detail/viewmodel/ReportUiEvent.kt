@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.tripdetail.viewmodel
+package com.tripmate.android.feature.trip_detail.viewmodel
 
 sealed interface ReportUiEvent {
     data object NavigateBack : ReportUiEvent

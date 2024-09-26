@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.tripdetail.component
+package com.tripmate.android.feature.trip_detail.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -48,7 +48,7 @@ import com.tripmate.android.core.designsystem.theme.XSmall10_Mid
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.domain.entity.TripDetailEntity
 import com.tripmate.android.domain.entity.TripDetailMateRecruitEntity
-import com.tripmate.android.feature.tripdetail.viewmodel.TripDetailUiAction
+import com.tripmate.android.feature.trip_detail.viewmodel.TripDetailUiAction
 
 @Composable
 fun MateRecruitTab(

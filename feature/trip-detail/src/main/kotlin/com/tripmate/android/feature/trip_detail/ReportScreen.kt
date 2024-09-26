@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.tripdetail
+package com.tripmate.android.feature.trip_detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -37,24 +37,26 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.ReportReasonEntity
-import com.tripmate.android.feature.tripdetail.component.ReportDialog
-import com.tripmate.android.feature.tripdetail.viewmodel.ReportUiAction
+import com.tripmate.android.feature.trip_detail.component.ReportDialog
+import com.tripmate.android.feature.trip_detail.viewmodel.ReportUiAction
+import com.tripmate.android.feature.trip_detail.viewmodel.ReportUiEvent
 import com.tripmate.android.core.designsystem.R as designSystemR
-import com.tripmate.android.feature.tripdetail.viewmodel.ReportUiState
+import com.tripmate.android.feature.trip_detail.viewmodel.ReportUiState
+import com.tripmate.android.feature.trip_detail.viewmodel.ReportViewModel
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 internal fun ReportRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
-    viewModel: com.tripmate.android.feature.tripdetail.viewmodel.ReportViewModel = hiltViewModel(),
+    viewModel: ReportViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
-            is com.tripmate.android.feature.tripdetail.viewmodel.ReportUiEvent.NavigateBack -> popBackStack()
-            is com.tripmate.android.feature.tripdetail.viewmodel.ReportUiEvent.Report -> popBackStack()
+            is ReportUiEvent.NavigateBack -> popBackStack()
+            is ReportUiEvent.Report -> popBackStack()
             else -> {}
         }
     }

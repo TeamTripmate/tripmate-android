@@ -1,7 +1,7 @@
-package com.tripmate.android.feature.tripdetail.viewmodel
+package com.tripmate.android.feature.trip_detail.viewmodel
 
 import com.tripmate.android.domain.entity.ReportReasonEntity
-import com.tripmate.android.feature.tripdetail.R
+import com.tripmate.android.feature.trip_detail.R
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf

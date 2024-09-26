@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.tripdetail.viewmodel
+package com.tripmate.android.feature.trip_detail.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

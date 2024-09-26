@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.tripdetail.component
+package com.tripmate.android.feature.trip_detail.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -34,9 +34,9 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Small14_Med
 import com.tripmate.android.core.designsystem.theme.Small14_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
-import com.tripmate.android.feature.tripdetail.R
+import com.tripmate.android.feature.trip_detail.R
 import com.tripmate.android.core.designsystem.R as designSystemR
-import com.tripmate.android.feature.tripdetail.viewmodel.ReportUiAction
+import com.tripmate.android.feature.trip_detail.viewmodel.ReportUiAction
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

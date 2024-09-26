@@ -1,10 +1,10 @@
-package com.tripmate.android.feature.tripdetail.navigation
+package com.tripmate.android.feature.trip_detail.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.tripmate.android.feature.tripdetail.ReportRoute
+import com.tripmate.android.feature.trip_detail.ReportRoute
 
 const val REPORT_ROUTE = "report_route"
 

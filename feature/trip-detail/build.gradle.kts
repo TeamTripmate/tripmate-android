@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.tripmate.android.feature.tripdetail"
+    namespace = "com.tripmate.android.feature.trip_detail"
 }
 
 dependencies {

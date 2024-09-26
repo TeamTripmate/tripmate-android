@@ -16,7 +16,7 @@ dependencies {
         projects.feature.mate,
         projects.feature.mateRecruit,
         projects.feature.mateReview,
-        projects.feature.tripdetail,
+        projects.feature.tripDetail,
         projects.feature.tripList,
         projects.feature.mateRecruitPost,
         projects.feature.map,

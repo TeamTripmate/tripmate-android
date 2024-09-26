@@ -1,11 +1,11 @@
-package com.tripmate.android.feature.tripdetail.navigation
+package com.tripmate.android.feature.trip_detail.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import com.tripmate.android.feature.tripdetail.TripDetailRoute
+import com.tripmate.android.feature.trip_detail.TripDetailRoute
 import androidx.navigation.navArgument
 
 const val SPOT_ID = "spot_Id"

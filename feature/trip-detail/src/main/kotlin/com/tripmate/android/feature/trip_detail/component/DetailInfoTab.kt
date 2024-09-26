@@ -1,4 +1,4 @@
-package com.tripmate.android.feature.tripdetail.component
+package com.tripmate.android.feature.trip_detail.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -39,7 +39,7 @@ import com.tripmate.android.domain.entity.TripDetailEntity
 import com.tripmate.android.domain.entity.TripDetailStyleEntity
 import com.tripmate.android.feature.map.MapSection
 import com.tripmate.android.feature.map.state.rememberCameraPositionState
-import com.tripmate.android.feature.tripdetail.viewmodel.TripDetailUiState
+import com.tripmate.android.feature.trip_detail.viewmodel.TripDetailUiState
 
 @Composable
 fun DetailInfoTab(
