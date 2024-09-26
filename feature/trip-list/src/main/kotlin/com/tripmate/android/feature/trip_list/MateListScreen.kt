@@ -71,7 +71,7 @@ fun MateListScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TripmateTopAppBar(
-                navigationType = TopAppBarNavigationType.Back,
+                navigationType = TopAppBarNavigationType.None,
                 title = "신청자 목록",
                 onNavigationClick = { },
             )
