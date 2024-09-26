@@ -152,28 +152,28 @@ internal fun MateRecruitPostScreen(
             MateRecruitPostReview(
                 mateRecruitPostEntity = uiState.mateRecruitPostEntity,
             )
-        }
 
-        if (uiState.isCompanionApplySuccess) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color = Color.White)
-                    .padding(top = 20.dp, bottom = 40.dp)
-                    .align(Alignment.BottomCenter),
-            ) {
-                TripmateButton(
-                    onClick = {
-                    },
+            if (!uiState.isCompanionApplySuccess) {
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp, top = 24.dp)
-                        .height(56.dp),
+                        .background(color = Color.White)
+                        .padding(top = 10.dp, bottom = 20.dp),
                 ) {
-                    Text(
-                        text = stringResource(R.string.mate_recruit_post_request_button_title),
-                        style = Medium16_SemiBold,
-                    )
+                    TripmateButton(
+                        onClick = {
+                            onAction.invoke(MateRecruitPostUiAction.OnCompanionApply)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 16.dp, end = 16.dp, top = 24.dp)
+                            .height(56.dp),
+                    ) {
+                        Text(
+                            text = stringResource(R.string.mate_recruit_post_request_button_title),
+                            style = Medium16_SemiBold,
+                        )
+                    }
                 }
             }
         }
@@ -320,7 +320,7 @@ fun MateRecruitRequest(
 
     TripmateButton(
         onClick = {
-            onAction.invoke(MateRecruitPostUiAction.OnCompanionApply)
+            onAction.invoke(MateRecruitPostUiAction.OnKakaoOpenChat(uiState.mateRecruitPostEntity.chatLink))
         },
         modifier = Modifier
             .fillMaxWidth()
@@ -479,7 +479,7 @@ fun MateReviewItem(
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = tripDetailMateReviewEntity.userInfo.profileImage,
+                    text = tripDetailMateReviewEntity.userInfo.characterName,
                     color = Gray003,
                     style = XSmall12_Reg,
                 )

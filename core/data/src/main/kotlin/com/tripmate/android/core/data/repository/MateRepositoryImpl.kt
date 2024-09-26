@@ -26,7 +26,7 @@ internal class MateRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getCompanionsDetailInfo(companionId: Int): Result<MateRecruitPostEntity> = runSuspendCatching {
-        val response = service.getCompanionsDetailInfo(companionId)
+        val response = service.getCompanionsDetailInfo(companionId).data
 
         MateRecruitPostEntity(
             spotId = response.spotId,
@@ -37,7 +37,7 @@ internal class MateRepositoryImpl @Inject constructor(
             description = response.description,
             gender = response.gender,
             ageRange = response.ageRange,
-            matchingRatio = response.matchingRatio,
+            matchingRatio = response.hostInfo.matchingRatio.toString(),
             hostInfo = UserInfoEntity(
                 profileImage = response.hostInfo.profileImage.replace("http:", "https:"),
                 kakaoNickname = response.hostInfo.kakaoNickname,
@@ -47,18 +47,20 @@ internal class MateRepositoryImpl @Inject constructor(
             reviewRanks = response.reviewRanks.map { reviewRanks ->
                 MateReviewType.entries.find { it.code == reviewRanks }?.reviewText ?: ""
             },
-            mateRecruitPostReviewList = emptyList<TripDetailMateReviewEntity>().apply {
+            mateRecruitPostReviewList = arrayListOf<TripDetailMateReviewEntity>().apply {
                 response.reviewInfos.forEach { reviewInfo ->
-                    TripDetailMateReviewEntity(
-                        userInfo = UserInfoEntity(
-                            profileImage = reviewInfo.userInfo.profileImage.replace("http:", "https:"),
-                            kakaoNickname = reviewInfo.userInfo.kakaoNickname,
-                            characterName = reviewInfo.userInfo.characterName,
+                    this.add(
+                        TripDetailMateReviewEntity(
+                            userInfo = UserInfoEntity(
+                                profileImage = reviewInfo.userInfo.profileImage.replace("http:", "https:"),
+                                kakaoNickname = reviewInfo.userInfo.kakaoNickname,
+                                characterName = reviewInfo.userInfo.characterName,
+                            ),
+                            reviewDate = reviewInfo.reviewDate,
+                            likeList = reviewInfo.likeList.map { reviewRanks ->
+                                MateReviewType.entries.find { it.code == reviewRanks }?.reviewText ?: ""
+                            },
                         ),
-                        reviewDate = reviewInfo.reviewDate,
-                        likeList = reviewInfo.likeList.map { reviewRanks ->
-                            MateReviewType.entries.find { it.code == reviewRanks }?.reviewText ?: ""
-                        },
                     )
                 }
             },
