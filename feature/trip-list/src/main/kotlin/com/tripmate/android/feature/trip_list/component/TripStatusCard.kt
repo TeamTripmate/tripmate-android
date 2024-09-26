@@ -67,20 +67,20 @@ fun TripStatusCard(
                 .padding(16.dp),
         ) {
             Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = buildAnnotatedString {
-                    append("동행 하루전")
-                    withStyle(style = SpanStyle(color = Gray001)) {
-                        append("이에요")
-                    }
-                },
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                ),
-                color = Primary01,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-            )
+//            Text(
+//                text = buildAnnotatedString {
+//                    append("동행 하루전")
+//                    withStyle(style = SpanStyle(color = Gray001)) {
+//                        append("이에요")
+//                    }
+//                },
+//                style = TextStyle(
+//                    fontSize = 18.sp,
+//                    fontWeight = FontWeight.Bold,
+//                ),
+//                color = Primary01,
+//                modifier = Modifier.align(Alignment.CenterHorizontally),
+//            )
             Spacer(modifier = Modifier.height(16.dp))
             Column(
                 modifier = Modifier

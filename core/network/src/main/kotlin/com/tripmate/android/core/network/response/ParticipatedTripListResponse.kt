@@ -8,15 +8,9 @@ data class ParticipatedTripListResponse(
     @SerialName("success")
     val success: Boolean,
     @SerialName("data")
-    val data: ParticipatedTripList,
+    val data: List<ParticipatedCompanionInfo>,
     @SerialName("error")
     val error: String?,
-)
-
-@Serializable
-data class ParticipatedTripList(
-    @SerialName("companions")
-    val companions: List<ParticipatedCompanionInfo>,
 )
 
 @Serializable
