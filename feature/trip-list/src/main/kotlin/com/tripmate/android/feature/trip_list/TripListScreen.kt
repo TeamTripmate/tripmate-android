@@ -209,6 +209,7 @@ internal fun TripListScreen(
                             date = companion.date,
                             companionStatus = companion.companionStatus,
                             appliedMateInfo = companion.applicantInfoEntityInfo,
+                            companionId = companion.companionId,
                             onAction = onAction,
                         )
                     }

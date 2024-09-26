@@ -46,6 +46,7 @@ fun TripStatusCardTeamLeader(
     title: String,
     date: String,
     companionStatus: String,
+    companionId: Long,
     appliedMateInfo: List<ApplicantInfoEntity>,
     modifier: Modifier = Modifier,
     onAction: (TripListUiAction) -> Unit = {},
@@ -99,7 +100,7 @@ fun TripStatusCardTeamLeader(
             Spacer(modifier = Modifier.height(16.dp))
             if (companionStatus == "RECRUITING") {
                 TripmateButton(
-                    onClick = { onAction(TripListUiAction.OnClickViewMateList) },
+                    onClick = { onAction(TripListUiAction.OnClickViewMateList(companionId, appliedMateInfo)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
@@ -190,6 +191,7 @@ fun PreviewTripStatusCardTeamLeader() {
             date = "2021.09.01",
             companionStatus = "RECRUITING",
             appliedMateInfo = emptyList(),
+            companionId = 0,
         )
     }
 }

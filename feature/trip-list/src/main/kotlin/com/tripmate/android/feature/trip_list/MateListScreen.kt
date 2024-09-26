@@ -94,8 +94,8 @@ fun MateListScreen(
                     .padding(horizontal = 16.dp),
             ) {
                 itemsIndexed(
-                    items = uiState.ticket,
-                    key = { _, ticket -> ticket.ticketId },
+                    items = uiState.applicantsInfo,
+                    key = { _, ticket -> ticket.userId },
                 ) { ticketIndex, ticket ->
                     Column {
                         Spacer(modifier = Modifier.height(16.dp))
@@ -127,7 +127,7 @@ fun MateListScreen(
                 ),
         ) {
             TripmateButton(
-                onClick = { },
+                onClick = { onAction(TripListUiAction.OnSelectMateClicked)},
                 modifier = Modifier
                     .align(Alignment.Center)
                     .fillMaxWidth()

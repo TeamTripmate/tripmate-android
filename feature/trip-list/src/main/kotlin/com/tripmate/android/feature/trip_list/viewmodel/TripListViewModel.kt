@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.core.common.ErrorHandlerActions
 import com.tripmate.android.core.common.handleException
+import com.tripmate.android.domain.entity.triplist.ApplicantInfoEntity
 import com.tripmate.android.domain.repository.TripListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
@@ -31,10 +32,11 @@ class TripListViewModel @Inject constructor(
         when (action) {
             is TripListUiAction.OnBackClicked -> navigateBack()
             is TripListUiAction.OnTabChanged -> updateSelectedTab(action.index)
-            is TripListUiAction.OnTicketClicked -> ticketClicked(action.ticketId)
-            is TripListUiAction.OnClickViewMateList -> navigateToMateList() // todo:로직추가
+            is TripListUiAction.OnTicketClicked -> ticketClicked(action.ticketId,action.userId)
+            is TripListUiAction.OnClickViewMateList -> navigateToMateList(action.companionId, action.matesInfo)
             is TripListUiAction.OnTripStatusCardClicked -> navigateToMateOpenChat(action.openChatLink, action.characterId, action.tripStyle)
             is TripListUiAction.OnMateOpenChatClicked -> navigateToKakaoOpenChat()
+            is TripListUiAction.OnSelectMateClicked -> selectMate()
         }
     }
 
@@ -74,15 +76,22 @@ class TripListViewModel @Inject constructor(
         _uiState.update { it.copy(selectedTabIndex = tab) }
     }
 
-    private fun ticketClicked(ticketId: Int) {
+    private fun ticketClicked(ticketId: Int,userId:Long) {
         _uiState.update {
             it.copy(
                 isTicketClicked = it.isTicketClicked.mapIndexed { index, _ -> index == ticketId }.toImmutableList(),
+                selectedUserId = userId,
             )
         }
     }
 
-    private fun navigateToMateList() {
+    private fun navigateToMateList(companionId:Long,matesInfo : List<ApplicantInfoEntity>) {
+        _uiState.update {
+            it.copy(
+                selectedCompanionId = companionId,
+                applicantsInfo = matesInfo.toImmutableList()
+            )
+        }
         viewModelScope.launch {
             _uiEvent.send(TripListUiEvent.NavigateToMateList)
         }
@@ -105,6 +114,17 @@ class TripListViewModel @Inject constructor(
     private fun navigateToKakaoOpenChat() {
         viewModelScope.launch {
             _uiEvent.send(TripListUiEvent.NavigateToKakaoOpenChat(_uiState.value.hostOpenChatUrl))
+        }
+    }
+
+    private fun selectMate() {
+        viewModelScope.launch {
+            tripListRepository.selectMate( _uiState.value.selectedUserId, _uiState.value.selectedCompanionId)
+                .onSuccess {
+                    _uiEvent.send(TripListUiEvent.NavigateBack)
+                }.onFailure { exception ->
+                    handleException(exception, this@TripListViewModel)
+                }
         }
     }
 

@@ -34,12 +34,13 @@ import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.domain.entity.TicketEntity
+import com.tripmate.android.domain.entity.triplist.ApplicantInfoEntity
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
 
 @Suppress("UnusedParameter")
 @Composable
 internal fun Ticket(
-    ticket: TicketEntity,
+    ticket: ApplicantInfoEntity,
     ticketIndex: Int,
     isTicketClicked: Boolean,
     onAction: (TripListUiAction) -> Unit,
@@ -65,7 +66,7 @@ internal fun Ticket(
             .clip(ticketShape)
             .background(backgroundColor)
             .border(2.dp, borderColor, ticketShape)
-            .clickable { onAction(TripListUiAction.OnTicketClicked(ticketIndex)) },
+            .clickable { onAction(TripListUiAction.OnTicketClicked(ticketIndex,ticket.userId)) },
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -73,18 +74,23 @@ internal fun Ticket(
         ) {
             Spacer(modifier = Modifier.width(30.dp))
             Column {
+                Text(text = ticket.tripStyle,
+                    style = Large20_Bold,
+                    color = Gray001,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "펭귄",
+                    text = getCharacterName(ticket.characterId),
                     style = Large20_Bold,
                     color = Gray001,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Row {
-                    TicketType(ticket.hashtag1)
+                    TicketType(ticket.selectedKeyword[0])
                     Spacer(modifier = Modifier.width(4.dp))
-                    TicketType(ticket.hashtag2)
+                    TicketType(ticket.selectedKeyword[1])
                     Spacer(modifier = Modifier.width(4.dp))
-                    TicketType(ticket.hashtag3)
+                    TicketType(ticket.selectedKeyword[2])
                 }
                 Spacer(modifier = Modifier.height(46.dp))
                 Row {
@@ -100,7 +106,7 @@ internal fun Ticket(
             Column {
                 Spacer(modifier = Modifier.height(28.dp))
                 Image(
-                    painter = painterResource(id = R.drawable.img_character_01),
+                    painter = painterResource(id = getCharacterImage(ticket.characterId)),
                     contentDescription = "character image",
                     modifier = Modifier.size(110.dp),
                 )
@@ -133,18 +139,38 @@ fun TicketType(
     }
 }
 
+private fun getCharacterName(characterId: String): String {
+    return when (characterId) {
+        "PENGUIN" -> "여행가 펭귄"
+        "HONEYBEE" -> "여행가 꿀벌"
+        "ELEPHANT" -> "여행가 코끼리"
+        "DOLPHIN" -> "여행가 돌고래"
+        "TURTLE" -> "여행가 거북이"
+        else -> "여행가 판다"
+    }
+}
+
+private fun getCharacterImage(characterId: String): Int {
+    return when (characterId) {
+        "PENGUIN" -> R.drawable.img_character_01
+        "HONEYBEE" -> R.drawable.img_character_02
+        "ELEPHANT" -> R.drawable.img_character_03
+        "DOLPHIN" -> R.drawable.img_character_04
+        "TURTLE" -> R.drawable.img_character_05
+        else -> R.drawable.img_character_06
+    }
+}
+
 @ComponentPreview
 @Composable
 private fun TickerPreview() {
     TripmateTheme {
         Ticket(
-            ticket = TicketEntity(
-                ticketId = 0,
-                characterName = "characterName",
-                hashtag1 = "hashtag1",
-                hashtag2 = "hashtag2",
-                hashtag3 = "hashtag3",
-                characterImgUrl = "",
+            ticket = ApplicantInfoEntity(
+                characterId = "PENGUIN",
+                tripStyle = "인스타 인생 맛집",
+                selectedKeyword = listOf("해시태그1", "해시태그2", "해시태그3"),
+                userId = 1,
             ),
             ticketIndex = 0,
             isTicketClicked = true,

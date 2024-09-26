@@ -1,6 +1,7 @@
 package com.tripmate.android.feature.trip_list.viewmodel
 
 import com.tripmate.android.domain.entity.TicketEntity
+import com.tripmate.android.domain.entity.triplist.ApplicantInfoEntity
 import com.tripmate.android.domain.entity.triplist.CreatedCompanionInfoEntity
 import com.tripmate.android.domain.entity.triplist.ParticipatedCompanionInfoEntity
 import kotlinx.collections.immutable.ImmutableList
@@ -75,5 +76,9 @@ data class TripListUiState(
     val hostOpenChatUrl: String = "https://open.kakao.com/o/gObLOlQg",
     val hostTripStyle: List<String> = listOf("뷰맛집 탐방", "인생사진", "인스타"),
     val hostCharacterId: String = "PENGUIN",
+    val createdInfo: ImmutableList<CreatedCompanionInfoEntity> = persistentListOf(),
+    val applicantsInfo: ImmutableList<ApplicantInfoEntity> = persistentListOf(),
+    val selectedCompanionId: Long = 0,
+    val selectedUserId: Long = 0,
 
 )
