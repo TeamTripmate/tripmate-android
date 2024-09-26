@@ -44,18 +44,8 @@ class MateRecruitPostViewModel @Inject constructor(
             mateRepository.companionApply(
                 companionId,
             ).onSuccess {
-                _uiState.update {
-                    it.copy(
-                        isCompanionApplySuccess = true,
-                    )
-                }
-            }.onFailure {
-                _uiState.update {
-                    it.copy(
-                        isCompanionApplySuccess = false,
-                    )
-                }
-            }
+                navigateBack()
+            }.onFailure { }
         }
     }
 

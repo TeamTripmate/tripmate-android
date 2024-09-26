@@ -137,7 +137,7 @@ class MateViewModel @Inject constructor(
                         it.longitude,
                     ),
                 )
-                setZoomLevel(12)
+                setZoomLevel(14)
             }
         } ?: run {
             CameraPositionDefaults.DefaultCameraPosition
@@ -154,7 +154,7 @@ class MateViewModel @Inject constructor(
                         it.longitude,
                     ),
                 )
-                setZoomLevel(12)
+                setZoomLevel(14)
             }
         }
         cameraPositionState.position = cameraPosition

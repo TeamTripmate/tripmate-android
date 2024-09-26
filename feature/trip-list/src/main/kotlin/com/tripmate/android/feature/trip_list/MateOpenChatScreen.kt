@@ -3,6 +3,7 @@ package com.tripmate.android.feature.trip_list
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Patterns
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -41,6 +42,8 @@ import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
 import com.tripmate.android.feature.triplist.R
 import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
+import java.net.MalformedURLException
+import java.net.URL
 import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
@@ -85,8 +88,30 @@ internal fun MateOpenChatRoute(
 }
 
 private fun openKakaoOpenChat(context: Context, url: String) {
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-    startActivity(context, intent, null)
+    if (isValidUrl(url)) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(context, intent, null)
+    }
+}
+
+private fun isValidUrl(urlString: String): Boolean {
+    return try {
+        // 안드로이드의 Patterns 클래스를 사용하여 URL 형식 검사
+        val urlPattern = Patterns.WEB_URL
+        if (!urlPattern.matcher(urlString).matches()) {
+            return false
+        }
+
+        // URL 객체 생성을 통한 추가 검증
+        val url = URL(urlString)
+        val protocol = url.protocol
+        if (protocol != "http" && protocol != "https") {
+            return false
+        }
+        true
+    } catch (e: MalformedURLException) {
+        false
+    }
 }
 
 @Composable
