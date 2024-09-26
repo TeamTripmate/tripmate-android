@@ -49,7 +49,7 @@ class TripListViewModel @Inject constructor(
             tripListRepository.getCreatedTripListByUser()
                 .onSuccess { result ->
                     _uiState.update {
-                        it.copy()
+                        it.copy(createdCompanionList = result.toImmutableList())
                     }
                 }.onFailure { exception ->
                     handleException(exception, this@TripListViewModel)
@@ -62,7 +62,7 @@ class TripListViewModel @Inject constructor(
             tripListRepository.getTripsParticipatedByUser()
                 .onSuccess { result ->
                     _uiState.update {
-                        it.copy()
+                        it.copy(participatedCompanionList = result.toImmutableList())
                     }
                 }.onFailure { exception ->
                     handleException(exception, this@TripListViewModel)

@@ -34,7 +34,7 @@ internal fun CreatedCompanionInfo.toEntity() =
         title = title,
         date = date,
         companionStatus = companionStatus,
-        applicantInfoEntityInfo = applicantInfo.toEntity(),
+        applicantInfoEntityInfo = applicantInfo.map { it.toEntity() } // 리스트 변환
     )
 
 internal fun ApplicantInfo.toEntity() =
