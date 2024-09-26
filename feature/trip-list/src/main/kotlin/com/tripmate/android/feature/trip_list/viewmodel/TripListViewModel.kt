@@ -2,6 +2,9 @@ package com.tripmate.android.feature.trip_list.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tripmate.android.core.common.ErrorHandlerActions
+import com.tripmate.android.core.common.handleException
+import com.tripmate.android.domain.repository.TripListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.Channel
@@ -15,7 +18,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TripListViewModel @Inject constructor() : ViewModel() {
+class TripListViewModel @Inject constructor(
+    private val tripListRepository: TripListRepository,
+) : ViewModel(), ErrorHandlerActions {
     private val _uiState = MutableStateFlow(TripListUiState())
     val uiState: StateFlow<TripListUiState> = _uiState.asStateFlow()
 
@@ -39,6 +44,32 @@ class TripListViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    fun getCreatedTripList() {
+        viewModelScope.launch {
+            tripListRepository.getCreatedTripListByUser()
+                .onSuccess { result ->
+                    _uiState.update {
+                        it.copy()
+                    }
+                }.onFailure { exception ->
+                    handleException(exception, this@TripListViewModel)
+                }
+        }
+    }
+
+    fun getParticipatedTripList() {
+        viewModelScope.launch {
+            tripListRepository.getTripsParticipatedByUser()
+                .onSuccess { result ->
+                    _uiState.update {
+                        it.copy()
+                    }
+                }.onFailure { exception ->
+                    handleException(exception, this@TripListViewModel)
+                }
+        }
+    }
+
     private fun updateSelectedTab(tab: Int) {
         _uiState.update { it.copy(selectedTabIndex = tab) }
     }
@@ -47,7 +78,7 @@ class TripListViewModel @Inject constructor() : ViewModel() {
         _uiState.update {
             it.copy(
                 isTicketClicked = it.isTicketClicked.mapIndexed
-                    { index, _ -> index == ticketId }.toImmutableList(),
+                { index, _ -> index == ticketId }.toImmutableList(),
             )
         }
     }
@@ -69,5 +100,13 @@ class TripListViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             _uiEvent.send(TripListUiEvent.NavigateToKakaoOpenChat(_uiState.value.openChatUrl))
         }
+    }
+
+    override fun setServerErrorDialogVisible(flag: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override fun setNetworkErrorDialogVisible(flag: Boolean) {
+        TODO("Not yet implemented")
     }
 }

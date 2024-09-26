@@ -4,43 +4,45 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CompanionResponse(
+data class ParticipatedTripListResponse(
     @SerialName("success")
     val success: Boolean,
     @SerialName("data")
-    val data: CompanionData,
+    val data: ParticipatedTripList,
     @SerialName("error")
-    val error: String? = null
+    val error: String?,
 )
 
 @Serializable
-data class CompanionData(
+data class ParticipatedTripList(
     @SerialName("companions")
-    val companions: List<CompanionInfo>
+    val companions: List<ParticipatedCompanionInfo>,
 )
 
 @Serializable
-data class CompanionInfo(
+data class ParticipatedCompanionInfo(
     @SerialName("companionId")
     val companionId: Long,
     @SerialName("title")
     val title: String,
     @SerialName("date")
     val date: String,
-    @SerialName("companionStatus")
-    val companionStatus: String,
-    @SerialName("applicantInfo")
-    val applicantInfo: ApplicantInfo
+    @SerialName("openChatLink")
+    val openChatLink: String,
+    @SerialName("reviewYn")
+    val reviewYn: Boolean,
+    @SerialName("matchingStatus")
+    val matchingStatus: String,
+    @SerialName("tripHostInfo")
+    val tripHostInfo: TripHostInfo,
 )
 
 @Serializable
-data class ApplicantInfo(
-    @SerialName("userId")
-    val userId: Long,
+data class TripHostInfo(
     @SerialName("selectedKeyword")
     val selectedKeyword: List<String>,
     @SerialName("tripStyle")
     val tripStyle: String,
     @SerialName("characterId")
-    val characterId: String
+    val characterId: String,
 )

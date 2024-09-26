@@ -1,9 +1,9 @@
 package com.tripmate.android.domain.repository
 
-import com.tripmate.android.domain.entity.triplist.CompanionEntity
-import com.tripmate.android.domain.entity.triplist.CompanionInfoEntity
+import com.tripmate.android.domain.entity.triplist.CreatedCompanionInfoEntity
+import com.tripmate.android.domain.entity.triplist.ParticipatedCompanionInfoEntity
 
 interface TripListRepository {
-    suspend fun getTripsCreatedByUser(userId:String): Result<CompanionEntity>
-    suspend fun getTripsParticipatedByUser(userId:String): Result<CompanionInfoEntity>
+    suspend fun getCreatedTripListByUser(): Result<List<CreatedCompanionInfoEntity>>
+    suspend fun getTripsParticipatedByUser(): Result<List<ParticipatedCompanionInfoEntity>>
 }

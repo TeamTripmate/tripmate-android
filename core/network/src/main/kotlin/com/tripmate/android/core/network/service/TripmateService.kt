@@ -6,7 +6,9 @@ import com.tripmate.android.core.network.request.PersonalizedTestRequest
 import com.tripmate.android.core.network.request.SelectCompanionRequest
 import com.tripmate.android.core.network.response.CompanionDetailInfoResponse
 import com.tripmate.android.core.network.request.WithdrawalRequest
+import com.tripmate.android.core.network.response.CreatedTripListResponse
 import com.tripmate.android.core.network.response.LocationBasedSpotSearchResponse
+import com.tripmate.android.core.network.response.ParticipatedTripListResponse
 import com.tripmate.android.core.network.response.PersonalizedTestResultResponse
 import com.tripmate.android.core.network.response.SpotDetailResponse
 import com.tripmate.android.core.network.response.TripDetailInfoResponse
@@ -69,18 +71,17 @@ interface TripmateService {
     ): PersonalizedTestResultResponse
 
     @GET("api/v1/trip-list/collect/companions/{userId}")
-    suspend fun getTripsCreatedByUser(
-        @Path("userId") userId: String,
-    )
+    suspend fun getCreatedTripList(
+        @Path("userId") userId: Long,
+    ): CreatedTripListResponse
 
     @GET("api/v1/trip-list/apply/companions/{userId}")
-    suspend fun getTripsParticipatedByUser(
-        @Path("userId") userId: String,
-    )
+    suspend fun getParticipatedTripList(
+        @Path("userId") userId: Long,
+    ): ParticipatedTripListResponse
 
     @POST("api/v1/trip-list/choose/companion")
     suspend fun selectCompanion(
         @Body selectCompanionRequest: SelectCompanionRequest,
     )
-
 }
