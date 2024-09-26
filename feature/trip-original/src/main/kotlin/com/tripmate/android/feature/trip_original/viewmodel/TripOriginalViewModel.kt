@@ -1,9 +1,9 @@
-package com.tripmate.trip_original.viewmodel
+package com.tripmate.android.feature.trip_original.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tripmate.trip_original.navigation.SPOT_ID
+import com.tripmate.android.feature.trip_original.navigation.SPOT_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow

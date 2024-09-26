@@ -1,4 +1,4 @@
-package com.tripmate.trip_original.viewmodel
+package com.tripmate.android.feature.trip_original.viewmodel
 
 data class TripOriginalUiState(
     val spotId: Int = 0,

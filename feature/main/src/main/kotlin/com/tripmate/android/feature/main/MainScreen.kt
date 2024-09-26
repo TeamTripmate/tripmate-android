@@ -34,7 +34,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
-import com.tripmate.trip_original.navigation.tripOriginalNavGraph
+import com.tripmate.android.feature.trip_original.navigation.tripOriginalNavGraph
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.component.TripmateScaffold
 import com.tripmate.android.core.designsystem.theme.Background02

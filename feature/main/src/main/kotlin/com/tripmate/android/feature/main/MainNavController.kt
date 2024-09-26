@@ -8,7 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.tripmate.trip_original.navigation.navigateToTripOriginal
+import com.tripmate.android.feature.trip_original.navigation.navigateToTripOriginal
 import com.tripmate.android.feature.tripdetail.navigation.navigateToTripDetail
 import com.tripmate.android.feature.home.navigation.HOME_ROUTE
 import com.tripmate.android.feature.home.navigation.navigateToHome

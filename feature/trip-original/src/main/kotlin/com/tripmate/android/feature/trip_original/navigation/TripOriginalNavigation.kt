@@ -1,4 +1,4 @@
-package com.tripmate.trip_original.navigation
+package com.tripmate.android.feature.trip_original.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
@@ -6,7 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.tripmate.trip_original.TripOriginalRoute
+import com.tripmate.android.feature.trip_original.TripOriginalRoute
 
 const val SPOT_ID = "spot_id"
 const val TRIP_ORIGINAL_ROUTE = "trip_original_route/{$SPOT_ID}"

@@ -1,4 +1,4 @@
-package com.tripmate.trip_original
+package com.tripmate.android.feature.trip_original
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,14 +22,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.tripmate.trip_original.component.TripOriginalDialog
+import com.tripmate.android.feature.trip_original.component.TripOriginalDialog
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
-import com.tripmate.trip_original.viewmodel.TripOriginalUiAction
-import com.tripmate.trip_original.viewmodel.TripOriginalUiEvent
-import com.tripmate.trip_original.viewmodel.TripOriginalUiState
-import com.tripmate.trip_original.viewmodel.TripOriginalViewModel
+import com.tripmate.android.feature.trip_original.viewmodel.TripOriginalUiAction
+import com.tripmate.android.feature.trip_original.viewmodel.TripOriginalUiEvent
+import com.tripmate.android.feature.trip_original.viewmodel.TripOriginalUiState
+import com.tripmate.android.feature.trip_original.viewmodel.TripOriginalViewModel
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.R as designSystemR

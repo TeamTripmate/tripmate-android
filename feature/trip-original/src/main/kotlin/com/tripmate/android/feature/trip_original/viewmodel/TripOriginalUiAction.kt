@@ -1,4 +1,4 @@
-package com.tripmate.trip_original.viewmodel
+package com.tripmate.android.feature.trip_original.viewmodel
 
 sealed interface TripOriginalUiAction {
     data object OnBackClicked : TripOriginalUiAction

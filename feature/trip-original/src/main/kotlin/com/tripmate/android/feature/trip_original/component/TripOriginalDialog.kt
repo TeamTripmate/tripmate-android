@@ -1,4 +1,4 @@
-package com.tripmate.trip_original.component
+package com.tripmate.android.feature.trip_original.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -23,7 +23,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import com.tripmate.trip_original.viewmodel.TripOriginalUiAction
+import com.tripmate.android.feature.trip_original.viewmodel.TripOriginalUiAction
 import com.tripmate.android.core.common.extension.noRippleClickable
 import com.tripmate.android.core.designsystem.ComponentPreview
 
