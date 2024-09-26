@@ -20,6 +20,7 @@ dependencies {
         projects.feature.tripList,
         projects.feature.mateRecruitPost,
         projects.feature.map,
+        projects.feature.tripOriginal,
         libs.androidx.activity.compose,
         libs.kotlinx.collections.immutable,
         libs.coil.compose,

@@ -50,6 +50,7 @@ internal fun HomeRoute(
     navigateToTripDetail: (spotId: String) -> Unit,
     navigateToMateReviewPost: (Int) -> Unit,
     navigateToReport: () -> Unit,
+    navigateToTripOriginal: (Int) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -60,6 +61,7 @@ internal fun HomeRoute(
         onAction = viewModel::onAction,
         navigateToMateReview = navigateToMateReview,
         navigateToTripDetail = navigateToTripDetail,
+        navigateToTripOriginal = navigateToTripOriginal,
         navigateToMateReviewPost = navigateToMateReviewPost,
         navigateToReport = navigateToReport,
     )
@@ -75,6 +77,7 @@ internal fun HomeScreen(
     onAction: (HomeUiAction) -> Unit,
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
+    navigateToTripOriginal: (spotId: Int) -> Unit,
     navigateToMateReviewPost: (Int) -> Unit,
     navigateToReport: () -> Unit,
 ) {
@@ -136,6 +139,7 @@ internal fun HomeScreen(
                 onAction = onAction,
                 navigateToMateRecruit = navigateToMateRecruit,
                 navigateToTripDetail = navigateToTripDetail,
+                navigateToTripOriginal = navigateToTripOriginal,
                 navigateToReport = navigateToReport,
             )
         }
@@ -150,6 +154,7 @@ private fun ContentForTab(
     onAction: (HomeUiAction) -> Unit,
     navigateToMateRecruit: () -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
+    navigateToTripOriginal: (spotId: Int) -> Unit,
     navigateToReport: () -> Unit,
 ) {
     Column(
@@ -174,6 +179,9 @@ private fun ContentForTab(
                         description = tripOriginal.description,
                         location = tripOriginal.location,
                         time = tripOriginal.time,
+                        modifier = Modifier.clickable {
+                            navigateToTripOriginal(index)
+                        },
                     )
                 }
             }
@@ -217,6 +225,7 @@ internal fun HomeScreenPreview() {
             onAction = {},
             navigateToMateReview = {},
             navigateToTripDetail = {},
+            navigateToTripOriginal = {},
             navigateToMateReviewPost = {},
             navigateToReport = {},
         )
