@@ -20,6 +20,7 @@ fun NavGraphBuilder.tripDetailNavGraph(
     popBackStack: () -> Unit,
     navigateToMateRecruit: () -> Unit,
     navigateToMateReviewPost: (Int) -> Unit,
+    navigateToReport: () -> Unit,
 ) {
     composable(
         route = TRIP_DETAIL_ROUTE,
@@ -34,6 +35,7 @@ fun NavGraphBuilder.tripDetailNavGraph(
             popBackStack = popBackStack,
             navigateToMateRecruit = navigateToMateRecruit,
             navigateToMateReviewPost = navigateToMateReviewPost,
+            navigateToReport = navigateToReport,
         )
     }
 }

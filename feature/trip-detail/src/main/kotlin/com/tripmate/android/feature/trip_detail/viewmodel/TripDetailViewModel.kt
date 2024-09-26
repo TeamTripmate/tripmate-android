@@ -36,6 +36,7 @@ class TripDetailViewModel @Inject constructor(
             is TripDetailUiAction.GetTripDetailInfo -> getTripDetailInfo(spotId)
             is TripDetailUiAction.OnClickMateRecruit -> navigateMateRecruit()
             is TripDetailUiAction.OnClickMateReviewPost -> navigateMateReviewPost(action.companionId)
+            is TripDetailUiAction.OnClickReport -> navigateToReport()
         }
     }
 
@@ -66,6 +67,12 @@ class TripDetailViewModel @Inject constructor(
     private fun navigateMateReviewPost(companionId: Int) {
         viewModelScope.launch {
             _uiEvent.send(TripDetailUiEvent.NavigateToMateReviewPost(companionId))
+        }
+    }
+
+    private fun navigateToReport() {
+        viewModelScope.launch {
+            _uiEvent.send(TripDetailUiEvent.NavigateToReport)
         }
     }
 }

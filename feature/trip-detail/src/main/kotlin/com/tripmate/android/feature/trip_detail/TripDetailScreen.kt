@@ -75,6 +75,7 @@ fun TripDetailRoute(
     popBackStack: () -> Unit,
     navigateToMateRecruit: () -> Unit,
     navigateToMateReviewPost: (Int) -> Unit,
+    navigateToReport: () -> Unit,
     viewModel: TripDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -84,6 +85,7 @@ fun TripDetailRoute(
             is TripDetailUiEvent.NavigateBack -> popBackStack()
             is TripDetailUiEvent.NavigateMateRecruit -> navigateToMateRecruit()
             is TripDetailUiEvent.NavigateToMateReviewPost -> navigateToMateReviewPost(event.companionId)
+            is TripDetailUiEvent.NavigateToReport -> navigateToReport()
         }
     }
 

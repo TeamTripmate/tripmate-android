@@ -29,12 +29,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
-import com.tripmate.android.core.designsystem.R
+import com.tripmate.android.feature.trip_detail.R
+import com.tripmate.android.core.designsystem.R as designSystemR
 import com.tripmate.android.core.designsystem.component.NetworkImage
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray002
 import com.tripmate.android.core.designsystem.theme.Gray003
+import com.tripmate.android.core.designsystem.theme.Gray005
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Gray009
 import com.tripmate.android.core.designsystem.theme.Gray010
@@ -45,7 +47,9 @@ import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.Small14_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall10_Mid
+import com.tripmate.android.core.designsystem.theme.XSmall10_Reg
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
+import com.tripmate.android.core.designsystem.theme.XXSmall8_Reg
 import com.tripmate.android.domain.entity.TripDetailEntity
 import com.tripmate.android.domain.entity.TripDetailMateRecruitEntity
 import com.tripmate.android.feature.trip_detail.viewmodel.TripDetailUiAction
@@ -77,7 +81,7 @@ fun TripDetailMateRecruit(
         Image(
             modifier = Modifier
                 .wrapContentSize(),
-            painter = painterResource(id = R.drawable.ic_introduce),
+            painter = painterResource(id = designSystemR.drawable.ic_introduce),
             contentDescription = "introduce icon",
             contentScale = ContentScale.Crop,
         )
@@ -85,7 +89,7 @@ fun TripDetailMateRecruit(
         Spacer(modifier = Modifier.width(8.dp))
 
         Text(
-            text = stringResource(id = R.string.trip_mate_recruit_title),
+            text = stringResource(id = designSystemR.string.trip_mate_recruit_title),
             color = Gray001,
             style = Medium16_Mid,
         )
@@ -101,7 +105,7 @@ fun TripDetailMateRecruit(
             .height(56.dp),
     ) {
         Text(
-            text = stringResource(R.string.trip_mate_recruit_text),
+            text = stringResource(designSystemR.string.trip_mate_recruit_text),
             style = Medium16_SemiBold,
         )
     }
@@ -127,7 +131,7 @@ fun TripDetailMateRecruitList(
         Image(
             modifier = Modifier
                 .wrapContentSize(),
-            painter = painterResource(id = R.drawable.ic_mate_recruit_list),
+            painter = painterResource(id = designSystemR.drawable.ic_mate_recruit_list),
             contentDescription = "introduce icon",
             contentScale = ContentScale.Crop,
         )
@@ -135,7 +139,7 @@ fun TripDetailMateRecruitList(
         Spacer(modifier = Modifier.width(8.dp))
 
         Text(
-            text = stringResource(id = R.string.trip_mate_recruit_list),
+            text = stringResource(id = designSystemR.string.trip_mate_recruit_list),
             color = Gray001,
             style = Medium16_Mid,
         )
@@ -186,11 +190,26 @@ fun TripDetailMateRecruitItem(
             Spacer(modifier = Modifier.width(8.dp))
 
             Column {
-                Text(
-                    text = tripDetailMateRecruitEntity.mateName,
-                    color = Gray001,
-                    style = Small14_SemiBold,
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = tripDetailMateRecruitEntity.mateName,
+                        color = Gray001,
+                        style = Small14_SemiBold,
+                    )
+
+                    Spacer(modifier = Modifier.width(6.dp))
+
+                    Text(
+                        text = stringResource(R.string.user_report),
+                        color = Gray005,
+                        style = XXSmall8_Reg,
+                        modifier = Modifier.clickable {
+                            onAction(TripDetailUiAction.OnClickReport)
+                        },
+                    )
+                }
 
                 Spacer(modifier = Modifier.height(4.dp))
 
@@ -207,6 +226,17 @@ fun TripDetailMateRecruitItem(
                         text = tripDetailMateRecruitEntity.mateMatchingRatio + "% 일치",
                         color = Primary01,
                         style = XSmall12_Reg,
+                    )
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Text(
+                        text = stringResource(R.string.article_report),
+                        color = Gray005,
+                        style = XSmall10_Reg,
+                        modifier = Modifier.clickable {
+                            onAction(TripDetailUiAction.OnClickReport)
+                        },
                     )
                 }
 
@@ -263,6 +293,33 @@ fun TripDetailMateStyleTypeItem(
 @Composable
 fun MateRecruitTabPreview() {
     TripmateTheme {
-        MateRecruitTab(TripDetailEntity()) { }
+        MateRecruitTab(
+            tripDetail = TripDetailEntity(),
+            onAction = {},
+        )
+    }
+}
+
+@ComponentPreview
+@Composable
+fun TripDetailMateRecruitItemPreview() {
+    TripmateTheme {
+        TripDetailMateRecruitItem(
+            tripDetailMateRecruitEntity = TripDetailMateRecruitEntity(
+                companionId = 1,
+                profileImage = "",
+                mateName = "김철수",
+                mateStyleName = "힙합",
+                mateMatchingRatio = "80",
+                mateStyleType = listOf("힙합", "팝", "클래식"),
+                mateRecruitTitle = "힙합을 좋아하는 친구를 찾아요",
+                mateRecruitDescription = "힙합을 좋아하는 친구를 찾아요",
+                mateRecruitSubDescription = "힙합을 좋아하는 친구를 찾아요",
+                mateRecruitAddress = "서울시 강남구",
+                date = "2021.10.01",
+                mateRecruitDate = "2021.10.01",
+            ),
+            onAction = {},
+        )
     }
 }

@@ -12,4 +12,6 @@
     <string name="confirm">확인</string>
     <string name="report_dialog_title">신고가 완료되었습니다</string>
     <string name="report_dialog_description">트립메이트는 안전한 동행문화를 지양합니다</string>
+    <string name="user_report">작성자 신고하기</string>
+    <string name="article_report">게시글 신고하기</string>
 </resources>

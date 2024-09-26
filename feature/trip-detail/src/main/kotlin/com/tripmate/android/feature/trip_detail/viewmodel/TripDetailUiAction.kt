@@ -5,4 +5,5 @@ sealed interface TripDetailUiAction {
     data object GetTripDetailInfo : TripDetailUiAction
     data object OnClickMateRecruit : TripDetailUiAction
     data class OnClickMateReviewPost(val companionId: Int) : TripDetailUiAction
+    data object OnClickReport : TripDetailUiAction
 }

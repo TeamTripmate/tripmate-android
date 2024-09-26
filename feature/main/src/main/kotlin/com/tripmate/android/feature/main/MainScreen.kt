@@ -128,6 +128,7 @@ internal fun MainScreen(
                 popBackStack = navController::popBackStackIfNotHome,
                 navigateToMateRecruit = navController::navigateToMateRecruit,
                 navigateToMateReviewPost = navController::navigateToMateReviewPost,
+                navigateToReport = navController::navigateToReport,
             )
             myTripCharacterInfoNavGraph(
                 padding = innerPadding,

@@ -196,3 +196,19 @@ val XSmall10_Mid = TextStyle(
     letterSpacing = 0.sp,
     lineHeight = 16.sp,
 )
+
+val XSmall10_Reg = TextStyle(
+    fontFamily = pretendardFamily,
+    fontWeight = FontWeight.Normal,
+    fontSize = 10.sp,
+    letterSpacing = 0.sp,
+    lineHeight = 16.sp,
+)
+
+val XXSmall8_Reg = TextStyle(
+    fontFamily = pretendardFamily,
+    fontWeight = FontWeight.Normal,
+    fontSize = 8.sp,
+    letterSpacing = 0.sp,
+    lineHeight = 12.sp,
+)
