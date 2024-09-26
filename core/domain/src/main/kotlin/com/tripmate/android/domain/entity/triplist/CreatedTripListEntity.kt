@@ -9,7 +9,7 @@ data class CreatedCompanionInfoEntity(
     val title: String,
     val date: String,
     val companionStatus: String,
-    val applicantInfoEntityInfo: ApplicantInfoEntity,
+    val applicantInfoEntityInfo: List<ApplicantInfoEntity>,
 )
 
 @Stable
