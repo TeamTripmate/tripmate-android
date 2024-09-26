@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Trip Mate</string>
+    <string name="app_name">트립메이트</string>
+    <string name="app_name_dev">트립메이트.dev</string>
 </resources>

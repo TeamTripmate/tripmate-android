@@ -26,6 +26,7 @@
     <string name="category_type_accommodate">숙박</string>
     <string name="category_type_shopping">쇼핑</string>
     <string name="category_type_food">음식</string>
+    <string name="category_type_none"></string>
     <string name="see_more_list">목록 보기</string>
     <string name="show_map">지도 보기</string>
     <string name="see_only_searching_mate">동행 모집만 보기</string>
@@ -50,4 +51,8 @@
     <string name="trip_mate_review_advantage_third">3위</string>
     <string name="trip_mate_review_list">방문한 메이트들의 후기</string>
 
+    <string name="trip_mate_request">동행 신청하기</string>
+    <string name="trip_original_title">트립오리지널 신청이 완료되었어요.</string>
+    <string name="trip_original_desc">동행시작 5일전에 가입한 이메일로\n카톡방 링크 보내드릴게요 😊</string>
+    <string name="trip_original_confirm">확인했어요</string>
 </resources>

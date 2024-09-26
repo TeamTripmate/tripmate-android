@@ -34,6 +34,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
+import com.tripmate.android.feature.trip_original.navigation.tripOriginalNavGraph
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.component.TripmateScaffold
 import com.tripmate.android.core.designsystem.theme.Background02
@@ -42,7 +43,7 @@ import com.tripmate.android.core.designsystem.theme.Gray007
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Mid
-import com.tripmate.android.feature.tripdetail.navigation.tripDetailNavGraph
+import com.tripmate.android.feature.trip_detail.navigation.tripDetailNavGraph
 import com.tripmate.android.feature.home.navigation.homeNavGraph
 import com.tripmate.android.feature.mate_recruit.navigation.mateRecruitNavGraph
 import com.tripmate.android.feature.mate_recruit_post.navigation.mateRecruitPostNavGraph
@@ -56,7 +57,7 @@ import com.tripmate.android.feature.trip_list.navigation.mateListNavGraph
 import com.tripmate.android.feature.trip_list.navigation.mateOpenChatNavGraph
 import com.tripmate.android.feature.trip_list.navigation.tripListNavGraph
 import com.tripmate.android.mate.navigation.mateNavGraph
-import com.tripmate.android.feature.tripdetail.navigation.reportNavGraph
+import com.tripmate.android.feature.trip_detail.navigation.reportNavGraph
 import com.tripmate.android.mate_review.navigation.mateReviewNavGraph
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -94,6 +95,7 @@ internal fun MainScreen(
                 navigateToTripDetail = navController::navigateToTripDetail,
                 navigateToMateReviewPost = navController::navigateToMateReviewPost,
                 navigateToReport = navController::navigateToReport,
+                navigateToTripOriginal = navController::navigateToTripOriginal,
             )
             mateNavGraph(
                 padding = innerPadding,
@@ -124,6 +126,9 @@ internal fun MainScreen(
             tripDetailNavGraph(
                 padding = innerPadding,
                 popBackStack = navController::popBackStackIfNotHome,
+                navigateToMateRecruit = navController::navigateToMateRecruit,
+                navigateToMateReviewPost = navController::navigateToMateReviewPost,
+                navigateToReport = navController::navigateToReport,
             )
             myTripCharacterInfoNavGraph(
                 padding = innerPadding,
@@ -161,6 +166,10 @@ internal fun MainScreen(
             )
             termOfUseNavGraph(
                 popBackStack = navController::popBackStackIfNotHome,
+            )
+            tripOriginalNavGraph(
+                padding = innerPadding,
+                navigateToMateList = navController::navigateToMateList,
             )
         }
     }

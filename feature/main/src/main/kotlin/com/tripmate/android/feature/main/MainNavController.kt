@@ -8,7 +8,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.tripmate.android.feature.tripdetail.navigation.navigateToTripDetail
+import com.tripmate.android.feature.trip_original.navigation.navigateToTripOriginal
+import com.tripmate.android.feature.trip_detail.navigation.navigateToTripDetail
 import com.tripmate.android.feature.home.navigation.HOME_ROUTE
 import com.tripmate.android.feature.home.navigation.navigateToHome
 import com.tripmate.android.feature.mate_recruit.navigation.navigateToMateRecruit
@@ -23,7 +24,7 @@ import com.tripmate.android.feature.trip_list.navigation.navigateToMateList
 import com.tripmate.android.feature.trip_list.navigation.navigateToMateOpenChat
 import com.tripmate.android.feature.trip_list.navigation.navigateToTripList
 import com.tripmate.android.mate.navigation.navigateToMate
-import com.tripmate.android.feature.tripdetail.navigation.navigateToReport
+import com.tripmate.android.feature.trip_detail.navigation.navigateToReport
 import com.tripmate.android.mate_review.navigation.navigateToMateReview
 
 internal class MainNavController(
@@ -65,12 +66,12 @@ internal class MainNavController(
         navController.navigateToMateReview()
     }
 
-    fun navigateToTripDetail() {
-        navController.navigateToTripDetail()
+    fun navigateToTripDetail(spotId: String) {
+        navController.navigateToTripDetail(spotId)
     }
 
-    fun navigateToMateReviewPost() {
-        navController.navigateToMateRecruitPost()
+    fun navigateToMateReviewPost(companionId: Int) {
+        navController.navigateToMateRecruitPost(companionId)
     }
 
     fun navigateToMyTripCharacterInfo(characterId: String, tripStyle: String) {
@@ -103,6 +104,10 @@ internal class MainNavController(
 
     fun navigateToTermOfUse() {
         navController.navigateToTermOfUse()
+    }
+
+    fun navigateToTripOriginal(spotId: Int) {
+        navController.navigateToTripOriginal(spotId)
     }
 
     fun popBackStack() {

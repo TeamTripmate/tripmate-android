@@ -9,6 +9,7 @@ import com.tripmate.android.core.network.request.WithdrawalRequest
 import com.tripmate.android.core.network.response.LocationBasedSpotSearchResponse
 import com.tripmate.android.core.network.response.PersonalizedTestResultResponse
 import com.tripmate.android.core.network.response.SpotDetailResponse
+import com.tripmate.android.core.network.response.TripDetailInfoResponse
 import com.tripmate.android.core.network.response.UserInfoResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -34,8 +35,12 @@ interface TripmateService {
         @Query("longitude") longitude: String,
         @Query("range") range: String,
         @Query("spotTypeGroup") spotTypeGroup: String,
-        @Query("category") category: String,
     ): LocationBasedSpotSearchResponse
+
+    @GET("api/v1/spots/{spotId}")
+    suspend fun getTripDetailInfo(
+        @Path("spotId") spotId: String,
+    ): TripDetailInfoResponse
 
     @POST("api/v1/user/withdrawal")
     suspend fun withdrawal(

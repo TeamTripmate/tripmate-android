@@ -1,5 +1,8 @@
 package com.tripmate.android.feature.mate_recruit_post
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -31,9 +34,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
@@ -75,11 +80,13 @@ internal fun MateRecruitPostRoute(
     viewModel: MateRecruitPostViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is MateRecruitPostUiEvent.NavigateBack -> popBackStack()
             is MateRecruitPostUiEvent.Finish -> popBackStack()
+            is MateRecruitPostUiEvent.NavigateToKakaoOpenChat -> openKakaoOpenChat(context, event.chatLink)
         }
     }
 
@@ -92,6 +99,11 @@ internal fun MateRecruitPostRoute(
         innerPadding = innerPadding,
         onAction = viewModel::onAction,
     )
+}
+
+private fun openKakaoOpenChat(context: Context, url: String) {
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    startActivity(context, intent, null)
 }
 
 @Composable
@@ -140,28 +152,28 @@ internal fun MateRecruitPostScreen(
             MateRecruitPostReview(
                 mateRecruitPostEntity = uiState.mateRecruitPostEntity,
             )
-        }
 
-        if (uiState.isCompanionApplySuccess) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color = Color.White)
-                    .padding(top = 20.dp, bottom = 40.dp)
-                    .align(Alignment.BottomCenter),
-            ) {
-                TripmateButton(
-                    onClick = {
-                    },
+            if (!uiState.isCompanionApplySuccess) {
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp, top = 24.dp)
-                        .height(56.dp),
+                        .background(color = Color.White)
+                        .padding(top = 10.dp, bottom = 20.dp),
                 ) {
-                    Text(
-                        text = stringResource(R.string.mate_recruit_post_request_button_title),
-                        style = Medium16_SemiBold,
-                    )
+                    TripmateButton(
+                        onClick = {
+                            onAction.invoke(MateRecruitPostUiAction.OnCompanionApply)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 16.dp, end = 16.dp, top = 24.dp)
+                            .height(56.dp),
+                    ) {
+                        Text(
+                            text = stringResource(R.string.mate_recruit_post_request_button_title),
+                            style = Medium16_SemiBold,
+                        )
+                    }
                 }
             }
         }
@@ -308,7 +320,7 @@ fun MateRecruitRequest(
 
     TripmateButton(
         onClick = {
-            onAction.invoke(MateRecruitPostUiAction.OnCompanionApply)
+            onAction.invoke(MateRecruitPostUiAction.OnKakaoOpenChat(uiState.mateRecruitPostEntity.chatLink))
         },
         modifier = Modifier
             .fillMaxWidth()
@@ -467,7 +479,7 @@ fun MateReviewItem(
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = tripDetailMateReviewEntity.userInfo.profileImage,
+                    text = tripDetailMateReviewEntity.userInfo.characterName,
                     color = Gray003,
                     style = XSmall12_Reg,
                 )

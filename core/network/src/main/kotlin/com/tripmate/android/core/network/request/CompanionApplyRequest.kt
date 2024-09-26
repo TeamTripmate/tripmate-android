@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CompanionApplyRequest(
     @SerialName("companionId")
-    val companionId: Int,
+    val companionId: Long,
     @SerialName("userId")
-    val userId: Int,
+    val userId: Long,
 )

@@ -1,6 +1,7 @@
 package com.tripmate.android.feature.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -46,9 +47,10 @@ internal fun HomeRoute(
     navigateToMateRecruit: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToMateReview: () -> Unit,
-    navigateToTripDetail: () -> Unit,
-    navigateToMateReviewPost: () -> Unit,
+    navigateToTripDetail: (spotId: String) -> Unit,
+    navigateToMateReviewPost: (Int) -> Unit,
     navigateToReport: () -> Unit,
+    navigateToTripOriginal: (Int) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -59,6 +61,7 @@ internal fun HomeRoute(
         onAction = viewModel::onAction,
         navigateToMateReview = navigateToMateReview,
         navigateToTripDetail = navigateToTripDetail,
+        navigateToTripOriginal = navigateToTripOriginal,
         navigateToMateReviewPost = navigateToMateReviewPost,
         navigateToReport = navigateToReport,
     )
@@ -73,8 +76,9 @@ internal fun HomeScreen(
     navigateToMateRecruit: () -> Unit,
     onAction: (HomeUiAction) -> Unit,
     navigateToMateReview: () -> Unit,
-    navigateToTripDetail: () -> Unit,
-    navigateToMateReviewPost: () -> Unit,
+    navigateToTripDetail: (spotId: String) -> Unit,
+    navigateToTripOriginal: (spotId: Int) -> Unit,
+    navigateToMateReviewPost: (Int) -> Unit,
     navigateToReport: () -> Unit,
 ) {
     val pagerState = rememberPagerState(
@@ -134,6 +138,8 @@ internal fun HomeScreen(
                 uiState = uiState,
                 onAction = onAction,
                 navigateToMateRecruit = navigateToMateRecruit,
+                navigateToTripDetail = navigateToTripDetail,
+                navigateToTripOriginal = navigateToTripOriginal,
                 navigateToReport = navigateToReport,
             )
         }
@@ -147,6 +153,8 @@ private fun ContentForTab(
     uiState: HomeUiState,
     onAction: (HomeUiAction) -> Unit,
     navigateToMateRecruit: () -> Unit,
+    navigateToTripDetail: (spotId: String) -> Unit,
+    navigateToTripOriginal: (spotId: Int) -> Unit,
     navigateToReport: () -> Unit,
 ) {
     Column(
@@ -171,6 +179,9 @@ private fun ContentForTab(
                         description = tripOriginal.description,
                         location = tripOriginal.location,
                         time = tripOriginal.time,
+                        modifier = Modifier.clickable {
+                            navigateToTripOriginal(index)
+                        },
                     )
                 }
             }
@@ -193,6 +204,9 @@ private fun ContentForTab(
                         title = spot.title,
                         description = spot.description,
                         location = spot.address,
+                        modifier = Modifier.clickable {
+                            navigateToTripDetail(spot.id.toString())
+                        },
                     )
                 }
             }
@@ -211,6 +225,7 @@ internal fun HomeScreenPreview() {
             onAction = {},
             navigateToMateReview = {},
             navigateToTripDetail = {},
+            navigateToTripOriginal = {},
             navigateToMateReviewPost = {},
             navigateToReport = {},
         )

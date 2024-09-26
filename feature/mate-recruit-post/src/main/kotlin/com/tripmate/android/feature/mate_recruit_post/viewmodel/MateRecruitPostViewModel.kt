@@ -1,8 +1,10 @@
 package com.tripmate.android.feature.mate_recruit_post.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.domain.repository.MateRepository
+import com.tripmate.android.feature.mate_recruit_post.navigation.COMPANION_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +20,10 @@ import javax.inject.Inject
 class MateRecruitPostViewModel @Inject constructor(
     @Suppress("UnusedPrivateProperty")
     private val mateRepository: MateRepository,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
+    private val companionId: Int = requireNotNull(savedStateHandle.get<Int>(COMPANION_ID))
+
     private val _uiState = MutableStateFlow(MateRecruitPostUiState())
     val uiState: StateFlow<MateRecruitPostUiState> = _uiState.asStateFlow()
 
@@ -30,24 +35,24 @@ class MateRecruitPostViewModel @Inject constructor(
             is MateRecruitPostUiAction.OnBackClicked -> navigateBack()
             is MateRecruitPostUiAction.OnCompanionApply -> onCompanionApply()
             is MateRecruitPostUiAction.GetCompanionsDetailInfo -> getCompanionsDetailInfo()
+            is MateRecruitPostUiAction.OnKakaoOpenChat -> onKakaoOpenChat(action.chatLink)
         }
     }
 
     private fun onCompanionApply() {
         viewModelScope.launch {
             mateRepository.companionApply(
-                0,
-                0,
+                companionId,
             ).onSuccess {
                 _uiState.update {
                     it.copy(
-                        isCompanionApplySuccess = false,
+                        isCompanionApplySuccess = true,
                     )
                 }
             }.onFailure {
                 _uiState.update {
                     it.copy(
-                        isCompanionApplySuccess = true,
+                        isCompanionApplySuccess = false,
                     )
                 }
             }
@@ -57,11 +62,12 @@ class MateRecruitPostViewModel @Inject constructor(
     private fun getCompanionsDetailInfo() {
         viewModelScope.launch {
             mateRepository.getCompanionsDetailInfo(
-                0,
+                companionId,
             ).onSuccess { respose ->
                 _uiState.update {
                     it.copy(
                         mateRecruitPostEntity = respose,
+                        isCompanionApplySuccess = respose.accompanyYn,
                     )
                 }
             }.onFailure { }
@@ -71,6 +77,12 @@ class MateRecruitPostViewModel @Inject constructor(
     private fun navigateBack() {
         viewModelScope.launch {
             _uiEvent.send(MateRecruitPostUiEvent.NavigateBack)
+        }
+    }
+
+    private fun onKakaoOpenChat(chatLink: String) {
+        viewModelScope.launch {
+            _uiEvent.send(MateRecruitPostUiEvent.NavigateToKakaoOpenChat(chatLink))
         }
     }
 }

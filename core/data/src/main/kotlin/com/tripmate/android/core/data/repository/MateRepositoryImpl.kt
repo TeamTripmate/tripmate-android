@@ -2,6 +2,7 @@ package com.tripmate.android.core.data.repository
 
 import com.tripmate.android.core.data.util.runSuspendCatching
 import com.tripmate.android.core.datastore.PersonalizationDataSource
+import com.tripmate.android.core.datastore.TokenDataSource
 import com.tripmate.android.core.network.request.CompanionApplyRequest
 import com.tripmate.android.core.network.service.TripmateService
 import com.tripmate.android.domain.entity.MateRecruitPostEntity
@@ -14,6 +15,7 @@ import javax.inject.Inject
 internal class MateRepositoryImpl @Inject constructor(
     private val personalizationDataSource: PersonalizationDataSource,
     private val service: TripmateService,
+    private val tokenDataSource: TokenDataSource,
 ) : MateRepository {
     override suspend fun checkPersonalizationCompletion(): Boolean {
         return personalizationDataSource.checkPersonalizationCompletion()
@@ -24,7 +26,7 @@ internal class MateRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getCompanionsDetailInfo(companionId: Int): Result<MateRecruitPostEntity> = runSuspendCatching {
-        val response = service.getCompanionsDetailInfo(companionId)
+        val response = service.getCompanionsDetailInfo(companionId).data
 
         MateRecruitPostEntity(
             spotId = response.spotId,
@@ -35,7 +37,7 @@ internal class MateRepositoryImpl @Inject constructor(
             description = response.description,
             gender = response.gender,
             ageRange = response.ageRange,
-            matchingRatio = response.matchingRatio,
+            matchingRatio = response.hostInfo.matchingRatio.toString(),
             hostInfo = UserInfoEntity(
                 profileImage = response.hostInfo.profileImage.replace("http:", "https:"),
                 kakaoNickname = response.hostInfo.kakaoNickname,
@@ -45,25 +47,27 @@ internal class MateRepositoryImpl @Inject constructor(
             reviewRanks = response.reviewRanks.map { reviewRanks ->
                 MateReviewType.entries.find { it.code == reviewRanks }?.reviewText ?: ""
             },
-            mateRecruitPostReviewList = emptyList<TripDetailMateReviewEntity>().apply {
+            mateRecruitPostReviewList = arrayListOf<TripDetailMateReviewEntity>().apply {
                 response.reviewInfos.forEach { reviewInfo ->
-                    TripDetailMateReviewEntity(
-                        userInfo = UserInfoEntity(
-                            profileImage = reviewInfo.userInfo.profileImage.replace("http:", "https:"),
-                            kakaoNickname = reviewInfo.userInfo.kakaoNickname,
-                            characterName = reviewInfo.userInfo.characterName,
+                    this.add(
+                        TripDetailMateReviewEntity(
+                            userInfo = UserInfoEntity(
+                                profileImage = reviewInfo.userInfo.profileImage.replace("http:", "https:"),
+                                kakaoNickname = reviewInfo.userInfo.kakaoNickname,
+                                characterName = reviewInfo.userInfo.characterName,
+                            ),
+                            reviewDate = reviewInfo.reviewDate,
+                            likeList = reviewInfo.likeList.map { reviewRanks ->
+                                MateReviewType.entries.find { it.code == reviewRanks }?.reviewText ?: ""
+                            },
                         ),
-                        reviewDate = reviewInfo.reviewDate,
-                        likeList = reviewInfo.likeList.map { reviewRanks ->
-                            MateReviewType.entries.find { it.code == reviewRanks }?.reviewText ?: ""
-                        },
                     )
                 }
             },
         )
     }
 
-    override suspend fun companionApply(companionId: Int, userId: Int): Result<Unit> = runSuspendCatching {
-        service.companionsApply(CompanionApplyRequest(companionId, userId))
+    override suspend fun companionApply(companionId: Int): Result<Unit> = runSuspendCatching {
+        service.companionsApply(CompanionApplyRequest(companionId.toLong(), tokenDataSource.getId()))
     }
 }
