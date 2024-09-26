@@ -77,8 +77,7 @@ class TripListViewModel @Inject constructor(
     private fun ticketClicked(ticketId: Int) {
         _uiState.update {
             it.copy(
-                isTicketClicked = it.isTicketClicked.mapIndexed
-                { index, _ -> index == ticketId }.toImmutableList(),
+                isTicketClicked = it.isTicketClicked.mapIndexed { index, _ -> index == ticketId }.toImmutableList(),
             )
         }
     }
