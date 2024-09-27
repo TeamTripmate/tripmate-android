@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.component.ProfileImage
@@ -284,6 +285,7 @@ fun TripDetailMateStyleTypeItem(
             .background(color = Gray010)
             .padding(2.dp),
         text = mateStyleTypeItem,
+        textAlign = TextAlign.Center,
         color = Gray002,
         style = XSmall10_Mid,
     )
