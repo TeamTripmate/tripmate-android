@@ -13,7 +13,6 @@ data class CreatedTripListResponse(
     val error: String? = null,
 )
 
-
 @Serializable
 data class CreatedCompanionInfo(
     @SerialName("companionId")

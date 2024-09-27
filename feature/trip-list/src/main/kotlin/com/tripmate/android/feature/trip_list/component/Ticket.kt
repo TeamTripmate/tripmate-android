@@ -33,7 +33,6 @@ import com.tripmate.android.core.designsystem.theme.Gray003
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
-import com.tripmate.android.domain.entity.TicketEntity
 import com.tripmate.android.domain.entity.triplist.ApplicantInfoEntity
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
 
@@ -66,7 +65,7 @@ internal fun Ticket(
             .clip(ticketShape)
             .background(backgroundColor)
             .border(2.dp, borderColor, ticketShape)
-            .clickable { onAction(TripListUiAction.OnTicketClicked(ticketIndex,ticket.userId)) },
+            .clickable { onAction(TripListUiAction.OnTicketClicked(ticketIndex, ticket.userId)) },
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -74,7 +73,8 @@ internal fun Ticket(
         ) {
             Spacer(modifier = Modifier.width(30.dp))
             Column {
-                Text(text = ticket.tripStyle,
+                Text(
+                    text = ticket.tripStyle,
                     style = Large20_Bold,
                     color = Gray001,
                 )

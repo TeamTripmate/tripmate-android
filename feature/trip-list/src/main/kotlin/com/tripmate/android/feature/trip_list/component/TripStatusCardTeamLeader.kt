@@ -30,7 +30,6 @@ import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray003
-import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
@@ -39,7 +38,6 @@ import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.domain.entity.triplist.ApplicantInfoEntity
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
 
-@OptIn(ExperimentalFoundationApi::class)
 @Suppress("UnusedParameter")
 @Composable
 fun TripStatusCardTeamLeader(

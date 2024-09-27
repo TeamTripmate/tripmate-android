@@ -44,7 +44,6 @@ import com.tripmate.android.feature.triplist.R
 import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
 import java.net.MalformedURLException
 import java.net.URL
-import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
 internal fun MateOpenChatRoute(
@@ -164,7 +163,6 @@ internal fun MateOpenChatScreen(
     }
 }
 
-
 private fun getCharacterTypeIntro(characterId: String): String {
     return when (characterId) {
         "PENGUIN" -> "펭귄은 내향적인 성향을 가지고 있고, 대부분의 시간을 집단 내에서 조용히 보내며, 개인적인 공간과 안정적인 환경을 선호해요.\n" +
@@ -208,6 +206,7 @@ private fun getTripStyleIntro(characterId: String): String {
             "\n자연 속에서 휴식을 취하거나 느긋하게 경치를 감상하기도 한답니다. 새로운 도전보다는 익숙한 환경에서 편안함을 느끼며, 여행의 목적이 휴식과 힐링에 맞춰져 있는 유형이죠."
     }
 }
+
 @DevicePreview
 @Composable
 private fun MyTripCharacterInfoPreview() {

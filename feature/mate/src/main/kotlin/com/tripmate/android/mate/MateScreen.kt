@@ -72,7 +72,6 @@ import com.tripmate.android.core.designsystem.theme.MateTitle
 import com.tripmate.android.core.designsystem.theme.MateTitleBackGround
 import com.tripmate.android.core.designsystem.theme.Medium16_Light
 import com.tripmate.android.core.designsystem.theme.Primary01
-import com.tripmate.android.core.designsystem.theme.Primary03
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.CategoryEntity

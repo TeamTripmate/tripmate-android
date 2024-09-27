@@ -127,7 +127,7 @@ fun MateListScreen(
                 ),
         ) {
             TripmateButton(
-                onClick = { onAction(TripListUiAction.OnSelectMateClicked)},
+                onClick = { onAction(TripListUiAction.OnSelectMateClicked) },
                 modifier = Modifier
                     .align(Alignment.Center)
                     .fillMaxWidth()

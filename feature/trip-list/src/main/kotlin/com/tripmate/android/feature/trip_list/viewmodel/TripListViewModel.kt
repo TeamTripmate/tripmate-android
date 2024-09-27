@@ -32,7 +32,7 @@ class TripListViewModel @Inject constructor(
         when (action) {
             is TripListUiAction.OnBackClicked -> navigateBack()
             is TripListUiAction.OnTabChanged -> updateSelectedTab(action.index)
-            is TripListUiAction.OnTicketClicked -> ticketClicked(action.ticketId,action.userId)
+            is TripListUiAction.OnTicketClicked -> ticketClicked(action.ticketId, action.userId)
             is TripListUiAction.OnClickViewMateList -> navigateToMateList(action.companionId, action.matesInfo)
             is TripListUiAction.OnTripStatusCardClicked -> navigateToMateOpenChat(action.openChatLink, action.characterId, action.tripStyle)
             is TripListUiAction.OnMateOpenChatClicked -> navigateToKakaoOpenChat()
@@ -81,7 +81,7 @@ class TripListViewModel @Inject constructor(
         _uiState.update { it.copy(selectedTabIndex = tab) }
     }
 
-    private fun ticketClicked(ticketId: Int,userId:Long) {
+    private fun ticketClicked(ticketId: Int, userId: Long) {
         _uiState.update {
             it.copy(
                 isTicketClicked = it.isTicketClicked.mapIndexed { index, _ -> index == ticketId }.toImmutableList(),
@@ -90,11 +90,11 @@ class TripListViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToMateList(companionId:Long,matesInfo : List<ApplicantInfoEntity>) {
+    private fun navigateToMateList(companionId: Long, matesInfo: List<ApplicantInfoEntity>) {
         _uiState.update {
             it.copy(
                 selectedCompanionId = companionId,
-                applicantsInfo = matesInfo.toImmutableList()
+                applicantsInfo = matesInfo.toImmutableList(),
             )
         }
         viewModelScope.launch {
@@ -124,7 +124,7 @@ class TripListViewModel @Inject constructor(
 
     private fun selectMate() {
         viewModelScope.launch {
-            tripListRepository.selectMate( _uiState.value.selectedUserId, _uiState.value.selectedCompanionId)
+            tripListRepository.selectMate(_uiState.value.selectedUserId, _uiState.value.selectedCompanionId)
                 .onSuccess {
                     _uiEvent.send(TripListUiEvent.NavigateBack)
                 }.onFailure { exception ->
