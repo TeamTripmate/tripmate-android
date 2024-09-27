@@ -93,13 +93,13 @@ internal fun Ticket(
                     TicketType(ticket.selectedKeyword[2])
                 }
                 Spacer(modifier = Modifier.height(46.dp))
-                Row {
-                    Text(
-                        text = "캐릭터 설명보기>",
-                        style = XSmall12_Reg,
-                        color = Gray003,
-                    )
-                }
+//                Row {
+//                    Text(
+//                        text = "캐릭터 설명보기>",
+//                        style = XSmall12_Reg,
+//                        color = Gray003,
+//                    )
+//                }
             }
             Spacer(modifier = Modifier.weight(1f))
             Spacer(modifier = Modifier.width(12.dp))
