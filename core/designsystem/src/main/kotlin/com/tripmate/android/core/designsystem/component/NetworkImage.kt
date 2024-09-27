@@ -1,15 +1,11 @@
 package com.tripmate.android.core.designsystem.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.rounded.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
@@ -24,37 +20,68 @@ fun NetworkImage(
     imgUrl: String?,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    placeholder: Painter? = null,
+    placeholder: Painter = painterResource(id = R.drawable.img_sample_character),
+    failureImage: Painter = painterResource(id = R.drawable.img_sample_character),
     contentScale: ContentScale = ContentScale.Crop,
 ) {
-    if (LocalInspectionMode.current) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_sample_character),
-            contentDescription = "Example Image Icon",
-            modifier = modifier,
-        )
-    } else {
-        CoilImage(
-            imageModel = { imgUrl },
-            modifier = modifier,
-            component = rememberImageComponent {
-                +PlaceholderPlugin.Loading(placeholder)
-                +PlaceholderPlugin.Failure(placeholder)
-            },
-            imageOptions = ImageOptions(
-                contentScale = contentScale,
-                alignment = Alignment.Center,
-                contentDescription = contentDescription,
-            ),
-            failure = {
-                Image(
-                    imageVector = Icons.Rounded.Person,
-                    contentDescription = "Default Profile Image",
-                    modifier = modifier,
-                )
-            },
-        )
-    }
+    CoilImage(
+        imageModel = { imgUrl },
+        modifier = modifier,
+        component = rememberImageComponent {
+            +PlaceholderPlugin.Loading(placeholder)
+            +PlaceholderPlugin.Failure(placeholder)
+        },
+        imageOptions = ImageOptions(
+            contentScale = contentScale,
+            alignment = Alignment.Center,
+            contentDescription = contentDescription,
+        ),
+        failure = {
+            Image(
+                painter = failureImage,
+                contentDescription = "Failure Image",
+                modifier = modifier,
+            )
+        },
+    )
+}
+
+@Composable
+fun ProfileImage(
+    imgUrl: String?,
+    contentDescription: String?,
+    modifier: Modifier = Modifier,
+    placeholder: Painter = painterResource(id = R.drawable.img_profile_placeholder),
+    failureImage: Painter = painterResource(id = R.drawable.img_profile_placeholder),
+    contentScale: ContentScale = ContentScale.Crop,
+) {
+    NetworkImage(
+        imgUrl = imgUrl,
+        contentDescription = contentDescription,
+        modifier = modifier,
+        placeholder = placeholder,
+        failureImage = failureImage,
+        contentScale = contentScale,
+    )
+}
+
+@Composable
+fun TripItemImage(
+    imgUrl: String?,
+    contentDescription: String?,
+    modifier: Modifier = Modifier,
+    placeholder: Painter = painterResource(id = R.drawable.img_trip_placeholder),
+    failureImage: Painter = painterResource(id = R.drawable.img_trip_placeholder),
+    contentScale: ContentScale = ContentScale.Crop,
+) {
+    NetworkImage(
+        imgUrl = imgUrl,
+        contentDescription = contentDescription,
+        modifier = modifier,
+        placeholder = placeholder,
+        failureImage = failureImage,
+        contentScale = contentScale,
+    )
 }
 
 @ComponentPreview
@@ -64,6 +91,32 @@ fun NetworkImagePreview() {
         NetworkImage(
             imgUrl = "",
             contentDescription = "",
+        )
+    }
+}
+
+@ComponentPreview
+@Composable
+fun ProfileImagePreview() {
+    TripmateTheme {
+        ProfileImage(
+            imgUrl = "",
+            contentDescription = "",
+            placeholder = painterResource(id = R.drawable.img_profile_placeholder),
+            failureImage = painterResource(id = R.drawable.img_profile_placeholder),
+        )
+    }
+}
+
+@ComponentPreview
+@Composable
+fun TripItemImagePreview() {
+    TripmateTheme {
+        TripItemImage(
+            imgUrl = "",
+            contentDescription = "",
+            placeholder = painterResource(id = R.drawable.img_profile_placeholder),
+            failureImage = painterResource(id = R.drawable.img_trip_placeholder),
         )
     }
 }

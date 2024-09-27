@@ -43,7 +43,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
-import com.tripmate.android.core.designsystem.component.NetworkImage
+import com.tripmate.android.core.designsystem.component.ProfileImage
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
@@ -223,7 +223,7 @@ fun MateRecruitPostContent(
             modifier = Modifier
                 .fillMaxWidth(),
         ) {
-            NetworkImage(
+            ProfileImage(
                 imgUrl = mateRecruitPost.hostInfo.profileImage,
                 contentDescription = "Profile",
                 modifier = Modifier
@@ -484,7 +484,7 @@ fun MateReviewItem(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            NetworkImage(
+            ProfileImage(
                 imgUrl = tripDetailMateReviewEntity.userInfo.profileImage,
                 contentDescription = "Profile",
                 modifier = Modifier

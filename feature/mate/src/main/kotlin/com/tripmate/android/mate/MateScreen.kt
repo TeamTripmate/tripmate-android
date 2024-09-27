@@ -61,7 +61,7 @@ import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.common.extension.hasLocationPermission
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
-import com.tripmate.android.core.designsystem.component.NetworkImage
+import com.tripmate.android.core.designsystem.component.TripItemImage
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Background03
 import com.tripmate.android.core.designsystem.theme.Gray001
@@ -519,7 +519,7 @@ fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () ->
                 .background(Background02)
                 .padding(8.dp),
         ) {
-            NetworkImage(
+            TripItemImage(
                 imgUrl = item.thumbnailUrl,
                 contentDescription = "Example Image Icon",
                 contentScale = ContentScale.FillWidth,

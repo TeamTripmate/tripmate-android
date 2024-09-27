@@ -27,11 +27,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
-import com.tripmate.android.feature.trip_detail.R
-import com.tripmate.android.core.designsystem.R as designSystemR
-import com.tripmate.android.core.designsystem.component.NetworkImage
+import com.tripmate.android.core.designsystem.component.ProfileImage
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray002
@@ -52,7 +51,9 @@ import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.designsystem.theme.XXSmall8_Reg
 import com.tripmate.android.domain.entity.TripDetailEntity
 import com.tripmate.android.domain.entity.TripDetailMateRecruitEntity
+import com.tripmate.android.feature.trip_detail.R
 import com.tripmate.android.feature.trip_detail.viewmodel.TripDetailUiAction
+import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
 fun MateRecruitTab(
@@ -179,7 +180,7 @@ fun TripDetailMateRecruitItem(
             modifier = Modifier
                 .fillMaxWidth(),
         ) {
-            NetworkImage(
+            ProfileImage(
                 imgUrl = tripDetailMateRecruitEntity.profileImage,
                 modifier = Modifier
                     .size(36.dp)
@@ -284,6 +285,7 @@ fun TripDetailMateStyleTypeItem(
             .background(color = Gray010)
             .padding(2.dp),
         text = mateStyleTypeItem,
+        textAlign = TextAlign.Center,
         color = Gray002,
         style = XSmall10_Mid,
     )

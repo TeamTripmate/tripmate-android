@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
-import com.tripmate.android.core.designsystem.component.NetworkImage
+import com.tripmate.android.core.designsystem.component.TripItemImage
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Small14_SemiBold
@@ -43,7 +43,7 @@ internal fun MyPickItem(
                 .clip(RoundedCornerShape(6.dp))
                 .background(Gray004),
         ) {
-            NetworkImage(
+            TripItemImage(
                 imgUrl = imgUrl,
                 modifier = Modifier.matchParentSize(),
                 contentDescription = "Example Image Icon",
