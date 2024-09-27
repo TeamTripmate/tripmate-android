@@ -37,7 +37,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.common.utils.dpToPx
-import com.tripmate.android.core.designsystem.component.NetworkImage
+import com.tripmate.android.core.designsystem.component.ProfileImage
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
 import com.tripmate.android.core.designsystem.theme.Background02
@@ -159,7 +159,7 @@ internal fun MyPageContent(
                         .clip(RoundedCornerShape(22.dp)),
                 )
             } else {
-                NetworkImage(
+                ProfileImage(
                     imgUrl = uiState.profileImgUrl,
                     contentDescription = stringResource(id = R.string.profile_image),
                     modifier = Modifier

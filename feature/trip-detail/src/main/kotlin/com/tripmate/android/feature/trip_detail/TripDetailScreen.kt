@@ -47,7 +47,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.R
-import com.tripmate.android.core.designsystem.component.NetworkImage
+import com.tripmate.android.core.designsystem.component.TripItemImage
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray003
 import com.tripmate.android.core.designsystem.theme.Gray004
@@ -146,7 +146,7 @@ fun TripDetailImage(
                 .clip(RoundedCornerShape(4.dp))
                 .background(Gray004),
         ) {
-            NetworkImage(
+            TripItemImage(
                 imgUrl = uiState.tripDetail.imageUrl,
                 modifier = Modifier.matchParentSize(),
                 contentDescription = "Example Image Icon",

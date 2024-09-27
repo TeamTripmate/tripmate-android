@@ -18,7 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
-import com.tripmate.android.core.designsystem.component.NetworkImage
+import com.tripmate.android.core.designsystem.component.TripItemImage
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
@@ -45,7 +45,7 @@ fun HomeItem(
                 .clip(RoundedCornerShape(4.dp))
                 .background(Gray004),
         ) {
-            NetworkImage(
+            TripItemImage(
                 imgUrl = imgUrl,
                 modifier = Modifier.matchParentSize(),
                 contentDescription = "Example Image Icon",
