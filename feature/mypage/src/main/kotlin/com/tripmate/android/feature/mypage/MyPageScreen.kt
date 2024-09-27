@@ -1,6 +1,7 @@
 package com.tripmate.android.feature.mypage
 
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -147,19 +150,29 @@ internal fun MyPageContent(
                 .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            NetworkImage(
-                imgUrl = uiState.profileImgUrl,
-                contentDescription = stringResource(id = R.string.profile_image),
-                modifier = Modifier
-                    .size(44.dp)
-                    .clip(RoundedCornerShape(22.dp)),
-            )
-            Spacer(modifier = Modifier.width(9.dp))
-            Text(
-                text = uiState.nickname,
-                style = Medium16_SemiBold,
-                color = Gray001,
-            )
+            if (uiState.profileImgUrl.isEmpty()) {
+                Image(
+                    imageVector = Icons.Filled.Person,
+                    contentDescription = "Default Profile Image",
+                    modifier = Modifier
+                        .size(44.dp)
+                        .clip(RoundedCornerShape(22.dp)),
+                )
+            } else {
+                NetworkImage(
+                    imgUrl = uiState.profileImgUrl,
+                    contentDescription = stringResource(id = R.string.profile_image),
+                    modifier = Modifier
+                        .size(44.dp)
+                        .clip(RoundedCornerShape(22.dp)),
+                )
+                Spacer(modifier = Modifier.width(9.dp))
+                Text(
+                    text = uiState.nickname,
+                    style = Medium16_SemiBold,
+                    color = Gray001,
+                )
+            }
         }
         Spacer(modifier = Modifier.height(32.dp))
 //        Row(

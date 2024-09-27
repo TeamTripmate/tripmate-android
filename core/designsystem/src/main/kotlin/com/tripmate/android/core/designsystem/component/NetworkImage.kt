@@ -1,6 +1,9 @@
 package com.tripmate.android.core.designsystem.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.rounded.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,6 +46,13 @@ fun NetworkImage(
                 alignment = Alignment.Center,
                 contentDescription = contentDescription,
             ),
+            failure = {
+                Image(
+                    imageVector = Icons.Rounded.Person,
+                    contentDescription = "Default Profile Image",
+                    modifier = modifier,
+                )
+            },
         )
     }
 }
