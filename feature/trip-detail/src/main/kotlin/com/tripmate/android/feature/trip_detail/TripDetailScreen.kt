@@ -151,19 +151,19 @@ fun TripDetailImage(
                 modifier = Modifier.matchParentSize(),
                 contentDescription = "Example Image Icon",
             )
-
-            Box(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(end = 12.dp, bottom = 12.dp)
-                    .clickable { },
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_heart_button),
-                    contentDescription = "Heart Button",
-                    tint = Color.Unspecified,
-                )
-            }
+//
+//            Box(
+//                modifier = Modifier
+//                    .align(Alignment.BottomEnd)
+//                    .padding(end = 12.dp, bottom = 12.dp)
+//                    .clickable { },
+//            ) {
+//                Icon(
+//                    imageVector = ImageVector.vectorResource(R.drawable.ic_heart_button),
+//                    contentDescription = "Heart Button",
+//                    tint = Color.Unspecified,
+//                )
+//            }
         }
 
         Column(
