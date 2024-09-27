@@ -23,6 +23,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -100,6 +101,7 @@ internal fun HomeScreen(
         TabRow(
             selectedTabIndex = pagerState.currentPage,
             modifier = Modifier.fillMaxWidth(),
+            containerColor = Color.White,
             indicator = { tabPositions ->
                 SecondaryIndicator(
                     Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
