@@ -1,14 +1,17 @@
 package com.tripmate.android.feature.mate_recruit.viewmodel
 
+import android.util.Patterns
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.core.common.ErrorHandlerActions
+import com.tripmate.android.core.common.UiText
 import com.tripmate.android.core.common.handleException
 import com.tripmate.android.domain.entity.GenderAgeGroupEntity
 import com.tripmate.android.domain.entity.MateRecruitmentEntity
 import com.tripmate.android.domain.repository.AuthRepository
 import com.tripmate.android.domain.repository.MateRepository
+import com.tripmate.android.feature.mate_recruit.R
 import com.tripmate.android.feature.mate_recruit.navigation.SPOT_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -19,6 +22,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.net.MalformedURLException
+import java.net.URL
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -81,6 +86,31 @@ class MateRecruitViewModel @Inject constructor(
 
     private fun setOpenKakaoLink(link: String) {
         _uiState.update { it.copy(openKakaoLink = link) }
+        if (!isValidUrl(link)) {
+            _uiState.update { it.copy(openKakaoLinkErrorText = UiText.StringResource(R.string.open_kakao_link_error_text)) }
+        } else {
+            _uiState.update { it.copy(openKakaoLinkErrorText = null) }
+        }
+    }
+
+    private fun isValidUrl(urlString: String): Boolean {
+        return try {
+            // 안드로이드의 Patterns 클래스를 사용하여 URL 형식 검사
+            val urlPattern = Patterns.WEB_URL
+            if (!urlPattern.matcher(urlString).matches()) {
+                return false
+            }
+
+            // URL 객체 생성을 통한 추가 검증
+            val url = URL(urlString)
+            val protocol = url.protocol
+            if (protocol != "http" && protocol != "https") {
+                return false
+            }
+            true
+        } catch (e: MalformedURLException) {
+            false
+        }
     }
 
     private fun setMateRecruitContent(content: String) {

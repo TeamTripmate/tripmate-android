@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.mate_recruit.viewmodel
 
+import com.tripmate.android.core.common.UiText
 import com.tripmate.android.core.common.extension.formatToDate
 import com.tripmate.android.core.common.extension.formatToTime
 import com.tripmate.android.domain.entity.GenderAgeGroupEntity
@@ -30,4 +31,5 @@ data class MateRecruitUiState(
     val openKakaoLink: String = "",
     val isDatePickerVisible: Boolean = false,
     val isTimePickerVisible: Boolean = false,
+    val openKakaoLinkErrorText: UiText? = null,
 )

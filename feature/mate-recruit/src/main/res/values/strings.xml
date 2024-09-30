@@ -21,4 +21,6 @@
     <string name="same_gender">같은 성별 원해요</string>
     <string name="same_age">동일한 연령대 원해요</string>
     <string name="no_matter">상관 없어요</string>
+    <string name="open_kakao_link_error_text">https://open.kakao.com/ 의 형태로 작성해주세요.</string>
+    <string name="mate_recruit_complete">동행 모집글이 작성되었습니다.</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.mate_recruit
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -25,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -62,11 +64,15 @@ internal fun MateRecruitRoute(
     viewModel: MateRecruitViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is MateRecruitUiEvent.NavigateBack -> popBackStack()
-            is MateRecruitUiEvent.Finish -> popBackStack()
+            is MateRecruitUiEvent.Finish -> {
+                Toast.makeText(context, context.getString(R.string.mate_recruit_complete), Toast.LENGTH_SHORT).show()
+                popBackStack()
+            }
             is MateRecruitUiEvent.ShowToast -> {}
         }
     }
@@ -127,6 +133,8 @@ internal fun MateRecruitContent(
     onAction: (MateRecruitUiAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -319,6 +327,7 @@ internal fun MateRecruitContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(52.dp),
+            errorText = uiState.openKakaoLinkErrorText?.asString(context),
         )
         Spacer(modifier = Modifier.height(40.dp))
         TripmateButton(
@@ -328,7 +337,8 @@ internal fun MateRecruitContent(
             enabled = uiState.mateRecruitTitle.isNotEmpty() &&
                 uiState.mateRecruitContent.isNotEmpty() &&
                 uiState.selectedGenderAgeGroups.isNotEmpty() &&
-                uiState.openKakaoLink.isNotEmpty(),
+                uiState.openKakaoLink.isNotEmpty() &&
+                uiState.openKakaoLinkErrorText == null,
         ) {
             Text(
                 text = stringResource(R.string.done),
