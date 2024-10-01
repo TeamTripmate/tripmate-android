@@ -9,10 +9,18 @@ import androidx.navigation.navArgument
 import com.tripmate.android.feature.mate_recruit.MateRecruitRoute
 
 const val SPOT_ID = "spot_Id"
-const val MATE_RECRUIT_ROUTE = "mate_recruit_route/{${SPOT_ID}}"
+const val SPOT_TITLE = "spot_title"
+const val SPOT_ADDRESS = "spot_address"
+const val MATE_RECRUIT_ROUTE = "mate_recruit_route/{$SPOT_ID}/{$SPOT_TITLE}/{$SPOT_ADDRESS}"
 
-fun NavController.navigateToMateRecruit(spotId: String) {
-    navigate("mate_recruit_route/$spotId")
+fun NavController.navigateToMateRecruit(
+    spotId: String,
+    spotTitle: String,
+    spotAddress: String,
+) {
+    val title = spotTitle.ifBlank { "No Title" }
+    val address = spotAddress.ifBlank { "No Address" }
+    navigate("mate_recruit_route/$spotId/$title/$address")
 }
 
 fun NavGraphBuilder.mateRecruitNavGraph(
@@ -25,6 +33,12 @@ fun NavGraphBuilder.mateRecruitNavGraph(
             navArgument(SPOT_ID) {
                 type = NavType.StringType
             },
+            navArgument(SPOT_TITLE) {
+                type = NavType.StringType
+            },
+            navArgument(SPOT_ADDRESS) {
+                type = NavType.StringType
+            }
         ),
     ) {
         MateRecruitRoute(

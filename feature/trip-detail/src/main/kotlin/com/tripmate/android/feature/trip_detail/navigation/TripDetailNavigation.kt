@@ -18,7 +18,7 @@ fun NavController.navigateToTripDetail(spotId: String) {
 fun NavGraphBuilder.tripDetailNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
-    navigateToMateRecruit: (String) -> Unit,
+    navigateToMateRecruit: (String, String, String) -> Unit,
     navigateToMateReviewPost: (Int) -> Unit,
     navigateToReport: () -> Unit,
 ) {

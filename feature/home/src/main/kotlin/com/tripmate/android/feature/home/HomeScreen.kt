@@ -45,7 +45,7 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun HomeRoute(
     innerPadding: PaddingValues,
-    navigateToMateRecruit: (String) -> Unit,
+    navigateToMateRecruit: (String, String, String) -> Unit,
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
     navigateToMateReviewPost: (Int) -> Unit,
@@ -58,7 +58,6 @@ internal fun HomeRoute(
     HomeScreen(
         uiState = uiState,
         innerPadding = innerPadding,
-        navigateToMateRecruit = navigateToMateRecruit,
         onAction = viewModel::onAction,
         navigateToMateReview = navigateToMateReview,
         navigateToTripDetail = navigateToTripDetail,
@@ -74,7 +73,6 @@ internal fun HomeRoute(
 internal fun HomeScreen(
     uiState: HomeUiState,
     innerPadding: PaddingValues,
-    navigateToMateRecruit: (String) -> Unit,
     onAction: (HomeUiAction) -> Unit,
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
@@ -139,7 +137,6 @@ internal fun HomeScreen(
                 tabIndex = page,
                 uiState = uiState,
                 onAction = onAction,
-                navigateToMateRecruit = navigateToMateRecruit,
                 navigateToTripDetail = navigateToTripDetail,
                 navigateToTripOriginal = navigateToTripOriginal,
                 navigateToReport = navigateToReport,
@@ -154,7 +151,6 @@ private fun ContentForTab(
     tabIndex: Int,
     uiState: HomeUiState,
     onAction: (HomeUiAction) -> Unit,
-    navigateToMateRecruit: (String) -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
     navigateToTripOriginal: (spotId: Int) -> Unit,
     navigateToReport: () -> Unit,
@@ -222,7 +218,6 @@ internal fun HomeScreenPreview() {
     TripmateTheme {
         HomeScreen(
             innerPadding = PaddingValues(16.dp),
-            navigateToMateRecruit = {},
             uiState = HomeUiState(),
             onAction = {},
             navigateToMateReview = {},

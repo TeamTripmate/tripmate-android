@@ -58,8 +58,8 @@ internal class MainNavController(
         }
     }
 
-    fun navigateToMateRecruit(spotId: String) {
-        navController.navigateToMateRecruit(spotId)
+    fun navigateToMateRecruit(spotId: String, spotTitle: String, spotAddress: String) {
+        navController.navigateToMateRecruit(spotId, spotTitle, spotAddress)
     }
 
     fun navigateToMateReview() {

@@ -69,7 +69,7 @@ import kotlinx.coroutines.launch
 fun TripDetailRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
-    navigateToMateRecruit: (String) -> Unit,
+    navigateToMateRecruit: (String, String, String) -> Unit,
     navigateToMateReviewPost: (Int) -> Unit,
     navigateToReport: () -> Unit,
     viewModel: TripDetailViewModel = hiltViewModel(),
@@ -79,7 +79,7 @@ fun TripDetailRoute(
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is TripDetailUiEvent.NavigateBack -> popBackStack()
-            is TripDetailUiEvent.NavigateMateRecruit -> navigateToMateRecruit(event.spotId)
+            is TripDetailUiEvent.NavigateMateRecruit -> navigateToMateRecruit(event.spotId, event.spotTitle, event.spotAddress)
             is TripDetailUiEvent.NavigateToMateReviewPost -> navigateToMateReviewPost(event.companionId)
             is TripDetailUiEvent.NavigateToReport -> navigateToReport()
         }

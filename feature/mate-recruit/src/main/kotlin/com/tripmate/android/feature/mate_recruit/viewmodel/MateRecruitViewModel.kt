@@ -12,7 +12,9 @@ import com.tripmate.android.domain.entity.MateRecruitmentEntity
 import com.tripmate.android.domain.repository.AuthRepository
 import com.tripmate.android.domain.repository.MateRepository
 import com.tripmate.android.feature.mate_recruit.R
+import com.tripmate.android.feature.mate_recruit.navigation.SPOT_ADDRESS
 import com.tripmate.android.feature.mate_recruit.navigation.SPOT_ID
+import com.tripmate.android.feature.mate_recruit.navigation.SPOT_TITLE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -40,7 +42,18 @@ class MateRecruitViewModel @Inject constructor(
         "spotId is required."
     }
 
-    private val _uiState = MutableStateFlow(MateRecruitUiState())
+    private val spotTitle = requireNotNull(savedStateHandle.get<String>(SPOT_TITLE)) {
+        "spotTilte is required."
+    }
+
+    private val spotAddress = requireNotNull(savedStateHandle.get<String>(SPOT_ADDRESS)) {
+        "spotAddress is required."
+    }
+
+    private val _uiState = MutableStateFlow(MateRecruitUiState(
+        tripLocation = spotTitle,
+        tripLocationAddress = spotAddress,
+    ))
     val uiState: StateFlow<MateRecruitUiState> = _uiState.asStateFlow()
 
     private val _uiEvent = Channel<MateRecruitUiEvent>()
