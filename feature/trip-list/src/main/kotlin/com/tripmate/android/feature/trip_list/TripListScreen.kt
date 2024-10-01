@@ -85,10 +85,8 @@ internal fun TripListScreen(
 ) {
     val scope = rememberCoroutineScope()
 
-    // 탭의 선택 상태를 관리하는 변수
     var selectedTabIndex by remember { mutableStateOf(0) }
 
-    // 각 탭에 대한 별도의 HorizontalPagerState 정의 (예: 두 개의 탭)
     val horizontalPagerState1 = rememberPagerState(
         initialPage = 0,
         pageCount = { uiState.participatedCompanionList.size }, // 첫 번째 탭의 HorizontalPager 페이지 수
@@ -112,7 +110,6 @@ internal fun TripListScreen(
             .padding(innerPadding)
             .background(Color.White),
     ) {
-        // 상단 탭바
         TabRow(
             selectedTabIndex = selectedTabIndex,
             modifier = Modifier
@@ -136,7 +133,6 @@ internal fun TripListScreen(
                             when (index) {
                                 0 -> horizontalPagerState1.animateScrollToPage(0)
                                 1 -> horizontalPagerState2.animateScrollToPage(0)
-                                // 추가 탭이 있다면 여기서 처리
                             }
                         }
                     },
@@ -151,7 +147,6 @@ internal fun TripListScreen(
             }
         }
 
-        // 각 탭에 따른 HorizontalPager 표시
         when (selectedTabIndex) {
             0 -> {
                 if (uiState.participatedCompanionList.isNotEmpty()) {
@@ -178,18 +173,14 @@ internal fun TripListScreen(
                         )
                     }
                     Spacer(modifier = Modifier.height(16.dp))
-                    // HorizontalPager 인디케이터
                     PageIndicator(pagerState = horizontalPagerState1)
                 } else {
-                    // Handle empty state when there are no active trips
                     Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp), // Adjust height as needed
+                        modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center,
                     ) {
                         Text(
-                            text = "활성화된 여행이 없습니다.",
+                            text = "동행 기록이 없어요",
                             style = Medium16_Mid,
                             color = Gray006,
                         )
@@ -213,12 +204,21 @@ internal fun TripListScreen(
                             onAction = onAction,
                         )
                     }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    PageIndicator(pagerState = horizontalPagerState2)
+                } else {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            text = "동행 기록이 없어요",
+                            style = Medium16_Mid,
+                            color = Gray006,
+                        )
+                    }
                 }
-                Spacer(modifier = Modifier.height(16.dp))
-                // HorizontalPager 인디케이터
-                PageIndicator(pagerState = horizontalPagerState2)
             }
-            // 추가 탭이 있다면 여기서 처리
         }
 
         Spacer(modifier = Modifier.height(16.dp))
