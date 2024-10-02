@@ -7,6 +7,7 @@ import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -416,39 +417,48 @@ fun MateRecruitPostReview(
 
     Spacer(modifier = Modifier.height(12.dp))
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .border(
-                width = 1.dp,
-                color = Gray009,
-                shape = RoundedCornerShape(4.dp),
-            )
-            .background(MateReview)
-            .padding(horizontal = 20.dp, vertical = 16.dp),
-    ) {
-        mateRecruitPostEntity.reviewRanks.forEachIndexed { index, item ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
-            ) {
-                Text(
-                    text = stringResource(advantageTextAndColor[index].first),
-                    color = advantageTextAndColor[index].second,
-                    style = Medium16_Mid,
+    if (mateRecruitPostEntity.reviewRanks.isNotEmpty()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .border(
+                    width = 1.dp,
+                    color = Gray009,
+                    shape = RoundedCornerShape(4.dp),
                 )
+                .background(MateReview)
+                .padding(horizontal = 20.dp, vertical = 16.dp),
+        ) {
+            mateRecruitPostEntity.reviewRanks.forEachIndexed { index, item ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                ) {
+                    Text(
+                        text = stringResource(advantageTextAndColor[index].first),
+                        color = advantageTextAndColor[index].second,
+                        style = Medium16_Mid,
+                    )
 
-                Spacer(modifier = Modifier.width(14.dp))
+                    Spacer(modifier = Modifier.width(14.dp))
 
-                Text(
-                    text = item,
-                    color = advantageTextAndColor[index].third,
-                    style = Medium16_Mid,
-                )
+                    Text(
+                        text = item,
+                        color = advantageTextAndColor[index].third,
+                        style = Medium16_Mid,
+                    )
+                }
             }
         }
+    } else {
+        Text(
+            text = stringResource(R.string.mate_recruit_post_no_review),
+            modifier = Modifier.padding(horizontal = 16.dp),
+            color = Gray003,
+            style = Small14_Reg,
+        )
     }
 
     Spacer(modifier = Modifier.height(24.dp))
