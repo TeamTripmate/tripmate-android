@@ -9,12 +9,15 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 import com.tripmate.android.core.designsystem.theme.Background01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.feature.navigator.MainNavigator
 import com.tripmate.android.feature.personalization.navigation.PERSONALIZATION_ROUTE
+import com.tripmate.android.feature.personalization.navigation.Question1_ROUTE
 import com.tripmate.android.feature.personalization.navigation.Question2_ROUTE
 import com.tripmate.android.feature.personalization.navigation.Question3_ROUTE
 import com.tripmate.android.feature.personalization.navigation.Question4_ROUTE
@@ -66,7 +69,16 @@ class PersonalizationActivity : ComponentActivity() {
                             navigateToQuestion4 = { navController.navigate(Question4_ROUTE) },
                             navigateToTripStyle = { navController.navigate(TRIP_STYLE_ROUTE) },
                             navigateToUserInfo = { navController.navigate(USER_INFO_ROUTE) },
-                            navigateToResult = { navController.navigate(RESULT_ROUTE) },
+                            navigateToResult = {
+                                navController.navigate(
+                                    RESULT_ROUTE,
+                                    navOptions = navOptions {
+                                        popUpTo(Question1_ROUTE) {
+                                            inclusive = true
+                                        }
+                                    },
+                                )
+                            },
                             navigateToMain = {
                                 mainNavigator.navigateFrom(
                                     activity = this@PersonalizationActivity,
