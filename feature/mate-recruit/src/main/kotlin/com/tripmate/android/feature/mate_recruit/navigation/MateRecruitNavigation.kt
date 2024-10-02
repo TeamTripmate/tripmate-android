@@ -38,7 +38,7 @@ fun NavGraphBuilder.mateRecruitNavGraph(
             },
             navArgument(SPOT_ADDRESS) {
                 type = NavType.StringType
-            }
+            },
         ),
     ) {
         MateRecruitRoute(

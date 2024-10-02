@@ -69,9 +69,11 @@ class TripListViewModel @Inject constructor(
             tripListRepository.getTripsParticipatedByUser()
                 .onSuccess { result ->
                     _uiState.update {
-                        it.copy(participatedCompanionList = result.toImmutableList(),
+                        it.copy(
+                            participatedCompanionList = result.toImmutableList(),
                             // Todo 임시코드
-                            hostOpenChatUrl = result.toImmutableList().firstOrNull()?.openChatLink ?: "https://open.kakao.com/o/gObLOlQg")
+                            hostOpenChatUrl = result.toImmutableList().firstOrNull()?.openChatLink ?: "https://open.kakao.com/o/gObLOlQg",
+                        )
                     }
                 }.onFailure { exception ->
                     handleException(exception, this@TripListViewModel)

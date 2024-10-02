@@ -1,6 +1,7 @@
 package com.tripmate.android.core.data.repository
 
 import com.tripmate.android.core.data.util.runSuspendCatching
+import com.tripmate.android.core.datastore.TokenDataSource
 import com.tripmate.android.core.network.service.TripmateService
 import com.tripmate.android.domain.entity.Address
 import com.tripmate.android.domain.entity.Location
@@ -12,9 +13,11 @@ import javax.inject.Inject
 
 internal class TripDetailRepositoryImpl @Inject constructor(
     private val service: TripmateService,
+    private val tokenDataSource: TokenDataSource,
 ) : TripDetailRepository {
     override suspend fun getTripDetail(spotId: String): Result<TripDetailEntity> = runSuspendCatching {
         val tripDetailInfo = service.getTripDetailInfo(spotId).data
+        val userId = tokenDataSource.getId()
 
         TripDetailEntity(
             title = tripDetailInfo.title,
@@ -42,20 +45,21 @@ internal class TripDetailRepositoryImpl @Inject constructor(
             },
             tripDetailMateRecruit = arrayListOf<TripDetailMateRecruitEntity>().apply {
                 tripDetailInfo.companionRecruits.forEach { item ->
-
-                    this.add(
-                        TripDetailMateRecruitEntity(
-                            companionId = item.companionId,
-                            mateRecruitTitle = item.title,
-                            mateName = item.hostInfo.kakaoNickname,
-                            mateStyleName = item.hostInfo.characterName,
-                            mateMatchingRatio = item.hostInfo.matchingRatio.toString(),
-                            mateStyleType = item.hostInfo.selectedKeyword,
-                            profileImage = item.hostInfo.profileImage.replace("http:", "https:"),
-                            gender = item.gender,
-                            ageRange = item.ageRange,
-                        ),
-                    )
+                    if (item.companionId != userId.toInt()) {
+                        this.add(
+                            TripDetailMateRecruitEntity(
+                                companionId = item.companionId,
+                                mateRecruitTitle = item.title,
+                                mateName = item.hostInfo.kakaoNickname,
+                                mateStyleName = item.hostInfo.characterName,
+                                mateMatchingRatio = item.hostInfo.matchingRatio.toString(),
+                                mateStyleType = item.hostInfo.selectedKeyword,
+                                profileImage = item.hostInfo.profileImage.replace("http:", "https:"),
+                                gender = item.gender,
+                                ageRange = item.ageRange,
+                            ),
+                        )
+                    }
                 }
             },
         )

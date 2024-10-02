@@ -45,7 +45,6 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun HomeRoute(
     innerPadding: PaddingValues,
-    navigateToMateRecruit: (String, String, String) -> Unit,
     navigateToMateReview: () -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
     navigateToMateReviewPost: (Int) -> Unit,
