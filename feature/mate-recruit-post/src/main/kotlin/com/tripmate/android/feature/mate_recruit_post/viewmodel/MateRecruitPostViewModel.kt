@@ -14,6 +14,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -53,11 +55,11 @@ class MateRecruitPostViewModel @Inject constructor(
         viewModelScope.launch {
             mateRepository.getCompanionsDetailInfo(
                 companionId,
-            ).onSuccess { respose ->
+            ).onSuccess { response ->
                 _uiState.update {
                     it.copy(
-                        mateRecruitPostEntity = respose,
-                        isCompanionApplySuccess = respose.accompanyYn,
+                        mateRecruitPostEntity = response.copy(date = parseAndFormatDate(response.date)),
+                        isCompanionApplySuccess = response.accompanyYn,
                     )
                 }
             }.onFailure { }
@@ -74,5 +76,13 @@ class MateRecruitPostViewModel @Inject constructor(
         viewModelScope.launch {
             _uiEvent.send(MateRecruitPostUiEvent.NavigateToKakaoOpenChat(chatLink))
         }
+    }
+
+    private fun parseAndFormatDate(inputDate: String): String {
+        val inputFormatter = DateTimeFormatter.ISO_DATE_TIME
+        val dateTime = LocalDateTime.parse(inputDate, inputFormatter)
+
+        val outputFormatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h시 m분")
+        return dateTime.format(outputFormatter)
     }
 }
