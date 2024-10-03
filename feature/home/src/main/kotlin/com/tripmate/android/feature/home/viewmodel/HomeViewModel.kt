@@ -53,6 +53,7 @@ class HomeViewModel @Inject constructor(
                 updateSelectedTab(action.index)
                 updateSpotsList("전체") // 탭 변경 시에도 전체로 초기화
             }
+
             is HomeUiAction.OnClickChip -> {
                 updateSelectedChips(action.chipName) // 선택된 칩 업데이트
                 updateSpotsList(action.chipName) // 선택된 칩 기반으로 스팟 업데이트
@@ -76,6 +77,7 @@ class HomeViewModel @Inject constructor(
 
     private fun getNearbyTouristSpots(spotTypeGroup: String, spotType: String) {
         viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) }
             mapRepository.getNearbyTouristSpots(
                 searchType = "RANDOM",
                 latitude = "37.751853",
@@ -83,17 +85,16 @@ class HomeViewModel @Inject constructor(
                 range = "10000",
                 spotTypeGroup = spotTypeGroup,
                 spotType = spotType,
-            )
-                .onSuccess { spots ->
-                    _uiState.update {
-                        it.copy(
-                            spotList = spots.toImmutableList(),
-                        )
-                    }
+            ).onSuccess { spots ->
+                _uiState.update {
+                    it.copy(
+                        spotList = spots.toImmutableList(),
+                    )
                 }
-                .onFailure {
-                    // 실패 처리 로직
-                }
+            }.onFailure {
+                // 실패 처리 로직
+            }
+            _uiState.update { it.copy(isLoading = false) }
         }
     }
 

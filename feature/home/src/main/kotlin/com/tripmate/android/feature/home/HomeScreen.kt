@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.tripmate.android.core.designsystem.component.LoadingWheel
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Medium16_Mid
@@ -171,30 +172,34 @@ private fun ContentForTab(
                 }
             }
         } else {
-            LazyColumn(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(40.dp),
-                contentPadding = PaddingValues(bottom = 40.dp),
-            ) {
-                items(uiState.spotList.size) { index ->
-                    val spot = uiState.spotList[index]
-                    val locationTag = spot.address.split(" ").getOrNull(1) ?: ""
-                    val mateTag = if (spot.companionYn) {
-                        if (tabIndex == 0) "액티비티 동행" else "힐링 동행"
-                    } else null // 동행모집이 없으면 mateTag는 null
+            if (uiState.isLoading) {
+                LoadingWheel(modifier = Modifier.fillMaxSize())
+            } else {
+                LazyColumn(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(40.dp),
+                    contentPadding = PaddingValues(bottom = 40.dp),
+                ) {
+                    items(uiState.spotList.size) { index ->
+                        val spot = uiState.spotList[index]
+                        val locationTag = spot.address.split(" ").getOrNull(1) ?: ""
+                        val mateTag = if (spot.companionYn) {
+                            if (tabIndex == 0) "액티비티 동행" else "힐링 동행"
+                        } else null // 동행모집이 없으면 mateTag는 null
 
-                    HomeItem(
-                        locationTag = locationTag,
-                        categoryTag = spot.spotType,
-                        mateTag = mateTag, // mateTag가 null일 경우 표시되지 않음
-                        imgUrl = spot.thumbnailUrl,
-                        title = spot.title,
-                        description = spot.description,
-                        location = spot.address,
-                        modifier = Modifier.clickable {
-                            navigateToTripDetail(spot.id.toString())
-                        },
-                    )
+                        HomeItem(
+                            locationTag = locationTag,
+                            categoryTag = spot.spotType,
+                            mateTag = mateTag, // mateTag가 null일 경우 표시되지 않음
+                            imgUrl = spot.thumbnailUrl,
+                            title = spot.title,
+                            description = spot.description,
+                            location = spot.address,
+                            modifier = Modifier.clickable {
+                                navigateToTripDetail(spot.id.toString())
+                            },
+                        )
+                    }
                 }
             }
         }
