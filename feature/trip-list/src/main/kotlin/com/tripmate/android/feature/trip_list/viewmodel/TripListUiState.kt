@@ -29,5 +29,7 @@ data class TripListUiState(
     val applicantsInfo: ImmutableList<ApplicantInfoEntity> = persistentListOf(),
     val selectedCompanionId: Long = 0,
     val selectedUserId: Long = 0,
+    val companionId: Long = 0,
+    val page: Int = 0,
 
 )

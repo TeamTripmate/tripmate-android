@@ -86,8 +86,8 @@ internal class MainNavController(
         navController.navigateToWithdraw()
     }
 
-    fun navigateToMateList() {
-        navController.navigateToMateList()
+    fun navigateToMateList(companionId: Long, page: Int) {
+        navController.navigateToMateList(companionId, page)
     }
 
     fun navigateToMateOpenChat() {

@@ -37,14 +37,12 @@ import com.tripmate.android.core.designsystem.R as designSystemR
 @Composable
 internal fun TripOriginalRoute(
     innerPadding: PaddingValues,
-    navigateToMateList: () -> Unit,
     viewModel: TripOriginalViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
-            is TripOriginalUiEvent.NavigateBack -> navigateToMateList()
             else -> {}
         }
     }

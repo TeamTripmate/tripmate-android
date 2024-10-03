@@ -55,7 +55,7 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun TripListRoute(
     innerPadding: PaddingValues,
-    navigateToMateList: () -> Unit,
+    navigateToMateList: (Long, Int) -> Unit,
     navigateToMateOpenChat: () -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
@@ -63,7 +63,7 @@ internal fun TripListRoute(
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
-            is TripListUiEvent.NavigateToMateList -> navigateToMateList()
+            is TripListUiEvent.NavigateToMateList -> navigateToMateList(event.companionId, event.page)
             is TripListUiEvent.NavigateToMateOpenChat -> navigateToMateOpenChat()
             else -> {}
         }
@@ -199,8 +199,8 @@ internal fun TripListScreen(
                             title = companion.title,
                             date = companion.date,
                             companionStatus = companion.companionStatus,
-                            appliedMateInfo = companion.applicantInfoEntityInfo,
                             companionId = companion.companionId,
+                            page = page,
                             onAction = onAction,
                         )
                     }

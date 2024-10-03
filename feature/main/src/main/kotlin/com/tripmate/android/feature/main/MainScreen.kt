@@ -168,7 +168,6 @@ internal fun MainScreen(
             )
             tripOriginalNavGraph(
                 padding = innerPadding,
-                navigateToMateList = navController::navigateToMateList,
             )
         }
     }

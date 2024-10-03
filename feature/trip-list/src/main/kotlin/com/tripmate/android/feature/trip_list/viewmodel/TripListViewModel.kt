@@ -1,11 +1,13 @@
 package com.tripmate.android.feature.trip_list.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.core.common.ErrorHandlerActions
 import com.tripmate.android.core.common.handleException
-import com.tripmate.android.domain.entity.triplist.ApplicantInfoEntity
 import com.tripmate.android.domain.repository.TripListRepository
+import com.tripmate.android.feature.trip_list.navigation.COMPANION_ID
+import com.tripmate.android.feature.trip_list.navigation.PAGE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.Channel
@@ -20,29 +22,39 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TripListViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val tripListRepository: TripListRepository,
 ) : ViewModel(), ErrorHandlerActions {
+    private val companionId: Long = savedStateHandle.get<Long>(COMPANION_ID) ?: 0L
+    private val page: Int = savedStateHandle.get<Int>(PAGE) ?: 0
+
     private val _uiState = MutableStateFlow(TripListUiState())
     val uiState: StateFlow<TripListUiState> = _uiState.asStateFlow()
 
     private val _uiEvent = Channel<TripListUiEvent>()
     val uiEvent: Flow<TripListUiEvent> = _uiEvent.receiveAsFlow()
 
+    init {
+        _uiState.update {
+            it.copy(
+                companionId = companionId,
+                page = page,
+            )
+        }
+        getCreatedTripList()
+        getParticipatedTripList()
+    }
+
     fun onAction(action: TripListUiAction) {
         when (action) {
             is TripListUiAction.OnBackClicked -> navigateBack()
             is TripListUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is TripListUiAction.OnTicketClicked -> ticketClicked(action.ticketId, action.userId)
-            is TripListUiAction.OnClickViewMateList -> navigateToMateList(action.companionId, action.matesInfo)
+            is TripListUiAction.OnClickViewMateList -> navigateToMateList(action.companionId, action.page)
             is TripListUiAction.OnTripStatusCardClicked -> navigateToMateOpenChat(action.openChatLink, action.characterId, action.tripStyle)
             is TripListUiAction.OnMateOpenChatClicked -> navigateToKakaoOpenChat()
             is TripListUiAction.OnSelectMateClicked -> selectMate()
         }
-    }
-
-    init {
-        getCreatedTripList()
-        getParticipatedTripList()
     }
 
     private fun navigateBack() {
@@ -94,15 +106,9 @@ class TripListViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToMateList(companionId: Long, matesInfo: List<ApplicantInfoEntity>) {
-        _uiState.update {
-            it.copy(
-                selectedCompanionId = companionId,
-                applicantsInfo = matesInfo.toImmutableList(),
-            )
-        }
+    private fun navigateToMateList(companionId: Long, page: Int) {
         viewModelScope.launch {
-            _uiEvent.send(TripListUiEvent.NavigateToMateList)
+            _uiEvent.send(TripListUiEvent.NavigateToMateList(companionId = companionId, page = page))
         }
     }
 

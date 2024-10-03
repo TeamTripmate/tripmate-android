@@ -15,7 +15,7 @@ fun NavController.navigateToTripList(navOptions: NavOptions) {
 
 fun NavGraphBuilder.tripListNavGraph(
     padding: PaddingValues,
-    navigateToMateList: () -> Unit,
+    navigateToMateList: (Long, Int) -> Unit,
     navigateToMateOpenChat: () -> Unit,
 //    popBackStack: () -> Unit
 ) {

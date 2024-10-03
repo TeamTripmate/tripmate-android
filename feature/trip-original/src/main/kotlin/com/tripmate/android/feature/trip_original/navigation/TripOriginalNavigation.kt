@@ -17,7 +17,6 @@ fun NavController.navigateToTripOriginal(spotId: Int) {
 
 fun NavGraphBuilder.tripOriginalNavGraph(
     padding: PaddingValues,
-    navigateToMateList: () -> Unit,
 //    popBackStack: () -> Unit
 ) {
     composable(
@@ -31,7 +30,6 @@ fun NavGraphBuilder.tripOriginalNavGraph(
     ) {
         TripOriginalRoute(
             innerPadding = padding,
-            navigateToMateList = navigateToMateList,
         )
     }
 }
