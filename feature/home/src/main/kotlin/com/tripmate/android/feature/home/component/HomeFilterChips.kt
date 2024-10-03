@@ -21,11 +21,16 @@ fun HomeFilterChips(
     onChipClick: (String) -> Unit,
     selectedChips: ImmutableList<String>,
     tabIndex: Int,
+    modifier: Modifier = Modifier,
 ) {
     val filters = if (tabIndex == 0) homeFiltersActivity else homeFiltersHealing
     LazyRow(
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        item {
+            Spacer(modifier = Modifier.width(16.dp))
+        }
         items(
             items = filters,
             key = { it.hashCode() },

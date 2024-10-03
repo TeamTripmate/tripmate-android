@@ -90,10 +90,7 @@ internal fun MainScreen(
         ) {
             homeNavGraph(
                 padding = innerPadding,
-                navigateToMateReview = navController::navigateToMateReview,
                 navigateToTripDetail = navController::navigateToTripDetail,
-                navigateToMateReviewPost = navController::navigateToMateReviewPost,
-                navigateToReport = navController::navigateToReport,
                 navigateToTripOriginal = navController::navigateToTripOriginal,
             )
             mateNavGraph(
