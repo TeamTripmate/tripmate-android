@@ -11,8 +11,6 @@ android {
 
 dependencies {
     implementations(
-        projects.core.common,
-
         libs.androidx.splash,
         libs.coil.compose,
         libs.timber,
