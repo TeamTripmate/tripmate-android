@@ -41,7 +41,7 @@ import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
 internal fun Ticket(
-    characterName: String,
+    characterType: String,
     type1: String,
     type2: String,
     type3: String,
@@ -65,7 +65,7 @@ internal fun Ticket(
             Spacer(modifier = Modifier.width(14.dp))
             Column {
                 Text(
-                    text = characterName,
+                    text = getCharacterName(characterType),
                     style = Large20_Bold,
                     color = Color.White,
                 )
@@ -96,7 +96,14 @@ internal fun Ticket(
             Column {
                 Spacer(modifier = Modifier.height(28.dp))
                 Image(
-                    painter = painterResource(id = designSystemR.drawable.img_character_01),
+                    painter = when (characterType) {
+                        "PENGUIN" -> painterResource(id = designSystemR.drawable.img_character_01)
+                        "HONEYBEE" -> painterResource(id = designSystemR.drawable.img_character_02)
+                        "ELEPHANT" -> painterResource(id = designSystemR.drawable.img_character_03)
+                        "DOLPHIN" -> painterResource(id = designSystemR.drawable.img_character_04)
+                        "TURTLE" -> painterResource(id = designSystemR.drawable.img_character_05)
+                        else -> painterResource(id = designSystemR.drawable.img_character_06)
+                    },
                     contentDescription = "character image",
                     modifier = Modifier.size(110.dp),
                 )
@@ -109,6 +116,17 @@ internal fun Ticket(
                 isStart = false,
             )
         }
+    }
+}
+
+private fun getCharacterName(characterId: String): String {
+    return when (characterId) {
+        "PENGUIN" -> "여행가 아기펭귄"
+        "HONEYBEE" -> "여행가 아기꿀벌"
+        "ELEPHANT" -> "여행가 아기코끼리"
+        "DOLPHIN" -> "여행가 아기돌고래"
+        "TURTLE" -> "여행가 아기거북이"
+        else -> "여행가 아기판다"
     }
 }
 
@@ -168,7 +186,7 @@ fun TicketHole(
 private fun TickerPreview() {
     TripmateTheme {
         Ticket(
-            characterName = "캐릭터 이름",
+            characterType = "캐릭터 이름",
             type1 = "타입1",
             type2 = "타입2",
             type3 = "타입3",
