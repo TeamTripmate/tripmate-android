@@ -11,6 +11,7 @@ data class HomeUiState(
     val activitySelectedChips: ImmutableList<String> = persistentListOf("전체"),
     val healingSelectedChips: ImmutableList<String> = persistentListOf("전체"),
     val spotList: ImmutableList<SpotEntity> = persistentListOf(),
+    val spotTypeList: ImmutableList<String> = persistentListOf(),
     val showTripOriginal: Boolean = false,
     val tripOriginalList: ImmutableList<TripOriginalData> = persistentListOf(
         TripOriginalData(
