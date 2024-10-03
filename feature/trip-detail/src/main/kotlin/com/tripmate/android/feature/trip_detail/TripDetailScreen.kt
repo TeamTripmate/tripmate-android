@@ -174,7 +174,9 @@ fun TripDetailImage(
             Spacer(modifier = Modifier.height(12.dp))
         }
 
-        TripDetailTips(uiState)
+        if (uiState.getCategoryTypeTips().isNotEmpty()) {
+            TripDetailTips(uiState)
+        }
 
         TripDetailCategoryInfo(uiState = uiState, onAction = onAction)
     }

@@ -17,18 +17,19 @@ data class MateUiState(
 
     fun getMarkerInfoList(): List<MarkerInfo> {
         return mutableListOf<MarkerInfo>().apply {
-            spotList.forEach {
-                val isSelect = it == selectPoiItem
+            spotList.forEach { spotItem ->
+                val categoryType = CategoryType.entries.find { it.categoryCode == spotItem.spotType } ?: CategoryType.None
+                val isSelect = spotItem == selectPoiItem
                 add(
                     MarkerInfo(
-                        latitude = it.latitude,
-                        longitude = it.longitude,
+                        latitude = spotItem.latitude,
+                        longitude = spotItem.longitude,
                         resourceId = if (isSelect)
-                            if (it.isSearching) categoryType.mateSelectMarkerIcon else categoryType.selectMarkerIcon
+                            if (spotItem.isSearching) categoryType.mateSelectMarkerIcon else categoryType.selectMarkerIcon
                         else {
-                            if (it.isSearching) categoryType.mateUnselectMarkerIcon else categoryType.unselectMarkerIcon
+                            if (spotItem.isSearching) categoryType.mateUnselectMarkerIcon else categoryType.unselectMarkerIcon
                         } ?: R.drawable.img_unselect_default_marker,
-                        poiId = it.id,
+                        poiId = spotItem.id,
                     ),
                 )
             }

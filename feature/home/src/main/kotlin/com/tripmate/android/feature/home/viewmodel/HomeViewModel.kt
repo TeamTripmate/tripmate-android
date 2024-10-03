@@ -89,6 +89,9 @@ class HomeViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         spotList = spots.toImmutableList(),
+                        spotTypeList = spots.map { spotItem ->
+                            getCategoryTag(spotItem.spotType)
+                        }.toImmutableList(),
                     )
                 }
             }.onFailure {
@@ -122,5 +125,12 @@ class HomeViewModel @Inject constructor(
                 it.copy(healingSelectedChips = updatedChips)
             }
         }
+    }
+
+    fun getCategoryTag(spotType: String): String {
+        filterMapping.entries.forEach {
+            if (it.value == spotType) return it.key
+        }
+        return spotType
     }
 }
