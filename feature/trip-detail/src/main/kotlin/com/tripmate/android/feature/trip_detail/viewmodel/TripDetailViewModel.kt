@@ -32,11 +32,18 @@ class TripDetailViewModel @Inject constructor(
 
     fun onAction(action: TripDetailUiAction) {
         when (action) {
+            is TripDetailUiAction.OnBackClicked -> navigateBack()
             is TripDetailUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is TripDetailUiAction.GetTripDetailInfo -> getTripDetailInfo(spotId)
             is TripDetailUiAction.OnClickMateRecruit -> navigateMateRecruit()
             is TripDetailUiAction.OnClickMateReviewPost -> navigateMateReviewPost(action.companionId)
             is TripDetailUiAction.OnClickReport -> navigateToReport()
+        }
+    }
+
+    private fun navigateBack() {
+        viewModelScope.launch {
+            _uiEvent.send(TripDetailUiEvent.NavigateBack)
         }
     }
 
