@@ -26,6 +26,7 @@ interface TripmateService {
         @Query("longitude") longitude: String,
         @Query("range") range: String,
         @Query("spotTypeGroup") spotTypeGroup: String,
+        @Query("spotType") spotType: String,
     ): LocationBasedSpotSearchResponse
 
     @GET("api/v1/spots/{spotId}")
