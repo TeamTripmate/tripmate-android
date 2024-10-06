@@ -37,6 +37,8 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.domain.entity.triplist.ApplicantInfoEntity
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Suppress("UnusedParameter")
 @Composable
@@ -88,13 +90,15 @@ fun TripStatusCardTeamLeader(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = date,
+                    text = formatDateTime(date),
                     style = XSmall12_Reg,
                     color = Gray003,
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
-            TripLeaderProgressBar(companionStatus)
+            if (companionStatus != "RECRUITING" && companionStatus != "CANCELED") {
+                TripLeaderProgressBar(companionStatus)
+            }
             Spacer(modifier = Modifier.height(16.dp))
             if (companionStatus == "RECRUITING") {
                 TripmateButton(
@@ -177,6 +181,12 @@ fun TripLeaderProgressBar(matchingStatus: String) {
             }
         }
     }
+}
+
+fun formatDateTime(isoString: String): String {
+    val dateTime = LocalDateTime.parse(isoString)
+    val formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 HH:mm")
+    return dateTime.format(formatter)
 }
 
 @OptIn(ExperimentalFoundationApi::class)

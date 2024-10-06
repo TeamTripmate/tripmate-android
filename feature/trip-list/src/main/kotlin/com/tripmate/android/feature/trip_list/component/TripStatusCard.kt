@@ -96,7 +96,7 @@ fun TripStatusCard(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = date,
+                    text = formatDateTime(date),
                     style = XSmall12_Reg,
                     color = Gray003,
                 )
