@@ -48,7 +48,7 @@ fun HomeItem(
             TripItemImage(
                 imgUrl = imgUrl,
                 modifier = Modifier.matchParentSize(),
-                contentDescription = "Example Image Icon",
+                contentDescription = "Home TripList Image",
             )
 
             Row(

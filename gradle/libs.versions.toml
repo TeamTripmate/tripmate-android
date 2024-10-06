@@ -59,6 +59,7 @@ kakao-maps = "2.9.5"
 kakao-core = "2.20.4"
 wheel-picker-compose = "1.1.11"
 datetime-wheel-picker = "1.0.0"
+lottie = "6.1.0"
 
 [libraries]
 
@@ -125,6 +126,7 @@ kakao-maps = { group = "com.kakao.maps.open", name = "android", version.ref = "k
 kakao-auth = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao-core" }
 datetime-wheel-picker = { group = "io.github.darkokoa", name = "datetime-wheel-picker", version.ref = "datetime-wheel-picker" }
 wheel-picker-compose = { group = "com.github.commandiron", name = "WheelPickerCompose", version.ref = "wheel-picker-compose" }
+lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
 
 [plugins]
 

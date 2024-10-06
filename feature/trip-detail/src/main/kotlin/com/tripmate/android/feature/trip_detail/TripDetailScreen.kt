@@ -139,7 +139,7 @@ fun TripDetailImage(
             TripItemImage(
                 imgUrl = uiState.tripDetail.imageUrl,
                 modifier = Modifier.matchParentSize(),
-                contentDescription = "Example Image Icon",
+                contentDescription = "TripDetail Image",
             )
 //
 //            Box(
