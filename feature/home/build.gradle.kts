@@ -10,7 +10,6 @@ android {
 
 dependencies {
     implementations(
-        projects.core.data,
         projects.feature.mateRecruit,
 
         libs.kotlinx.collections.immutable,

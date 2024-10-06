@@ -1,7 +1,5 @@
 @file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
 
-import com.tripmate.android.implementation
-
 plugins {
     alias(libs.plugins.tripmate.android.feature)
 }
@@ -11,8 +9,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:map"))
     implementations(
+        projects.feature.map,
+
         libs.timber,
         libs.kotlinx.collections.immutable,
         libs.androidx.compose.material3,

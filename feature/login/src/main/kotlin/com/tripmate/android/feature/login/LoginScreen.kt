@@ -43,7 +43,7 @@ import com.tripmate.android.core.designsystem.theme.Kakao
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.core.designsystem.R as designSystemR
-import com.tripmate.android.core.designsystem.component.LoadingWheel
+import com.tripmate.android.core.designsystem.component.LoadingIndicator
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
@@ -197,9 +197,10 @@ internal fun LoginScreen(
                 },
             )
         }
-        if (uiState.isLoading) {
-            LoadingWheel(modifier = Modifier.align(Alignment.Center))
-        }
+        LoadingIndicator(
+            isLoading = uiState.isLoading,
+            modifier = Modifier.fillMaxSize(),
+        )
     }
 }
 
