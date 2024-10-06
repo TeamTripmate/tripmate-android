@@ -202,7 +202,7 @@ internal fun MyPageContent(
 //        }
         Spacer(modifier = Modifier.height(32.dp))
         Ticket(
-            characterName = uiState.tripStyle,
+            characterId = uiState.characterId,
             type1 = uiState.type1,
             type2 = uiState.type2,
             type3 = uiState.type3,

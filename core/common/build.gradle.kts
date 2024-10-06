@@ -15,6 +15,7 @@ android {
 dependencies {
     implementations(
         projects.core.domain,
+        projects.core.designsystem,
 
         libs.kotlinx.datetime,
 

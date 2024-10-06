@@ -5,7 +5,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.tripmate.android.core.common.extension.noRippleClickable
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
@@ -15,7 +14,7 @@ fun LoadingWheel(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier.noRippleClickable { },
+        modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator(color = Primary01)

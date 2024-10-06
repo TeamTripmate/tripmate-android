@@ -26,8 +26,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tripmate.android.core.common.utils.getCharacterImage
+import com.tripmate.android.core.common.utils.getCharacterName
 import com.tripmate.android.core.designsystem.ComponentPreview
-import com.tripmate.android.core.designsystem.R
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray003
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
@@ -136,28 +137,6 @@ fun TicketType(
             fontSize = 10.sp,
             color = Gray003,
         )
-    }
-}
-
-private fun getCharacterName(characterId: String): String {
-    return when (characterId) {
-        "PENGUIN" -> "여행가 펭귄"
-        "HONEYBEE" -> "여행가 꿀벌"
-        "ELEPHANT" -> "여행가 코끼리"
-        "DOLPHIN" -> "여행가 돌고래"
-        "TURTLE" -> "여행가 거북이"
-        else -> "여행가 판다"
-    }
-}
-
-private fun getCharacterImage(characterId: String): Int {
-    return when (characterId) {
-        "PENGUIN" -> R.drawable.img_character_01
-        "HONEYBEE" -> R.drawable.img_character_02
-        "ELEPHANT" -> R.drawable.img_character_03
-        "DOLPHIN" -> R.drawable.img_character_04
-        "TURTLE" -> R.drawable.img_character_05
-        else -> R.drawable.img_character_06
     }
 }
 

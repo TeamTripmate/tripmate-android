@@ -29,6 +29,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.tripmate.android.core.common.utils.getCharacterImage
+import com.tripmate.android.core.common.utils.getCharacterName
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray002
@@ -39,7 +41,6 @@ import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XLarge24_SemiBold
 import com.tripmate.android.feature.triplist.R
-import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
 fun MyTripStyle(
@@ -114,14 +115,7 @@ fun MyTripStyle(
         )
         Spacer(modifier = Modifier.height(22.dp))
         Image(
-            painter = when (characterId) {
-                "PENGUIN" -> painterResource(id = designSystemR.drawable.img_character_01)
-                "HONEYBEE" -> painterResource(id = designSystemR.drawable.img_character_02)
-                "ELEPHANT" -> painterResource(id = designSystemR.drawable.img_character_03)
-                "DOLPHIN" -> painterResource(id = designSystemR.drawable.img_character_04)
-                "TURTLE" -> painterResource(id = designSystemR.drawable.img_character_05)
-                else -> painterResource(id = designSystemR.drawable.img_character_06)
-            },
+            painter = painterResource(id = getCharacterImage(characterId)),
             contentDescription = "Character Image",
             modifier = Modifier
                 .height(184.dp)
