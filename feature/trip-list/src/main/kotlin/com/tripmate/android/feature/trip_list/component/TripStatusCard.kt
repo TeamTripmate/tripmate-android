@@ -21,15 +21,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tripmate.android.core.designsystem.ComponentPreview
+import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray003
 import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Gray006
+import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
@@ -41,87 +46,44 @@ fun TripStatusCard(
     title: String,
     date: String,
     matchingStatus: String,
-    selectedKeyword: List<String>,
-    characterId: String,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    Column(
         modifier = modifier
             .fillMaxWidth()
-            .shadow(
-                elevation = 8.dp,
-                shape = RoundedCornerShape(16.dp),
-                clip = false,
-            ),
-        shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        TripStatusText(matchingStatus)
+        Spacer(modifier = Modifier.height(16.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(horizontal = 16.dp),
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
-//            Text(
-//                text = buildAnnotatedString {
-//                    append("동행 하루전")
-//                    withStyle(style = SpanStyle(color = Gray001)) {
-//                        append("이에요")
-//                    }
-//                },
-//                style = TextStyle(
-//                    fontSize = 18.sp,
-//                    fontWeight = FontWeight.Bold,
-//                ),
-//                color = Primary01,
-//                modifier = Modifier.align(Alignment.CenterHorizontally),
-//            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Tag(tagText = "1:1 동행")
-                    Text(text = "상세정보 보기>", color = Gray004, style = XSmall12_Reg)
-                }
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = title,
-                    style = Medium16_SemiBold,
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = formatDateTime(date),
-                    style = XSmall12_Reg,
-                    color = Gray003,
-                )
+                Tag(tagText = "1:1 동행")
+                Text(text = "상세정보 보기>", color = Gray004, style = XSmall12_Reg)
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            TripProgressBar(matchingStatus)
-            Spacer(modifier = Modifier.height(16.dp))
-//            Row(
-//                Modifier
-//                    .height(8.dp)
-//                    .fillMaxWidth(),
-//                horizontalArrangement = Arrangement.Center,
-//            ) {
-//                repeat(pagerState.pageCount) { iteration ->
-//                    val color = if (pagerState.currentPage == iteration) Primary01 else Gray006
-//                    Box(
-//                        modifier = Modifier
-//                            .padding(2.dp)
-//                            .clip(CircleShape)
-//                            .background(color)
-//                            .size(8.dp),
-//                    )
-//                }
-//            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = title,
+                style = Medium16_SemiBold,
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = formatDateTime(date),
+                style = XSmall12_Reg,
+                color = Gray003,
+            )
         }
+        Spacer(modifier = Modifier.height(16.dp))
+        TripProgressBar(matchingStatus)
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
@@ -188,6 +150,35 @@ fun TripProgressBar(matchingStatus: String) {
     }
 }
 
+
+@Composable
+fun TripStatusText(matchingStatus: String) {
+    val statusText = when (matchingStatus) {
+        "REQUEST" -> "동행이 신청되었어요"
+        "ACCEPTED" -> "동행이 수락되었어요"
+        "ACCOMPANY" -> "동행이 시작되었어요"
+        "FINISHED" -> "동행이 종료되었어요"
+        "REJECTED" -> "신청이 거절되었어요"
+        "CANCELED" -> "동행이 취소되었어요"
+        else -> "알 수 없음"
+    }
+
+    Text(
+        text = buildAnnotatedString {
+            val primaryText = statusText.take(6)
+            val restText = statusText.drop(6)
+            withStyle(style = SpanStyle(color = Primary01)) {
+                append(primaryText)
+            }
+            withStyle(style = SpanStyle(color = Gray001)) {
+                append(restText)
+            }
+        },
+        style = Large20_Bold,
+        textAlign = TextAlign.Center,
+    )
+}
+
 @OptIn(ExperimentalFoundationApi::class)
 @ComponentPreview
 @Composable
@@ -197,8 +188,6 @@ fun PreviewTripStatusCard() {
             title = "서피비치에서 식사해요",
             date = "2024.08.24(일) 11:00 AM",
             matchingStatus = "ACCEPTED",
-            selectedKeyword = listOf("전체"),
-            characterId = "1",
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
