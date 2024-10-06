@@ -1,7 +1,5 @@
 @file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
 
-import com.tripmate.android.implementation
-
 plugins {
     alias(libs.plugins.tripmate.android.feature)
 }
