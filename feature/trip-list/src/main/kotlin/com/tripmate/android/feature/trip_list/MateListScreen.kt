@@ -26,7 +26,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
+import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
+import com.tripmate.android.core.designsystem.theme.Medium16_Reg
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
@@ -37,6 +39,7 @@ import com.tripmate.android.feature.trip_list.preview.MateSelectPreviewParameter
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 internal fun MateListRoute(
@@ -89,40 +92,40 @@ fun MateListScreen(
             )
             Spacer(modifier = Modifier.height(32.dp))
             val currentCompanion = uiState.createdCompanionList.getOrNull(uiState.page)
-            LazyColumn(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = 16.dp),
-            ) {
-                // 리스트가 비어있거나 page 인덱스가 유효하지 않은 경우 처리
-                currentCompanion?.let { companion ->
-                    if (companion.applicantInfoEntityInfo.isNotEmpty()) {
-                        itemsIndexed(
-                            items = companion.applicantInfoEntityInfo,
-                            key = { index, _ -> index },
-                        ) { applicantIndex, applicant ->
-                            Column {
-                                Spacer(modifier = Modifier.height(16.dp))
-                                Ticket(
-                                    ticket = applicant,
-                                    ticketIndex = applicantIndex,
-                                    isTicketClicked = uiState.isTicketClicked.getOrNull(applicantIndex) ?: false,
-                                    onAction = onAction,
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-                            }
-                        }
-                    } else {
-                        // applicantInfoEntityInfo 리스트가 비어 있을 경우
-                        item {
-                            Text("No applicants found", style = Small14_Reg)
+            if (currentCompanion?.applicantInfoEntityInfo?.isNotEmpty() == true) {
+                if (uiState.isTicketClicked.size < currentCompanion.applicantInfoEntityInfo.size) {
+                    uiState.isTicketClicked = MutableList(currentCompanion.applicantInfoEntityInfo.size) { false }.toImmutableList()
+                }
+                LazyColumn(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 16.dp),
+                ) {
+                    itemsIndexed(
+                        items = currentCompanion.applicantInfoEntityInfo,
+                        key = { index, _ -> index },
+                    ) { applicantIndex, applicant ->
+                        val isClicked = uiState.isTicketClicked.getOrNull(applicantIndex) ?: false
+                        Column {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Ticket(
+                                ticket = applicant,
+                                ticketIndex = applicantIndex,
+                                isTicketClicked = isClicked,
+                                onAction = onAction,
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
                         }
                     }
-                } ?: run {
-                    // currentCompanion이 null일 경우 (즉, page에 해당하는 값이 없을 때)
-                    item {
-                        Text("No data available for this page", style = Small14_Reg)
-                    }
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .weight(1f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("아직 신청자가 없어요", style = Medium16_Reg, color = Gray006)
                 }
             }
         }

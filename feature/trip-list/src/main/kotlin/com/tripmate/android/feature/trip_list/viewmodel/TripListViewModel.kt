@@ -102,6 +102,7 @@ class TripListViewModel @Inject constructor(
             it.copy(
                 isTicketClicked = it.isTicketClicked.mapIndexed { index, _ -> index == ticketId }.toImmutableList(),
                 selectedUserId = userId,
+                selectedCompanionId = it.createdCompanionList.getOrNull(it.page)?.companionId ?: 0,
             )
         }
     }

@@ -98,7 +98,7 @@ fun MyTripStyle(
     ) {
         Spacer(modifier = Modifier.height(88.dp))
         Text(
-            text = "모인장의 유형은",
+            text = "모임장의 유형은",
             style = Medium16_Mid,
             color = Gray001,
         )

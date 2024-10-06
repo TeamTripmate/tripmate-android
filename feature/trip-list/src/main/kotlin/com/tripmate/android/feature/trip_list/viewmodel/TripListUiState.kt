@@ -15,7 +15,7 @@ data class TripListUiState(
     val tripList: ImmutableList<String> = persistentListOf(),
     val characterImgUrl: String = "https://picsum.photos/48",
     val ticket: ImmutableList<TicketEntity> = persistentListOf(),
-    val isTicketClicked: ImmutableList<Boolean> = persistentListOf(),
+    var isTicketClicked: ImmutableList<Boolean> = persistentListOf(),
     val characterName: String = "인스타 인생 맛집\n탐험러 펭귄",
     val characterTypeIntro: String = "펭귄은 내향적인 성향을 가지고 있고, 대부분의 시간을 집단 내에서 조용히 보내며, 개인적인 공간과 안정적인 환경을 선호해요.\n" +
         "\n 혼자보다는 집단과 함께 있는 것을 더 편안해하고, 사회적 상호작용보다 자신의 역할에 집중합니다. 매우 세부적으로 계획을 세우고 조직적인 행동을 하는 유형이에요",
@@ -32,4 +32,4 @@ data class TripListUiState(
     val companionId: Long = 0,
     val page: Int = 0,
 
-)
+    )
