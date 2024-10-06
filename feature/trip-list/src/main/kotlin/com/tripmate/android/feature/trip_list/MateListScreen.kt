@@ -1,6 +1,5 @@
 package com.tripmate.android.feature.trip_list
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -136,7 +135,7 @@ fun MateListScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .weight(1f),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text("아직 신청자가 없어요", style = Medium16_Reg, color = Gray006)
                 }

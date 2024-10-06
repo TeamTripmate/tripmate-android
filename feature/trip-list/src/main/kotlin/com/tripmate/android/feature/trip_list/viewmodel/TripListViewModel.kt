@@ -51,7 +51,13 @@ class TripListViewModel @Inject constructor(
             is TripListUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is TripListUiAction.OnTicketClicked -> ticketClicked(action.ticketId, action.userId)
             is TripListUiAction.OnClickViewMateList -> navigateToMateList(action.companionId, action.page)
-            is TripListUiAction.OnTripStatusCardClicked -> navigateToMateOpenChat(action.openChatLink, action.selectedKeyword, action.tripStyle, action.characterId)
+            is TripListUiAction.OnTripStatusCardClicked -> navigateToMateOpenChat(
+                action.openChatLink,
+                action.selectedKeyword,
+                action.tripStyle,
+                action.characterId,
+            )
+
             is TripListUiAction.OnMateOpenChatClicked -> navigateToKakaoOpenChat(action.openKakaoChatLink)
             is TripListUiAction.OnSelectMateClicked -> selectMate()
         }
@@ -113,7 +119,7 @@ class TripListViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToMateOpenChat(openChatLink: String, selectedKeyword: List<String>, tripStyle: String,characterId : String) {
+    private fun navigateToMateOpenChat(openChatLink: String, selectedKeyword: List<String>, tripStyle: String, characterId: String) {
         viewModelScope.launch {
             val keyword1 = selectedKeyword.getOrNull(0) ?: ""
             val keyword2 = selectedKeyword.getOrNull(1) ?: ""
@@ -126,8 +132,8 @@ class TripListViewModel @Inject constructor(
                     selectedKeyword2 = keyword2,
                     selectedKeyword3 = keyword3,
                     tripStyle = tripStyle,
-                    characterId = characterId
-                )
+                    characterId = characterId,
+                ),
             )
         }
     }

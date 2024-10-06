@@ -9,7 +9,7 @@ sealed interface TripListUiEvent {
         val selectedKeyword2: String,
         val selectedKeyword3: String,
         val tripStyle: String,
-        val characterId: String
+        val characterId: String,
     ) : TripListUiEvent
     data class NavigateToKakaoOpenChat(val openChatUrl: String) : TripListUiEvent
 }

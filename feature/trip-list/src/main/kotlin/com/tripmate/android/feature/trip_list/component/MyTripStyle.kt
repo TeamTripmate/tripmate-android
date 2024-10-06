@@ -112,15 +112,6 @@ fun MyTripStyle(
             textAlign = TextAlign.Center,
             color = Gray001,
         )
-        Spacer(modifier = Modifier.height(12.dp))
-        Row {
-            selectedKeywords.forEach { keyword ->
-                TripStyleTag(
-                    tagText = keyword,
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-            }
-        }
         Spacer(modifier = Modifier.height(22.dp))
         Image(
             painter = when (characterId) {
@@ -136,6 +127,15 @@ fun MyTripStyle(
                 .height(184.dp)
                 .width(212.dp),
         )
+        Spacer(modifier = Modifier.height(16.dp))
+        Row {
+            selectedKeywords.forEach { keyword ->
+                TripStyleTag(
+                    tagText = keyword,
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+            }
+        }
         Spacer(modifier = Modifier.height(48.dp))
     }
     Column(

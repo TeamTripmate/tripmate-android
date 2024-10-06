@@ -31,5 +31,4 @@ data class TripListUiState(
     val selectedUserId: Long = 0,
     val companionId: Long = 0,
     val page: Int = 0,
-
-    )
+)

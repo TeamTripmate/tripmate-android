@@ -22,7 +22,7 @@ fun NavGraphBuilder.tripListNavGraph(
         selectedKeyword2: String,
         selectedKeyword3: String,
         tripStyle: String,
-        characterId: String
+        characterId: String,
     ) -> Unit,
 ) {
     composable(route = TRIP_LIST_ROUTE) {

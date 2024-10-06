@@ -28,7 +28,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Background02
@@ -38,7 +37,6 @@ import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.trip_list.component.MyTripStyle
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
-import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
 import com.tripmate.android.feature.triplist.R
 import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
@@ -55,7 +53,6 @@ internal fun MateOpenChatRoute(
     characterId: String,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val systemUiController = rememberExSystemUiController()
     val isDarkTheme = isSystemInDarkTheme()
@@ -85,7 +82,6 @@ internal fun MateOpenChatRoute(
 
     MateOpenChatScreen(
         innerPadding = innerPadding,
-        uiState = uiState,
         openChatLink = openChatLink,
         selectedKeywords = selectedKeywords,
         tripStyle = tripStyle,
@@ -124,7 +120,6 @@ private fun isValidUrl(urlString: String): Boolean {
 @Composable
 internal fun MateOpenChatScreen(
     innerPadding: PaddingValues,
-    uiState: TripListUiState,
     openChatLink: String,
     selectedKeywords: List<String>,
     tripStyle: String,
@@ -227,7 +222,6 @@ private fun MyTripCharacterInfoPreview() {
     TripmateTheme {
         MateOpenChatScreen(
             innerPadding = PaddingValues(),
-            uiState = TripListUiState(),
             onAction = {},
             openChatLink = "https://open.kakao.com/o/gObLOlQg",
             selectedKeywords = listOf("힐링", "휴식", "자연"),
