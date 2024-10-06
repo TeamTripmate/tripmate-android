@@ -42,6 +42,7 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XLarge24_SemiBold
 import com.tripmate.android.feature.triplist.R
 
+@Suppress("UnusedParameter")
 @Composable
 fun MyTripStyle(
     characterId: String,
@@ -102,13 +103,13 @@ fun MyTripStyle(
     ) {
         Spacer(modifier = Modifier.height(88.dp))
         Text(
-            text = "모임장의 유형은",
+            text = stringResource(R.string.mate_organizer_type),
             style = Medium16_Mid,
             color = Gray001,
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = tripStyle + " " + getCharacterName(characterId),
+            text = getCharacterName(characterId),
             style = XLarge24_SemiBold,
             textAlign = TextAlign.Center,
             color = Gray001,

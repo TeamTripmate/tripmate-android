@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -32,10 +33,10 @@ import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
+import com.tripmate.android.feature.triplist.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-@Suppress("UnusedParameter")
 @Composable
 fun TripStatusCardTeamLeader(
     title: String,
@@ -53,7 +54,7 @@ fun TripStatusCardTeamLeader(
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "동행 신청자를 확인해보세요",
+            text = stringResource(R.string.check_mate_applicants),
             style = Large20_Bold,
             color = Gray001,
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -64,7 +65,7 @@ fun TripStatusCardTeamLeader(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
         ) {
-            Tag(tagText = "1:1 동행")
+            Tag(tagText = stringResource(id = R.string.duo_mate))
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = title,
@@ -92,7 +93,7 @@ fun TripStatusCardTeamLeader(
                 enabled = true,
             ) {
                 Text(
-                    text = "신청자 보기",
+                    text = stringResource(R.string.see_applicant),
                     style = Medium16_SemiBold,
                 )
             }
