@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -44,7 +43,6 @@ import java.net.URL
 
 @Composable
 internal fun MateOpenChatRoute(
-    innerPadding: PaddingValues,
     popBackStack: () -> Unit,
     openChatLink: String,
     selectedKeywords: List<String>,
@@ -80,7 +78,6 @@ internal fun MateOpenChatRoute(
     }
 
     MateOpenChatScreen(
-        innerPadding = innerPadding,
         openChatLink = openChatLink,
         selectedKeywords = selectedKeywords,
         tripStyle = tripStyle,
@@ -118,7 +115,6 @@ private fun isValidUrl(urlString: String): Boolean {
 
 @Composable
 internal fun MateOpenChatScreen(
-    innerPadding: PaddingValues,
     openChatLink: String,
     selectedKeywords: List<String>,
     tripStyle: String,
@@ -128,8 +124,7 @@ internal fun MateOpenChatScreen(
 ) {
     Box(
         modifier = modifier
-            .fillMaxSize()
-            .padding(innerPadding),
+            .fillMaxSize(),
     ) {
         Column(
             modifier = modifier
@@ -220,7 +215,6 @@ private fun getTripStyleIntro(characterId: String): String {
 private fun MyTripCharacterInfoPreview() {
     TripmateTheme {
         MateOpenChatScreen(
-            innerPadding = PaddingValues(),
             onAction = {},
             openChatLink = "https://open.kakao.com/o/gObLOlQg",
             selectedKeywords = listOf("힐링", "휴식", "자연"),

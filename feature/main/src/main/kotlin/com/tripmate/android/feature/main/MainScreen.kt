@@ -141,7 +141,6 @@ internal fun MainScreen(
                 popBackStack = navController::popBackStackIfNotHome,
             )
             mateOpenChatNavGraph(
-                padding = innerPadding,
                 popBackStack = navController::popBackStackIfNotHome,
             )
             myPickNavGraph(

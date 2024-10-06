@@ -1,7 +1,6 @@
 package com.tripmate.android.feature.trip_list.navigation
 
 import android.net.Uri
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -44,7 +43,6 @@ fun NavController.navigateToMateOpenChat(
 }
 
 fun NavGraphBuilder.mateOpenChatNavGraph(
-    padding: PaddingValues,
     popBackStack: () -> Unit,
 ) {
     composable(
@@ -66,7 +64,6 @@ fun NavGraphBuilder.mateOpenChatNavGraph(
         val characterId = backStackEntry.arguments?.getString(CHARACTER_ID)?.let { Uri.decode(it) } ?: ""
 
         MateOpenChatRoute(
-            innerPadding = padding,
             popBackStack = popBackStack,
             openChatLink = openChatLink,
             selectedKeywords = listOf(selectedKeyword1, selectedKeyword2, selectedKeyword3),
