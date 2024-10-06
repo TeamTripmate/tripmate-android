@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,7 +18,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,7 +26,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Background02
@@ -38,7 +35,6 @@ import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.trip_list.component.MyTripStyle
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
-import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
 import com.tripmate.android.feature.triplist.R
 import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
@@ -47,11 +43,13 @@ import java.net.URL
 
 @Composable
 internal fun MateOpenChatRoute(
-    innerPadding: PaddingValues,
     popBackStack: () -> Unit,
+    openChatLink: String,
+    selectedKeywords: List<String>,
+    tripStyle: String,
+    characterId: String,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val systemUiController = rememberExSystemUiController()
     val isDarkTheme = isSystemInDarkTheme()
@@ -80,8 +78,10 @@ internal fun MateOpenChatRoute(
     }
 
     MateOpenChatScreen(
-        innerPadding = innerPadding,
-        uiState = uiState,
+        openChatLink = openChatLink,
+        selectedKeywords = selectedKeywords,
+        tripStyle = tripStyle,
+        characterId = characterId,
         onAction = viewModel::onAction,
     )
 }
@@ -115,15 +115,16 @@ private fun isValidUrl(urlString: String): Boolean {
 
 @Composable
 internal fun MateOpenChatScreen(
-    innerPadding: PaddingValues,
-    uiState: TripListUiState,
+    openChatLink: String,
+    selectedKeywords: List<String>,
+    tripStyle: String,
+    characterId: String,
     onAction: (TripListUiAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
-            .fillMaxSize()
-            .padding(innerPadding),
+            .fillMaxSize(),
     ) {
         Column(
             modifier = modifier
@@ -133,9 +134,11 @@ internal fun MateOpenChatScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             MyTripStyle(
-                characterId = uiState.hostCharacterId,
-                characterTypeIntro = getCharacterTypeIntro(uiState.hostCharacterId),
-                tripStyleIntro = getTripStyleIntro(uiState.hostCharacterId),
+                characterId = characterId,
+                characterTypeIntro = getCharacterTypeIntro(characterId),
+                tripStyleIntro = getTripStyleIntro(characterId),
+                tripStyle = tripStyle,
+                selectedKeywords = selectedKeywords,
                 modifier = Modifier.fillMaxWidth(),
             )
             Column(
@@ -146,7 +149,7 @@ internal fun MateOpenChatScreen(
             ) {
                 TripmateButton(
                     onClick = {
-                        onAction(TripListUiAction.OnMateOpenChatClicked)
+                        onAction(TripListUiAction.OnMateOpenChatClicked(openChatLink))
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -193,7 +196,7 @@ private fun getTripStyleIntro(characterId: String): String {
         "HONEYBEE" -> "꿀벌은 철저한 사전 준비를 통해 여행을 계획해요. 하루의 일정이 시간 단위로 나뉘어 있으며, 각 장소의 방문 시간과 이동 시간을 세밀하게 계산하는 유형이에요." +
             "\n꿀벌은 그룹으로 여행을 떠날 때도 모든 구성원이 자신의 역할을 잘 수행할 수 있도록 체계적으로 준비합니다. 예상치 못한 상황에도 대비책을 마련해두며, 계획된 일정에서 벗어나는 것을 최소화하고자 노력해요."
 
-        "ELERPHANT" -> "코끼리는 여행의 주요 목적지와 활동을 미리 계획하지 않지만, 그 과정에서 유연성을 발휘하는 유형이에요. 예기지 않은 상황에서도 크게 동요하지 않아요." +
+        "ELEPHANT" -> "코끼리는 여행의 주요 목적지와 활동을 미리 계획하지 않지만, 그 과정에서 유연성을 발휘하는 유형이에요. 예기지 않은 상황에서도 크게 동요하지 않아요." +
             "\n일정 조정이 가능하다는 점에서 여행의 흐름을 자연스럽게 유지하곤 합니다. 코끼리는 여행 중 동행자를 배려하며, 안정하고 편안한 환경에서 여행을 즐겨요."
 
         "DOLPHIN" -> "돌고래는 계획 없이 즉흥적으로 여행을 떠나는 것을 좋아해요. 여행 중에 새로운 사람들과 쉽게 어울리며, 다양한 액티비티에 참여해 즐거움을 찾아 나선답니다.\n" +
@@ -212,9 +215,11 @@ private fun getTripStyleIntro(characterId: String): String {
 private fun MyTripCharacterInfoPreview() {
     TripmateTheme {
         MateOpenChatScreen(
-            innerPadding = PaddingValues(),
-            uiState = TripListUiState(),
             onAction = {},
+            openChatLink = "https://open.kakao.com/o/gObLOlQg",
+            selectedKeywords = listOf("힐링", "휴식", "자연"),
+            tripStyle = "인스타 인생 맛집",
+            characterId = "HONEYBEE",
         )
     }
 }

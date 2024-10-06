@@ -50,7 +50,7 @@ class PersonalizationViewModel @Inject constructor(
             is PersonalizationUiAction.OnBirthDateUpdated -> setBirthDate(action.birthDate)
             is PersonalizationUiAction.OnClearIconClicked -> clearText()
             is PersonalizationUiAction.OnUnderAgeDialogConfirmClick -> finish()
-            is PersonalizationUiAction.OnSelectClick -> navigateToNextScreen(action.screenType)
+            is PersonalizationUiAction.OnSelectClick -> navigateToNextScreen(action.currentScreen)
             is PersonalizationUiAction.OnShareMyTripStyle -> shareMyTripStyle(action.image)
             is PersonalizationUiAction.OnShareMyTripStyleClicked -> setMyTripStyleShare(action.isShared)
         }
@@ -122,14 +122,14 @@ class PersonalizationViewModel @Inject constructor(
         _uiState.update { it.copy(isUnderAgeDialogVisible = flag) }
     }
 
-    private fun navigateToNextScreen(screenType: ScreenType) {
-        when (screenType) {
-            ScreenType.QUESTION_1 -> navigateToQuestion2()
-            ScreenType.QUESTION_2 -> navigateToQuestion3()
-            ScreenType.QUESTION_3 -> navigateToQuestion4()
-            ScreenType.QUESTION_4 -> navigateToTripStyle()
-            ScreenType.TRIP_STYLE -> navigateToUserInfo()
-            ScreenType.USER_INFO -> {
+    private fun navigateToNextScreen(currentScreen: CurrentScreen) {
+        when (currentScreen) {
+            CurrentScreen.QUESTION_1 -> navigateToQuestion2()
+            CurrentScreen.QUESTION_2 -> navigateToQuestion3()
+            CurrentScreen.QUESTION_3 -> navigateToQuestion4()
+            CurrentScreen.QUESTION_4 -> navigateToTripStyle()
+            CurrentScreen.TRIP_STYLE -> navigateToUserInfo()
+            CurrentScreen.USER_INFO -> {
                 if (validateBirthDate(_uiState.value.birthDate) == BirthDateValidationResult.VALID) {
                     navigateToResult()
                 } else {
@@ -139,7 +139,7 @@ class PersonalizationViewModel @Inject constructor(
                 }
             }
 
-            ScreenType.RESULT -> completePersonalization()
+            CurrentScreen.RESULT -> completePersonalization()
         }
     }
 
@@ -192,10 +192,9 @@ class PersonalizationViewModel @Inject constructor(
                     ),
                 ),
             ).onSuccess { result ->
+                personalizationRepository.completePersonalization(flag = true)
                 _uiState.update {
-                    it.copy(
-                        characterType = result.characterType,
-                    )
+                    it.copy(characterType = result.characterType)
                 }
                 _uiEvent.send(PersonalizationUiEvent.NavigateToResult)
             }.onFailure { exception ->
@@ -259,7 +258,6 @@ class PersonalizationViewModel @Inject constructor(
 
     private fun completePersonalization() {
         viewModelScope.launch {
-            personalizationRepository.completePersonalization(flag = true)
             navigateToMain()
         }
     }

@@ -5,4 +5,18 @@
     <string name="character_type_intro">캐릭터 유형에 대한 소개</string>
     <string name="trip_style_intro">여행 스타일 소개</string>
     <string name="navigate_to_mate_open_chat">동행 톡방 바로가기</string>
+    <string name="mate_organizer_type">모임장의 유형은</string>
+    <string name="applicant_list">신청자 목록</string>
+    <string name="select_mate">동행인을 선택해주세요.</string>
+    <string name="who_would_you_like_to_travel_with">누구와 함께 여행가실래요?</string>
+    <string name="there_are_no_applicants_yet">아직 신청자가 없어요</string>
+    <string name="select">선택하기</string>
+    <string name="trip_list">여행 목록</string>
+    <string name="duo_mate">1:1 동행</string>
+    <string name="ended_mate">종료된 동행</string>
+    <string name="the_review_period_has_ended">후기 작성 기간이 끝났어요</string>
+    <string name="go_see_my_review">내가 쓴 후기 보러가기</string>
+    <string name="see_applicant">신청자 보기</string>
+    <string name="check_mate_applicants">동행 신청자를 확인해보세요</string>
+    <string name="see_detail_info"><![CDATA[상세정보 보기>]]></string>
 </resources>

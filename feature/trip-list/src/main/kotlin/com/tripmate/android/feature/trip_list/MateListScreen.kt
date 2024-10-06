@@ -19,14 +19,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
+import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
+import com.tripmate.android.core.designsystem.theme.Medium16_Reg
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
@@ -35,15 +39,25 @@ import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.trip_list.component.Ticket
 import com.tripmate.android.feature.trip_list.preview.MateSelectPreviewParameterProvider
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
+import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
+import com.tripmate.android.feature.triplist.R
 
 @Composable
 internal fun MateListRoute(
     innerPadding: PaddingValues,
+    popBackStack: () -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    ObserveAsEvents(flow = viewModel.uiEvent) { event ->
+        when (event) {
+            is TripListUiEvent.NavigateBack -> popBackStack()
+            else -> { }
+        }
+    }
 
     MateListScreen(
         uiState = uiState,
@@ -71,45 +85,59 @@ fun MateListScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TripmateTopAppBar(
-                navigationType = TopAppBarNavigationType.None,
-                title = "신청자 목록",
-                onNavigationClick = { },
+                navigationType = TopAppBarNavigationType.Back,
+                title = stringResource(R.string.applicant_list),
+                onNavigationClick = { onAction(TripListUiAction.OnBackClicked) },
             )
             Spacer(modifier = Modifier.height(24.dp))
             Text(
-                text = "누구와 함께 여행가실래요?",
+                text = stringResource(R.string.who_would_you_like_to_travel_with),
                 style = Large20_Bold,
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "동행인을 선택해주세요.",
+                text = stringResource(R.string.select_mate),
                 style = Small14_Reg,
             )
             Spacer(modifier = Modifier.height(32.dp))
-            LazyColumn(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = 16.dp),
-            ) {
-                itemsIndexed(
-                    items = uiState.applicantsInfo,
-                    key = { _, ticket -> ticket.userId },
-                ) { ticketIndex, ticket ->
-                    Column {
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Ticket(
-                            ticket = ticket,
-                            ticketIndex = ticketIndex,
-                            isTicketClicked = uiState.isTicketClicked[ticketIndex],
-                            onAction = onAction,
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
+            val currentCompanion = uiState.createdCompanionList.getOrNull(uiState.page)
+            if (currentCompanion?.applicantInfoEntityInfo?.isNotEmpty() == true) {
+                LazyColumn(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 16.dp),
+                ) {
+                    itemsIndexed(
+                        items = currentCompanion.applicantInfoEntityInfo,
+                        key = { index, _ -> index },
+                    ) { applicantIndex, applicant ->
+                        val isClicked = uiState.selectedTicketIndex == applicantIndex
+                        Column {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Ticket(
+                                ticket = applicant,
+                                ticketIndex = applicantIndex,
+                                isTicketClicked = isClicked,
+                                onAction = onAction,
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
                     }
                 }
-                item {
-                    Spacer(modifier = Modifier.height(20.dp))
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .weight(1f),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = stringResource(R.string.there_are_no_applicants_yet),
+                        style = Medium16_Reg,
+                        color = Gray006,
+                    )
                 }
             }
         }
@@ -136,7 +164,7 @@ fun MateListScreen(
                 containerColor = Primary01,
             ) {
                 Text(
-                    text = "선택하기",
+                    text = stringResource(R.string.select),
                     color = Color.White,
                     style = Medium16_SemiBold,
                 )

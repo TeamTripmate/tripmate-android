@@ -4,6 +4,7 @@ import android.graphics.Picture
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -38,14 +39,17 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
-import com.tripmate.android.core.designsystem.theme.XLarge26_SemiBold
+import com.tripmate.android.core.designsystem.theme.XLarge24_SemiBold
 import com.tripmate.android.feature.triplist.R
 
+@Suppress("UnusedParameter")
 @Composable
 fun MyTripStyle(
     characterId: String,
     characterTypeIntro: String,
     tripStyleIntro: String,
+    tripStyle: String,
+    selectedKeywords: List<String>,
     modifier: Modifier = Modifier,
 ) {
     val configuration = LocalConfiguration.current
@@ -99,14 +103,14 @@ fun MyTripStyle(
     ) {
         Spacer(modifier = Modifier.height(88.dp))
         Text(
-            text = "모인장의 유형은",
+            text = stringResource(R.string.mate_organizer_type),
             style = Medium16_Mid,
             color = Gray001,
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = getCharacterName(characterId),
-            style = XLarge26_SemiBold,
+            style = XLarge24_SemiBold,
             textAlign = TextAlign.Center,
             color = Gray001,
         )
@@ -118,6 +122,15 @@ fun MyTripStyle(
                 .height(184.dp)
                 .width(212.dp),
         )
+        Spacer(modifier = Modifier.height(16.dp))
+        Row {
+            selectedKeywords.forEach { keyword ->
+                TripStyleTag(
+                    tagText = keyword,
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+            }
+        }
         Spacer(modifier = Modifier.height(48.dp))
     }
     Column(
@@ -159,6 +172,17 @@ fun MyTripStyle(
     Spacer(modifier = Modifier.height(56.dp))
 }
 
+private fun getCharacterName(characterId: String): String {
+    return when (characterId) {
+        "PENGUIN" -> "펭귄"
+        "HONEYBEE" -> "꿀벌"
+        "ELEPHANT" -> "코끼리"
+        "DOLPHIN" -> "돌고래"
+        "TURTLE" -> "거북이"
+        else -> "판다"
+    }
+}
+
 @ComponentPreview
 @Composable
 private fun MyTripStylePreview() {
@@ -167,6 +191,8 @@ private fun MyTripStylePreview() {
             characterId = "PENGUIN",
             characterTypeIntro = "펭귄 여행가는 눈이 부릅뜬 아기 펭귄이에요. 눈이 부릅뜬 만큼 호기심이 많고, 새로운 것을 배우는 것을 좋아해요. 또한, 눈이 부릅뜬 만큼 민첩하고 빠르게 움직이는 것을 좋아해요.",
             tripStyleIntro = "펭귄 여행가는 눈이 부릅뜬 아기 펭귄이에요. 눈이 부릅뜬 만큼 호기심이 많고, 새로운 것을 배우는 것을 좋아해요. 또한, 눈이 부릅뜬 만큼 민첩하고 빠르게 움직이는 것을 좋아해요.",
+            tripStyle = "인스타 여행 맛집",
+            selectedKeywords = listOf("펭귄", "여행", "휴식"),
         )
     }
 }

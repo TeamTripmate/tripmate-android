@@ -36,7 +36,7 @@ import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiA
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiEvent
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiState
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
-import com.tripmate.android.feature.personalization.viewmodel.ScreenType
+import com.tripmate.android.feature.personalization.viewmodel.CurrentScreen
 import kotlin.system.exitProcess
 
 @Composable
@@ -161,7 +161,7 @@ internal fun UserInfoContent(
             }
         }
         TripmateButton(
-            onClick = { onAction(PersonalizationUiAction.OnSelectClick(ScreenType.USER_INFO)) },
+            onClick = { onAction(PersonalizationUiAction.OnSelectClick(CurrentScreen.USER_INFO)) },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()

@@ -12,15 +12,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -31,86 +27,75 @@ import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray003
 import com.tripmate.android.core.designsystem.theme.Gray006
+import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
-import com.tripmate.android.domain.entity.triplist.ApplicantInfoEntity
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
+import com.tripmate.android.feature.triplist.R
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
-@Suppress("UnusedParameter")
 @Composable
 fun TripStatusCardTeamLeader(
     title: String,
     date: String,
     companionStatus: String,
     companionId: Long,
-    appliedMateInfo: List<ApplicantInfoEntity>,
+    page: Int,
     modifier: Modifier = Modifier,
     onAction: (TripListUiAction) -> Unit = {},
 ) {
-    Card(
+    Column(
         modifier = modifier
             .fillMaxWidth()
-            .shadow(
-                elevation = 8.dp,
-                shape = RoundedCornerShape(16.dp),
-                clip = false,
-            ),
-        shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+            .padding(16.dp),
     ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = stringResource(R.string.check_mate_applicants),
+            style = Large20_Bold,
+            color = Gray001,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        )
+        Spacer(modifier = Modifier.height(16.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(horizontal = 16.dp),
         ) {
+            Tag(tagText = stringResource(id = R.string.duo_mate))
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "동행 신청자를 확인해보세요",
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                ),
-                color = Gray001,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+                text = title,
+                style = Medium16_SemiBold,
             )
-            Spacer(modifier = Modifier.height(16.dp))
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-            ) {
-                Tag(tagText = "1:1 동행")
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = title,
-                    style = Medium16_SemiBold,
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = date,
-                    style = XSmall12_Reg,
-                    color = Gray003,
-                )
-            }
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = formatDateTime(date),
+                style = XSmall12_Reg,
+                color = Gray003,
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        if (companionStatus != "RECRUITING" && companionStatus != "CANCELED") {
             TripLeaderProgressBar(companionStatus)
             Spacer(modifier = Modifier.height(16.dp))
-            if (companionStatus == "RECRUITING") {
-                TripmateButton(
-                    onClick = { onAction(TripListUiAction.OnClickViewMateList(companionId, appliedMateInfo)) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
-                        .padding(horizontal = 16.dp),
-                    enabled = true,
-                ) {
-                    Text(
-                        text = "신청자 보기",
-                        style = Medium16_SemiBold,
-                    )
-                }
-                Spacer(modifier = Modifier.height(16.dp))
+        }
+        if (companionStatus == "RECRUITING") {
+            TripmateButton(
+                onClick = { onAction(TripListUiAction.OnClickViewMateList(companionId, page)) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .padding(horizontal = 16.dp),
+                enabled = true,
+            ) {
+                Text(
+                    text = stringResource(R.string.see_applicant),
+                    style = Medium16_SemiBold,
+                )
             }
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -179,6 +164,12 @@ fun TripLeaderProgressBar(matchingStatus: String) {
     }
 }
 
+fun formatDateTime(isoString: String): String {
+    val dateTime = LocalDateTime.parse(isoString)
+    val formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 HH:mm")
+    return dateTime.format(formatter)
+}
+
 @OptIn(ExperimentalFoundationApi::class)
 @ComponentPreview
 @Composable
@@ -188,7 +179,7 @@ fun PreviewTripStatusCardTeamLeader() {
             title = "제목",
             date = "2021.09.01",
             companionStatus = "RECRUITING",
-            appliedMateInfo = emptyList(),
+            page = 0,
             companionId = 0,
         )
     }

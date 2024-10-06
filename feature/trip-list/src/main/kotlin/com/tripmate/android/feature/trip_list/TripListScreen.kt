@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
@@ -29,12 +32,16 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.ComponentPreview
+import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
+import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Medium16_Mid
@@ -50,21 +57,37 @@ import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
+import com.tripmate.android.feature.triplist.R
 import kotlinx.coroutines.launch
 
 @Composable
 internal fun TripListRoute(
     innerPadding: PaddingValues,
-    navigateToMateList: () -> Unit,
-    navigateToMateOpenChat: () -> Unit,
+    navigateToMateList: (Long, Int) -> Unit,
+    navigateToMateOpenChat: (
+        openChatLink: String,
+        selectedKeyword1: String,
+        selectedKeyword2: String,
+        selectedKeyword3: String,
+        tripStyle: String,
+        characterId: String,
+    ) -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
-            is TripListUiEvent.NavigateToMateList -> navigateToMateList()
-            is TripListUiEvent.NavigateToMateOpenChat -> navigateToMateOpenChat()
+            is TripListUiEvent.NavigateToMateList -> navigateToMateList(event.companionId, event.page)
+            is TripListUiEvent.NavigateToMateOpenChat -> navigateToMateOpenChat(
+                event.openChatLink,
+                event.selectedKeyword1,
+                event.selectedKeyword2,
+                event.selectedKeyword3,
+                event.tripStyle,
+                event.characterId,
+            )
+
             else -> {}
         }
     }
@@ -110,6 +133,10 @@ internal fun TripListScreen(
             .padding(innerPadding)
             .background(Color.White),
     ) {
+        TripmateTopAppBar(
+            navigationType = TopAppBarNavigationType.None,
+            title = stringResource(R.string.trip_list),
+        )
         TabRow(
             selectedTabIndex = selectedTabIndex,
             modifier = Modifier
@@ -150,30 +177,44 @@ internal fun TripListScreen(
         when (selectedTabIndex) {
             0 -> {
                 if (uiState.participatedCompanionList.isNotEmpty()) {
-                    HorizontalPager(
-                        state = horizontalPagerState1,
-                        modifier = Modifier.fillMaxWidth(),
-                    ) { page ->
-                        val companion = uiState.participatedCompanionList[page]
-                        TripStatusCard(
-                            title = companion.title,
-                            date = companion.date,
-                            matchingStatus = companion.matchingStatus,
-                            selectedKeyword = companion.tripHostInfoEntity.selectedKeyword,
-                            characterId = companion.tripHostInfoEntity.characterId,
-                            modifier = Modifier.clickable {
-                                onAction(
-                                    TripListUiAction.OnTripStatusCardClicked(
-                                        companion.openChatLink,
-                                        companion.tripHostInfoEntity.selectedKeyword,
-                                        companion.tripHostInfoEntity.characterId,
-                                    ),
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .shadow(
+                                elevation = 4.dp,
+                                shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
+                                clip = true,
+                            ),
+                        shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White),
+                    ) {
+                        Column {
+                            HorizontalPager(
+                                state = horizontalPagerState1,
+                                modifier = Modifier.fillMaxWidth(),
+                            ) { page ->
+                                val companion = uiState.participatedCompanionList[page]
+                                TripStatusCard(
+                                    title = companion.title,
+                                    date = companion.date,
+                                    matchingStatus = companion.matchingStatus,
+                                    modifier = Modifier.clickable {
+                                        onAction(
+                                            TripListUiAction.OnTripStatusCardClicked(
+                                                companion.openChatLink,
+                                                companion.tripHostInfoEntity.selectedKeyword,
+                                                companion.tripHostInfoEntity.tripStyle,
+                                                companion.tripHostInfoEntity.characterId,
+                                            ),
+                                        )
+                                    },
                                 )
-                            },
-                        )
+                            }
+                            PageIndicator(pagerState = horizontalPagerState1)
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
                     }
                     Spacer(modifier = Modifier.height(16.dp))
-                    PageIndicator(pagerState = horizontalPagerState1)
                 } else {
                     Box(
                         modifier = Modifier.fillMaxSize(),
@@ -190,22 +231,37 @@ internal fun TripListScreen(
 
             1 -> {
                 if (uiState.createdCompanionList.isNotEmpty()) {
-                    HorizontalPager(
-                        state = horizontalPagerState2,
-                        modifier = Modifier.fillMaxWidth(),
-                    ) { page ->
-                        val companion = uiState.createdCompanionList[page]
-                        TripStatusCardTeamLeader(
-                            title = companion.title,
-                            date = companion.date,
-                            companionStatus = companion.companionStatus,
-                            appliedMateInfo = companion.applicantInfoEntityInfo,
-                            companionId = companion.companionId,
-                            onAction = onAction,
-                        )
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .shadow(
+                                elevation = 4.dp,
+                                shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
+                                clip = true,
+                            ),
+                        shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White),
+                    ) {
+                        Column {
+                            HorizontalPager(
+                                state = horizontalPagerState2,
+                                modifier = Modifier.fillMaxWidth(),
+                            ) { page ->
+                                val companion = uiState.createdCompanionList[page]
+                                TripStatusCardTeamLeader(
+                                    title = companion.title,
+                                    date = companion.date,
+                                    companionStatus = companion.companionStatus,
+                                    companionId = companion.companionId,
+                                    page = page,
+                                    onAction = onAction,
+                                )
+                            }
+                            PageIndicator(pagerState = horizontalPagerState2)
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
                     }
                     Spacer(modifier = Modifier.height(16.dp))
-                    PageIndicator(pagerState = horizontalPagerState2)
                 } else {
                     Box(
                         modifier = Modifier.fillMaxSize(),

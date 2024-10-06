@@ -2,7 +2,14 @@ package com.tripmate.android.feature.trip_list.viewmodel
 
 sealed interface TripListUiEvent {
     data object NavigateBack : TripListUiEvent
-    data object NavigateToMateList : TripListUiEvent
-    data object NavigateToMateOpenChat : TripListUiEvent
+    data class NavigateToMateList(val companionId: Long, val page: Int) : TripListUiEvent
+    data class NavigateToMateOpenChat(
+        val openChatLink: String,
+        val selectedKeyword1: String,
+        val selectedKeyword2: String,
+        val selectedKeyword3: String,
+        val tripStyle: String,
+        val characterId: String,
+    ) : TripListUiEvent
     data class NavigateToKakaoOpenChat(val openChatUrl: String) : TripListUiEvent
 }

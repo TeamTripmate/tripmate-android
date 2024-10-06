@@ -17,7 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Gray002
-import com.tripmate.android.core.designsystem.theme.Gray006
+import com.tripmate.android.core.designsystem.theme.Gray009
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -28,7 +28,7 @@ fun PageIndicator(pagerState: PagerState) {
         horizontalArrangement = Arrangement.Center,
     ) {
         repeat(pagerState.pageCount) { iteration ->
-            val color = if (pagerState.currentPage == iteration) Gray002 else Gray006
+            val color = if (pagerState.currentPage == iteration) Gray002 else Gray009
             Box(
                 modifier = Modifier
                     .padding(2.dp)

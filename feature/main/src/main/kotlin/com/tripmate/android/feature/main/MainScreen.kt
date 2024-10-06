@@ -138,9 +138,9 @@ internal fun MainScreen(
             )
             mateListNavGraph(
                 padding = innerPadding,
+                popBackStack = navController::popBackStackIfNotHome,
             )
             mateOpenChatNavGraph(
-                padding = innerPadding,
                 popBackStack = navController::popBackStackIfNotHome,
             )
             myPickNavGraph(
@@ -165,7 +165,6 @@ internal fun MainScreen(
             )
             tripOriginalNavGraph(
                 padding = innerPadding,
-                navigateToMateList = navController::navigateToMateList,
             )
         }
     }

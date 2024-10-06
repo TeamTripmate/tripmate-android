@@ -86,12 +86,26 @@ internal class MainNavController(
         navController.navigateToWithdraw()
     }
 
-    fun navigateToMateList() {
-        navController.navigateToMateList()
+    fun navigateToMateList(companionId: Long, page: Int) {
+        navController.navigateToMateList(companionId, page)
     }
 
-    fun navigateToMateOpenChat() {
-        navController.navigateToMateOpenChat()
+    fun navigateToMateOpenChat(
+        openChatLink: String,
+        selectedKeyword1: String,
+        selectedKeyword2: String,
+        selectedKeyword3: String,
+        tripStyle: String,
+        characterId: String,
+    ) {
+        navController.navigateToMateOpenChat(
+            openChatLink = openChatLink,
+            selectedKeyword1 = selectedKeyword1,
+            selectedKeyword2 = selectedKeyword2,
+            selectedKeyword3 = selectedKeyword3,
+            tripStyle = tripStyle,
+            characterId = characterId,
+        )
     }
 
     fun navigateToReport() {
