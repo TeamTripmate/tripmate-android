@@ -19,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,6 +31,7 @@ import com.tripmate.android.core.designsystem.component.TripmateOutlinedButton
 import com.tripmate.android.core.designsystem.component.TripmateTextField
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
 import com.tripmate.android.core.designsystem.theme.Background02
+import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
@@ -40,10 +40,10 @@ import com.tripmate.android.domain.entity.ReportReasonEntity
 import com.tripmate.android.feature.trip_detail.component.ReportDialog
 import com.tripmate.android.feature.trip_detail.viewmodel.ReportUiAction
 import com.tripmate.android.feature.trip_detail.viewmodel.ReportUiEvent
-import com.tripmate.android.core.designsystem.R as designSystemR
 import com.tripmate.android.feature.trip_detail.viewmodel.ReportUiState
 import com.tripmate.android.feature.trip_detail.viewmodel.ReportViewModel
 import kotlinx.collections.immutable.persistentListOf
+import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
 internal fun ReportRoute(
@@ -117,7 +117,7 @@ internal fun ReportContent(
         Text(
             text = stringResource(id = R.string.report_description),
             style = Large20_Bold,
-            color = Color.Black,
+            color = Gray001,
         )
         Spacer(modifier = Modifier.height(40.dp))
         LazyColumn(

@@ -23,7 +23,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -117,7 +116,7 @@ internal fun MateRecruitContent(
         Text(
             text = stringResource(id = R.string.mate_review_title),
             style = Large20_Bold,
-            color = Color.Black,
+            color = Gray001,
         )
         Spacer(modifier = Modifier.height(16.dp))
         Box(
