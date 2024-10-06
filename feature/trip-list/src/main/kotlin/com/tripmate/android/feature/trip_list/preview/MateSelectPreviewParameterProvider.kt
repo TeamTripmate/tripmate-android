@@ -35,7 +35,7 @@ internal class MateSelectPreviewParameterProvider : PreviewParameterProvider<Tri
                     ticketId = 3,
                 ),
             ),
-            isTicketClicked = listOf(false, true, false).toImmutableList(),
+            selectedTicketIndex = 0,
         ),
     )
 }

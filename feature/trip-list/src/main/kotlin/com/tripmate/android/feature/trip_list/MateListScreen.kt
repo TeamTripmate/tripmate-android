@@ -54,9 +54,7 @@ internal fun MateListRoute(
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is TripListUiEvent.NavigateBack -> popBackStack()
-            is TripListUiEvent.NavigateToKakaoOpenChat -> TODO()
-            is TripListUiEvent.NavigateToMateList -> TODO()
-            is TripListUiEvent.NavigateToMateOpenChat -> TODO()
+            else -> { }
         }
     }
 
@@ -105,9 +103,6 @@ fun MateListScreen(
             Spacer(modifier = Modifier.height(32.dp))
             val currentCompanion = uiState.createdCompanionList.getOrNull(uiState.page)
             if (currentCompanion?.applicantInfoEntityInfo?.isNotEmpty() == true) {
-                if (uiState.isTicketClicked.size < currentCompanion.applicantInfoEntityInfo.size) {
-                    uiState.isTicketClicked = MutableList(currentCompanion.applicantInfoEntityInfo.size) { false }.toImmutableList()
-                }
                 LazyColumn(
                     modifier = Modifier
                         .weight(1f)
@@ -117,7 +112,7 @@ fun MateListScreen(
                         items = currentCompanion.applicantInfoEntityInfo,
                         key = { index, _ -> index },
                     ) { applicantIndex, applicant ->
-                        val isClicked = uiState.isTicketClicked.getOrNull(applicantIndex) ?: false
+                        val isClicked = uiState.selectedTicketIndex == applicantIndex
                         Column {
                             Spacer(modifier = Modifier.height(16.dp))
                             Ticket(
