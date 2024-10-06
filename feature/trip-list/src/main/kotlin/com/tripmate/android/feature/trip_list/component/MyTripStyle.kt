@@ -4,6 +4,7 @@ import android.graphics.Picture
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -36,7 +37,7 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
-import com.tripmate.android.core.designsystem.theme.XLarge26_SemiBold
+import com.tripmate.android.core.designsystem.theme.XLarge24_SemiBold
 import com.tripmate.android.feature.triplist.R
 import com.tripmate.android.core.designsystem.R as designSystemR
 
@@ -45,6 +46,8 @@ fun MyTripStyle(
     characterId: String,
     characterTypeIntro: String,
     tripStyleIntro: String,
+    tripStyle: String,
+    selectedKeywords: List<String>,
     modifier: Modifier = Modifier,
 ) {
     val configuration = LocalConfiguration.current
@@ -104,11 +107,20 @@ fun MyTripStyle(
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = getCharacterName(characterId),
-            style = XLarge26_SemiBold,
+            text = tripStyle + " " + getCharacterName(characterId),
+            style = XLarge24_SemiBold,
             textAlign = TextAlign.Center,
             color = Gray001,
         )
+        Spacer(modifier = Modifier.height(12.dp))
+        Row {
+            selectedKeywords.forEach { keyword ->
+                TripStyleTag(
+                    tagText = keyword,
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+            }
+        }
         Spacer(modifier = Modifier.height(22.dp))
         Image(
             painter = when (characterId) {
@@ -167,12 +179,12 @@ fun MyTripStyle(
 
 private fun getCharacterName(characterId: String): String {
     return when (characterId) {
-        "PENGUIN" -> "여행가 아기펭귄"
-        "HONEYBEE" -> "여행가 아기꿀벌"
-        "ELEPHANT" -> "여행가 아기코끼리"
-        "DOLPHIN" -> "여행가 아기돌고래"
-        "TURTLE" -> "여행가 아기거북이"
-        else -> "여행가 아기판다"
+        "PENGUIN" -> "펭귄"
+        "HONEYBEE" -> "꿀벌"
+        "ELEPHANT" -> "코끼리"
+        "DOLPHIN" -> "돌고래"
+        "TURTLE" -> "거북이"
+        else -> "판다"
     }
 }
 
@@ -184,6 +196,8 @@ private fun MyTripStylePreview() {
             characterId = "PENGUIN",
             characterTypeIntro = "펭귄 여행가는 눈이 부릅뜬 아기 펭귄이에요. 눈이 부릅뜬 만큼 호기심이 많고, 새로운 것을 배우는 것을 좋아해요. 또한, 눈이 부릅뜬 만큼 민첩하고 빠르게 움직이는 것을 좋아해요.",
             tripStyleIntro = "펭귄 여행가는 눈이 부릅뜬 아기 펭귄이에요. 눈이 부릅뜬 만큼 호기심이 많고, 새로운 것을 배우는 것을 좋아해요. 또한, 눈이 부릅뜬 만큼 민첩하고 빠르게 움직이는 것을 좋아해요.",
+            tripStyle = "인스타 여행 맛집",
+            selectedKeywords = listOf("펭귄", "여행", "휴식"),
         )
     }
 }

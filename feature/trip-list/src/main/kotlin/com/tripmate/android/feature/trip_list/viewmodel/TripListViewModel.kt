@@ -51,8 +51,8 @@ class TripListViewModel @Inject constructor(
             is TripListUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is TripListUiAction.OnTicketClicked -> ticketClicked(action.ticketId, action.userId)
             is TripListUiAction.OnClickViewMateList -> navigateToMateList(action.companionId, action.page)
-            is TripListUiAction.OnTripStatusCardClicked -> navigateToMateOpenChat(action.openChatLink, action.characterId, action.tripStyle)
-            is TripListUiAction.OnMateOpenChatClicked -> navigateToKakaoOpenChat()
+            is TripListUiAction.OnTripStatusCardClicked -> navigateToMateOpenChat(action.openChatLink, action.selectedKeyword, action.tripStyle, action.characterId)
+            is TripListUiAction.OnMateOpenChatClicked -> navigateToKakaoOpenChat(action.openKakaoChatLink)
             is TripListUiAction.OnSelectMateClicked -> selectMate()
         }
     }
@@ -113,23 +113,28 @@ class TripListViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToMateOpenChat(openChatLink: String, characterId: String, tripStyle: List<String>) {
-        // item entity 에 포함 되어있는 openChatUrl 을 통해 uiState update
+    private fun navigateToMateOpenChat(openChatLink: String, selectedKeyword: List<String>, tripStyle: String,characterId : String) {
         viewModelScope.launch {
-            _uiState.update {
-                it.copy(
-                    hostOpenChatUrl = openChatLink,
-                    hostTripStyle = tripStyle,
-                    hostCharacterId = characterId,
+            val keyword1 = selectedKeyword.getOrNull(0) ?: ""
+            val keyword2 = selectedKeyword.getOrNull(1) ?: ""
+            val keyword3 = selectedKeyword.getOrNull(2) ?: ""
+
+            _uiEvent.send(
+                TripListUiEvent.NavigateToMateOpenChat(
+                    openChatLink = openChatLink,
+                    selectedKeyword1 = keyword1,
+                    selectedKeyword2 = keyword2,
+                    selectedKeyword3 = keyword3,
+                    tripStyle = tripStyle,
+                    characterId = characterId
                 )
-            }
-            _uiEvent.send(TripListUiEvent.NavigateToMateOpenChat)
+            )
         }
     }
 
-    private fun navigateToKakaoOpenChat() {
+    private fun navigateToKakaoOpenChat(openKakaoChatLink: String) {
         viewModelScope.launch {
-            _uiEvent.send(TripListUiEvent.NavigateToKakaoOpenChat(_uiState.value.hostOpenChatUrl))
+            _uiEvent.send(TripListUiEvent.NavigateToKakaoOpenChat(openKakaoChatLink))
         }
     }
 

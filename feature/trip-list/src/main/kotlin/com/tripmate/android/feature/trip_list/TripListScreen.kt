@@ -56,7 +56,14 @@ import kotlinx.coroutines.launch
 internal fun TripListRoute(
     innerPadding: PaddingValues,
     navigateToMateList: (Long, Int) -> Unit,
-    navigateToMateOpenChat: () -> Unit,
+    navigateToMateOpenChat: (
+        openChatLink: String,
+        selectedKeyword1: String,
+        selectedKeyword2: String,
+        selectedKeyword3: String,
+        tripStyle: String,
+        characterId: String
+    ) -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -64,7 +71,15 @@ internal fun TripListRoute(
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is TripListUiEvent.NavigateToMateList -> navigateToMateList(event.companionId, event.page)
-            is TripListUiEvent.NavigateToMateOpenChat -> navigateToMateOpenChat()
+            is TripListUiEvent.NavigateToMateOpenChat -> navigateToMateOpenChat(
+                event.openChatLink,
+                event.selectedKeyword1,
+                event.selectedKeyword2,
+                event.selectedKeyword3,
+                event.tripStyle,
+                event.characterId,
+            )
+
             else -> {}
         }
     }
@@ -166,6 +181,7 @@ internal fun TripListScreen(
                                     TripListUiAction.OnTripStatusCardClicked(
                                         companion.openChatLink,
                                         companion.tripHostInfoEntity.selectedKeyword,
+                                        companion.tripHostInfoEntity.tripStyle,
                                         companion.tripHostInfoEntity.characterId,
                                     ),
                                 )

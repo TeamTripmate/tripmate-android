@@ -16,8 +16,14 @@ fun NavController.navigateToTripList(navOptions: NavOptions) {
 fun NavGraphBuilder.tripListNavGraph(
     padding: PaddingValues,
     navigateToMateList: (Long, Int) -> Unit,
-    navigateToMateOpenChat: () -> Unit,
-//    popBackStack: () -> Unit
+    navigateToMateOpenChat: (
+        openChatLink: String,
+        selectedKeyword1: String,
+        selectedKeyword2: String,
+        selectedKeyword3: String,
+        tripStyle: String,
+        characterId: String
+    ) -> Unit,
 ) {
     composable(route = TRIP_LIST_ROUTE) {
         TripListRoute(

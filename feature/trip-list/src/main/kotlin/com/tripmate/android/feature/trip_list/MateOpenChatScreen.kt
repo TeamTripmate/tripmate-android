@@ -49,6 +49,10 @@ import java.net.URL
 internal fun MateOpenChatRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
+    openChatLink: String,
+    selectedKeywords: List<String>,
+    tripStyle: String,
+    characterId: String,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -82,6 +86,10 @@ internal fun MateOpenChatRoute(
     MateOpenChatScreen(
         innerPadding = innerPadding,
         uiState = uiState,
+        openChatLink = openChatLink,
+        selectedKeywords = selectedKeywords,
+        tripStyle = tripStyle,
+        characterId = characterId,
         onAction = viewModel::onAction,
     )
 }
@@ -117,6 +125,10 @@ private fun isValidUrl(urlString: String): Boolean {
 internal fun MateOpenChatScreen(
     innerPadding: PaddingValues,
     uiState: TripListUiState,
+    openChatLink: String,
+    selectedKeywords: List<String>,
+    tripStyle: String,
+    characterId: String,
     onAction: (TripListUiAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -133,9 +145,11 @@ internal fun MateOpenChatScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             MyTripStyle(
-                characterId = uiState.hostCharacterId,
-                characterTypeIntro = getCharacterTypeIntro(uiState.hostCharacterId),
-                tripStyleIntro = getTripStyleIntro(uiState.hostCharacterId),
+                characterId = characterId,
+                characterTypeIntro = getCharacterTypeIntro(characterId),
+                tripStyleIntro = getTripStyleIntro(characterId),
+                tripStyle = tripStyle,
+                selectedKeywords = selectedKeywords,
                 modifier = Modifier.fillMaxWidth(),
             )
             Column(
@@ -146,7 +160,7 @@ internal fun MateOpenChatScreen(
             ) {
                 TripmateButton(
                     onClick = {
-                        onAction(TripListUiAction.OnMateOpenChatClicked)
+                        onAction(TripListUiAction.OnMateOpenChatClicked(openChatLink))
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -215,6 +229,10 @@ private fun MyTripCharacterInfoPreview() {
             innerPadding = PaddingValues(),
             uiState = TripListUiState(),
             onAction = {},
+            openChatLink = "https://open.kakao.com/o/gObLOlQg",
+            selectedKeywords = listOf("힐링", "휴식", "자연"),
+            tripStyle = "인스타 인생 맛집",
+            characterId = "HONEYBEE",
         )
     }
 }
