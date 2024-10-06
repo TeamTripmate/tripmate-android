@@ -21,7 +21,7 @@ fun NavController.navigateToMateList(
 
 fun NavGraphBuilder.mateListNavGraph(
     padding: PaddingValues,
-//    popBackStack: () -> Unit
+    popBackStack: () -> Unit
 ) {
     composable(
         route = MATE_LIST_ROUTE,
@@ -36,6 +36,7 @@ fun NavGraphBuilder.mateListNavGraph(
     ) {
         MateListRoute(
             innerPadding = padding,
+            popBackStack = popBackStack,
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.trip_list
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateButton
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
@@ -37,6 +39,7 @@ import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.trip_list.component.Ticket
 import com.tripmate.android.feature.trip_list.preview.MateSelectPreviewParameterProvider
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
+import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
 import kotlinx.collections.immutable.toImmutableList
@@ -44,9 +47,19 @@ import kotlinx.collections.immutable.toImmutableList
 @Composable
 internal fun MateListRoute(
     innerPadding: PaddingValues,
+    popBackStack: () -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    ObserveAsEvents(flow = viewModel.uiEvent) { event ->
+        when (event) {
+            is TripListUiEvent.NavigateBack -> popBackStack()
+            is TripListUiEvent.NavigateToKakaoOpenChat -> TODO()
+            is TripListUiEvent.NavigateToMateList -> TODO()
+            is TripListUiEvent.NavigateToMateOpenChat -> TODO()
+        }
+    }
 
     MateListScreen(
         uiState = uiState,
@@ -74,9 +87,9 @@ fun MateListScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TripmateTopAppBar(
-                navigationType = TopAppBarNavigationType.None,
+                navigationType = TopAppBarNavigationType.Back,
                 title = "신청자 목록",
-                onNavigationClick = { },
+                onNavigationClick = { onAction(TripListUiAction.OnBackClicked) },
             )
             Spacer(modifier = Modifier.height(24.dp))
             Text(
