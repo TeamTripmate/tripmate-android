@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.tripmate.android.core.designsystem.component.LoadingIndicator
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Medium16_Mid
@@ -45,10 +46,7 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun HomeRoute(
     innerPadding: PaddingValues,
-    navigateToMateReview: () -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
-    navigateToMateReviewPost: (Int) -> Unit,
-    navigateToReport: () -> Unit,
     navigateToTripOriginal: (Int) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -58,26 +56,19 @@ internal fun HomeRoute(
         uiState = uiState,
         innerPadding = innerPadding,
         onAction = viewModel::onAction,
-        navigateToMateReview = navigateToMateReview,
         navigateToTripDetail = navigateToTripDetail,
         navigateToTripOriginal = navigateToTripOriginal,
-        navigateToMateReviewPost = navigateToMateReviewPost,
-        navigateToReport = navigateToReport,
     )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
-@Suppress("UnusedParameter")
 @Composable
 internal fun HomeScreen(
     uiState: HomeUiState,
     innerPadding: PaddingValues,
     onAction: (HomeUiAction) -> Unit,
-    navigateToMateReview: () -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
     navigateToTripOriginal: (spotId: Int) -> Unit,
-    navigateToMateReviewPost: (Int) -> Unit,
-    navigateToReport: () -> Unit,
 ) {
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -92,12 +83,13 @@ internal fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding)
-            .padding(horizontal = 16.dp),
+            .padding(innerPadding),
     ) {
         TabRow(
             selectedTabIndex = pagerState.currentPage,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
             containerColor = Color.White,
             indicator = { tabPositions ->
                 SecondaryIndicator(
@@ -125,7 +117,6 @@ internal fun HomeScreen(
                 )
             }
         }
-
         Spacer(modifier = Modifier.height(16.dp))
         HorizontalPager(
             state = pagerState,
@@ -138,13 +129,11 @@ internal fun HomeScreen(
                 onAction = onAction,
                 navigateToTripDetail = navigateToTripDetail,
                 navigateToTripOriginal = navigateToTripOriginal,
-                navigateToReport = navigateToReport,
             )
         }
     }
 }
 
-@Suppress("UnusedParameter")
 @Composable
 private fun ContentForTab(
     tabIndex: Int,
@@ -152,7 +141,6 @@ private fun ContentForTab(
     onAction: (HomeUiAction) -> Unit,
     navigateToTripDetail: (spotId: String) -> Unit,
     navigateToTripOriginal: (spotId: Int) -> Unit,
-    navigateToReport: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -165,11 +153,12 @@ private fun ContentForTab(
         Spacer(modifier = Modifier.height(16.dp))
         if (uiState.showTripOriginal) {
             LazyColumn(
+                modifier = Modifier.padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(40.dp),
+                contentPadding = PaddingValues(bottom = 40.dp),
             ) {
                 items(uiState.tripOriginalList.size) { index ->
                     val tripOriginal = uiState.tripOriginalList[index]
-
                     TripOriginal(
                         imgUrl = tripOriginal.imgUrl,
                         title = tripOriginal.title,
@@ -184,10 +173,13 @@ private fun ContentForTab(
             }
         } else {
             LazyColumn(
+                modifier = Modifier.padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(40.dp),
+                contentPadding = PaddingValues(bottom = 40.dp),
             ) {
                 items(uiState.spotList.size) { index ->
                     val spot = uiState.spotList[index]
+                    val spotType = uiState.spotTypeList[index]
                     val locationTag = spot.address.split(" ").getOrNull(1) ?: ""
                     val mateTag = if (spot.companionYn) {
                         if (tabIndex == 0) "액티비티 동행" else "힐링 동행"
@@ -195,7 +187,7 @@ private fun ContentForTab(
 
                     HomeItem(
                         locationTag = locationTag,
-                        categoryTag = spot.category.smallCategory,
+                        categoryTag = spotType,
                         mateTag = mateTag, // mateTag가 null일 경우 표시되지 않음
                         imgUrl = spot.thumbnailUrl,
                         title = spot.title,
@@ -207,6 +199,10 @@ private fun ContentForTab(
                     )
                 }
             }
+            LoadingIndicator(
+                isLoading = uiState.isLoading,
+                modifier = Modifier.fillMaxSize(),
+            )
         }
     }
 }
@@ -216,14 +212,11 @@ private fun ContentForTab(
 internal fun HomeScreenPreview() {
     TripmateTheme {
         HomeScreen(
-            innerPadding = PaddingValues(16.dp),
             uiState = HomeUiState(),
+            innerPadding = PaddingValues(16.dp),
             onAction = {},
-            navigateToMateReview = {},
             navigateToTripDetail = {},
             navigateToTripOriginal = {},
-            navigateToMateReviewPost = {},
-            navigateToReport = {},
         )
     }
 }

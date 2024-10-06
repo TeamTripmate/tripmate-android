@@ -6,7 +6,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import coil.ImageLoader
+import coil.memory.MemoryCache
+import coil.request.ImageRequest
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil.CoilImage
 import com.skydoves.landscapist.components.rememberImageComponent
@@ -24,8 +28,19 @@ fun NetworkImage(
     failureImage: Painter = painterResource(id = R.drawable.img_sample_character),
     contentScale: ContentScale = ContentScale.Crop,
 ) {
+    val context = LocalContext.current
+
     CoilImage(
-        imageModel = { imgUrl },
+        imageRequest = {
+            ImageRequest.Builder(context)
+                .data(imgUrl)
+                .crossfade(1000)
+                .build() },
+        imageLoader = {
+            ImageLoader.Builder(context)
+                .memoryCache { MemoryCache.Builder(context).maxSizePercent(0.25).build() }
+                .crossfade(1000)
+                .build() },
         modifier = modifier,
         component = rememberImageComponent {
             +PlaceholderPlugin.Loading(placeholder)

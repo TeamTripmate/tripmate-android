@@ -1,6 +1,5 @@
 package com.tripmate.android.feature.trip_list.component
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,14 +15,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray003
@@ -33,9 +30,10 @@ import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.core.designsystem.theme.XSmall12_Mid
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
+import com.tripmate.android.feature.triplist.R
 
-@Suppress("UnusedParameter")
 @Composable
 fun TripStatusCard(
     title: String,
@@ -61,13 +59,18 @@ fun TripStatusCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Tag(tagText = "1:1 동행")
-                Text(text = "상세정보 보기>", color = Gray004, style = XSmall12_Reg)
+                Tag(tagText = stringResource(id = R.string.duo_mate))
+                Text(
+                    text = stringResource(R.string.see_detail_info),
+                    color = Gray004,
+                    style = XSmall12_Reg,
+                )
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = title,
                 style = Medium16_SemiBold,
+                color = Gray001,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
@@ -106,11 +109,8 @@ fun TripProgressBar(matchingStatus: String) {
             steps.forEachIndexed { index, step ->
                 Text(
                     text = step,
-                    style = TextStyle(
-                        color = if (index < completedSteps) Primary01 else Gray006,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium,
-                    ),
+                    style = XSmall12_Mid,
+                    color = if (index < completedSteps) Primary01 else Gray006,
                     textAlign = TextAlign.Center,
                 )
             }
@@ -173,7 +173,6 @@ fun TripStatusText(matchingStatus: String) {
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @ComponentPreview
 @Composable
 fun PreviewTripStatusCard() {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Patterns
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -88,7 +89,11 @@ internal fun MateRecruitPostRoute(
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is MateRecruitPostUiEvent.NavigateBack -> popBackStack()
-            is MateRecruitPostUiEvent.Finish -> popBackStack()
+            is MateRecruitPostUiEvent.Finish -> {
+                Toast.makeText(context, context.getString(R.string.mate_recruit_post_complete), Toast.LENGTH_SHORT).show()
+                popBackStack()
+            }
+
             is MateRecruitPostUiEvent.NavigateToKakaoOpenChat -> openKakaoOpenChat(context, event.chatLink)
         }
     }

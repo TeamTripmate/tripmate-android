@@ -31,17 +31,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tripmate.android.core.common.utils.getCharacterImage
+import com.tripmate.android.core.common.utils.getCharacterName
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.feature.mypage.R
-import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
 internal fun Ticket(
-    characterName: String,
+    characterId: String,
     type1: String,
     type2: String,
     type3: String,
@@ -65,7 +66,7 @@ internal fun Ticket(
             Spacer(modifier = Modifier.width(14.dp))
             Column {
                 Text(
-                    text = characterName,
+                    text = getCharacterName(characterId),
                     style = Large20_Bold,
                     color = Color.White,
                 )
@@ -96,7 +97,7 @@ internal fun Ticket(
             Column {
                 Spacer(modifier = Modifier.height(28.dp))
                 Image(
-                    painter = painterResource(id = designSystemR.drawable.img_character_01),
+                    painter = painterResource(id = getCharacterImage(characterId)),
                     contentDescription = "character image",
                     modifier = Modifier.size(110.dp),
                 )
@@ -168,7 +169,7 @@ fun TicketHole(
 private fun TickerPreview() {
     TripmateTheme {
         Ticket(
-            characterName = "캐릭터 이름",
+            characterId = "캐릭터 이름",
             type1 = "타입1",
             type2 = "타입2",
             type3 = "타입3",

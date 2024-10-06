@@ -14,7 +14,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core)
     implementation(libs.kakao.maps)
     implementation(libs.androidx.activity.compose)

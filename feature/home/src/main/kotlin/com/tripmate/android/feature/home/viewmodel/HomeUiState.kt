@@ -5,11 +5,13 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 data class HomeUiState(
+    val isLoading: Boolean = false,
     val tabs: ImmutableList<String> = persistentListOf("액티비티", "힐링"),
     val selectedTabIndex: Int = 0,
     val activitySelectedChips: ImmutableList<String> = persistentListOf("전체"),
     val healingSelectedChips: ImmutableList<String> = persistentListOf("전체"),
     val spotList: ImmutableList<SpotEntity> = persistentListOf(),
+    val spotTypeList: ImmutableList<String> = persistentListOf(),
     val showTripOriginal: Boolean = false,
     val tripOriginalList: ImmutableList<TripOriginalData> = persistentListOf(
         TripOriginalData(

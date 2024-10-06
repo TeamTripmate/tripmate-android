@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -41,6 +42,7 @@ import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
+import com.tripmate.android.feature.triplist.R
 import kotlinx.collections.immutable.toImmutableList
 
 @Composable
@@ -85,19 +87,19 @@ fun MateListScreen(
         ) {
             TripmateTopAppBar(
                 navigationType = TopAppBarNavigationType.Back,
-                title = "신청자 목록",
+                title = stringResource(R.string.applicant_list),
                 onNavigationClick = { onAction(TripListUiAction.OnBackClicked) },
             )
             Spacer(modifier = Modifier.height(24.dp))
             Text(
-                text = "누구와 함께 여행가실래요?",
+                text = stringResource(R.string.who_would_you_like_to_travel_with),
                 style = Large20_Bold,
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "동행인을 선택해주세요.",
+                text = stringResource(R.string.select_mate),
                 style = Small14_Reg,
             )
             Spacer(modifier = Modifier.height(32.dp))
@@ -132,7 +134,11 @@ fun MateListScreen(
                         .weight(1f),
                     contentAlignment = Alignment.Center,
                 ) {
-                    Text("아직 신청자가 없어요", style = Medium16_Reg, color = Gray006)
+                    Text(
+                        text = stringResource(R.string.there_are_no_applicants_yet),
+                        style = Medium16_Reg,
+                        color = Gray006,
+                    )
                 }
             }
         }
@@ -159,7 +165,7 @@ fun MateListScreen(
                 containerColor = Primary01,
             ) {
                 Text(
-                    text = "선택하기",
+                    text = stringResource(R.string.select),
                     color = Color.White,
                     style = Medium16_SemiBold,
                 )

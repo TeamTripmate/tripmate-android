@@ -71,7 +71,9 @@ import com.tripmate.android.core.designsystem.theme.Gray009
 import com.tripmate.android.core.designsystem.theme.MateTitle
 import com.tripmate.android.core.designsystem.theme.MateTitleBackGround
 import com.tripmate.android.core.designsystem.theme.Medium16_Light
+import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
+import com.tripmate.android.core.designsystem.theme.Small14_Med
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.CategoryEntity
@@ -138,12 +140,12 @@ fun MateScreen(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(14.dp),
-            fontSize = 16.sp,
+            style = Medium16_SemiBold,
             textAlign = TextAlign.Center,
+            color = Gray001,
         )
         Box(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
         ) {
             LaunchedEffect(uiState.selectPoiItem) {
                 uiState.selectPoiItem?.let {
@@ -442,6 +444,7 @@ fun CategoryItemView(selectCategoryType: CategoryType, categoryType: CategoryTyp
             Text(
                 modifier = Modifier.align(Alignment.CenterVertically),
                 text = stringResource(id = categoryType.title),
+                style = Small14_Med,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -641,11 +644,9 @@ fun InitPermission(
             viewModel.fetchCurrentLocation()
         }
 
-        permissionState.shouldShowRationale -> {
-        }
+        permissionState.shouldShowRationale -> {}
 
-        !permissionState.allPermissionsGranted && !permissionState.shouldShowRationale -> {
-        }
+        !permissionState.allPermissionsGranted && !permissionState.shouldShowRationale -> {}
     }
 }
 
@@ -689,7 +690,11 @@ fun MateSearchingCheckBox(onAction: (Boolean) -> Unit) {
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        Text(text = stringResource(id = R.string.see_only_searching_mate))
+        Text(
+            text = stringResource(id = R.string.see_only_searching_mate),
+            style = Small14_Med,
+            color = Gray001,
+        )
     }
 }
 

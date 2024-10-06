@@ -6,4 +6,5 @@
     <string name="mate_recruit_post_advantage_title">이전 동행자들 후기</string>
     <string name="mate_recruit_post_request_button_title">동행 신청하기</string>
     <string name="mate_recruit_post_no_review">아직 작성된 후기가 없어요.</string>
+    <string name="mate_recruit_post_complete">동행 신청이 완료되었습니다.</string>
 </resources>

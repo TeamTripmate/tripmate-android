@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -36,14 +35,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.R
+import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripItemImage
+import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray003
 import com.tripmate.android.core.designsystem.theme.Gray004
@@ -110,18 +109,13 @@ fun TripDetailScreen(
             .padding(innerPadding)
             .verticalScroll(scrollState),
     ) {
-        Text(
-            text = stringResource(R.string.trip_detail_title),
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(14.dp),
-            fontSize = 16.sp,
-            textAlign = TextAlign.Center,
+        TripmateTopAppBar(
+            navigationType = TopAppBarNavigationType.Back,
+            title = stringResource(id = R.string.trip_detail_title),
+            onNavigationClick = { onAction(TripDetailUiAction.OnBackClicked) },
         )
         Box(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
         ) {
             TripDetailImage(uiState, onAction = onAction)
         }
@@ -145,7 +139,7 @@ fun TripDetailImage(
             TripItemImage(
                 imgUrl = uiState.tripDetail.imageUrl,
                 modifier = Modifier.matchParentSize(),
-                contentDescription = "Example Image Icon",
+                contentDescription = "TripDetail Image",
             )
 //
 //            Box(
@@ -180,7 +174,9 @@ fun TripDetailImage(
             Spacer(modifier = Modifier.height(12.dp))
         }
 
-        TripDetailTips(uiState)
+        if (uiState.getCategoryTypeTips().isNotEmpty()) {
+            TripDetailTips(uiState)
+        }
 
         TripDetailCategoryInfo(uiState = uiState, onAction = onAction)
     }

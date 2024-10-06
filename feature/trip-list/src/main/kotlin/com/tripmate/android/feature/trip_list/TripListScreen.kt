@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -56,6 +57,7 @@ import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
+import com.tripmate.android.feature.triplist.R
 import kotlinx.coroutines.launch
 
 @Composable
@@ -133,7 +135,7 @@ internal fun TripListScreen(
     ) {
         TripmateTopAppBar(
             navigationType = TopAppBarNavigationType.None,
-            title = "여행 목록",
+            title = stringResource(R.string.trip_list),
         )
         TabRow(
             selectedTabIndex = selectedTabIndex,

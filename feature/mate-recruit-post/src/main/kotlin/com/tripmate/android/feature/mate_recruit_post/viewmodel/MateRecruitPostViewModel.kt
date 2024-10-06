@@ -46,7 +46,7 @@ class MateRecruitPostViewModel @Inject constructor(
             mateRepository.companionApply(
                 companionId,
             ).onSuccess {
-                navigateBack()
+                _uiEvent.send(MateRecruitPostUiEvent.Finish)
             }.onFailure { }
         }
     }
