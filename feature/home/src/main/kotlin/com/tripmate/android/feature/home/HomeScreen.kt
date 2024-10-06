@@ -195,7 +195,7 @@ private fun ContentForTab(
 
                     HomeItem(
                         locationTag = locationTag,
-                        categoryTag = spot.spotType,
+                        categoryTag = spot.category.smallCategory,
                         mateTag = mateTag, // mateTag가 null일 경우 표시되지 않음
                         imgUrl = spot.thumbnailUrl,
                         title = spot.title,
