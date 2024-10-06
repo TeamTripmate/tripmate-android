@@ -38,7 +38,7 @@ import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiA
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiEvent
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiState
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
-import com.tripmate.android.feature.personalization.viewmodel.ScreenType
+import com.tripmate.android.feature.personalization.viewmodel.CurrentScreen
 import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
 
 @Composable
@@ -135,7 +135,7 @@ internal fun ResultScreen(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 TripmateButton(
-                    onClick = { onAction(PersonalizationUiAction.OnSelectClick(ScreenType.RESULT)) },
+                    onClick = { onAction(PersonalizationUiAction.OnSelectClick(CurrentScreen.RESULT)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),

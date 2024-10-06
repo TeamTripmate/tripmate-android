@@ -33,7 +33,7 @@ import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiA
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiEvent
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiState
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
-import com.tripmate.android.feature.personalization.viewmodel.ScreenType
+import com.tripmate.android.feature.personalization.viewmodel.CurrentScreen
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
@@ -105,7 +105,7 @@ internal fun TripStyleScreen(
             )
         }
         TripmateButton(
-            onClick = { onAction(PersonalizationUiAction.OnSelectClick(ScreenType.TRIP_STYLE)) },
+            onClick = { onAction(PersonalizationUiAction.OnSelectClick(CurrentScreen.TRIP_STYLE)) },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()

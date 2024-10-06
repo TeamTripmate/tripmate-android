@@ -11,12 +11,12 @@ sealed interface PersonalizationUiAction {
     data class OnBirthDateUpdated(val birthDate: String) : PersonalizationUiAction
     data object OnClearIconClicked : PersonalizationUiAction
     data object OnUnderAgeDialogConfirmClick : PersonalizationUiAction
-    data class OnSelectClick(val screenType: ScreenType) : PersonalizationUiAction
+    data class OnSelectClick(val currentScreen: CurrentScreen) : PersonalizationUiAction
     data class OnShareMyTripStyle(val image: Bitmap) : PersonalizationUiAction
     data class OnShareMyTripStyleClicked(val isShared: Boolean) : PersonalizationUiAction
 }
 
-enum class ScreenType {
+enum class CurrentScreen {
     QUESTION_1,
     QUESTION_2,
     QUESTION_3,

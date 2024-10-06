@@ -25,7 +25,7 @@ import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiA
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiEvent
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationUiState
 import com.tripmate.android.feature.personalization.viewmodel.PersonalizationViewModel
-import com.tripmate.android.feature.personalization.viewmodel.ScreenType
+import com.tripmate.android.feature.personalization.viewmodel.CurrentScreen
 
 @Composable
 internal fun Question3Route(
@@ -81,7 +81,7 @@ internal fun Question3Screen(
         )
         TripmateButton(
             onClick = {
-                onAction(PersonalizationUiAction.OnSelectClick(ScreenType.QUESTION_3))
+                onAction(PersonalizationUiAction.OnSelectClick(CurrentScreen.QUESTION_3))
             },
             modifier = Modifier
                 .fillMaxWidth()
