@@ -43,7 +43,6 @@ import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
 import com.tripmate.android.feature.triplist.R
-import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 internal fun MateListRoute(

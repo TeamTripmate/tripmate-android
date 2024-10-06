@@ -4,7 +4,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.tripmate.android.domain.entity.TicketEntity
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiState
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.toImmutableList
 
 internal class MateSelectPreviewParameterProvider : PreviewParameterProvider<TripListUiState> {
     override val values = sequenceOf(
