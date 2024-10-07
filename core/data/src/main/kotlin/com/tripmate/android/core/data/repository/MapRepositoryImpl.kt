@@ -45,16 +45,16 @@ internal class MapRepositoryImpl @Inject constructor(
                 address = "${spot.location.address.address1} ${spot.location.address.address2}".trim(),
                 companionYn = spot.companionYn,
                 isSearching = false,
-                subCategory = "${spot.category.mediumCategory}",
+                subCategory = spot.category.mediumCategory,
             )
         }
     }
 
-    fun formatDistance(distanceInMeters: Double): String {
+    private fun formatDistance(distanceInMeters: Double): String {
         return if (distanceInMeters >= 1000) {
-            String.format("%.1f km", distanceInMeters / 1000)
+            String.format(Locale.KOREA, "%.1f km", distanceInMeters / 1000)
         } else {
-            String.format("%.0f m", distanceInMeters)
+            String.format(Locale.KOREA, "%.0f m", distanceInMeters)
         }
     }
 }
