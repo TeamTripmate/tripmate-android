@@ -661,13 +661,25 @@ fun CustomCheckbox(
         R.drawable.img_radio_unchecked
     }
 
-    Image(
-        painter = painterResource(id = imageRes),
-        contentDescription = null,
+    Row(
         modifier = Modifier
-            .size(18.dp)
             .clickable { onCheckedChange(!isChecked) },
-    )
+    ) {
+        Image(
+            painter = painterResource(id = imageRes),
+            contentDescription = null,
+            modifier = Modifier
+                .size(18.dp),
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Text(
+            text = stringResource(id = R.string.see_only_searching_mate),
+            style = Small14_Med,
+            color = Gray001,
+        )
+    }
 }
 
 @Composable
@@ -686,14 +698,6 @@ fun MateSearchingCheckBox(onAction: (Boolean) -> Unit) {
                 isChecked = it
                 onAction(it)
             },
-        )
-
-        Spacer(modifier = Modifier.width(8.dp))
-
-        Text(
-            text = stringResource(id = R.string.see_only_searching_mate),
-            style = Small14_Med,
-            color = Gray001,
         )
     }
 }
