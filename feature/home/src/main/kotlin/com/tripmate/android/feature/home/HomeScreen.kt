@@ -179,7 +179,6 @@ private fun ContentForTab(
             ) {
                 items(uiState.spotList.size) { index ->
                     val spot = uiState.spotList[index]
-                    val spotType = uiState.spotTypeList[index]
                     val locationTag = spot.address.split(" ").getOrNull(1) ?: ""
                     val mateTag = if (spot.companionYn) {
                         if (tabIndex == 0) "액티비티 동행" else "힐링 동행"
@@ -187,7 +186,7 @@ private fun ContentForTab(
 
                     HomeItem(
                         locationTag = locationTag,
-                        categoryTag = spotType,
+                        categoryTag = spot.category.smallCategory,
                         mateTag = mateTag, // mateTag가 null일 경우 표시되지 않음
                         imgUrl = spot.thumbnailUrl,
                         title = spot.title,
