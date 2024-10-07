@@ -65,6 +65,7 @@ import com.tripmate.android.core.designsystem.component.TripItemImage
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Background03
 import com.tripmate.android.core.designsystem.theme.Gray001
+import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Gray005
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Gray009
@@ -75,6 +76,7 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Small14_Med
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.CategoryEntity
 import com.tripmate.android.domain.entity.SpotEntity
@@ -519,8 +521,7 @@ fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () ->
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .background(Background02)
-                .padding(8.dp),
+                .background(Background02),
         ) {
             TripItemImage(
                 imgUrl = item.thumbnailUrl,
@@ -538,8 +539,8 @@ fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () ->
                 Text(
                     modifier = Modifier
                         .wrapContentWidth()
-                        .background(MateTitleBackGround)
-                        .padding(horizontal = 8.dp),
+                        .padding(horizontal = 12.dp)
+                        .background(MateTitleBackGround),
                     text = stringResource(id = R.string.category_type_searching_mate),
                     fontSize = 10.sp,
                     color = MateTitle,
@@ -553,34 +554,32 @@ fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(),
+                    .wrapContentHeight()
+                    .padding(horizontal = 12.dp),
                 verticalAlignment = Alignment.Bottom,
             ) {
                 Text(
                     text = item.title,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
+                    style = Medium16_SemiBold,
                     color = Gray001,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
                 )
 
                 Spacer(modifier = Modifier.width(4.dp))
 
                 Text(
                     text = item.subCategory,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
+                    style = XSmall12_Reg,
                     color = Gray006,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
                 )
             }
+
+            Spacer(modifier = Modifier.height(2.dp))
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(),
+                    .wrapContentHeight()
+                    .padding(horizontal = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Image(
@@ -594,27 +593,27 @@ fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () ->
                 Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
                     text = item.address,
-                    fontSize = 12.sp,
+                    style = XSmall12_Reg,
                     color = Gray005,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
                 )
 
                 Text(
                     text = item.distance,
-                    fontSize = 12.sp,
+                    style = XSmall12_Reg,
                     color = Gray005,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
                 )
             }
 
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(start = 12.dp, end = 12.dp, bottom = 12.dp),
                 text = item.description,
-                fontSize = 12.sp,
-                color = Gray005,
+                style = XSmall12_Reg,
+                color = Gray004,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
