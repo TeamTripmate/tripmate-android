@@ -70,7 +70,6 @@ import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Gray009
 import com.tripmate.android.core.designsystem.theme.MateTitle
 import com.tripmate.android.core.designsystem.theme.MateTitleBackGround
-import com.tripmate.android.core.designsystem.theme.Medium16_Light
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Small14_Med
@@ -291,7 +290,7 @@ fun ShowListButton(onAction: () -> Unit) {
                     .wrapContentSize()
                     .align(Alignment.CenterVertically),
                 text = stringResource(id = R.string.see_more_list),
-                style = Medium16_Light,
+                style = Medium16_SemiBold,
                 color = Gray001,
                 textAlign = TextAlign.Center,
             )
@@ -396,7 +395,7 @@ fun ShowMapButton(
                 modifier = Modifier
                     .wrapContentSize(),
                 text = stringResource(id = R.string.show_map),
-                style = Medium16_Light,
+                style = Medium16_SemiBold,
                 color = Gray001,
                 textAlign = TextAlign.Center,
             )

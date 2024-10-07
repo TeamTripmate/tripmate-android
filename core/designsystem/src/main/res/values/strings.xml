@@ -27,8 +27,8 @@
     <string name="category_type_shopping">쇼핑</string>
     <string name="category_type_food">음식</string>
     <string name="category_type_none"></string>
-    <string name="see_more_list">목록 보기</string>
-    <string name="show_map">지도 보기</string>
+    <string name="see_more_list">목록보기</string>
+    <string name="show_map">지도보기</string>
     <string name="see_only_searching_mate">동행 모집만 보기</string>
     <string name="searching_mate_title">동행 찾기</string>
 
