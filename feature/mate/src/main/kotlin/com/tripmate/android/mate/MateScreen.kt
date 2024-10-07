@@ -591,13 +591,18 @@ fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () ->
                 )
 
                 Text(
-                    modifier = Modifier.padding(horizontal = 4.dp),
+                    modifier = Modifier
+                        .weight(1f, fill = false)
+                        .padding(horizontal = 4.dp),
                     text = item.address,
                     style = XSmall12_Reg,
                     color = Gray005,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
 
                 Text(
+                    modifier = Modifier.wrapContentWidth(),
                     text = item.distance,
                     style = XSmall12_Reg,
                     color = Gray005,
