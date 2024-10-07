@@ -535,7 +535,7 @@ fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () ->
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            if (item.isSearching) {
+            if (item.companionYn) {
                 Text(
                     modifier = Modifier
                         .wrapContentWidth()

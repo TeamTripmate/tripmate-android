@@ -44,7 +44,6 @@ internal class MapRepositoryImpl @Inject constructor(
                 distance = formatDistance(spot.distance.toDouble()),
                 address = "${spot.location.address.address1} ${spot.location.address.address2}".trim(),
                 companionYn = spot.companionYn,
-                isSearching = false,
                 subCategory = spot.category.mediumCategory,
             )
         }

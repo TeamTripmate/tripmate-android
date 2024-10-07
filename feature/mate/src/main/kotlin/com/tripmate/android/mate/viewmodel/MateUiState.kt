@@ -12,7 +12,7 @@ data class MateUiState(
     val isShowRecruitList: Boolean = false,
 ) {
     fun getShowingSpotList(): List<SpotEntity> {
-        return if (isShowRecruitList) spotList.filter { it.isSearching == isShowRecruitList } else spotList
+        return if (isShowRecruitList) spotList.filter { it.companionYn == isShowRecruitList } else spotList
     }
 
     fun getMarkerInfoList(): List<MarkerInfo> {
@@ -25,9 +25,9 @@ data class MateUiState(
                         latitude = spotItem.latitude,
                         longitude = spotItem.longitude,
                         resourceId = if (isSelect)
-                            if (spotItem.isSearching) categoryType.mateSelectMarkerIcon else categoryType.selectMarkerIcon
+                            if (spotItem.companionYn) categoryType.mateSelectMarkerIcon else categoryType.selectMarkerIcon
                         else {
-                            if (spotItem.isSearching) categoryType.mateUnselectMarkerIcon else categoryType.unselectMarkerIcon
+                            if (spotItem.companionYn) categoryType.mateUnselectMarkerIcon else categoryType.unselectMarkerIcon
                         } ?: R.drawable.img_unselect_default_marker,
                         poiId = spotItem.id,
                     ),

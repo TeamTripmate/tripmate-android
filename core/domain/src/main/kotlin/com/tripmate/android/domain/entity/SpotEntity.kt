@@ -15,7 +15,6 @@ data class SpotEntity(
     val distance: String,
     val address: String,
     val companionYn: Boolean,
-    val isSearching: Boolean = false,
     val subCategory: String = "ALL",
 )
 
