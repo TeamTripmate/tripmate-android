@@ -83,7 +83,12 @@ class MateViewModel @Inject constructor(
     }
 
     private fun setShowListClicked(isShowing: Boolean) {
-        _uiState.update { it.copy(isShowingList = isShowing) }
+        _uiState.update {
+            it.copy(
+                isShowingList = isShowing,
+                isShowRecruitList = false,
+            )
+        }
     }
 
     private fun setCurrentLocation() {
