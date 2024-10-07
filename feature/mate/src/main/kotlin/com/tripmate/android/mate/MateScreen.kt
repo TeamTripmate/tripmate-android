@@ -601,7 +601,7 @@ fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () ->
                 )
 
                 Text(
-                    text = item.distance.toString() + " km",
+                    text = item.distance,
                     fontSize = 12.sp,
                     color = Gray005,
                     maxLines = 1,
@@ -724,7 +724,7 @@ fun GetPoiCardViewPreview() {
             item = SpotEntity(
                 id = 1,
                 title = "Title 1",
-                distance = 12.34,
+                distance = "12.34",
                 description = "This is the description for item 1",
                 thumbnailUrl = "https://picsum.photos/36",
                 latitude = 37.5,
