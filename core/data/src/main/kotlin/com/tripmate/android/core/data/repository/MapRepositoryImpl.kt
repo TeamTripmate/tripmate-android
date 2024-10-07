@@ -41,12 +41,19 @@ internal class MapRepositoryImpl @Inject constructor(
                 thumbnailUrl = spot.thumbnailUrl.replace("http:", "https:"),
                 latitude = spot.location.latitude.toDouble(),
                 longitude = spot.location.longitude.toDouble(),
-                distance = String.format(Locale.US, "%.1f", spot.distance.toDouble()).toDouble(),
+                distance = formatDistance(spot.distance.toDouble()),
                 address = "${spot.location.address.address1} ${spot.location.address.address2}".trim(),
                 companionYn = spot.companionYn,
-                isSearching = false,
-                subCategory = "ALL",
+                subCategory = spot.category.mediumCategory,
             )
+        }
+    }
+
+    private fun formatDistance(distanceInMeters: Double): String {
+        return if (distanceInMeters >= 1000) {
+            String.format(Locale.KOREA, "%.1f km", distanceInMeters / 1000)
+        } else {
+            String.format(Locale.KOREA, "%.0f m", distanceInMeters)
         }
     }
 }

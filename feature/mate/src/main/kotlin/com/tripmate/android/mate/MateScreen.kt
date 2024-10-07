@@ -48,7 +48,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -65,16 +64,17 @@ import com.tripmate.android.core.designsystem.component.TripItemImage
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Background03
 import com.tripmate.android.core.designsystem.theme.Gray001
+import com.tripmate.android.core.designsystem.theme.Gray004
 import com.tripmate.android.core.designsystem.theme.Gray005
 import com.tripmate.android.core.designsystem.theme.Gray006
 import com.tripmate.android.core.designsystem.theme.Gray009
 import com.tripmate.android.core.designsystem.theme.MateTitle
 import com.tripmate.android.core.designsystem.theme.MateTitleBackGround
-import com.tripmate.android.core.designsystem.theme.Medium16_Light
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.Small14_Med
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
+import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.domain.entity.CategoryEntity
 import com.tripmate.android.domain.entity.SpotEntity
@@ -290,7 +290,7 @@ fun ShowListButton(onAction: () -> Unit) {
                     .wrapContentSize()
                     .align(Alignment.CenterVertically),
                 text = stringResource(id = R.string.see_more_list),
-                style = Medium16_Light,
+                style = Medium16_SemiBold,
                 color = Gray001,
                 textAlign = TextAlign.Center,
             )
@@ -395,7 +395,7 @@ fun ShowMapButton(
                 modifier = Modifier
                     .wrapContentSize(),
                 text = stringResource(id = R.string.show_map),
-                style = Medium16_Light,
+                style = Medium16_SemiBold,
                 color = Gray001,
                 textAlign = TextAlign.Center,
             )
@@ -519,8 +519,7 @@ fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () ->
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .background(Background02)
-                .padding(8.dp),
+                .background(Background02),
         ) {
             TripItemImage(
                 imgUrl = item.thumbnailUrl,
@@ -534,12 +533,12 @@ fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () ->
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            if (item.isSearching) {
+            if (item.companionYn) {
                 Text(
                     modifier = Modifier
                         .wrapContentWidth()
-                        .background(MateTitleBackGround)
-                        .padding(horizontal = 8.dp),
+                        .padding(horizontal = 12.dp)
+                        .background(MateTitleBackGround),
                     text = stringResource(id = R.string.category_type_searching_mate),
                     fontSize = 10.sp,
                     color = MateTitle,
@@ -553,34 +552,32 @@ fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(),
+                    .wrapContentHeight()
+                    .padding(horizontal = 12.dp),
                 verticalAlignment = Alignment.Bottom,
             ) {
                 Text(
                     text = item.title,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
+                    style = Medium16_SemiBold,
                     color = Gray001,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
                 )
 
                 Spacer(modifier = Modifier.width(4.dp))
 
                 Text(
                     text = item.subCategory,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
+                    style = XSmall12_Reg,
                     color = Gray006,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
                 )
             }
+
+            Spacer(modifier = Modifier.height(2.dp))
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(),
+                    .wrapContentHeight()
+                    .padding(horizontal = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Image(
@@ -592,29 +589,34 @@ fun GetPoiCardView(item: SpotEntity, isListView: Boolean, onTripCardClick: () ->
                 )
 
                 Text(
-                    modifier = Modifier.padding(horizontal = 4.dp),
+                    modifier = Modifier
+                        .weight(1f, fill = false)
+                        .padding(horizontal = 4.dp),
                     text = item.address,
-                    fontSize = 12.sp,
+                    style = XSmall12_Reg,
                     color = Gray005,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
 
                 Text(
-                    text = item.distance.toString() + " km",
-                    fontSize = 12.sp,
+                    modifier = Modifier.wrapContentWidth(),
+                    text = item.distance,
+                    style = XSmall12_Reg,
                     color = Gray005,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
                 )
             }
 
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(start = 12.dp, end = 12.dp, bottom = 12.dp),
                 text = item.description,
-                fontSize = 12.sp,
-                color = Gray005,
+                style = XSmall12_Reg,
+                color = Gray004,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -661,13 +663,25 @@ fun CustomCheckbox(
         R.drawable.img_radio_unchecked
     }
 
-    Image(
-        painter = painterResource(id = imageRes),
-        contentDescription = null,
+    Row(
         modifier = Modifier
-            .size(18.dp)
             .clickable { onCheckedChange(!isChecked) },
-    )
+    ) {
+        Image(
+            painter = painterResource(id = imageRes),
+            contentDescription = null,
+            modifier = Modifier
+                .size(18.dp),
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Text(
+            text = stringResource(id = R.string.see_only_searching_mate),
+            style = Small14_Med,
+            color = Gray001,
+        )
+    }
 }
 
 @Composable
@@ -686,14 +700,6 @@ fun MateSearchingCheckBox(onAction: (Boolean) -> Unit) {
                 isChecked = it
                 onAction(it)
             },
-        )
-
-        Spacer(modifier = Modifier.width(8.dp))
-
-        Text(
-            text = stringResource(id = R.string.see_only_searching_mate),
-            style = Small14_Med,
-            color = Gray001,
         )
     }
 }
@@ -720,7 +726,7 @@ fun GetPoiCardViewPreview() {
             item = SpotEntity(
                 id = 1,
                 title = "Title 1",
-                distance = 12.34,
+                distance = "12.34",
                 description = "This is the description for item 1",
                 thumbnailUrl = "https://picsum.photos/36",
                 latitude = 37.5,

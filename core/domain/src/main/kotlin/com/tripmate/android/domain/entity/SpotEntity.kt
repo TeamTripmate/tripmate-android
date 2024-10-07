@@ -12,10 +12,9 @@ data class SpotEntity(
     val thumbnailUrl: String,
     val latitude: Double,
     val longitude: Double,
-    val distance: Double,
+    val distance: String,
     val address: String,
     val companionYn: Boolean,
-    val isSearching: Boolean = false,
     val subCategory: String = "ALL",
 )
 
