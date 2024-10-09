@@ -89,7 +89,6 @@ internal fun TripListRoute(
                 event.tripStyle,
                 event.characterId,
             )
-
             else -> {}
         }
     }

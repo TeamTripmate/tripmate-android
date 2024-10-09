@@ -42,13 +42,12 @@ import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XLarge24_SemiBold
 import com.tripmate.android.feature.triplist.R
 
-@Suppress("UnusedParameter")
 @Composable
 fun MyTripStyle(
+    isCharacterTripLead: Boolean,
     characterId: String,
     characterTypeIntro: String,
     tripStyleIntro: String,
-    tripStyle: String,
     selectedKeywords: List<String>,
     modifier: Modifier = Modifier,
 ) {
@@ -103,7 +102,7 @@ fun MyTripStyle(
     ) {
         Spacer(modifier = Modifier.height(88.dp))
         Text(
-            text = stringResource(R.string.mate_organizer_type),
+            text = if (isCharacterTripLead) stringResource(R.string.mate_organizer_type) else stringResource(R.string.mate_applicant_type),
             style = Medium16_Mid,
             color = Gray001,
         )
@@ -191,8 +190,8 @@ private fun MyTripStylePreview() {
             characterId = "PENGUIN",
             characterTypeIntro = "펭귄 여행가는 눈이 부릅뜬 아기 펭귄이에요. 눈이 부릅뜬 만큼 호기심이 많고, 새로운 것을 배우는 것을 좋아해요. 또한, 눈이 부릅뜬 만큼 민첩하고 빠르게 움직이는 것을 좋아해요.",
             tripStyleIntro = "펭귄 여행가는 눈이 부릅뜬 아기 펭귄이에요. 눈이 부릅뜬 만큼 호기심이 많고, 새로운 것을 배우는 것을 좋아해요. 또한, 눈이 부릅뜬 만큼 민첩하고 빠르게 움직이는 것을 좋아해요.",
-            tripStyle = "인스타 여행 맛집",
             selectedKeywords = listOf("펭귄", "여행", "휴식"),
+            isCharacterTripLead = false,
         )
     }
 }

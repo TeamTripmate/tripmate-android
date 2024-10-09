@@ -25,6 +25,7 @@ import com.tripmate.android.feature.trip_list.navigation.navigateToMateOpenChat
 import com.tripmate.android.feature.trip_list.navigation.navigateToTripList
 import com.tripmate.android.mate.navigation.navigateToMate
 import com.tripmate.android.feature.trip_detail.navigation.navigateToReport
+import com.tripmate.android.feature.trip_list.navigation.navigateToCharacter
 import com.tripmate.android.mate_review.navigation.navigateToMateReview
 
 internal class MainNavController(
@@ -108,6 +109,10 @@ internal class MainNavController(
             tripStyle = tripStyle,
             characterId = characterId,
         )
+    }
+
+    fun navigateToCharacterDescription(characterId: String, tag1: String, tag2: String, tag3: String) {
+        navController.navigateToCharacter(characterId, tag1, tag2, tag3)
     }
 
     fun navigateToReport() {

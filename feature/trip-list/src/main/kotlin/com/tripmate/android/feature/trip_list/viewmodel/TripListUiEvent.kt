@@ -13,6 +13,6 @@ sealed interface TripListUiEvent {
         val characterId: String,
     ) : TripListUiEvent
     data class NavigateToKakaoOpenChat(val openChatUrl: String) : TripListUiEvent
-    data class NavigateToReviewScreen(val companionId: Long, val title: String, val date: String) : TripListUiEvent
+    data class NavigateToCharacterDescription(val characterId: String, val tag1: String, val tag2: String, val tag3: String) : TripListUiEvent
     data class NavigateToDetailScreen(val companionId: Long) : TripListUiEvent
 }
