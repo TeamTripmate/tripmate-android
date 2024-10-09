@@ -37,7 +37,6 @@ class MyPickViewModel @Inject constructor(
     fun onAction(action: MyPageUiAction) {
         when (action) {
             is MyPageUiAction.OnBackClicked -> navigateBack()
-            is MyPageUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is MyPageUiAction.OnMyPickItemClicked -> navigateToMyTripDetail(action.spotId)
             is MyPageUiAction.OnHeartClicked -> unregisterMyPick(action.spot)
             else -> {}
@@ -48,10 +47,6 @@ class MyPickViewModel @Inject constructor(
         viewModelScope.launch {
             _uiEvent.send(MyPageUiEvent.NavigateBack)
         }
-    }
-
-    private fun updateSelectedTab(tab: Int) {
-        _uiState.update { it.copy(selectedTabIndex = tab) }
     }
 
     private fun navigateToMyTripDetail(spotId: Int) {

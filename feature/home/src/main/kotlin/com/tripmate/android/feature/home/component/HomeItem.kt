@@ -91,7 +91,7 @@ fun HomeItem(
                     },
             ) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(designSystemR.drawable.ic_heart_button),
+                    imageVector = ImageVector.vectorResource(designSystemR.drawable.ic_heart),
                     contentDescription = "Heart Button",
                     tint = Color.Unspecified,
                 )

@@ -1,5 +1,7 @@
 package com.tripmate.android.feature.mypage
 
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,10 +23,10 @@ import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -107,11 +109,8 @@ internal fun MyPickContent(
         initialPage = 0,
         pageCount = { uiState.tabs.size },
     )
-    val scope = rememberCoroutineScope()
 
-    LaunchedEffect(pagerState.currentPage) {
-        onAction(MyPageUiAction.OnTabChanged(pagerState.currentPage))
-    }
+    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -121,6 +120,7 @@ internal fun MyPickContent(
         TabRow(
             selectedTabIndex = pagerState.currentPage,
             modifier = Modifier.fillMaxWidth(),
+            containerColor = Color.White,
             indicator = { tabPositions ->
                 SecondaryIndicator(
                     Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
@@ -160,6 +160,7 @@ internal fun MyPickContent(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Suppress("UnusedParameter")
 @Composable
 private fun ContentForTab(
@@ -182,9 +183,16 @@ private fun ContentForTab(
                     title = uiState.myPickList[index].title,
                     location = uiState.myPickList[index].address,
                     onHeartClicked = { onAction(MyPageUiAction.OnHeartClicked(uiState.myPickList[index])) },
-                    modifier = Modifier.clickable {
-                        onAction(MyPageUiAction.OnMyPickItemClicked(uiState.myPickList[index].id))
-                    },
+                    modifier = Modifier
+                        .animateItemPlacement(
+                            animationSpec = tween(
+                                durationMillis = 300,
+                                easing = LinearOutSlowInEasing,
+                            ),
+                        )
+                        .clickable {
+                            onAction(MyPageUiAction.OnMyPickItemClicked(uiState.myPickList[index].id))
+                        },
                 )
             }
         }
