@@ -135,6 +135,7 @@ internal fun MainScreen(
                 padding = innerPadding,
                 navigateToMateList = navController::navigateToMateList,
                 navigateToMateOpenChat = navController::navigateToMateOpenChat,
+                navigateToReviewScreen = navController::navigateToMateReview,
             )
             mateListNavGraph(
                 padding = innerPadding,

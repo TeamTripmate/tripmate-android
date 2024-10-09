@@ -1,10 +1,14 @@
 package com.tripmate.android.mate_review.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.domain.entity.BadReviewEntity
 import com.tripmate.android.domain.entity.GoodReviewEntity
 import com.tripmate.android.domain.repository.MateRepository
+import com.tripmate.android.mate_review.navigation.COMPANION_ID
+import com.tripmate.android.mate_review.navigation.DATE
+import com.tripmate.android.mate_review.navigation.TITLE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -20,8 +24,17 @@ import javax.inject.Inject
 class MateReviewViewModel @Inject constructor(
     @Suppress("UnusedPrivateProperty")
     private val mateRepository: MateRepository,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(MateReviewUiState())
+    private val companionId: Long = requireNotNull(savedStateHandle.get<Long>(COMPANION_ID))
+    private val date: String = requireNotNull(savedStateHandle.get<String>(DATE))
+    private val title: String = requireNotNull(savedStateHandle.get<String>(TITLE))
+
+    private val _uiState = MutableStateFlow(MateReviewUiState(
+        companionId = companionId,
+        mateReviewTitle = title,
+        tripDate = date,
+    ))
     val uiState: StateFlow<MateReviewUiState> = _uiState.asStateFlow()
 
     private val _uiEvent = Channel<MateReviewUiEvent>()

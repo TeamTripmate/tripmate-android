@@ -10,6 +10,7 @@ import kotlinx.collections.immutable.persistentListOf
 data class MateReviewUiState(
     val mateReviewTitle: String = "두타산 무릉계곡 산행 하실 분",
     val tripLocation: String = "두타산 주차장",
+    val companionId: Long = 0L,
     val tripDate: String = "8.24(일)",
     val tripTime: String = "오전11:00",
     val allGoodReviews: ImmutableList<GoodReviewEntity> = persistentListOf(

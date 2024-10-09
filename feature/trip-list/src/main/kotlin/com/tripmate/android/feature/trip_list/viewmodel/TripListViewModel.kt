@@ -55,7 +55,7 @@ class TripListViewModel @Inject constructor(
                 action.tripStyle,
                 action.characterId,
             )
-
+            is TripListUiAction.OnReviewItemClicked -> navigateToReviewScreen(action.companionId, action.title, action.date)
             is TripListUiAction.OnMateOpenChatClicked -> navigateToKakaoOpenChat(action.openKakaoChatLink)
             is TripListUiAction.OnSelectMateClicked -> selectMate()
         }
@@ -114,6 +114,12 @@ class TripListViewModel @Inject constructor(
     private fun navigateToMateList(companionId: Long, page: Int) {
         viewModelScope.launch {
             _uiEvent.send(TripListUiEvent.NavigateToMateList(companionId = companionId, page = page))
+        }
+    }
+
+    private fun navigateToReviewScreen(companionId: Long, title: String, date: String) {
+        viewModelScope.launch {
+            _uiEvent.send(TripListUiEvent.NavigateToReviewScreen(companionId, title, date))
         }
     }
 

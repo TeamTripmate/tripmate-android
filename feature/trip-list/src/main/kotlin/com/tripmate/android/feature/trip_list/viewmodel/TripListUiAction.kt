@@ -8,4 +8,5 @@ sealed interface TripListUiAction {
     data class OnTripStatusCardClicked(val openChatLink: String, val selectedKeyword: List<String>, val tripStyle: String, val characterId: String) : TripListUiAction
     data class OnMateOpenChatClicked(val openKakaoChatLink: String) : TripListUiAction
     data object OnSelectMateClicked : TripListUiAction
+    data class OnReviewItemClicked(val companionId: Long, val title: String, val date: String) : TripListUiAction
 }

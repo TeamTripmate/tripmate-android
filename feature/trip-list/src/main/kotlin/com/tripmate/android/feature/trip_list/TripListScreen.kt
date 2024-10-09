@@ -72,6 +72,7 @@ internal fun TripListRoute(
         tripStyle: String,
         characterId: String,
     ) -> Unit,
+    navigateToReviewScreen: (Long, String, String) -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -88,6 +89,7 @@ internal fun TripListRoute(
                 event.characterId,
             )
 
+            is TripListUiEvent.NavigateToReviewScreen -> navigateToReviewScreen(event.companionId, event.title, event.date)
             else -> {}
         }
     }
@@ -235,7 +237,11 @@ internal fun TripListScreen(
                                     isMyCreatedTrip = false,
                                     onReviewClick = {
                                         onAction(
-                                            TripListUiAction.OnReviewItemClicked(finishedTrips[index].companionId),
+                                            TripListUiAction.OnReviewItemClicked(
+                                                finishedTrips[index].companionId,
+                                                finishedTrips[index].title,
+                                                finishedTrips[index].date,
+                                            ),
                                         )
                                     },
                                 )

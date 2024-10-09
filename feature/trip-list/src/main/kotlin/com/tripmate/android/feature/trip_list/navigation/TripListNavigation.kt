@@ -24,12 +24,14 @@ fun NavGraphBuilder.tripListNavGraph(
         tripStyle: String,
         characterId: String,
     ) -> Unit,
+    navigateToReviewScreen: (Long, String, String) -> Unit,
 ) {
     composable(route = TRIP_LIST_ROUTE) {
         TripListRoute(
             innerPadding = padding,
             navigateToMateList = navigateToMateList,
             navigateToMateOpenChat = navigateToMateOpenChat,
+            navigateToReviewScreen = navigateToReviewScreen,
         )
     }
 }
