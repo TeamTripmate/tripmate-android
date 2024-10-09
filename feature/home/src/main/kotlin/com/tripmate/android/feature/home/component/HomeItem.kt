@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.tripmate.android.core.designsystem.R as designSystemR
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.component.TripItemImage
 import com.tripmate.android.core.designsystem.theme.Gray001
@@ -31,7 +30,7 @@ import com.tripmate.android.core.designsystem.theme.Large20_Bold
 import com.tripmate.android.core.designsystem.theme.Small14_Reg
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
-import com.tripmate.android.domain.entity.SpotEntity
+import com.tripmate.android.core.designsystem.R as designSystemR
 
 @Composable
 fun HomeItem(
