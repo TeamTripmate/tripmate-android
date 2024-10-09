@@ -56,11 +56,13 @@ fun HomeItem(
                     .align(Alignment.TopStart)
                     .padding(start = 16.dp, top = 14.dp),
             ) {
-                Tag(
-                    tagText = locationTag,
-                    isLocationTag = true,
-                )
-                Spacer(modifier = Modifier.width(4.dp))
+                if (locationTag.isNotEmpty()) {
+                    Tag(
+                        tagText = locationTag,
+                        isLocationTag = true,
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                }
                 Tag(
                     tagText = categoryTag,
                     isLocationTag = false,
