@@ -41,6 +41,8 @@ class TripListViewModel @Inject constructor(
                 page = page,
             )
         }
+        getCreatedTripList()
+        getParticipatedTripList()
     }
 
     fun onAction(action: TripListUiAction) {
