@@ -77,7 +77,7 @@ class TripDetailViewModel @Inject constructor(
         }
     }
 
-    private fun navigateMateReviewPost(companionId: Int) {
+    private fun navigateMateReviewPost(companionId: Long) {
         viewModelScope.launch {
             _uiEvent.send(TripDetailUiEvent.NavigateToMateReviewPost(companionId))
         }

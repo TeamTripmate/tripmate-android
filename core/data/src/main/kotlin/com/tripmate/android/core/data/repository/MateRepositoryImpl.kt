@@ -27,7 +27,7 @@ internal class MateRepositoryImpl @Inject constructor(
         personalizationDataSource.completePersonalization(flag)
     }
 
-    override suspend fun getCompanionsDetailInfo(companionId: Int): Result<MateRecruitPostEntity> = runSuspendCatching {
+    override suspend fun getCompanionsDetailInfo(companionId: Long): Result<MateRecruitPostEntity> = runSuspendCatching {
         val response = service.getCompanionsDetailInfo(companionId).data
 
         MateRecruitPostEntity(
@@ -69,8 +69,8 @@ internal class MateRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun companionApply(companionId: Int): Result<Unit> = runSuspendCatching {
-        service.companionsApply(CompanionApplyRequest(companionId.toLong(), tokenDataSource.getId()))
+    override suspend fun companionApply(companionId: Long): Result<Unit> = runSuspendCatching {
+        service.companionsApply(CompanionApplyRequest(companionId, tokenDataSource.getId()))
     }
 
     override suspend fun createCompanionRecruitment(mateRecruitmentEntity: MateRecruitmentEntity) = runSuspendCatching {

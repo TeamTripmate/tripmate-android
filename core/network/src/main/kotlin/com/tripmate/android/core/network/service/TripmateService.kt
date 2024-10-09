@@ -46,7 +46,7 @@ interface TripmateService {
 
     @GET("api/v1/companions/user/{companionId}")
     suspend fun getCompanionsDetailInfo(
-        @Path("companionId") companionId: Int,
+        @Path("companionId") companionId: Long,
     ): CompanionDetailInfoResponse
 
     @POST("api/v1/companions/apply")

@@ -115,13 +115,19 @@ class TripListViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToMateList(companionId: Int, page: Int) {
+    private fun navigateToMateList(companionId: Long, page: Int) {
         viewModelScope.launch {
             _uiEvent.send(TripListUiEvent.NavigateToMateList(companionId = companionId, page = page))
         }
     }
 
-    private fun navigateToMateOpenChat(openChatLink: String, selectedKeyword: List<String>, tripStyle: String, characterId: String, companionId: Int) {
+    private fun navigateToMateOpenChat(
+        openChatLink: String,
+        selectedKeyword: List<String>,
+        tripStyle: String,
+        characterId: String,
+        companionId: Long,
+    ) {
         viewModelScope.launch {
             val keyword1 = selectedKeyword.getOrNull(0) ?: ""
             val keyword2 = selectedKeyword.getOrNull(1) ?: ""
@@ -141,7 +147,7 @@ class TripListViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToDetailScreen(companionId: Int) {
+    private fun navigateToDetailScreen(companionId: Long) {
         viewModelScope.launch {
             _uiEvent.send(TripListUiEvent.NavigateToDetailScreen(companionId))
         }

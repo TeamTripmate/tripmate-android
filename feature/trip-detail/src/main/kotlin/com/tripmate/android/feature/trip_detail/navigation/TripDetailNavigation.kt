@@ -19,7 +19,7 @@ fun NavGraphBuilder.tripDetailNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
     navigateToMateRecruit: (String, String, String) -> Unit,
-    navigateToMateReviewPost: (Int) -> Unit,
+    navigateToMateReviewPost: (Long) -> Unit,
     navigateToReport: () -> Unit,
 ) {
     composable(

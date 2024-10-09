@@ -46,12 +46,12 @@ import java.net.URL
 @Composable
 internal fun MateOpenChatRoute(
     popBackStack: () -> Unit,
-    companionId: Int,
+    companionId: Long,
     openChatLink: String,
     selectedKeywords: List<String>,
     tripStyle: String,
     characterId: String,
-    navigateToDetailScreen: (Int) -> Unit,
+    navigateToDetailScreen: (Long) -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -121,7 +121,7 @@ private fun isValidUrl(urlString: String): Boolean {
 
 @Composable
 internal fun MateOpenChatScreen(
-    companionId: Int,
+    companionId: Long,
     openChatLink: String,
     selectedKeywords: List<String>,
     tripStyle: String,

@@ -18,7 +18,7 @@ const val COMPANION_ID2 = "companionId2"
 const val MATE_OPEN_CHAT_ROUTE = "mate_open_chat_route/{$OPEN_CHAT_LINK}/{$SELECTED_KEYWORD1}/{$SELECTED_KEYWORD2}/{$SELECTED_KEYWORD3}/{$TRIP_STYLE}/{$CHARACTER_ID}/{$COMPANION_ID2}"
 
 fun NavController.navigateToMateOpenChat(
-    companionId: Int,
+    companionId: Long,
     openChatLink: String,
     selectedKeyword1: String,
     selectedKeyword2: String,
@@ -47,7 +47,7 @@ fun NavController.navigateToMateOpenChat(
 }
 
 fun NavGraphBuilder.mateOpenChatNavGraph(
-    navigateToDetailScreen: (Int) -> Unit,
+    navigateToDetailScreen: (Long) -> Unit,
     popBackStack: () -> Unit,
 ) {
     composable(
@@ -59,10 +59,10 @@ fun NavGraphBuilder.mateOpenChatNavGraph(
             navArgument(SELECTED_KEYWORD3) { type = NavType.StringType },
             navArgument(TRIP_STYLE) { type = NavType.StringType },
             navArgument(CHARACTER_ID) { type = NavType.StringType },
-            navArgument(COMPANION_ID2) { type = NavType.IntType },
+            navArgument(COMPANION_ID2) { type = NavType.LongType },
         ),
     ) { backStackEntry ->
-        val companionId = backStackEntry.arguments?.getInt(COMPANION_ID2) ?: 0
+        val companionId = backStackEntry.arguments?.getLong(COMPANION_ID2) ?: 0
         val openChatLink = backStackEntry.arguments?.getString(OPEN_CHAT_LINK)?.let { Uri.decode(it) } ?: ""
         val selectedKeyword1 = backStackEntry.arguments?.getString(SELECTED_KEYWORD1)?.let { Uri.decode(it) } ?: ""
         val selectedKeyword2 = backStackEntry.arguments?.getString(SELECTED_KEYWORD2)?.let { Uri.decode(it) } ?: ""

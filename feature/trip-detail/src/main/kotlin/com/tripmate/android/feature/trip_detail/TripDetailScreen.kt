@@ -69,7 +69,7 @@ fun TripDetailRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
     navigateToMateRecruit: (String, String, String) -> Unit,
-    navigateToMateReviewPost: (Int) -> Unit,
+    navigateToMateReviewPost: (Long) -> Unit,
     navigateToReport: () -> Unit,
     viewModel: TripDetailViewModel = hiltViewModel(),
 ) {
