@@ -26,19 +26,33 @@ data class MyPickEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Int,
-
     @ColumnInfo(name = "title")
     val title: String,
-
+    @ColumnInfo(name = "description")
+    val description: String,
+    @ColumnInfo(name = "spot_type")
+    val spotType: String,
+    @ColumnInfo(name = "category_type")
+    val category: Category,
     @ColumnInfo(name = "thumbnail_url")
     val thumbnailUrl: String,
-
     @ColumnInfo(name = "latitude")
     val latitude: Double,
-
     @ColumnInfo(name = "longitude")
     val longitude: Double,
-
     @ColumnInfo(name = "distance")
-    val distance: Double,
+    val distance: String,
+    @ColumnInfo(name = "address")
+    val address: String,
+    @ColumnInfo(name = "companion_yn")
+    val companionYn: Boolean,
+    @ColumnInfo(name = "sub_category")
+    val subCategory: String,
+)
+
+@Serializable
+data class Category(
+    val largeCategory: String,
+    val mediumCategory: String,
+    val smallCategory: String,
 )

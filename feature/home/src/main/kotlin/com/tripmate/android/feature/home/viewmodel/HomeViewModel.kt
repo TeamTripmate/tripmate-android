@@ -2,6 +2,7 @@ package com.tripmate.android.feature.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tripmate.android.domain.entity.SpotEntity
 import com.tripmate.android.domain.repository.MapRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
@@ -48,7 +49,6 @@ class HomeViewModel @Inject constructor(
 
     fun onAction(action: HomeUiAction) {
         when (action) {
-            is HomeUiAction.OnBackClicked -> navigateBack()
             is HomeUiAction.OnTabChanged -> {
                 updateSelectedTab(action.index)
                 updateSpotsList("전체") // 탭 변경 시에도 전체로 초기화
@@ -57,6 +57,10 @@ class HomeViewModel @Inject constructor(
             is HomeUiAction.OnClickChip -> {
                 updateSelectedChips(action.chipName) // 선택된 칩 업데이트
                 updateSpotsList(action.chipName) // 선택된 칩 기반으로 스팟 업데이트
+            }
+
+            is HomeUiAction.OnHeartClicked -> {
+                registerMyPick(action.spot)
             }
         }
     }
@@ -141,10 +145,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getCategoryTag(spotType: String): String {
+    private fun getCategoryTag(spotType: String): String {
         filterMapping.entries.forEach {
             if (it.value == spotType) return it.key
         }
         return spotType
+    }
+
+    private fun registerMyPick(spot: SpotEntity) {
+
     }
 }

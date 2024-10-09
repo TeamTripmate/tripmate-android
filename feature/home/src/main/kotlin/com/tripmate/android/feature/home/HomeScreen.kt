@@ -194,6 +194,7 @@ private fun ContentForTab(
                             title = spot.title,
                             description = spot.description,
                             location = spot.address,
+                            onHeartClicked = { onAction(HomeUiAction.OnHeartClicked(spot)) },
                             modifier = Modifier.clickable {
                                 navigateToTripDetail(spot.id.toString())
                             },
