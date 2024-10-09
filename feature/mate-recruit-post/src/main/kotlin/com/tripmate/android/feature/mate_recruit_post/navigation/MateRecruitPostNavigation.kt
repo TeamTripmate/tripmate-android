@@ -11,7 +11,7 @@ import com.tripmate.android.feature.mate_recruit_post.MateRecruitPostRoute
 const val COMPANION_ID = "companion_dd"
 const val MATE_RECRUIT_POST_ROUTE = "mate_recruit_post_route/{$COMPANION_ID}"
 
-fun NavController.navigateToMateRecruitPost(companionId: Int) {
+fun NavController.navigateToMateRecruitPost(companionId: Long) {
     navigate("mate_recruit_post_route/$companionId")
 }
 

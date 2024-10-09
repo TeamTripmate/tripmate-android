@@ -58,7 +58,7 @@ data class RecommendedStyle(
 @Serializable
 data class CompanionRecruit(
     @SerialName("companionId")
-    val companionId: Int,
+    val companionId: Long,
     @SerialName("hostInfo")
     val hostInfo: TripDetailHostInfo,
     @SerialName("title")

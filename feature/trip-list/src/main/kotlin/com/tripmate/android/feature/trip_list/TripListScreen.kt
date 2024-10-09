@@ -63,9 +63,9 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun TripListRoute(
     innerPadding: PaddingValues,
-    navigateToMateList: (Int, Int) -> Unit,
+    navigateToMateList: (Long, Int) -> Unit,
     navigateToMateOpenChat: (
-        companionId:Int,
+        companionId:Long,
         openChatLink: String,
         selectedKeyword1: String,
         selectedKeyword2: String,

@@ -45,7 +45,7 @@ internal class TripDetailRepositoryImpl @Inject constructor(
             },
             tripDetailMateRecruit = arrayListOf<TripDetailMateRecruitEntity>().apply {
                 tripDetailInfo.companionRecruits.forEach { item ->
-                    if (item.companionId != userId.toInt()) {
+                    if (item.companionId != userId) {
                         this.add(
                             TripDetailMateRecruitEntity(
                                 companionId = item.companionId,
