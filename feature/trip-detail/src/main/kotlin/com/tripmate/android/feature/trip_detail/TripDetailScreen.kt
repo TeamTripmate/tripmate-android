@@ -84,10 +84,6 @@ fun TripDetailRoute(
         }
     }
 
-    LaunchedEffect(Unit) {
-        viewModel.onAction(TripDetailUiAction.GetTripDetailInfo)
-    }
-
     TripDetailScreen(
         innerPadding = innerPadding,
         uiState = uiState,

@@ -2,7 +2,7 @@ package com.tripmate.android.feature.mypage.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tripmate.android.domain.entity.SpotEntity
+import com.tripmate.android.domain.entity.MyPickEntity
 import com.tripmate.android.domain.repository.MyPickRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
@@ -29,7 +29,13 @@ class MyPickViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             myPickRepository.getMyPickList().collect { myPickList ->
-                _uiState.update { it.copy(myPickList = myPickList.toImmutableList()) }
+                _uiState.update {
+                    it.copy(
+                        myPickList = myPickList.toImmutableList(),
+                        myPickActivityList = myPickList.filter { myPick -> myPick.tapType == "ACTIVITY" }.toImmutableList(),
+                        myPickHealingList = myPickList.filter { myPick -> myPick.tapType == "HEALING" }.toImmutableList(),
+                    )
+                }
             }
         }
     }
@@ -37,6 +43,10 @@ class MyPickViewModel @Inject constructor(
     fun onAction(action: MyPageUiAction) {
         when (action) {
             is MyPageUiAction.OnBackClicked -> navigateBack()
+            is MyPageUiAction.OnTabChanged -> {
+                updateSelectedTab(action.index)
+            }
+
             is MyPageUiAction.OnMyPickItemClicked -> navigateToMyTripDetail(action.spotId)
             is MyPageUiAction.OnHeartClicked -> unregisterMyPick(action.spot)
             else -> {}
@@ -55,9 +65,13 @@ class MyPickViewModel @Inject constructor(
         }
     }
 
-    private fun unregisterMyPick(spot: SpotEntity) {
+    private fun unregisterMyPick(spot: MyPickEntity) {
         viewModelScope.launch {
             myPickRepository.unregisterMyPick(spot)
         }
+    }
+
+    private fun updateSelectedTab(tab: Int) {
+        _uiState.update { it.copy(selectedTabIndex = tab) }
     }
 }

@@ -1,7 +1,7 @@
 package com.tripmate.android.feature.mypage.viewmodel
 
 import android.graphics.Bitmap
-import com.tripmate.android.domain.entity.SpotEntity
+import com.tripmate.android.domain.entity.MyPickEntity
 import com.tripmate.android.domain.entity.WithdrawReasonEntity
 
 sealed interface MyPageUiAction {
@@ -13,7 +13,7 @@ sealed interface MyPageUiAction {
     data object OnMyPickClicked : MyPageUiAction
     data class OnTabChanged(val index: Int) : MyPageUiAction
     data class OnMyPickItemClicked(val spotId: Int) : MyPageUiAction
-    data class OnHeartClicked(val spot: SpotEntity) : MyPageUiAction
+    data class OnHeartClicked(val spot: MyPickEntity) : MyPageUiAction
     data class OnWithdrawReasonSelected(val withdrawReason: WithdrawReasonEntity) : MyPageUiAction
     data class OnWithdrawReasonDeselected(val withdrawReason: WithdrawReasonEntity) : MyPageUiAction
     data class OnWithdrawReasonDescriptionUpdated(val withdrawReasonDescription: String) : MyPageUiAction

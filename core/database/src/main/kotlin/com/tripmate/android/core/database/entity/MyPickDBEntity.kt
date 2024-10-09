@@ -5,24 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
-data class SpotEntity(
-    var id: Int,
-    val title: String,
-    val description: String,
-    val thumbnailUrl: String,
-    val latitude: Double,
-    val longitude: Double,
-    val distance: Double,
-
-    // 서버 요청 필요
-    val isSearching: Boolean = false,
-    val subCategory: String = "ALL",
-    val address: String = "강원도 추천",
-)
-
 @Serializable
 @Entity(tableName = "my_pick")
-data class MyPickEntity(
+data class MyPickDBEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Int,
@@ -32,8 +17,6 @@ data class MyPickEntity(
     val description: String,
     @ColumnInfo(name = "spot_type")
     val spotType: String,
-    @ColumnInfo(name = "category_type")
-    val category: Category,
     @ColumnInfo(name = "thumbnail_url")
     val thumbnailUrl: String,
     @ColumnInfo(name = "latitude")
@@ -44,17 +27,8 @@ data class MyPickEntity(
     val distance: String,
     @ColumnInfo(name = "address")
     val address: String,
-    @ColumnInfo(name = "companion_yn")
-    val companionYn: Boolean,
-    @ColumnInfo(name = "sub_category")
-    val subCategory: String,
     @ColumnInfo(name = "is_liked")
     val isLiked: Boolean,
-)
-
-@Serializable
-data class Category(
-    val largeCategory: String,
-    val mediumCategory: String,
-    val smallCategory: String,
+    @ColumnInfo(name = "tap_type")
+    val tapType: String,
 )

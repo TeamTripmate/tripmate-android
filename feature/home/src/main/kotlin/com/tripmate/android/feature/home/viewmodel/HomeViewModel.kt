@@ -150,7 +150,10 @@ class HomeViewModel @Inject constructor(
 
     private fun registerMyPick(spot: SpotEntity) {
         viewModelScope.launch {
-            myPickRepository.registerMyPick(spot)
+            when (_uiState.value.selectedTabIndex) {
+                0 -> myPickRepository.registerMyPick(spot, "ACTIVITY")
+                1 -> myPickRepository.registerMyPick(spot, "HEALING")
+            }
         }
     }
 }

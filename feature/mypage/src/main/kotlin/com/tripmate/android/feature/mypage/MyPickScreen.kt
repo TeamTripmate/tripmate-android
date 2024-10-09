@@ -23,6 +23,7 @@ import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -41,11 +42,13 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
+import com.tripmate.android.domain.entity.MyPickEntity
 import com.tripmate.android.feature.mypage.component.MyPickItem
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiEvent
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
 import com.tripmate.android.feature.mypage.viewmodel.MyPickViewModel
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
 
 @Composable
@@ -112,6 +115,10 @@ internal fun MyPickContent(
 
     val scope = rememberCoroutineScope()
 
+    LaunchedEffect(pagerState.currentPage) {
+        onAction(MyPageUiAction.OnTabChanged(pagerState.currentPage))
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -153,7 +160,8 @@ internal fun MyPickContent(
         ) { page ->
             ContentForTab(
                 tabIndex = page,
-                uiState = uiState,
+                myPickActivityList = uiState.myPickActivityList,
+                myPickHealingList = uiState.myPickHealingList,
                 onAction = onAction,
             )
         }
@@ -161,40 +169,40 @@ internal fun MyPickContent(
 }
 
 @OptIn(ExperimentalFoundationApi::class)
-@Suppress("UnusedParameter")
 @Composable
 private fun ContentForTab(
     tabIndex: Int,
-    uiState: MyPageUiState,
+    myPickActivityList: ImmutableList<MyPickEntity>,
+    myPickHealingList: ImmutableList<MyPickEntity>,
     onAction: (MyPageUiAction) -> Unit,
 ) {
-    Column {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
-        ) {
-            items(
-                count = uiState.myPickList.size,
-                key = { index -> uiState.myPickList[index].id },
-            ) { index ->
-                MyPickItem(
-                    imgUrl = uiState.myPickList[index].thumbnailUrl,
-                    title = uiState.myPickList[index].title,
-                    location = uiState.myPickList[index].address,
-                    onHeartClicked = { onAction(MyPageUiAction.OnHeartClicked(uiState.myPickList[index])) },
-                    modifier = Modifier
-                        .animateItemPlacement(
-                            animationSpec = tween(
-                                durationMillis = 300,
-                                easing = LinearOutSlowInEasing,
-                            ),
-                        )
-                        .clickable {
-                            onAction(MyPageUiAction.OnMyPickItemClicked(uiState.myPickList[index].id))
-                        },
-                )
-            }
+    val currentList = if (tabIndex == 0) myPickActivityList else myPickHealingList
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
+    ) {
+        items(
+            count = currentList.size,
+            key = { index -> currentList[index].id },
+        ) { index ->
+            MyPickItem(
+                imgUrl = currentList[index].thumbnailUrl,
+                title = currentList[index].title,
+                location = currentList[index].address,
+                onHeartClicked = { onAction(MyPageUiAction.OnHeartClicked(currentList[index])) },
+                modifier = Modifier
+                    .animateItemPlacement(
+                        animationSpec = tween(
+                            durationMillis = 300,
+                            easing = LinearOutSlowInEasing,
+                        ),
+                    )
+                    .clickable {
+                        onAction(MyPageUiAction.OnMyPickItemClicked(currentList[index].id))
+                    },
+            )
         }
     }
 }

@@ -30,11 +30,14 @@ class TripDetailViewModel @Inject constructor(
     private val _uiEvent = Channel<TripDetailUiEvent>()
     val uiEvent: Flow<TripDetailUiEvent> = _uiEvent.receiveAsFlow()
 
+    init {
+        getTripDetailInfo(spotId)
+    }
+
     fun onAction(action: TripDetailUiAction) {
         when (action) {
             is TripDetailUiAction.OnBackClicked -> navigateBack()
             is TripDetailUiAction.OnTabChanged -> updateSelectedTab(action.index)
-            is TripDetailUiAction.GetTripDetailInfo -> getTripDetailInfo(spotId)
             is TripDetailUiAction.OnClickMateRecruit -> navigateMateRecruit()
             is TripDetailUiAction.OnClickMateReviewPost -> navigateMateReviewPost(action.companionId)
             is TripDetailUiAction.OnClickReport -> navigateToReport()
