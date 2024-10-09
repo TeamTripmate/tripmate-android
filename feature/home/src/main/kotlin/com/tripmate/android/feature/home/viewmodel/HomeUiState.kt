@@ -13,6 +13,7 @@ data class HomeUiState(
     val spotList: ImmutableList<SpotEntity> = persistentListOf(),
     val spotTypeList: ImmutableList<String> = persistentListOf(),
     val showTripOriginal: Boolean = false,
+    val spotCache: Map<Pair<String, String>, ImmutableList<SpotEntity>> = emptyMap(),
     val tripOriginalList: ImmutableList<TripOriginalData> = persistentListOf(
         TripOriginalData(
             imgUrl = com.tripmate.android.core.designsystem.R.drawable.img_trip1,
