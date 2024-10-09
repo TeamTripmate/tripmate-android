@@ -36,6 +36,7 @@ fun ReviewItems(
     title: String,
     date: String,
     isReviewPeriodOver: Boolean, // 상태에 따라 버튼이 달라짐
+    isMyCreatedTrip: Boolean,
     onReviewClick: () -> Unit,
 ) {
     Card(
@@ -126,6 +127,7 @@ fun ReviewItemsPreview() {
             date = "2024.08.24(일) 11:00 AM",
             isReviewPeriodOver = false,
             onReviewClick = { /* 클릭 처리 */ },
+            isMyCreatedTrip = false,
         )
     }
 }

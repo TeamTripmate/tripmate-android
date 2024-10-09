@@ -215,6 +215,33 @@ internal fun TripListScreen(
                         }
                     }
                     Spacer(modifier = Modifier.height(16.dp))
+                    val finishedTrips = uiState.participatedCompanionList.filter { it.matchingStatus == "FINISHED" }
+
+                    if (finishedTrips.isNotEmpty()) {
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                        ) {
+                            items(
+                                count = finishedTrips.size,
+                                key = { index -> finishedTrips[index].companionId },
+                            ) { index ->
+                                ReviewItems(
+                                    title = finishedTrips[index].title,
+                                    date = finishedTrips[index].date,
+                                    isReviewPeriodOver = finishedTrips[index].reviewYn,
+                                    isMyCreatedTrip = false,
+                                    onReviewClick = {
+                                        onAction(
+                                            TripListUiAction.OnReviewItemClicked(finishedTrips[index].companionId),
+                                        )
+                                    },
+                                )
+                            }
+                        }
+                    }
                 } else {
                     Box(
                         modifier = Modifier.fillMaxSize(),
@@ -262,6 +289,29 @@ internal fun TripListScreen(
                         }
                     }
                     Spacer(modifier = Modifier.height(16.dp))
+                    val finishedTrips = uiState.createdCompanionList.filter { it.companionStatus == "FINISHED" }
+
+                    if (finishedTrips.isNotEmpty()) {
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                        ) {
+                            items(
+                                count = finishedTrips.size,
+                                key = { index -> finishedTrips[index].companionId },
+                            ) { index ->
+                                ReviewItems(
+                                    title = finishedTrips[index].title,
+                                    date = finishedTrips[index].date,
+                                    isReviewPeriodOver = false,
+                                    isMyCreatedTrip = true,
+                                    onReviewClick = { },
+                                )
+                            }
+                        }
+                    }
                 } else {
                     Box(
                         modifier = Modifier.fillMaxSize(),
@@ -276,37 +326,7 @@ internal fun TripListScreen(
                 }
             }
         }
-
         Spacer(modifier = Modifier.height(16.dp))
-
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-//            if (uiState.tripList.isEmpty()) {
-//                item {
-//                    Box(
-//                        modifier = Modifier
-//                            .fillMaxSize()
-//                            .wrapContentSize(Alignment.Center)
-//                    ) {
-//                        Text("동행 기록이 없어요", style = TextStyle(color = Gray003, fontSize = 16.sp))
-//                    }
-//                }
-//            }
-//            else {
-//            items(3) {
-//                    index ->
-//                    // val trip = uiState.tripList[index]
-//                ReviewItems(
-//                    title = "서피비치에서 식사해요",
-//                    date = "2024.08.24(일) 11:00 AM",
-//                    isReviewPeriodOver = true,
-//                    onReviewClick = { /* 클릭 처리 */ },
-//                )
-//            }
-//            }
-        }
     }
 }
 
@@ -331,6 +351,7 @@ internal fun ReviewComponentPreview() {
             date = "2024.08.24(일) 11:00 AM",
             isReviewPeriodOver = false,
             onReviewClick = {},
+            isMyCreatedTrip = false,
         )
     }
 }
