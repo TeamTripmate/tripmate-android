@@ -28,8 +28,10 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.component.TripmateButton
+import com.tripmate.android.core.designsystem.component.TripmateOutlinedButton
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
+import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.trip_list.component.MyTripStyle
@@ -44,10 +46,12 @@ import java.net.URL
 @Composable
 internal fun MateOpenChatRoute(
     popBackStack: () -> Unit,
+    companionId: Int,
     openChatLink: String,
     selectedKeywords: List<String>,
     tripStyle: String,
     characterId: String,
+    navigateToDetailScreen: (Int) -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -73,11 +77,13 @@ internal fun MateOpenChatRoute(
             is TripListUiEvent.NavigateToKakaoOpenChat -> {
                 openKakaoOpenChat(context, event.openChatUrl)
             }
+            is TripListUiEvent.NavigateToDetailScreen -> navigateToDetailScreen(event.companionId)
             else -> {}
         }
     }
 
     MateOpenChatScreen(
+        companionId = companionId,
         openChatLink = openChatLink,
         selectedKeywords = selectedKeywords,
         tripStyle = tripStyle,
@@ -115,6 +121,7 @@ private fun isValidUrl(urlString: String): Boolean {
 
 @Composable
 internal fun MateOpenChatScreen(
+    companionId: Int,
     openChatLink: String,
     selectedKeywords: List<String>,
     tripStyle: String,
@@ -147,6 +154,22 @@ internal fun MateOpenChatScreen(
                     .padding(horizontal = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
+                TripmateOutlinedButton(
+                    onClick = {
+                        onAction(TripListUiAction.OnTripDetailClicked(companionId))
+                    },
+                    containerColor = Background02,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                ) {
+                    Text(
+                        text = stringResource(R.string.navigate_to_trip_detail),
+                        color = Primary01,
+                        style = Medium16_SemiBold,
+                    )
+                }
+                Spacer(modifier = Modifier.height(16.dp))
                 TripmateButton(
                     onClick = {
                         onAction(TripListUiAction.OnMateOpenChatClicked(openChatLink))
@@ -220,6 +243,7 @@ private fun MyTripCharacterInfoPreview() {
             selectedKeywords = listOf("힐링", "휴식", "자연"),
             tripStyle = "인스타 인생 맛집",
             characterId = "HONEYBEE",
+            companionId = 1,
         )
     }
 }

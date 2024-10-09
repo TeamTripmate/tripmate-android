@@ -62,7 +62,7 @@ internal class MainNavController(
         navController.navigateToMateRecruit(spotId, spotTitle, spotAddress)
     }
 
-    fun navigateToMateReview(companionId: Long, title: String, date: String) {
+    fun navigateToMateReview(companionId: Int, title: String, date: String) {
         navController.navigateToMateReview(companionId, title, date)
     }
 
@@ -86,11 +86,12 @@ internal class MainNavController(
         navController.navigateToWithdraw()
     }
 
-    fun navigateToMateList(companionId: Long, page: Int) {
+    fun navigateToMateList(companionId: Int, page: Int) {
         navController.navigateToMateList(companionId, page)
     }
 
     fun navigateToMateOpenChat(
+        companionId: Int,
         openChatLink: String,
         selectedKeyword1: String,
         selectedKeyword2: String,
@@ -99,6 +100,7 @@ internal class MainNavController(
         characterId: String,
     ) {
         navController.navigateToMateOpenChat(
+            companionId = companionId,
             openChatLink = openChatLink,
             selectedKeyword1 = selectedKeyword1,
             selectedKeyword2 = selectedKeyword2,
