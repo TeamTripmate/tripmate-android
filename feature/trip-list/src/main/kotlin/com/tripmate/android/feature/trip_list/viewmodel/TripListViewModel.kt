@@ -56,10 +56,12 @@ class TripListViewModel @Inject constructor(
                 action.selectedKeyword,
                 action.tripStyle,
                 action.characterId,
+                action.companionId,
             )
             is TripListUiAction.OnReviewItemClicked -> navigateToReviewScreen(action.companionId, action.title, action.date)
             is TripListUiAction.OnMateOpenChatClicked -> navigateToKakaoOpenChat(action.openKakaoChatLink)
             is TripListUiAction.OnSelectMateClicked -> selectMate()
+            is TripListUiAction.OnTripDetailClicked -> navigateToDetailScreen(action.companionId)
         }
     }
 
@@ -113,19 +115,19 @@ class TripListViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToMateList(companionId: Long, page: Int) {
+    private fun navigateToMateList(companionId: Int, page: Int) {
         viewModelScope.launch {
             _uiEvent.send(TripListUiEvent.NavigateToMateList(companionId = companionId, page = page))
         }
     }
 
-    private fun navigateToReviewScreen(companionId: Long, title: String, date: String) {
+    private fun navigateToReviewScreen(companionId: Int, title: String, date: String) {
         viewModelScope.launch {
             _uiEvent.send(TripListUiEvent.NavigateToReviewScreen(companionId, title, date))
         }
     }
 
-    private fun navigateToMateOpenChat(openChatLink: String, selectedKeyword: List<String>, tripStyle: String, characterId: String) {
+    private fun navigateToMateOpenChat(openChatLink: String, selectedKeyword: List<String>, tripStyle: String, characterId: String, companionId: Int) {
         viewModelScope.launch {
             val keyword1 = selectedKeyword.getOrNull(0) ?: ""
             val keyword2 = selectedKeyword.getOrNull(1) ?: ""
@@ -133,6 +135,7 @@ class TripListViewModel @Inject constructor(
 
             _uiEvent.send(
                 TripListUiEvent.NavigateToMateOpenChat(
+                    companionId = companionId,
                     openChatLink = openChatLink,
                     selectedKeyword1 = keyword1,
                     selectedKeyword2 = keyword2,
@@ -141,6 +144,12 @@ class TripListViewModel @Inject constructor(
                     characterId = characterId,
                 ),
             )
+        }
+    }
+
+    private fun navigateToDetailScreen(companionId: Int) {
+        viewModelScope.launch {
+            _uiEvent.send(TripListUiEvent.NavigateToDetailScreen(companionId))
         }
     }
 

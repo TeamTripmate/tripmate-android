@@ -143,6 +143,7 @@ internal fun MainScreen(
             )
             mateOpenChatNavGraph(
                 popBackStack = navController::popBackStackIfNotHome,
+                navigateToDetailScreen = navController::navigateToMateReviewPost,
             )
             myPickNavGraph(
                 padding = innerPadding,
