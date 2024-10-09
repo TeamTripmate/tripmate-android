@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.mypage.viewmodel
 
+import com.tripmate.android.domain.entity.SpotEntity
 import com.tripmate.android.domain.entity.WithdrawReasonEntity
 import com.tripmate.android.feature.mypage.R
 import kotlinx.collections.immutable.ImmutableList
@@ -9,6 +10,7 @@ import kotlinx.collections.immutable.persistentListOf
 data class MyPageUiState(
     val profileImgUrl: String = "https://picsum.photos/72",
     val nickname: String = "나트립",
+    val myPickList: ImmutableList<SpotEntity> = persistentListOf(),
     val characterId: String = "PENGUIN",
     val tripStyle: String = "여행가 아기 펭귄",
     val type1: String = "안생사진",

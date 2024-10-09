@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tripmate.android.domain.entity.SpotEntity
 import com.tripmate.android.domain.repository.MapRepository
+import com.tripmate.android.domain.repository.MyPickRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
@@ -20,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val mapRepository: MapRepository,
+    private val myPickRepository: MyPickRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
@@ -153,6 +155,8 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun registerMyPick(spot: SpotEntity) {
-
+        viewModelScope.launch {
+            myPickRepository.registerMyPick(spot)
+        }
     }
 }

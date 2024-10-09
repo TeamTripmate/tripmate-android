@@ -42,14 +42,14 @@ import com.tripmate.android.feature.mypage.component.MyPickItem
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiEvent
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
-import com.tripmate.android.feature.mypage.viewmodel.MyPageViewModel
+import com.tripmate.android.feature.mypage.viewmodel.MyPickViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 internal fun MyPickRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
-    viewModel: MyPageViewModel = hiltViewModel(),
+    viewModel: MyPickViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -170,11 +170,14 @@ private fun ContentForTab(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
-            items(5) {
+            items(
+                count = uiState.myPickList.size,
+                key = { index -> uiState.myPickList[index].id },
+            ) { index ->
                 MyPickItem(
-                    imgUrl = "https://picsum.photos/36",
-                    title = "요트투어",
-                    location = "강릉",
+                    imgUrl = uiState.myPickList[index].thumbnailUrl,
+                    title = uiState.myPickList[index].title,
+                    location = uiState.myPickList[index].address,
                 )
             }
         }

@@ -21,7 +21,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    @Suppress("UnusedPrivateProperty")
     private val myPageRepository: MyPageRepository,
     private val authRepository: AuthRepository,
 ) : ViewModel(), ErrorHandlerActions {

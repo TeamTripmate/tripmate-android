@@ -42,7 +42,7 @@ fun HomeItem(
     title: String,
     location: String,
     description: String,
-    onHeartClicked: (SpotEntity) -> Unit,
+    onHeartClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column {
@@ -87,7 +87,9 @@ fun HomeItem(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(end = 12.dp, bottom = 12.dp)
-                    .clickable { },
+                    .clickable {
+                        onHeartClicked()
+                    },
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(designSystemR.drawable.ic_heart_button),

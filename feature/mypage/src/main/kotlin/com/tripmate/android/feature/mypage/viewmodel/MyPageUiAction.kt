@@ -11,6 +11,7 @@ sealed interface MyPageUiAction {
     data class OnShareMyTripStyleClicked(val isShared: Boolean) : MyPageUiAction
     data object OnMyPickClicked : MyPageUiAction
     data class OnTabChanged(val index: Int) : MyPageUiAction
+    data class OnMyPickItemClicked(val spotId: Long) : MyPageUiAction
     data class OnWithdrawReasonSelected(val withdrawReason: WithdrawReasonEntity) : MyPageUiAction
     data class OnWithdrawReasonDeselected(val withdrawReason: WithdrawReasonEntity) : MyPageUiAction
     data class OnWithdrawReasonDescriptionUpdated(val withdrawReasonDescription: String) : MyPageUiAction
