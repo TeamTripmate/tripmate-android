@@ -49,9 +49,9 @@ fun MyTripStyle(
     characterId: String,
     characterTypeIntro: String,
     tripStyleIntro: String,
-    isShared: Boolean,
     onAction: (MyPageUiAction) -> Unit,
     modifier: Modifier = Modifier,
+    isShared: Boolean = false,
 ) {
     val configuration = LocalConfiguration.current
     val density = LocalDensity.current
@@ -133,44 +133,44 @@ fun MyTripStyle(
                 .width(212.dp),
         )
         Spacer(modifier = Modifier.height(48.dp))
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+        ) {
+            Spacer(modifier = Modifier.height(32.dp))
+            Text(
+                text = stringResource(id = R.string.character_type_intro),
+                style = Medium16_SemiBold,
+                color = Primary01,
+            )
+            Spacer(modifier = Modifier.height(18.dp))
+            Text(
+                text = characterTypeIntro,
+                style = Small14_Reg,
+                color = Gray002,
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+        ) {
+            Spacer(modifier = Modifier.height(40.dp))
+            Text(
+                text = stringResource(id = R.string.trip_style_intro),
+                style = Medium16_SemiBold,
+                color = Primary01,
+            )
+            Spacer(modifier = Modifier.height(18.dp))
+            Text(
+                text = tripStyleIntro,
+                style = Small14_Reg,
+                color = Gray002,
+            )
+        }
+        Spacer(modifier = Modifier.height(56.dp))
     }
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-    ) {
-        Spacer(modifier = Modifier.height(32.dp))
-        Text(
-            text = stringResource(id = R.string.character_type_intro),
-            style = Medium16_SemiBold,
-            color = Primary01,
-        )
-        Spacer(modifier = Modifier.height(18.dp))
-        Text(
-            text = characterTypeIntro,
-            style = Small14_Reg,
-            color = Gray002,
-        )
-    }
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-    ) {
-        Spacer(modifier = Modifier.height(40.dp))
-        Text(
-            text = stringResource(id = R.string.trip_style_intro),
-            style = Medium16_SemiBold,
-            color = Primary01,
-        )
-        Spacer(modifier = Modifier.height(18.dp))
-        Text(
-            text = tripStyleIntro,
-            style = Small14_Reg,
-            color = Gray002,
-        )
-    }
-    Spacer(modifier = Modifier.height(56.dp))
 }
 
 @ComponentPreview
@@ -182,7 +182,6 @@ private fun MyTripStylePreview() {
             characterTypeIntro = "펭귄은 내향적인 성향을 가지고 있고, 대부분의 시간을 집단 내에서 조용히 보내며, 개인적인 공간과 안정적인 환경을 선호해요.\n" +
                 "\n 혼자보다는 집단과 함께 있는 것을 더 편안해하고, 사회적 상호작용보다 자신의 역할에 집중합니다. 매우 세부적으로 계획을 세우고 조직적인 행동을 하는 유형이에요",
             tripStyleIntro = "펭귄은 여행을 떠나기 전에 철저한 계획을 세우는 것을 좋아해요. 여행의 주요 목적지와 일정, 활동을 미리 정해두고, 예상 가능한 상황에 대비해 준비를 철저히 할 때 안정감을 느끼며 편안하게 여행을 즐긴답니다.\n펭귄은 집단 내에서 협력하여 활동하는 것을 좋아하는데요. 여행 중에도 동행자와 함께 계획을 공유하고, 서로의 역할을 명확히 하여 협력적으로 움직이는 것을 선호하죠.",
-            isShared = false,
             onAction = {},
         )
     }
