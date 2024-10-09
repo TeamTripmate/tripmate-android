@@ -7,6 +7,7 @@
     <string name="navigate_to_trip_detail">동행 모집글 보러가기</string>
     <string name="navigate_to_mate_open_chat">동행 톡방 바로가기</string>
     <string name="mate_organizer_type">모임장의 유형은</string>
+    <string name="mate_applicant_type">신청자의 유형은</string>
     <string name="applicant_list">신청자 목록</string>
     <string name="select_mate">동행인을 선택해주세요.</string>
     <string name="who_would_you_like_to_travel_with">누구와 함께 여행가실래요?</string>

@@ -1,141 +1,53 @@
 package com.tripmate.android.feature.trip_list
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.util.Patterns
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.tripmate.android.core.common.ObserveAsEvents
-import com.tripmate.android.core.designsystem.component.TripmateButton
-import com.tripmate.android.core.designsystem.component.TripmateOutlinedButton
 import com.tripmate.android.core.designsystem.theme.Background02
-import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
-import com.tripmate.android.core.designsystem.theme.Primary01
-import com.tripmate.android.core.designsystem.theme.TripmateTheme
-import com.tripmate.android.core.ui.DevicePreview
 import com.tripmate.android.feature.trip_list.component.MyTripStyle
-import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
-import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
-import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
-import com.tripmate.android.feature.triplist.R
-import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
-import java.net.MalformedURLException
-import java.net.URL
 
 @Composable
-internal fun MateOpenChatRoute(
-    popBackStack: () -> Unit,
-    companionId: Long,
-    openChatLink: String,
-    selectedKeywords: List<String>,
-    tripStyle: String,
+internal fun CharacterRoute(
+    innerPadding: PaddingValues,
     characterId: String,
-    navigateToDetailScreen: (Long) -> Unit,
-    viewModel: TripListViewModel = hiltViewModel(),
+    tag1: String,
+    tag2: String,
+    tag3: String,
 ) {
-    val context = LocalContext.current
-    val systemUiController = rememberExSystemUiController()
-    val isDarkTheme = isSystemInDarkTheme()
-
-    DisposableEffect(systemUiController) {
-        systemUiController.setStatusBarColor(
-            color = Color.Transparent,
-            darkIcons = true,
-        )
-        onDispose {
-            systemUiController.setStatusBarColor(
-                color = Color.White,
-                darkIcons = !isDarkTheme,
-            )
-        }
-    }
-
-    ObserveAsEvents(flow = viewModel.uiEvent) { event ->
-        when (event) {
-            is TripListUiEvent.NavigateBack -> popBackStack()
-            is TripListUiEvent.NavigateToKakaoOpenChat -> {
-                openKakaoOpenChat(context, event.openChatUrl)
-            }
-            is TripListUiEvent.NavigateToDetailScreen -> navigateToDetailScreen(event.companionId)
-            else -> {}
-        }
-    }
-
-    MateOpenChatScreen(
-        companionId = companionId,
-        openChatLink = openChatLink,
-        selectedKeywords = selectedKeywords,
-        tripStyle = tripStyle,
+    CharacterScreen(
+        innerPadding = innerPadding,
         characterId = characterId,
-        onAction = viewModel::onAction,
+        tag1 = tag1,
+        tag2 = tag2,
+        tag3 = tag3,
     )
 }
 
-private fun openKakaoOpenChat(context: Context, url: String) {
-    if (isValidUrl(url)) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        startActivity(context, intent, null)
-    }
-}
-
-private fun isValidUrl(urlString: String): Boolean {
-    return try {
-        // 안드로이드의 Patterns 클래스를 사용하여 URL 형식 검사
-        val urlPattern = Patterns.WEB_URL
-        if (!urlPattern.matcher(urlString).matches()) {
-            return false
-        }
-
-        // URL 객체 생성을 통한 추가 검증
-        val url = URL(urlString)
-        val protocol = url.protocol
-        if (protocol != "http" && protocol != "https") {
-            return false
-        }
-        true
-    } catch (e: MalformedURLException) {
-        false
-    }
-}
-
-@Suppress("UnusedParameter")
 @Composable
-internal fun MateOpenChatScreen(
-    companionId: Long,
-    openChatLink: String,
-    selectedKeywords: List<String>,
-    tripStyle: String,
+internal fun CharacterScreen(
+    innerPadding: PaddingValues,
     characterId: String,
-    onAction: (TripListUiAction) -> Unit,
-    modifier: Modifier = Modifier,
+    tag1: String,
+    tag2: String,
+    tag3: String,
 ) {
     Box(
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Background02)
+            .padding(innerPadding),
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .background(Background02),
@@ -145,47 +57,10 @@ internal fun MateOpenChatScreen(
                 characterId = characterId,
                 characterTypeIntro = getCharacterTypeIntro(characterId),
                 tripStyleIntro = getTripStyleIntro(characterId),
-                selectedKeywords = selectedKeywords,
-                isCharacterTripLead = true,
+                selectedKeywords = listOf(tag1, tag2, tag3),
+                isCharacterTripLead = false,
                 modifier = Modifier.fillMaxWidth(),
             )
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                TripmateOutlinedButton(
-                    onClick = {
-                        onAction(TripListUiAction.OnTripDetailClicked(companionId))
-                    },
-                    containerColor = Background02,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                ) {
-                    Text(
-                        text = stringResource(R.string.navigate_to_trip_detail),
-                        color = Primary01,
-                        style = Medium16_SemiBold,
-                    )
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                TripmateButton(
-                    onClick = {
-                        onAction(TripListUiAction.OnMateOpenChatClicked(openChatLink))
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                ) {
-                    Text(
-                        text = stringResource(R.string.navigate_to_mate_open_chat),
-                        style = Medium16_SemiBold,
-                    )
-                }
-                Spacer(modifier = Modifier.height(56.dp))
-            }
         }
     }
 }
@@ -231,20 +106,5 @@ private fun getTripStyleIntro(characterId: String): String {
 
         else -> "판다는 특별한 계획 없이 여행을 즐기며, 그때그때의 기분에 따라 움직이곤 해요. 여행 대부분의 시간을 편안한 장소에서 보내곤 해요.\n" +
             "\n자연 속에서 휴식을 취하거나 느긋하게 경치를 감상하기도 한답니다. 새로운 도전보다는 익숙한 환경에서 편안함을 느끼며, 여행의 목적이 휴식과 힐링에 맞춰져 있는 유형이죠."
-    }
-}
-
-@DevicePreview
-@Composable
-private fun MyTripCharacterInfoPreview() {
-    TripmateTheme {
-        MateOpenChatScreen(
-            onAction = {},
-            openChatLink = "https://open.kakao.com/o/gObLOlQg",
-            selectedKeywords = listOf("힐링", "휴식", "자연"),
-            tripStyle = "인스타 인생 맛집",
-            characterId = "HONEYBEE",
-            companionId = 1,
-        )
     }
 }

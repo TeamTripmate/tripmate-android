@@ -62,6 +62,12 @@ class TripListViewModel @Inject constructor(
             is TripListUiAction.OnMateOpenChatClicked -> navigateToKakaoOpenChat(action.openKakaoChatLink)
             is TripListUiAction.OnSelectMateClicked -> selectMate()
             is TripListUiAction.OnTripDetailClicked -> navigateToDetailScreen(action.companionId)
+            is TripListUiAction.OnCharacterDescriptionClicked -> navigateToCharacterDescription(
+                action.characterId,
+                action.tag1,
+                action.tag2,
+                action.tag3,
+            )
         }
     }
 
@@ -150,6 +156,12 @@ class TripListViewModel @Inject constructor(
     private fun navigateToDetailScreen(companionId: Long) {
         viewModelScope.launch {
             _uiEvent.send(TripListUiEvent.NavigateToDetailScreen(companionId))
+        }
+    }
+
+    private fun navigateToCharacterDescription(characterId: String, tag1: String, tag2: String, tag3: String) {
+        viewModelScope.launch {
+            _uiEvent.send(TripListUiEvent.NavigateToCharacterDescription(characterId, tag1, tag2, tag3))
         }
     }
 
