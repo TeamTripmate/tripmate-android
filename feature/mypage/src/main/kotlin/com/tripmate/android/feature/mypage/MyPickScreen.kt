@@ -1,6 +1,7 @@
 package com.tripmate.android.feature.mypage
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -49,6 +50,7 @@ import kotlinx.coroutines.launch
 internal fun MyPickRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
+    navigateToTripDetail: (String) -> Unit,
     viewModel: MyPickViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -56,6 +58,7 @@ internal fun MyPickRoute(
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is MyPageUiEvent.NavigateBack -> popBackStack()
+            is MyPageUiEvent.NavigateToTripDetail -> navigateToTripDetail(event.spotId.toString())
             else -> {}
         }
     }
@@ -178,6 +181,10 @@ private fun ContentForTab(
                     imgUrl = uiState.myPickList[index].thumbnailUrl,
                     title = uiState.myPickList[index].title,
                     location = uiState.myPickList[index].address,
+                    onHeartClicked = { onAction(MyPageUiAction.OnHeartClicked(uiState.myPickList[index])) },
+                    modifier = Modifier.clickable {
+                        onAction(MyPageUiAction.OnMyPickItemClicked(uiState.myPickList[index].id))
+                    },
                 )
             }
         }

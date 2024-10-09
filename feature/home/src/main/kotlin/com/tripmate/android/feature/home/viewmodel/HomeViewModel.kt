@@ -121,12 +121,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun navigateBack() {
-        viewModelScope.launch {
-            _uiEvent.send(HomeUiEvent.NavigateBack)
-        }
-    }
-
     private fun updateSelectedTab(tab: Int) {
         _uiState.update { it.copy(selectedTabIndex = tab) }
     }

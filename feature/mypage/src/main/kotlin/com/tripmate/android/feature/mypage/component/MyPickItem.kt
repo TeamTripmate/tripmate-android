@@ -33,6 +33,7 @@ internal fun MyPickItem(
     imgUrl: String,
     title: String,
     location: String,
+    onHeartClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column {
@@ -52,7 +53,9 @@ internal fun MyPickItem(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(end = 12.dp, bottom = 12.dp)
-                    .clickable { },
+                    .clickable {
+                        onHeartClicked()
+                    },
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(com.tripmate.android.core.designsystem.R.drawable.ic_heart_button),
@@ -85,6 +88,7 @@ private fun MyPickItemPreview() {
             imgUrl = "https://picsum.photos/36",
             title = "요트투어",
             location = "강를",
+            onHeartClicked = {},
         )
     }
 }

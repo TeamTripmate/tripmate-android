@@ -48,6 +48,8 @@ data class MyPickEntity(
     val companionYn: Boolean,
     @ColumnInfo(name = "sub_category")
     val subCategory: String,
+    @ColumnInfo(name = "is_liked")
+    val isLiked: Boolean,
 )
 
 @Serializable

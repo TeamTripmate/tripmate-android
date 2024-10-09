@@ -2,8 +2,10 @@ package com.tripmate.android.feature.mypage.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tripmate.android.domain.entity.SpotEntity
 import com.tripmate.android.domain.repository.MyPickRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,8 +28,8 @@ class MyPickViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            myPickRepository.getMyPickList().collect {
-                _uiState.update { it.copy(myPickList = it.myPickList) }
+            myPickRepository.getMyPickList().collect { myPickList ->
+                _uiState.update { it.copy(myPickList = myPickList.toImmutableList()) }
             }
         }
     }
@@ -37,6 +39,7 @@ class MyPickViewModel @Inject constructor(
             is MyPageUiAction.OnBackClicked -> navigateBack()
             is MyPageUiAction.OnTabChanged -> updateSelectedTab(action.index)
             is MyPageUiAction.OnMyPickItemClicked -> navigateToMyTripDetail(action.spotId)
+            is MyPageUiAction.OnHeartClicked -> unregisterMyPick(action.spot)
             else -> {}
         }
     }
@@ -47,13 +50,19 @@ class MyPickViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToMyTripDetail(spotId: Long) {
+    private fun updateSelectedTab(tab: Int) {
+        _uiState.update { it.copy(selectedTabIndex = tab) }
+    }
+
+    private fun navigateToMyTripDetail(spotId: Int) {
         viewModelScope.launch {
             _uiEvent.send(MyPageUiEvent.NavigateToTripDetail(spotId))
         }
     }
 
-    private fun updateSelectedTab(tab: Int) {
-        _uiState.update { it.copy(selectedTabIndex = tab) }
+    private fun unregisterMyPick(spot: SpotEntity) {
+        viewModelScope.launch {
+            myPickRepository.unregisterMyPick(spot)
+        }
     }
 }

@@ -19,6 +19,7 @@ internal fun SpotEntity.toDBEntity() =
         address = address,
         companionYn = companionYn,
         subCategory = subCategory,
+        isLiked = true,
     )
 
 internal fun CategoryEntity.toDBEntity() =

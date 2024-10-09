@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "53c8043b0f602f3c3fd13d064b0d8894",
+    "identityHash": "7edc611f264d6e641e6ad63f144f1cac",
     "entities": [
       {
         "tableName": "my_pick",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `spot_type` TEXT NOT NULL, `category_type` TEXT NOT NULL, `thumbnail_url` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `distance` TEXT NOT NULL, `address` TEXT NOT NULL, `companion_yn` INTEGER NOT NULL, `sub_category` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `spot_type` TEXT NOT NULL, `category_type` TEXT NOT NULL, `thumbnail_url` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `distance` TEXT NOT NULL, `address` TEXT NOT NULL, `companion_yn` INTEGER NOT NULL, `sub_category` TEXT NOT NULL, `is_liked` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -79,6 +79,12 @@
             "columnName": "sub_category",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "isLiked",
+            "columnName": "is_liked",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -94,7 +100,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '53c8043b0f602f3c3fd13d064b0d8894')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7edc611f264d6e641e6ad63f144f1cac')"
     ]
   }
 }
