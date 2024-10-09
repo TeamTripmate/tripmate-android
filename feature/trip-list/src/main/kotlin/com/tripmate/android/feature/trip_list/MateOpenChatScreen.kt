@@ -119,6 +119,7 @@ private fun isValidUrl(urlString: String): Boolean {
     }
 }
 
+@Suppress("UnusedParameter")
 @Composable
 internal fun MateOpenChatScreen(
     companionId: Long,

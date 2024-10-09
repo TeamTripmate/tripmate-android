@@ -63,9 +63,7 @@ internal fun CharacterScreen(
             )
         }
     }
-
 }
-
 
 private fun getCharacterTypeIntro(characterId: String): String {
     return when (characterId) {
