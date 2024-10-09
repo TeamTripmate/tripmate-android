@@ -65,7 +65,7 @@ internal fun TripListRoute(
     innerPadding: PaddingValues,
     navigateToMateList: (Long, Int) -> Unit,
     navigateToMateOpenChat: (
-        companionId:Long,
+        companionId: Long,
         openChatLink: String,
         selectedKeyword1: String,
         selectedKeyword2: String,
