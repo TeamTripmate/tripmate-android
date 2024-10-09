@@ -48,6 +48,7 @@ import com.tripmate.android.feature.triplist.R
 internal fun MateListRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
+    navigateToCharacterDescription: (String, String, String, String) -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -55,6 +56,14 @@ internal fun MateListRoute(
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is TripListUiEvent.NavigateBack -> popBackStack()
+            is TripListUiEvent.NavigateToCharacterDescription -> {
+                navigateToCharacterDescription(
+                    event.characterId,
+                    event.tag1,
+                    event.tag2,
+                    event.tag3,
+                )
+            }
             else -> { }
         }
     }

@@ -76,28 +76,42 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getNearbyTouristSpots(spotTypeGroup: String, spotType: String) {
-        viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true) }
-            mapRepository.getNearbyTouristSpots(
-                searchType = "RANDOM",
-                latitude = "37.751853",
-                longitude = "128.8760574",
-                range = "10000",
-                spotTypeGroup = spotTypeGroup,
-                spotType = spotType,
-            ).onSuccess { spots ->
-                _uiState.update {
-                    it.copy(
-                        spotList = spots.toImmutableList(),
-                        spotTypeList = spots.map { spotItem ->
-                            getCategoryTag(spotItem.spotType)
-                        }.toImmutableList(),
-                    )
-                }
-            }.onFailure {
-                // 실패 처리 로직
-            }
-            _uiState.update { it.copy(isLoading = false) }
+        val cacheKey = spotTypeGroup to spotType
+        val cachedSpots = _uiState.value.spotCache[cacheKey]
+        if (cachedSpots != null) {
+            _uiState.update {
+                it.copy(
+                    spotList = cachedSpots,
+                    spotTypeList = cachedSpots.map { spotItem ->
+                        getCategoryTag(spotItem.spotType)
+                    }.toImmutableList(),
+                )
+            } // 캐시된 스팟이 있으면 캐시된 스팟으로 업데이트
+        } else {
+            viewModelScope.launch {
+                _uiState.update { it.copy(isLoading = true) }
+                mapRepository.getNearbyTouristSpots(
+                    searchType = "RANDOM",
+                    latitude = "37.751853",
+                    longitude = "128.8760574",
+                    range = "10000",
+                    spotTypeGroup = spotTypeGroup,
+                    spotType = spotType,
+                ).onSuccess { spots ->
+                    val immutableSpots = spots.toImmutableList()
+                    _uiState.update { state ->
+                        val newCache = state.spotCache + (cacheKey to immutableSpots)
+                        state.copy(
+                            spotList = immutableSpots,
+                            spotTypeList = immutableSpots.map { spotItem ->
+                                getCategoryTag(spotItem.spotType)
+                            }.toImmutableList(),
+                            spotCache = newCache,
+                        )
+                    }
+                }.onFailure { }
+                _uiState.update { it.copy(isLoading = false) }
+            } // 캐시된 스팟이 없으면 서버에서 가져와서 업데이트
         }
     }
 

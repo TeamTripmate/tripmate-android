@@ -24,7 +24,7 @@ class MateRecruitPostViewModel @Inject constructor(
     private val mateRepository: MateRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    private val companionId: Int = requireNotNull(savedStateHandle.get<Int>(COMPANION_ID))
+    private val companionId: Long = requireNotNull(savedStateHandle.get<Long>(COMPANION_ID))
 
     private val _uiState = MutableStateFlow(MateRecruitPostUiState())
     val uiState: StateFlow<MateRecruitPostUiState> = _uiState.asStateFlow()

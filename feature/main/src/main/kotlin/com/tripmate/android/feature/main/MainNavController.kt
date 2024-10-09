@@ -25,6 +25,7 @@ import com.tripmate.android.feature.trip_list.navigation.navigateToMateOpenChat
 import com.tripmate.android.feature.trip_list.navigation.navigateToTripList
 import com.tripmate.android.mate.navigation.navigateToMate
 import com.tripmate.android.feature.trip_detail.navigation.navigateToReport
+import com.tripmate.android.feature.trip_list.navigation.navigateToCharacter
 import com.tripmate.android.mate_review.navigation.navigateToMateReview
 
 internal class MainNavController(
@@ -62,15 +63,15 @@ internal class MainNavController(
         navController.navigateToMateRecruit(spotId, spotTitle, spotAddress)
     }
 
-    fun navigateToMateReview() {
-        navController.navigateToMateReview()
+    fun navigateToMateReview(companionId: Long, title: String, date: String) {
+        navController.navigateToMateReview(companionId, title, date)
     }
 
     fun navigateToTripDetail(spotId: String) {
         navController.navigateToTripDetail(spotId)
     }
 
-    fun navigateToMateReviewPost(companionId: Int) {
+    fun navigateToMateReviewPost(companionId: Long) {
         navController.navigateToMateRecruitPost(companionId)
     }
 
@@ -91,6 +92,7 @@ internal class MainNavController(
     }
 
     fun navigateToMateOpenChat(
+        companionId: Long,
         openChatLink: String,
         selectedKeyword1: String,
         selectedKeyword2: String,
@@ -99,6 +101,7 @@ internal class MainNavController(
         characterId: String,
     ) {
         navController.navigateToMateOpenChat(
+            companionId = companionId,
             openChatLink = openChatLink,
             selectedKeyword1 = selectedKeyword1,
             selectedKeyword2 = selectedKeyword2,
@@ -106,6 +109,10 @@ internal class MainNavController(
             tripStyle = tripStyle,
             characterId = characterId,
         )
+    }
+
+    fun navigateToCharacterDescription(characterId: String, tag1: String, tag2: String, tag3: String) {
+        navController.navigateToCharacter(characterId, tag1, tag2, tag3)
     }
 
     fun navigateToReport() {

@@ -17,6 +17,7 @@ fun NavGraphBuilder.tripListNavGraph(
     padding: PaddingValues,
     navigateToMateList: (Long, Int) -> Unit,
     navigateToMateOpenChat: (
+        companionId: Long,
         openChatLink: String,
         selectedKeyword1: String,
         selectedKeyword2: String,

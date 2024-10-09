@@ -58,6 +58,7 @@ import com.tripmate.android.feature.trip_list.navigation.mateOpenChatNavGraph
 import com.tripmate.android.feature.trip_list.navigation.tripListNavGraph
 import com.tripmate.android.mate.navigation.mateNavGraph
 import com.tripmate.android.feature.trip_detail.navigation.reportNavGraph
+import com.tripmate.android.feature.trip_list.navigation.characterNavGraph
 import com.tripmate.android.mate_review.navigation.mateReviewNavGraph
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -139,9 +140,11 @@ internal fun MainScreen(
             mateListNavGraph(
                 padding = innerPadding,
                 popBackStack = navController::popBackStackIfNotHome,
+                navigateToCharacterDescription = navController::navigateToCharacterDescription,
             )
             mateOpenChatNavGraph(
                 popBackStack = navController::popBackStackIfNotHome,
+                navigateToDetailScreen = navController::navigateToMateReviewPost,
             )
             myPickNavGraph(
                 padding = innerPadding,
@@ -164,6 +167,9 @@ internal fun MainScreen(
                 popBackStack = navController::popBackStackIfNotHome,
             )
             tripOriginalNavGraph(
+                padding = innerPadding,
+            )
+            characterNavGraph(
                 padding = innerPadding,
             )
         }

@@ -56,10 +56,18 @@ class TripListViewModel @Inject constructor(
                 action.selectedKeyword,
                 action.tripStyle,
                 action.characterId,
+                action.companionId,
             )
 
             is TripListUiAction.OnMateOpenChatClicked -> navigateToKakaoOpenChat(action.openKakaoChatLink)
             is TripListUiAction.OnSelectMateClicked -> selectMate()
+            is TripListUiAction.OnTripDetailClicked -> navigateToDetailScreen(action.companionId)
+            is TripListUiAction.OnCharacterDescriptionClicked -> navigateToCharacterDescription(
+                action.characterId,
+                action.tag1,
+                action.tag2,
+                action.tag3,
+            )
         }
     }
 
@@ -119,7 +127,13 @@ class TripListViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToMateOpenChat(openChatLink: String, selectedKeyword: List<String>, tripStyle: String, characterId: String) {
+    private fun navigateToMateOpenChat(
+        openChatLink: String,
+        selectedKeyword: List<String>,
+        tripStyle: String,
+        characterId: String,
+        companionId: Long,
+    ) {
         viewModelScope.launch {
             val keyword1 = selectedKeyword.getOrNull(0) ?: ""
             val keyword2 = selectedKeyword.getOrNull(1) ?: ""
@@ -127,6 +141,7 @@ class TripListViewModel @Inject constructor(
 
             _uiEvent.send(
                 TripListUiEvent.NavigateToMateOpenChat(
+                    companionId = companionId,
                     openChatLink = openChatLink,
                     selectedKeyword1 = keyword1,
                     selectedKeyword2 = keyword2,
@@ -135,6 +150,18 @@ class TripListViewModel @Inject constructor(
                     characterId = characterId,
                 ),
             )
+        }
+    }
+
+    private fun navigateToDetailScreen(companionId: Long) {
+        viewModelScope.launch {
+            _uiEvent.send(TripListUiEvent.NavigateToDetailScreen(companionId))
+        }
+    }
+
+    private fun navigateToCharacterDescription(characterId: String, tag1: String, tag2: String, tag3: String) {
+        viewModelScope.launch {
+            _uiEvent.send(TripListUiEvent.NavigateToCharacterDescription(characterId, tag1, tag2, tag3))
         }
     }
 
