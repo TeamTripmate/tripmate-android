@@ -27,7 +27,7 @@ data class TripListUiState(
     val hostCharacterId: String = "PENGUIN",
     val createdInfo: ImmutableList<CreatedCompanionInfoEntity> = persistentListOf(),
     val applicantsInfo: ImmutableList<ApplicantInfoEntity> = persistentListOf(),
-    val selectedCompanionId: Long = 0,
+    val selectedCompanionId: Int = 0,
     val selectedUserId: Long = 0,
     val companionId: Long = 0,
     val page: Int = 0,

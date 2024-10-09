@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MateSelectRequest(
     @SerialName("companionId")
-    val companionId: Long,
+    val companionId: Int,
     @SerialName("userId")
     val userId: Long,
 

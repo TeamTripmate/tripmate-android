@@ -5,7 +5,7 @@ import androidx.compose.runtime.Stable
 // 내가 참여한 여행 상태 리스트
 @Stable
 data class ParticipatedCompanionInfoEntity(
-    val companionId: Long,
+    val companionId: Int,
     val title: String,
     val date: String,
     val openChatLink: String,

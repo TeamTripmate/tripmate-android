@@ -22,7 +22,7 @@ internal class TripListRepositoryImpl @Inject constructor(
         service.getParticipatedTripList(userId).data.map { it.toEntity() }
     }
 
-    override suspend fun selectMate(userId: Long, companionId: Long) = runSuspendCatching {
+    override suspend fun selectMate(userId: Long, companionId: Int) = runSuspendCatching {
         service.selectMate(MateSelectRequest(companionId, userId))
     }
 }

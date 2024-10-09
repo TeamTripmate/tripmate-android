@@ -16,7 +16,7 @@ data class ParticipatedTripListResponse(
 @Serializable
 data class ParticipatedCompanionInfo(
     @SerialName("companionId")
-    val companionId: Long,
+    val companionId: Int,
     @SerialName("title")
     val title: String,
     @SerialName("date")

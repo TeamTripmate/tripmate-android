@@ -72,7 +72,7 @@ internal fun TripListRoute(
         tripStyle: String,
         characterId: String,
     ) -> Unit,
-    navigateToReviewScreen: (Long, String, String) -> Unit,
+    navigateToReviewScreen: (Int, String, String) -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

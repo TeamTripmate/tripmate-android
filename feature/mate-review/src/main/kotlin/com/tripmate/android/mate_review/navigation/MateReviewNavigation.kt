@@ -13,7 +13,7 @@ const val TITLE = "title"
 const val DATE = "date"
 const val MATE_REVIEW_ROUTE = "mate_review_route/{$COMPANION_ID}/{$TITLE}/{$DATE}"
 
-fun NavController.navigateToMateReview(companionId: Long, title: String, date: String) {
+fun NavController.navigateToMateReview(companionId: Int, title: String, date: String) {
     navigate("mate_review_route/$companionId/$title/$date")
 }
 
@@ -25,7 +25,7 @@ fun NavGraphBuilder.mateReviewNavGraph(
         route = MATE_REVIEW_ROUTE,
         arguments = listOf(
             navArgument(COMPANION_ID) {
-                type = NavType.LongType
+                type = NavType.IntType
             },
             navArgument(TITLE) {
                 type = NavType.StringType

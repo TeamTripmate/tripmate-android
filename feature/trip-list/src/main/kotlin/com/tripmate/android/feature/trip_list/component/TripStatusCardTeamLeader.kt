@@ -42,7 +42,7 @@ fun TripStatusCardTeamLeader(
     title: String,
     date: String,
     companionStatus: String,
-    companionId: Long,
+    companionId: Int,
     page: Int,
     modifier: Modifier = Modifier,
     onAction: (TripListUiAction) -> Unit = {},

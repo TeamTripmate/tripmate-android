@@ -13,7 +13,7 @@ const val PAGE = "page"
 const val MATE_LIST_ROUTE = "mate_list_route/{$COMPANION_ID}/{$PAGE}"
 
 fun NavController.navigateToMateList(
-    companionId: Long,
+    companionId: Int,
     page: Int,
 ) {
     navigate("mate_list_route/$companionId/$page")
