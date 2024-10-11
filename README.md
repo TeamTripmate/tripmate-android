@@ -81,9 +81,8 @@ Clean Architecture (but UseCase optional, repository 함수를 단순 포워딩�
 |[이지훈](https://github.com/easyhooon)|[정상훈](https://github.com/wjdtkdgns777)|[김대유](https://github.com/kimdaeyou)|
 |<img width="144" src="https://github.com/Project-Unifest/unifest-android/assets/51016231/bd9fbce9-a173-4203-b321-314d8ff8cba1?size=144">|<img width="144" src="https://github.com/Project-Unifest/unifest-android/assets/51016231/1beb01a4-6063-400b-aa67-b9f20d6c3d38">|<img width="144" src="https://github.com/user-attachments/assets/54fe7f0a-ac2c-41d9-9227-af78701c0787">|
 
-
 ## Module
-<img width="1189" alt="image" src="https://github.com/Project-Unifest/unifest-android/assets/51016231/9b9cd9c8-cda1-46ce-b848-210114ff1d7d">
+<img width="1189" alt="image" src="https://github.com/user-attachments/assets/003d38b5-885c-4cdc-a255-90b8d0f837c0">
 
 ## Package Structure
 ```
