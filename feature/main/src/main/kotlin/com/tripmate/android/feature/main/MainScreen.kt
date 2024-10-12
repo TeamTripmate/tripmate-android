@@ -149,6 +149,7 @@ internal fun MainScreen(
             myPickNavGraph(
                 padding = innerPadding,
                 popBackStack = navController::popBackStackIfNotHome,
+                navigateToTripDetail = navController::navigateToTripDetail,
             )
             withdrawNavGraph(
                 padding = innerPadding,

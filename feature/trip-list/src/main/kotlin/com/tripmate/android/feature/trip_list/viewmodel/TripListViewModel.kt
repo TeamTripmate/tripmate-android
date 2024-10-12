@@ -22,8 +22,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TripListViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
     private val tripListRepository: TripListRepository,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel(), ErrorHandlerActions {
     private val companionId: Long = savedStateHandle.get<Long>(COMPANION_ID) ?: 0L
     private val page: Int = savedStateHandle.get<Int>(PAGE) ?: 0
@@ -79,6 +79,7 @@ class TripListViewModel @Inject constructor(
 
     fun getCreatedTripList() {
         viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) }
             tripListRepository.getCreatedTripListByUser()
                 .onSuccess { result ->
                     _uiState.update {
@@ -87,23 +88,25 @@ class TripListViewModel @Inject constructor(
                 }.onFailure { exception ->
                     handleException(exception, this@TripListViewModel)
                 }
+            _uiState.update { it.copy(isLoading = false) }
         }
     }
 
     fun getParticipatedTripList() {
         viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) }
             tripListRepository.getTripsParticipatedByUser()
                 .onSuccess { result ->
                     _uiState.update {
                         it.copy(
                             participatedCompanionList = result.toImmutableList(),
-                            // Todo 임시코드
                             hostOpenChatUrl = result.toImmutableList().firstOrNull()?.openChatLink ?: "https://open.kakao.com/o/gObLOlQg",
                         )
                     }
                 }.onFailure { exception ->
                     handleException(exception, this@TripListViewModel)
                 }
+            _uiState.update { it.copy(isLoading = false) }
         }
     }
 

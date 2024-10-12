@@ -2,10 +2,10 @@ package com.tripmate.android.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.tripmate.android.core.database.entity.MyPickEntity
+import com.tripmate.android.core.database.entity.MyPickDBEntity
 
 @Database(
-    entities = [MyPickEntity::class],
+    entities = [MyPickDBEntity::class],
     version = 1,
     exportSchema = true,
 )

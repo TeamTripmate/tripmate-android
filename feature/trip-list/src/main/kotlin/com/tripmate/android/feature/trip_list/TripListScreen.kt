@@ -40,6 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.ComponentPreview
+import com.tripmate.android.core.designsystem.component.LoadingIndicator
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
 import com.tripmate.android.core.designsystem.theme.Gray001
@@ -175,108 +176,114 @@ internal fun TripListScreen(
             }
         }
 
-        when (selectedTabIndex) {
-            0 -> {
-                if (uiState.participatedCompanionList.isNotEmpty()) {
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .shadow(
-                                elevation = 4.dp,
-                                shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
-                                clip = true,
-                            ),
-                        shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
-                        colors = CardDefaults.cardColors(containerColor = Color.White),
-                    ) {
-                        Column {
-                            HorizontalPager(
-                                state = horizontalPagerState1,
-                                modifier = Modifier.fillMaxWidth(),
-                            ) { page ->
-                                val companion = uiState.participatedCompanionList[page]
-                                TripStatusCard(
-                                    title = companion.title,
-                                    date = companion.date,
-                                    matchingStatus = companion.matchingStatus,
-                                    modifier = Modifier.clickable {
-                                        onAction(
-                                            TripListUiAction.OnTripStatusCardClicked(
-                                                companion.openChatLink,
-                                                companion.tripHostInfoEntity.selectedKeyword,
-                                                companion.tripHostInfoEntity.tripStyle,
-                                                companion.tripHostInfoEntity.characterId,
-                                                companion.companionId,
-                                            ),
-                                        )
-                                    },
-                                )
+        Box {
+            when (selectedTabIndex) {
+                0 -> {
+                    if (uiState.participatedCompanionList.isNotEmpty()) {
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .shadow(
+                                    elevation = 4.dp,
+                                    shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
+                                    clip = true,
+                                ),
+                            shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                        ) {
+                            Column {
+                                HorizontalPager(
+                                    state = horizontalPagerState1,
+                                    modifier = Modifier.fillMaxWidth(),
+                                ) { page ->
+                                    val companion = uiState.participatedCompanionList[page]
+                                    TripStatusCard(
+                                        title = companion.title,
+                                        date = companion.date,
+                                        matchingStatus = companion.matchingStatus,
+                                        modifier = Modifier.clickable {
+                                            onAction(
+                                                TripListUiAction.OnTripStatusCardClicked(
+                                                    companion.openChatLink,
+                                                    companion.tripHostInfoEntity.selectedKeyword,
+                                                    companion.tripHostInfoEntity.tripStyle,
+                                                    companion.tripHostInfoEntity.characterId,
+                                                    companion.companionId,
+                                                ),
+                                            )
+                                        },
+                                    )
+                                }
+                                PageIndicator(pagerState = horizontalPagerState1)
+                                Spacer(modifier = Modifier.height(16.dp))
                             }
-                            PageIndicator(pagerState = horizontalPagerState1)
-                            Spacer(modifier = Modifier.height(16.dp))
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                    } else {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Text(
+                                text = stringResource(R.string.no_mate_record),
+                                style = Medium16_Mid,
+                                color = Gray006,
+                            )
                         }
                     }
-                    Spacer(modifier = Modifier.height(16.dp))
-                } else {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Text(
-                            text = "동행 기록이 없어요",
-                            style = Medium16_Mid,
-                            color = Gray006,
-                        )
-                    }
                 }
-            }
 
-            1 -> {
-                if (uiState.createdCompanionList.isNotEmpty()) {
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .shadow(
-                                elevation = 4.dp,
-                                shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
-                                clip = true,
-                            ),
-                        shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
-                        colors = CardDefaults.cardColors(containerColor = Color.White),
-                    ) {
-                        Column {
-                            HorizontalPager(
-                                state = horizontalPagerState2,
-                                modifier = Modifier.fillMaxWidth(),
-                            ) { page ->
-                                val companion = uiState.createdCompanionList[page]
-                                TripStatusCardTeamLeader(
-                                    title = companion.title,
-                                    date = companion.date,
-                                    companionStatus = companion.companionStatus,
-                                    companionId = companion.companionId,
-                                    page = page,
-                                    onAction = onAction,
-                                )
+                1 -> {
+                    if (uiState.createdCompanionList.isNotEmpty()) {
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .shadow(
+                                    elevation = 4.dp,
+                                    shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
+                                    clip = true,
+                                ),
+                            shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                        ) {
+                            Column {
+                                HorizontalPager(
+                                    state = horizontalPagerState2,
+                                    modifier = Modifier.fillMaxWidth(),
+                                ) { page ->
+                                    val companion = uiState.createdCompanionList[page]
+                                    TripStatusCardTeamLeader(
+                                        title = companion.title,
+                                        date = companion.date,
+                                        companionStatus = companion.companionStatus,
+                                        companionId = companion.companionId,
+                                        page = page,
+                                        onAction = onAction,
+                                    )
+                                }
+                                PageIndicator(pagerState = horizontalPagerState2)
+                                Spacer(modifier = Modifier.height(16.dp))
                             }
-                            PageIndicator(pagerState = horizontalPagerState2)
-                            Spacer(modifier = Modifier.height(16.dp))
                         }
-                    }
-                    Spacer(modifier = Modifier.height(16.dp))
-                } else {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Text(
-                            text = "동행 기록이 없어요",
-                            style = Medium16_Mid,
-                            color = Gray006,
-                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                    } else {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.no_mate_record),
+                                style = Medium16_Mid,
+                                color = Gray006,
+                            )
+                        }
                     }
                 }
             }
+            LoadingIndicator(
+                isLoading = uiState.isLoading,
+                modifier = Modifier.fillMaxSize(),
+            )
         }
 
         Spacer(modifier = Modifier.height(16.dp))

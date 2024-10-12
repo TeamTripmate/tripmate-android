@@ -8,6 +8,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 data class TripListUiState(
+    val isLoading: Boolean = false,
     val tabs: ImmutableList<String> = persistentListOf("신청한 동행", "작성한 동행"),
     val selectedTabIndex: Int = 0,
     val activitySelectedChips: ImmutableList<String> = persistentListOf("전체"),

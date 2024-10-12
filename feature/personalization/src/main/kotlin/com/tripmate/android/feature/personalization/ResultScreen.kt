@@ -103,8 +103,8 @@ internal fun ResultScreen(
                 characterTypeIntro = getCharacterTypeIntro(uiState.characterType),
                 tripStyleIntro = getTripStyleIntro(uiState.characterType),
                 isShared = uiState.isMyTripStyleShared,
-                modifier = Modifier.fillMaxWidth(),
                 onAction = onAction,
+                modifier = Modifier.fillMaxWidth(),
             )
             Text(
                 text = stringResource(R.string.my_trip_style_check_description),

@@ -15,11 +15,13 @@ fun NavController.navigateToMyPick() {
 fun NavGraphBuilder.myPickNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
+    navigateToTripDetail: (String) -> Unit,
 ) {
     composable(route = MY_PICK_ROUTE) {
         MyPickRoute(
             innerPadding = padding,
             popBackStack = popBackStack,
+            navigateToTripDetail = navigateToTripDetail,
         )
     }
 }

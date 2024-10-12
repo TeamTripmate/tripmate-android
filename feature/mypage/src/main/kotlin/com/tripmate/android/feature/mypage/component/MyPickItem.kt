@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import com.tripmate.android.core.designsystem.R as designSystemR
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.component.TripItemImage
 import com.tripmate.android.core.designsystem.theme.Gray001
@@ -33,6 +34,7 @@ internal fun MyPickItem(
     imgUrl: String,
     title: String,
     location: String,
+    onHeartClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column {
@@ -52,10 +54,12 @@ internal fun MyPickItem(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(end = 12.dp, bottom = 12.dp)
-                    .clickable { },
+                    .clickable {
+                        onHeartClicked()
+                    },
             ) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(com.tripmate.android.core.designsystem.R.drawable.ic_heart_button),
+                    imageVector = ImageVector.vectorResource(designSystemR.drawable.ic_filled_heart_32),
                     contentDescription = "Heart Button",
                     tint = Color.Unspecified,
                     modifier = Modifier.size(32.dp),
@@ -85,6 +89,7 @@ private fun MyPickItemPreview() {
             imgUrl = "https://picsum.photos/36",
             title = "요트투어",
             location = "강를",
+            onHeartClicked = {},
         )
     }
 }

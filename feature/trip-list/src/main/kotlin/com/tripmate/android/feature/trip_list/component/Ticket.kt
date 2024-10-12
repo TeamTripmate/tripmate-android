@@ -37,7 +37,6 @@ import com.tripmate.android.core.designsystem.theme.XSmall12_Reg
 import com.tripmate.android.domain.entity.triplist.ApplicantInfoEntity
 import com.tripmate.android.feature.trip_list.viewmodel.TripListUiAction
 
-@Suppress("UnusedParameter")
 @Composable
 internal fun Ticket(
     ticket: ApplicantInfoEntity,
@@ -128,12 +127,10 @@ internal fun Ticket(
     }
 }
 
-@Suppress("UnusedParameter")
 @Composable
 fun TicketType(
     text: String,
     containerColor: Color = Color.Transparent,
-    contentColor: Color = Color.White,
 ) {
     Box(
         modifier = Modifier

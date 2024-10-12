@@ -1,6 +1,9 @@
 package com.tripmate.android.feature.mypage
 
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +27,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,24 +42,28 @@ import com.tripmate.android.core.designsystem.theme.Medium16_SemiBold
 import com.tripmate.android.core.designsystem.theme.Primary01
 import com.tripmate.android.core.designsystem.theme.TripmateTheme
 import com.tripmate.android.core.ui.DevicePreview
+import com.tripmate.android.domain.entity.MyPickEntity
 import com.tripmate.android.feature.mypage.component.MyPickItem
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiAction
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiEvent
 import com.tripmate.android.feature.mypage.viewmodel.MyPageUiState
-import com.tripmate.android.feature.mypage.viewmodel.MyPageViewModel
+import com.tripmate.android.feature.mypage.viewmodel.MyPickViewModel
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
 
 @Composable
 internal fun MyPickRoute(
     innerPadding: PaddingValues,
     popBackStack: () -> Unit,
-    viewModel: MyPageViewModel = hiltViewModel(),
+    navigateToTripDetail: (String) -> Unit,
+    viewModel: MyPickViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ObserveAsEvents(flow = viewModel.uiEvent) { event ->
         when (event) {
             is MyPageUiEvent.NavigateBack -> popBackStack()
+            is MyPageUiEvent.NavigateToTripDetail -> navigateToTripDetail(event.spotId.toString())
             else -> {}
         }
     }
@@ -104,6 +112,7 @@ internal fun MyPickContent(
         initialPage = 0,
         pageCount = { uiState.tabs.size },
     )
+
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(pagerState.currentPage) {
@@ -118,6 +127,7 @@ internal fun MyPickContent(
         TabRow(
             selectedTabIndex = pagerState.currentPage,
             modifier = Modifier.fillMaxWidth(),
+            containerColor = Color.White,
             indicator = { tabPositions ->
                 SecondaryIndicator(
                     Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
@@ -150,33 +160,49 @@ internal fun MyPickContent(
         ) { page ->
             ContentForTab(
                 tabIndex = page,
-                uiState = uiState,
+                myPickActivityList = uiState.myPickActivityList,
+                myPickHealingList = uiState.myPickHealingList,
                 onAction = onAction,
             )
         }
     }
 }
 
-@Suppress("UnusedParameter")
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ContentForTab(
     tabIndex: Int,
-    uiState: MyPageUiState,
+    myPickActivityList: ImmutableList<MyPickEntity>,
+    myPickHealingList: ImmutableList<MyPickEntity>,
     onAction: (MyPageUiAction) -> Unit,
 ) {
-    Column {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
-        ) {
-            items(5) {
-                MyPickItem(
-                    imgUrl = "https://picsum.photos/36",
-                    title = "요트투어",
-                    location = "강릉",
-                )
-            }
+    val currentList = if (tabIndex == 0) myPickActivityList else myPickHealingList
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
+    ) {
+        items(
+            count = currentList.size,
+            key = { index -> currentList[index].id },
+        ) { index ->
+            MyPickItem(
+                imgUrl = currentList[index].thumbnailUrl,
+                title = currentList[index].title,
+                location = currentList[index].address,
+                onHeartClicked = { onAction(MyPageUiAction.OnHeartClicked(currentList[index])) },
+                modifier = Modifier
+                    .animateItemPlacement(
+                        animationSpec = tween(
+                            durationMillis = 300,
+                            easing = LinearOutSlowInEasing,
+                        ),
+                    )
+                    .clickable {
+                        onAction(MyPageUiAction.OnMyPickItemClicked(currentList[index].id))
+                    },
+            )
         }
     }
 }

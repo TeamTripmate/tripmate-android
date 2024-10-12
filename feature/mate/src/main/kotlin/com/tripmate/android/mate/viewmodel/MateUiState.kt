@@ -5,6 +5,7 @@ import com.tripmate.android.domain.entity.SpotEntity
 import com.tripmate.android.feature.map.model.MarkerInfo
 
 data class MateUiState(
+    val isLoading: Boolean = false,
     val categoryType: CategoryType = CategoryType.None,
     val isShowingList: Boolean = false,
     val spotList: List<SpotEntity> = emptyList(),

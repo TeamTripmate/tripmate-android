@@ -21,7 +21,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    @Suppress("UnusedPrivateProperty")
     private val myPageRepository: MyPageRepository,
     private val authRepository: AuthRepository,
 ) : ViewModel(), ErrorHandlerActions {
@@ -33,6 +32,7 @@ class MyPageViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) }
             myPageRepository.getUserInfo()
                 .onSuccess { userInfo ->
                     _uiState.update {
@@ -50,6 +50,7 @@ class MyPageViewModel @Inject constructor(
                 .onFailure { exception ->
                     handleException(exception, this@MyPageViewModel)
                 }
+            _uiState.update { it.copy(isLoading = false) }
         }
     }
 

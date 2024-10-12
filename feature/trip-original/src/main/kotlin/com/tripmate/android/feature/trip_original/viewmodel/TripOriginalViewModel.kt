@@ -17,7 +17,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TripOriginalViewModel @Inject constructor(
-    @Suppress("UnusedPrivateProperty")
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private val spotId: Int = requireNotNull(savedStateHandle.get<Int>(SPOT_ID))

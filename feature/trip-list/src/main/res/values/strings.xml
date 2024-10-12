@@ -21,4 +21,5 @@
     <string name="see_applicant">신청자 보기</string>
     <string name="check_mate_applicants">동행 신청자를 확인해보세요</string>
     <string name="see_detail_info"><![CDATA[상세정보 보기>]]></string>
+    <string name="no_mate_record">동행 기록이 없어요</string>
 </resources>

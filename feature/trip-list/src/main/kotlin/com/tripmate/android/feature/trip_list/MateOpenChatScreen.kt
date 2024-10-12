@@ -43,6 +43,7 @@ import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiContro
 import java.net.MalformedURLException
 import java.net.URL
 
+@Suppress("UnusedParameter")
 @Composable
 internal fun MateOpenChatRoute(
     popBackStack: () -> Unit,
@@ -86,7 +87,6 @@ internal fun MateOpenChatRoute(
         companionId = companionId,
         openChatLink = openChatLink,
         selectedKeywords = selectedKeywords,
-        tripStyle = tripStyle,
         characterId = characterId,
         onAction = viewModel::onAction,
     )
@@ -119,13 +119,11 @@ private fun isValidUrl(urlString: String): Boolean {
     }
 }
 
-@Suppress("UnusedParameter")
 @Composable
 internal fun MateOpenChatScreen(
     companionId: Long,
     openChatLink: String,
     selectedKeywords: List<String>,
-    tripStyle: String,
     characterId: String,
     onAction: (TripListUiAction) -> Unit,
     modifier: Modifier = Modifier,
@@ -242,7 +240,6 @@ private fun MyTripCharacterInfoPreview() {
             onAction = {},
             openChatLink = "https://open.kakao.com/o/gObLOlQg",
             selectedKeywords = listOf("힐링", "휴식", "자연"),
-            tripStyle = "인스타 인생 맛집",
             characterId = "HONEYBEE",
             companionId = 1,
         )

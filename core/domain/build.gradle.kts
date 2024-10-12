@@ -9,7 +9,8 @@ dependencies {
     compileOnly(
         libs.compose.stable.marker,
     )
-    implementation(
+    implementations(
         libs.kotlinx.serialization.json,
+        libs.kotlinx.coroutines.core,
     )
 }

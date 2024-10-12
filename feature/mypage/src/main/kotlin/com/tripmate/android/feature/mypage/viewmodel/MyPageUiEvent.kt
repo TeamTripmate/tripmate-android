@@ -11,6 +11,7 @@ sealed interface MyPageUiEvent {
     data object NavigateToMyPick : MyPageUiEvent
     data object NavigateToLogin : MyPageUiEvent
     data object NavigateToWithdraw : MyPageUiEvent
+    data class NavigateToTripDetail(val spotId: Int) : MyPageUiEvent
     data object Withdraw : MyPageUiEvent
     data object NavigateToMain : MyPageUiEvent
     data object NavigateToPrivacyPolicy : MyPageUiEvent

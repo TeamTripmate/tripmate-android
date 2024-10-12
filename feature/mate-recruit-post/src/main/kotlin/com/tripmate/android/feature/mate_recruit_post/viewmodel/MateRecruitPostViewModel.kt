@@ -20,7 +20,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MateRecruitPostViewModel @Inject constructor(
-    @Suppress("UnusedPrivateProperty")
     private val mateRepository: MateRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
