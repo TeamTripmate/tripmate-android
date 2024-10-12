@@ -102,15 +102,7 @@ class HomeViewModel @Inject constructor(
         val cacheKey = spotTypeGroup to spotType
         val cachedSpots = _uiState.value.spotCache[cacheKey]
         if (cachedSpots != null) {
-//            _uiState.update {
-//                it.copy(
-//                    spotList = cachedSpots,
-//                    spotTypeList = cachedSpots.map { spotItem ->
-//                        getCategoryTag(spotItem.spotType)
-//                    }.toImmutableList(),
-//                )
-//            } // 캐시된 스팟이 있으면 캐시된 스팟으로 업데이트
-            updateSpotListWithLikes(cachedSpots)
+            updateSpotListWithLikes(cachedSpots) // 캐시된 스팟이 있으면 캐시된 스팟으로 업데이트
         } else {
             viewModelScope.launch {
                 _uiState.update { it.copy(isLoading = true) }
@@ -126,13 +118,6 @@ class HomeViewModel @Inject constructor(
                     _uiState.update { state ->
                         val newCache = state.spotCache + (cacheKey to immutableSpots)
                         updateSpotListWithLikes(immutableSpots)
-//                        state.copy(
-//                            spotList = immutableSpots,
-//                            spotTypeList = immutableSpots.map { spotItem ->
-//                                getCategoryTag(spotItem.spotType)
-//                            }.toImmutableList(),
-//                            spotCache = newCache,
-//                        )
                         state.copy(spotCache = newCache)
                     }
                 }.onFailure { }

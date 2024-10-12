@@ -18,7 +18,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TripDetailViewModel @Inject constructor(
-    @Suppress("UnusedPrivateProperty")
     private val tripDetailRepository: TripDetailRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
