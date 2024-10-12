@@ -40,6 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.common.utils.dpToPx
+import com.tripmate.android.core.designsystem.component.LoadingIndicator
 import com.tripmate.android.core.designsystem.component.ProfileImage
 import com.tripmate.android.core.designsystem.component.TopAppBarNavigationType
 import com.tripmate.android.core.designsystem.component.TripmateTopAppBar
@@ -119,6 +120,7 @@ internal fun MyPageScreen(
                 onAction = onAction,
             )
         }
+        LoadingIndicator(isLoading = uiState.isLoading)
     }
 }
 

@@ -32,6 +32,7 @@ class MyPageViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) }
             myPageRepository.getUserInfo()
                 .onSuccess { userInfo ->
                     _uiState.update {
@@ -49,6 +50,8 @@ class MyPageViewModel @Inject constructor(
                 .onFailure { exception ->
                     handleException(exception, this@MyPageViewModel)
                 }
+            _uiState.update { it.copy(isLoading = false) }
+
         }
     }
 
