@@ -190,6 +190,7 @@ class HomeViewModel @Inject constructor(
         }
         viewModelScope.launch {
             myPickRepository.unregisterMyPick(spot, currentTabType)
+            _uiEvent.send(HomeUiEvent.ShowToast(UiText.StringResource(R.string.unregister_my_pick_completed)))
         }
     }
 }
