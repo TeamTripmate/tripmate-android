@@ -21,7 +21,7 @@ data class MyPageUiState(
     val type3: String = "",
     val characterTypeIntro: String = "",
     val tripStyleIntro: String = "",
-    val tabs: ImmutableList<String> = persistentListOf(),
+    val tabs: ImmutableList<String> = persistentListOf("액티비티", "힐링"),
     val selectedTabIndex: Int = 0,
     val allWithdrawReasons: ImmutableList<WithdrawReasonEntity> = persistentListOf(
         WithdrawReasonEntity(0, R.string.no_use, false),

@@ -8,4 +8,5 @@ interface MyPickRepository {
     fun getMyPickList(): Flow<List<MyPickEntity>>
     suspend fun registerMyPick(spot: SpotEntity, tapType: String)
     suspend fun unregisterMyPick(spot: MyPickEntity)
+    suspend fun unregisterMyPick(spot: SpotEntity, tapType: String)
 }

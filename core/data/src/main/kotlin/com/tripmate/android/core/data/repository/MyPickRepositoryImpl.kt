@@ -28,4 +28,8 @@ internal class MyPickRepositoryImpl @Inject constructor(
     override suspend fun unregisterMyPick(spot: MyPickEntity) {
         myPickDao.deleteMyPick(spot.toDBEntity())
     }
+
+    override suspend fun unregisterMyPick(spot: SpotEntity, tapType: String) {
+        myPickDao.deleteMyPick(spot.toDBEntity(tapType))
+    }
 }

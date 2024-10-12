@@ -2,18 +2,24 @@ package com.tripmate.android.feature.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tripmate.android.core.common.UiText
 import com.tripmate.android.domain.entity.SpotEntity
 import com.tripmate.android.domain.repository.MapRepository
 import com.tripmate.android.domain.repository.MyPickRepository
+import com.tripmate.android.feature.home.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,6 +34,13 @@ class HomeViewModel @Inject constructor(
 
     private val _uiEvent = Channel<HomeUiEvent>()
     val uiEvent: Flow<HomeUiEvent> = _uiEvent.receiveAsFlow()
+
+    private val myPickList = myPickRepository.getMyPickList()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = emptyList(),
+        )
 
     // 필터 매핑
     private val filterMapping = mapOf(
@@ -62,7 +75,11 @@ class HomeViewModel @Inject constructor(
             }
 
             is HomeUiAction.OnHeartClicked -> {
-                registerMyPick(action.spot)
+                if (action.spot.isLiked) {
+                    unregisterMyPick(action.spot)
+                } else {
+                    registerMyPick(action.spot)
+                }
             }
         }
     }
@@ -85,14 +102,15 @@ class HomeViewModel @Inject constructor(
         val cacheKey = spotTypeGroup to spotType
         val cachedSpots = _uiState.value.spotCache[cacheKey]
         if (cachedSpots != null) {
-            _uiState.update {
-                it.copy(
-                    spotList = cachedSpots,
-                    spotTypeList = cachedSpots.map { spotItem ->
-                        getCategoryTag(spotItem.spotType)
-                    }.toImmutableList(),
-                )
-            } // 캐시된 스팟이 있으면 캐시된 스팟으로 업데이트
+//            _uiState.update {
+//                it.copy(
+//                    spotList = cachedSpots,
+//                    spotTypeList = cachedSpots.map { spotItem ->
+//                        getCategoryTag(spotItem.spotType)
+//                    }.toImmutableList(),
+//                )
+//            } // 캐시된 스팟이 있으면 캐시된 스팟으로 업데이트
+            updateSpotListWithLikes(cachedSpots)
         } else {
             viewModelScope.launch {
                 _uiState.update { it.copy(isLoading = true) }
@@ -107,17 +125,38 @@ class HomeViewModel @Inject constructor(
                     val immutableSpots = spots.toImmutableList()
                     _uiState.update { state ->
                         val newCache = state.spotCache + (cacheKey to immutableSpots)
-                        state.copy(
-                            spotList = immutableSpots,
-                            spotTypeList = immutableSpots.map { spotItem ->
-                                getCategoryTag(spotItem.spotType)
-                            }.toImmutableList(),
-                            spotCache = newCache,
-                        )
+                        updateSpotListWithLikes(immutableSpots)
+//                        state.copy(
+//                            spotList = immutableSpots,
+//                            spotTypeList = immutableSpots.map { spotItem ->
+//                                getCategoryTag(spotItem.spotType)
+//                            }.toImmutableList(),
+//                            spotCache = newCache,
+//                        )
+                        state.copy(spotCache = newCache)
                     }
                 }.onFailure { }
                 _uiState.update { it.copy(isLoading = false) }
             } // 캐시된 스팟이 없으면 서버에서 가져와서 업데이트
+        }
+    }
+
+    private fun updateSpotListWithLikes(spots: List<SpotEntity>) {
+        viewModelScope.launch {
+            myPickList.combine(flowOf(spots)) { myPicks, currentSpots ->
+                currentSpots.map { spot ->
+                    spot.copy(isLiked = myPicks.any { it.id == spot.id })
+                }
+            }.collect { updatedSpots ->
+                _uiState.update { state ->
+                    state.copy(
+                        spotList = updatedSpots.toImmutableList(),
+                        spotTypeList = updatedSpots.map { spotItem ->
+                            getCategoryTag(spotItem.spotType)
+                        }.toImmutableList(),
+                    )
+                }
+            }
         }
     }
 
@@ -154,6 +193,18 @@ class HomeViewModel @Inject constructor(
                 0 -> myPickRepository.registerMyPick(spot, "ACTIVITY")
                 1 -> myPickRepository.registerMyPick(spot, "HEALING")
             }
+            _uiEvent.send(HomeUiEvent.ShowToast(UiText.StringResource(R.string.register_my_pick_completed)))
+        }
+    }
+
+    private fun unregisterMyPick(spot: SpotEntity) {
+        val currentTabType = when (_uiState.value.selectedTabIndex) {
+            0 -> "ACTIVITY"
+            1 -> "HEALING"
+            else -> ""
+        }
+        viewModelScope.launch {
+            myPickRepository.unregisterMyPick(spot, currentTabType)
         }
     }
 }

@@ -41,6 +41,7 @@ fun HomeItem(
     title: String,
     location: String,
     description: String,
+    isLiked: Boolean,
     onHeartClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -91,7 +92,8 @@ fun HomeItem(
                     },
             ) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(designSystemR.drawable.ic_heart),
+                    imageVector = if (isLiked) ImageVector.vectorResource(designSystemR.drawable.ic_filled_heart_40)
+                    else ImageVector.vectorResource(designSystemR.drawable.ic_heart),
                     contentDescription = "Heart Button",
                     tint = Color.Unspecified,
                 )
@@ -132,6 +134,7 @@ fun HomeItemPreview() {
             title = "양양 서핑 체험",
             description = "양양 서핑 체험을 통해 새로운 경험을 즐겨보세요!",
             location = "강원도 양양군",
+            isLiked = true,
             onHeartClicked = {},
         )
     }

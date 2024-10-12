@@ -16,6 +16,7 @@ data class SpotEntity(
     val address: String,
     val companionYn: Boolean,
     val subCategory: String = "ALL",
+    val isLiked: Boolean = false,
 )
 
 data class CategoryEntity(

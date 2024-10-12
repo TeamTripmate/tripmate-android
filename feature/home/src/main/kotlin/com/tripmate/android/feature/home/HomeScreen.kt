@@ -1,5 +1,6 @@
 package com.tripmate.android.feature.home
 
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,9 +26,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.designsystem.component.LoadingIndicator
 import com.tripmate.android.core.designsystem.theme.Gray001
 import com.tripmate.android.core.designsystem.theme.Gray006
@@ -40,6 +43,7 @@ import com.tripmate.android.feature.home.component.HomeFilterChips
 import com.tripmate.android.feature.home.component.HomeItem
 import com.tripmate.android.feature.home.component.TripOriginal
 import com.tripmate.android.feature.home.viewmodel.HomeUiAction
+import com.tripmate.android.feature.home.viewmodel.HomeUiEvent
 import com.tripmate.android.feature.home.viewmodel.HomeUiState
 import com.tripmate.android.feature.home.viewmodel.HomeViewModel
 import kotlinx.coroutines.launch
@@ -52,6 +56,15 @@ internal fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
+    ObserveAsEvents(flow = viewModel.uiEvent) { event ->
+        when (event) {
+            is HomeUiEvent.ShowToast -> {
+                Toast.makeText(context, event.message.asString(context), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     HomeScreen(
         uiState = uiState,
@@ -194,6 +207,7 @@ private fun ContentForTab(
                             title = spot.title,
                             description = spot.description,
                             location = spot.address,
+                            isLiked = spot.isLiked,
                             onHeartClicked = { onAction(HomeUiAction.OnHeartClicked(spot)) },
                             modifier = Modifier.clickable {
                                 navigateToTripDetail(spot.id.toString())

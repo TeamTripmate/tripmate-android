@@ -59,7 +59,7 @@ internal fun MyPickItem(
                     },
             ) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(designSystemR.drawable.ic_filled_heart),
+                    imageVector = ImageVector.vectorResource(designSystemR.drawable.ic_filled_heart_32),
                     contentDescription = "Heart Button",
                     tint = Color.Unspecified,
                     modifier = Modifier.size(32.dp),
