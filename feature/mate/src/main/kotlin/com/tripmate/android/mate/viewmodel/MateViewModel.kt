@@ -27,7 +27,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MateViewModel @Inject constructor(
     application: Application,
-    @Suppress("UnusedPrivateProperty")
     private val mapRepository: MapRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(MateUiState())
@@ -58,6 +57,7 @@ class MateViewModel @Inject constructor(
             val latitude = it.latitude
             val longitude = it.longitude
             viewModelScope.launch {
+                _uiState.update { it.copy(isLoading = true) }
                 mapRepository.getNearbyTouristSpots(
                     searchType = "AROUND_ME",
                     latitude = latitude.toString(),
@@ -65,19 +65,18 @@ class MateViewModel @Inject constructor(
                     range = "10000",
                     spotType = categoryType.categoryCode ?: "",
                     spotTypeGroup = "",
-                )
-                    .onSuccess { spots ->
-                        spots.let {
-                            _uiState.update { uiState ->
-                                uiState.copy(
-                                    categoryType = categoryType,
-                                    spotList = spots,
-                                    selectPoiItem = spots.first(),
-                                )
-                            }
+                ).onSuccess { spots ->
+                    spots.let {
+                        _uiState.update { uiState ->
+                            uiState.copy(
+                                categoryType = categoryType,
+                                spotList = spots,
+                                selectPoiItem = spots.first(),
+                            )
                         }
                     }
-                    .onFailure { }
+                }.onFailure {}
+                _uiState.update { it.copy(isLoading = false) }
             }
         }
     }

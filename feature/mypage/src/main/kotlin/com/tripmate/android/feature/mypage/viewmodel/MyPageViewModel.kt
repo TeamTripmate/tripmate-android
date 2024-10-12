@@ -51,7 +51,6 @@ class MyPageViewModel @Inject constructor(
                     handleException(exception, this@MyPageViewModel)
                 }
             _uiState.update { it.copy(isLoading = false) }
-
         }
     }
 

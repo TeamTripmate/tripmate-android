@@ -60,6 +60,7 @@ import com.tripmate.android.core.common.ObserveAsEvents
 import com.tripmate.android.core.common.extension.hasLocationPermission
 import com.tripmate.android.core.designsystem.ComponentPreview
 import com.tripmate.android.core.designsystem.R
+import com.tripmate.android.core.designsystem.component.LoadingIndicator
 import com.tripmate.android.core.designsystem.component.TripItemImage
 import com.tripmate.android.core.designsystem.theme.Background02
 import com.tripmate.android.core.designsystem.theme.Background03
@@ -228,6 +229,10 @@ fun MateScreen(
                     }
                 }
             }
+            LoadingIndicator(
+                isLoading = uiState.isLoading,
+                modifier = Modifier.fillMaxSize(),
+            )
         }
     }
 }

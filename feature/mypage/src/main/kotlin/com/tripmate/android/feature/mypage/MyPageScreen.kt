@@ -120,7 +120,10 @@ internal fun MyPageScreen(
                 onAction = onAction,
             )
         }
-        LoadingIndicator(isLoading = uiState.isLoading)
+        LoadingIndicator(
+            isLoading = uiState.isLoading,
+            modifier = Modifier.fillMaxSize(),
+        )
     }
 }
 
