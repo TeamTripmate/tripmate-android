@@ -81,7 +81,7 @@ fun LoadingAnimation(
 
 @ComponentPreview
 @Composable
-fun LoadingWheelPreview() {
+fun LoadingIndicatorPreview() {
     TripmateTheme {
         LoadingIndicator(
             isLoading = true,
