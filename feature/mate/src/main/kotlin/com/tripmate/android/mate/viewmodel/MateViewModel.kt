@@ -57,9 +57,12 @@ class MateViewModel @Inject constructor(
             val latitude = it.latitude
             val longitude = it.longitude
             viewModelScope.launch {
-                _uiState.update { it.copy(
-                    isLoading = true,
-                    selectPoiItem = null) }
+                _uiState.update {
+                    it.copy(
+                        isLoading = true,
+                        selectPoiItem = null,
+                    )
+                }
                 mapRepository.getNearbyTouristSpots(
                     searchType = "AROUND_ME",
                     latitude = latitude.toString(),

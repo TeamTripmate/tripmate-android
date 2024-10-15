@@ -16,6 +16,7 @@ data class MateRecruitPostEntity(
     val hostInfo: UserInfoEntity = UserInfoEntity(),
     val reviewRanks: List<String> = emptyList(),
     val mateRecruitPostReviewList: List<TripDetailMateReviewEntity> = emptyList(),
+    val requestYn: Boolean = false,
 )
 
 enum class MateReviewType(val code: String, val reviewText: String) {
