@@ -40,7 +40,6 @@ import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
 import com.tripmate.android.feature.triplist.R
 import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
-import timber.log.Timber
 import java.net.MalformedURLException
 import java.net.URL
 
