@@ -200,9 +200,10 @@ internal fun MateRecruitPostScreen(
                             .height(56.dp),
                         enabled = !uiState.requestYn,
                     ) {
-                        val recruitRequestText = if (uiState.requestYn) R.string.mate_recruit_post_done_button_title else R.string.mate_recruit_post_request_button_title
+                        val recruitRequestText = if (uiState.requestYn) stringResource(R.string.mate_recruit_post_done_button_title)
+                        else stringResource(R.string.mate_recruit_post_request_button_title)
                         Text(
-                            text = stringResource(recruitRequestText),
+                            text = recruitRequestText,
                             style = Medium16_SemiBold,
                         )
                     }
