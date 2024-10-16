@@ -66,6 +66,7 @@ internal class MateRepositoryImpl @Inject constructor(
                     )
                 }
             },
+            requestYn = response.requestYn,
         )
     }
 

@@ -198,9 +198,12 @@ internal fun MateRecruitPostScreen(
                             .fillMaxWidth()
                             .padding(start = 16.dp, end = 16.dp, top = 24.dp)
                             .height(56.dp),
+                        enabled = !uiState.requestYn,
                     ) {
+                        val recruitRequestText = if (uiState.requestYn) stringResource(R.string.mate_recruit_post_done_button_title)
+                        else stringResource(R.string.mate_recruit_post_request_button_title)
                         Text(
-                            text = stringResource(R.string.mate_recruit_post_request_button_title),
+                            text = recruitRequestText,
                             style = Medium16_SemiBold,
                         )
                     }

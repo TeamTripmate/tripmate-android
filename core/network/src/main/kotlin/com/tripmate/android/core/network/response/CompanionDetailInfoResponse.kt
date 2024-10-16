@@ -33,6 +33,8 @@ data class CompanionDetailInfo(
     val reviewInfos: List<ReviewInfo>,
     @SerialName("reviewRanks")
     val reviewRanks: List<String>,
+    @SerialName("requestYn")
+    val requestYn: Boolean,
 )
 
 @Serializable

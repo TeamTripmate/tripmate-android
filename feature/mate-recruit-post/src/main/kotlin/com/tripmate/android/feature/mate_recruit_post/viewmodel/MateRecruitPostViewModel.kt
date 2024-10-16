@@ -59,6 +59,7 @@ class MateRecruitPostViewModel @Inject constructor(
                     it.copy(
                         mateRecruitPostEntity = response.copy(date = parseAndFormatDate(response.date)),
                         isCompanionApplySuccess = response.accompanyYn,
+                        requestYn = response.requestYn,
                     )
                 }
             }.onFailure { }
