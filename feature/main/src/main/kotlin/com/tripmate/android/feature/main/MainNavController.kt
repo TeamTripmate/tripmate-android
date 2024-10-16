@@ -99,6 +99,7 @@ internal class MainNavController(
         selectedKeyword3: String,
         tripStyle: String,
         characterId: String,
+        isMatched: Boolean,
     ) {
         navController.navigateToMateOpenChat(
             companionId = companionId,
@@ -108,6 +109,7 @@ internal class MainNavController(
             selectedKeyword3 = selectedKeyword3,
             tripStyle = tripStyle,
             characterId = characterId,
+            isMatched = isMatched,
         )
     }
 

@@ -15,7 +15,8 @@ const val SELECTED_KEYWORD3 = "selectedKeyword3"
 const val TRIP_STYLE = "tripStyle"
 const val CHARACTER_ID = "characterId"
 const val COMPANION_ID2 = "companionId2"
-const val MATE_OPEN_CHAT_ROUTE = "mate_open_chat_route/{$OPEN_CHAT_LINK}/{$SELECTED_KEYWORD1}/{$SELECTED_KEYWORD2}/{$SELECTED_KEYWORD3}/{$TRIP_STYLE}/{$CHARACTER_ID}/{$COMPANION_ID2}"
+const val IS_MATCHED = "isMatched"
+const val MATE_OPEN_CHAT_ROUTE = "mate_open_chat_route/{$OPEN_CHAT_LINK}/{$SELECTED_KEYWORD1}/{$SELECTED_KEYWORD2}/{$SELECTED_KEYWORD3}/{$TRIP_STYLE}/{$CHARACTER_ID}/{$COMPANION_ID2}/{$IS_MATCHED}"
 
 fun NavController.navigateToMateOpenChat(
     companionId: Long,
@@ -25,6 +26,7 @@ fun NavController.navigateToMateOpenChat(
     selectedKeyword3: String,
     tripStyle: String,
     characterId: String,
+    isMatched: Boolean,
 ) {
     val encodedCompanionId = Uri.encode(companionId.toString())
     val encodedOpenChatLink = Uri.encode(openChatLink)
@@ -33,6 +35,7 @@ fun NavController.navigateToMateOpenChat(
     val encodedSelectedKeyword3 = Uri.encode(selectedKeyword3)
     val encodedTripStyle = Uri.encode(tripStyle)
     val encodedCharacterId = Uri.encode(characterId)
+    val encodedIsMatched = Uri.encode(isMatched.toString())
 
     val route = "mate_open_chat_route/" +
         "$encodedOpenChatLink/" +
@@ -41,7 +44,8 @@ fun NavController.navigateToMateOpenChat(
         "$encodedSelectedKeyword3/" +
         "$encodedTripStyle/" +
         "$encodedCharacterId/" +
-        "$encodedCompanionId"
+        "$encodedCompanionId/" +
+        "$encodedIsMatched"
 
     navigate(route)
 }
@@ -60,6 +64,7 @@ fun NavGraphBuilder.mateOpenChatNavGraph(
             navArgument(TRIP_STYLE) { type = NavType.StringType },
             navArgument(CHARACTER_ID) { type = NavType.StringType },
             navArgument(COMPANION_ID2) { type = NavType.LongType },
+            navArgument(IS_MATCHED) { type = NavType.BoolType },
         ),
     ) { backStackEntry ->
         val companionId = backStackEntry.arguments?.getLong(COMPANION_ID2) ?: 0
@@ -69,6 +74,7 @@ fun NavGraphBuilder.mateOpenChatNavGraph(
         val selectedKeyword3 = backStackEntry.arguments?.getString(SELECTED_KEYWORD3)?.let { Uri.decode(it) } ?: ""
         val tripStyle = backStackEntry.arguments?.getString(TRIP_STYLE)?.let { Uri.decode(it) } ?: ""
         val characterId = backStackEntry.arguments?.getString(CHARACTER_ID)?.let { Uri.decode(it) } ?: ""
+        val isMatched = backStackEntry.arguments?.getBoolean(IS_MATCHED) ?: false
 
         MateOpenChatRoute(
             popBackStack = popBackStack,
@@ -78,6 +84,7 @@ fun NavGraphBuilder.mateOpenChatNavGraph(
             characterId = characterId,
             companionId = companionId,
             navigateToDetailScreen = navigateToDetailScreen,
+            isMatched = isMatched,
         )
     }
 }

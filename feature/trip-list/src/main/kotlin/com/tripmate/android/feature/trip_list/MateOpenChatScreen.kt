@@ -40,6 +40,7 @@ import com.tripmate.android.feature.trip_list.viewmodel.TripListUiEvent
 import com.tripmate.android.feature.trip_list.viewmodel.TripListViewModel
 import com.tripmate.android.feature.triplist.R
 import tech.thdev.compose.exteions.system.ui.controller.rememberExSystemUiController
+import timber.log.Timber
 import java.net.MalformedURLException
 import java.net.URL
 
@@ -52,6 +53,7 @@ internal fun MateOpenChatRoute(
     selectedKeywords: List<String>,
     tripStyle: String,
     characterId: String,
+    isMatched: Boolean,
     navigateToDetailScreen: (Long) -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
@@ -78,6 +80,7 @@ internal fun MateOpenChatRoute(
             is TripListUiEvent.NavigateToKakaoOpenChat -> {
                 openKakaoOpenChat(context, event.openChatUrl)
             }
+
             is TripListUiEvent.NavigateToDetailScreen -> navigateToDetailScreen(event.companionId)
             else -> {}
         }
@@ -88,6 +91,7 @@ internal fun MateOpenChatRoute(
         openChatLink = openChatLink,
         selectedKeywords = selectedKeywords,
         characterId = characterId,
+        isMatched = isMatched,
         onAction = viewModel::onAction,
     )
 }
@@ -125,6 +129,7 @@ internal fun MateOpenChatScreen(
     openChatLink: String,
     selectedKeywords: List<String>,
     characterId: String,
+    isMatched: Boolean,
     onAction: (TripListUiAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -169,18 +174,20 @@ internal fun MateOpenChatScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                TripmateButton(
-                    onClick = {
-                        onAction(TripListUiAction.OnMateOpenChatClicked(openChatLink))
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                ) {
-                    Text(
-                        text = stringResource(R.string.navigate_to_mate_open_chat),
-                        style = Medium16_SemiBold,
-                    )
+                if (isMatched) {
+                    TripmateButton(
+                        onClick = {
+                            onAction(TripListUiAction.OnMateOpenChatClicked(openChatLink))
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(56.dp),
+                    ) {
+                        Text(
+                            text = stringResource(R.string.navigate_to_mate_open_chat),
+                            style = Medium16_SemiBold,
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.height(56.dp))
             }
@@ -242,6 +249,7 @@ private fun MyTripCharacterInfoPreview() {
             selectedKeywords = listOf("힐링", "휴식", "자연"),
             characterId = "HONEYBEE",
             companionId = 1,
+            isMatched = true,
         )
     }
 }

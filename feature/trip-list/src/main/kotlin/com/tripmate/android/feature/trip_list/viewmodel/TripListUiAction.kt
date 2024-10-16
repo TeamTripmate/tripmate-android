@@ -11,6 +11,7 @@ sealed interface TripListUiAction {
         val tripStyle: String,
         val characterId: String,
         val companionId: Long,
+        val isMatched: Boolean,
     ) : TripListUiAction
 
     data class OnMateOpenChatClicked(val openKakaoChatLink: String) : TripListUiAction
