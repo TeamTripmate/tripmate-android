@@ -7,7 +7,7 @@ versionCode = "12"
 versionName = "0.1.1"
 packageName = "com.tripmate.android"
 
-android-gradle-plugin = "8.2.2"
+android-gradle-plugin = "8.7.1"
 kotlin-core = "1.9.23"
 gradle-dependency-handler-extensions = "1.1.0"
 
