@@ -3,8 +3,8 @@
 minSdk = "26"
 targetSdk = "34"
 compileSdk = "34"
-versionCode = "13"
-versionName = "1.0.0"
+versionCode = "14"
+versionName = "1.0.1"
 packageName = "com.tripmate.android"
 
 android-gradle-plugin = "8.2.2"
