@@ -57,6 +57,7 @@ class TripListViewModel @Inject constructor(
                 action.tripStyle,
                 action.characterId,
                 action.companionId,
+                action.isMatched,
             )
 
             is TripListUiAction.OnMateOpenChatClicked -> navigateToKakaoOpenChat(action.openKakaoChatLink)
@@ -136,12 +137,12 @@ class TripListViewModel @Inject constructor(
         tripStyle: String,
         characterId: String,
         companionId: Long,
+        isMatched: Boolean,
     ) {
         viewModelScope.launch {
             val keyword1 = selectedKeyword.getOrNull(0) ?: ""
             val keyword2 = selectedKeyword.getOrNull(1) ?: ""
             val keyword3 = selectedKeyword.getOrNull(2) ?: ""
-
             _uiEvent.send(
                 TripListUiEvent.NavigateToMateOpenChat(
                     companionId = companionId,
@@ -151,6 +152,7 @@ class TripListViewModel @Inject constructor(
                     selectedKeyword3 = keyword3,
                     tripStyle = tripStyle,
                     characterId = characterId,
+                    isMatched = isMatched,
                 ),
             )
         }

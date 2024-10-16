@@ -73,6 +73,7 @@ internal fun TripListRoute(
         selectedKeyword3: String,
         tripStyle: String,
         characterId: String,
+        isMatched: Boolean,
     ) -> Unit,
     viewModel: TripListViewModel = hiltViewModel(),
 ) {
@@ -89,6 +90,7 @@ internal fun TripListRoute(
                 event.selectedKeyword3,
                 event.tripStyle,
                 event.characterId,
+                event.isMatched,
             )
             else -> {}
         }
@@ -209,6 +211,7 @@ internal fun TripListScreen(
                                                     companion.tripHostInfoEntity.tripStyle,
                                                     companion.tripHostInfoEntity.characterId,
                                                     companion.companionId,
+                                                    companion.matchingStatus == "ACCEPTED" || companion.matchingStatus == "ACCOMPANY" || companion.matchingStatus == "FINISHED",
                                                 ),
                                             )
                                         },

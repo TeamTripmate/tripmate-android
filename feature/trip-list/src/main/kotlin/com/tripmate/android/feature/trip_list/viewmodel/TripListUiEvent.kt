@@ -11,6 +11,7 @@ sealed interface TripListUiEvent {
         val selectedKeyword3: String,
         val tripStyle: String,
         val characterId: String,
+        val isMatched: Boolean,
     ) : TripListUiEvent
     data class NavigateToKakaoOpenChat(val openChatUrl: String) : TripListUiEvent
     data class NavigateToCharacterDescription(val characterId: String, val tag1: String, val tag2: String, val tag3: String) : TripListUiEvent

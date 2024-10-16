@@ -24,6 +24,7 @@ fun NavGraphBuilder.tripListNavGraph(
         selectedKeyword3: String,
         tripStyle: String,
         characterId: String,
+        isMatched: Boolean,
     ) -> Unit,
 ) {
     composable(route = TRIP_LIST_ROUTE) {
